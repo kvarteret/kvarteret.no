@@ -19,6 +19,7 @@ import InfoIcon from '@material-ui/icons/Info'
 import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Done from '@material-ui/icons/Done'
+import { Link } from 'gatsby'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -57,6 +58,10 @@ const IndexPage = () => {
           </div>
         </Grid>
         <Grid item xs={8}>
+          
+          <Link to="/page2">
+            <h2>TRYKK HER</h2>
+          </Link>
           <h1>Gatsby Material UI Starter</h1>
           <h5>
             A responsive, minimalist Gatsby starter based on the world's most
