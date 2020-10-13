@@ -8,6 +8,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
+import q from 'qjuul'
 
 import Header from './header'
 import Footer from './footer'
@@ -27,7 +28,7 @@ const Layout = ({ children }) => {
         }
       `}
       render={data => (
-        <div style={{ minHeight: '100vh', backgroundColor: '#FFF' }}>
+        <div fsb style={{ minHeight: '100vh', backgroundColor: '#FFF' }}>
           <Header siteTitle={data.site.siteMetadata.title} />
           <div
             style={{
