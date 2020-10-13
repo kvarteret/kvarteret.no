@@ -5,7 +5,7 @@ import { Link } from 'gatsby'
 
 
 
-import './footer.css'
+import './footer.scss'
 
 const Footer = ({ siteTitle }) => {
 
