@@ -3,6 +3,7 @@ import React from 'react'
 import kvarteretLogo from '../images/logo.png'
 import q from 'qjuul'
 import { Link } from 'gatsby'
+import './Header.scss'
 
 //TODO: gi a element padding sånn at de ser fine ut
 const Header = ({ siteTitle }) => {
@@ -14,7 +15,7 @@ const Header = ({ siteTitle }) => {
         'burger'
       </q.div>
       <q.div>
-        <q.div co="inherit" frtc fsb wi="90vw" style={{borderLeft:"solid 1px red",borderRight:"solid 1px red"}}>
+        <q.div id="middleHeader" co="inherit" frtc fsb wi="90vw" style={{borderLeft:"solid 1px red",borderRight:"solid 1px red"}}>
           <q.div wi="45%">
             <Link>Aktuelt</Link>
             <Link>Kafémeny</Link>
@@ -26,7 +27,7 @@ const Header = ({ siteTitle }) => {
               Bilde
             </q.p>
           </q.div>
-          <q.div wi="45%">
+          <q.div wi="45%" frcr>
             <Link>Bilder</Link>
             <Link>om oss</Link>
             <Link>kontakt</Link>
