@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import kvarteretLogo from '../images/logo.png'
+
+import q from 'qjuul'
 
 import { Link } from 'gatsby'
 
@@ -94,71 +97,19 @@ const Header = ({ siteTitle }) => {
   function handleDrawerClose() {
     setOpen(false)
   }
-
+  let noClass = "lang no";
+  let enClass = "lang no";
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        elevation={0}
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit">
-            {siteTitle}
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <Link to="/">
-            <ListItem button>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText>Home</ListItemText>
-            </ListItem>
-          </Link>
-          <Link to="/components">
-            <ListItem button>
-              <ListItemIcon>
-                <ListIcon />
-              </ListItemIcon>
-              <ListItemText>Components</ListItemText>
-            </ListItem>
-          </Link>
-        </List>
-      </Drawer>
-    </div>
+    <q.div frtc>
+      <q.div ma='0px 10px'>'burger'</q.div>
+      <q.div frtc fsb w100>
+        <p>Bar</p>
+        <p>Mat</p>
+        <p>Fest</p>
+        <p>Fest</p>
+      </q.div>
+      <q.div ma='0px 10px'>'no|eng'</q.div>
+    </q.div>
   )
 }
 
