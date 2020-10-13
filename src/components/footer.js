@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import { Link } from 'gatsby'
-
+import Tider from "./tider.js"
+import Kontakt from "./kontakt.js"
+import InstaFeed from "./instaFeed.js"
 
 
 import './footer.scss'
@@ -10,19 +12,17 @@ import './footer.scss'
 const Footer = ({ siteTitle }) => {
 
   return (
-    <div style={{ 
-        alignSelf: 'stretch', 
-        height:"10vw", 
-        backgroundColor:"Gray",
-        }}>
-      
+    <div>
+      <Kontakt/>
+      <Tider/>
+      <InstaFeed/>
     </div>
   )
 }
 
 
 Footer.defaultProps = {
-  siteTitle: ``,
+  siteTitle: `Footer`,
 }
 
 export default Footer
