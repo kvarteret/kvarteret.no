@@ -10,19 +10,19 @@ const Header = ({ siteTitle }) => {
 
 
   return (
-    <q.div w100 frtc co="black"  style={{border:"solid 1px red"}}>
-      <q.div ma='0px 10px' wi="5vw">
+    <q.div w100 frcc co="black"  style={{border:"solid 1px red"}}>
+      <q.div ma='0px 20px' wi="5vw">
         'burger'
       </q.div>
       <q.div>
-        <q.div id="middleHeader" co="inherit" frtc fsb wi="90vw" style={{borderLeft:"solid 1px red",borderRight:"solid 1px red"}}>
+        <q.div id="middleHeader" co="inherit" frcc fsb wi="90vw">
           <q.div wi="45%">
             <Link>Aktuelt</Link>
             <Link>Kafémeny</Link>
             <Link>Butikk</Link>
             <Link>Rombooking</Link>
           </q.div>
-          <q.div wi="10%">
+          <q.div wi="10%" frcc>
             <q.p>
               Bilde
             </q.p>
@@ -35,7 +35,7 @@ const Header = ({ siteTitle }) => {
           </q.div>
         </q.div>
       </q.div>
-      <q.div ma='0px 10px'  wi="5vw">
+      <q.div ma='0px 30px'  wi="5vw">
         'no|eng'
       </q.div>
     </q.div>
