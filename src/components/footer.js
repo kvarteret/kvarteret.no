@@ -8,17 +8,18 @@ import Kontakt from "./kontakt.js"
 import InstaFeed from "./instaFeed.js"
 
 
-///import './footer.scss'
+import './footer.scss'
 
 const Footer = ({ siteTitle }) => {
 
   return (
-    <q.div frbc po='absolute' bo='0px' w100>
+    <q.div fcbc po='absolute' bo='0px' w100 id="footerComp">
       <q.div frbc fsb w100>
         <Kontakt/>
         <Tider/>
         <InstaFeed/>
       </q.div>
+      <q.div fcbc>COPYRIGHT 2020 STUDENTKULTURHUSET I BERGEN AS (ORG NR )</q.div>
     </q.div>
   )
 }

@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
         }
       `}
       render={data => (
-        <div fsb style={{ minHeight: '100vh', backgroundColor: '#FFF' }}>
+        <div fsb style={{backgroundColor: '#FFF' }}>
           <Header siteTitle={data.site.siteMetadata.title} />
           <div
             style={{

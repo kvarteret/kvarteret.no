@@ -16,13 +16,15 @@ const Kontakt = ({ siteTitle }) => {
 
   return (
     <div>
-      <q.div id="header_aapning">Åpningstider</q.div>
-      <RomTider romNavn={"Stjerne "} romTid={"14:00-20:00"}/> 
-      <RomTider romNavn={"Halvtimen "} romTid={"14:00-20:00"}/> 
-      <RomTider romNavn={"Grøndahls "} romTid={"14:00-20:00"}/> 
-      <RomTider romNavn={"Stjerne "} romTid={"14:00-20:00"}/> 
+      <q.div id="header_tittel">Det Akademiske Kvarter</q.div>
+      <q.div id="header_tittel_undertittel">Besøksadresse</q.div>
+      <q.div id="header_content">OLAV KYRRES GATE 49</q.div>
+      <q.div id="header_content">5015 BERGEN</q.div>
 
-      <q.div id="aapent_ved_arrangement">ÅPENT VED ARRANGEMENT</q.div>
+      <q.div id="header_tittel_undertittel">Postadresse</q.div>
+      <q.div id="header_content">OLAV KYRRES GATE 49</q.div>
+      <q.div id="header_content">OLAV KYRRES GATE 49</q.div>
+
 
     </div>
   )

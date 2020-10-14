@@ -3,14 +3,14 @@ import React from 'react'
 import kvarteretLogo from '../images/logo.png'
 import q from 'qjuul'
 import { Link } from 'gatsby'
-import './Header.scss'
+import './header.scss'
 
 //TODO: gi a element padding sånn at de ser fine ut
 const Header = ({ siteTitle }) => {
 
 
   return (
-    <q.div w100 frcc co="black"  style={{border:"solid 1px red"}}>
+    <q.div w100 frcc co="black" >
       <q.div ma='0px 20px' wi="5vw">
         'burger'
       </q.div>
