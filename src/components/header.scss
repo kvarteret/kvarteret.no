@@ -1,8 +1,29 @@
 #middleHeader {
-    border-bottom: red;
 
     a {
         padding: 0 10px;
     }
 
+}
+#daddyHeader {
+    border-bottom: solid 3px gray;
+    
+}
+#burger {
+    border-right: solid 2px gray;
+}
+
+#lang {
+    border-left: solid 2px gray;
+}
+#seachIcon {
+    margin: auto 0;
+}
+#kvarteretLogo {
+    height: 6vh;
+    margin-bottom: 0!important;
+}
+#logoContainer {
+    text-align: center;
+    display: block;
 }
