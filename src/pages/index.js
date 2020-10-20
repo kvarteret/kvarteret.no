@@ -20,6 +20,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess'
 import ExpandMore from '@material-ui/icons/ExpandMore'
 import Done from '@material-ui/icons/Done'
 import { Link } from 'gatsby'
+import MainContent from '../components/mainContent'
+
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -50,7 +53,7 @@ const IndexPage = () => {
 
   return(
     <Layout>
-
+      <MainContent/>
     </Layout>
   )
 }

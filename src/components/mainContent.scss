@@ -1,0 +1,31 @@
+.flex {
+    flex:1;
+    display: flex;
+}
+
+.welcome-text {
+    flex:1;
+}
+
+.opening-hours {
+    width: 400px;
+}
+
+.opening-hours h4 {
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.room-hours {
+    flex:1;
+    display:flex;
+}
+
+.room-hours * {
+    flex:1;
+}
+
+
+.room-hours .time {
+    text-align: right;
+}

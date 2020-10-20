@@ -24,7 +24,7 @@ const Header = ({ siteTitle }) => {
           </q.div>
           <q.div wi="10%" frcc>
             <q.p>
-              Bilde
+              <img className="header-logo" src={kvarteretLogo}></img>
             </q.p>
           </q.div>
           <q.div wi="45%" frcr>
