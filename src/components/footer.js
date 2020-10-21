@@ -13,13 +13,13 @@ import './footer.scss'
 const Footer = ({ siteTitle }) => {
 
   return (
-    <q.div fcbc po='absolute' bo='0px' w100 id="footerComp">
-      <q.div frbc fsb w100>
+    <q.div po='absolute' bo='0px' w100 id="footerComp">         
+      <q.p frtc fsb w100>
         <Kontakt/>
         <Tider/>
         <InstaFeed/>
-      </q.div>
-      <q.div fcbc>COPYRIGHT 2020 STUDENTKULTURHUSET I BERGEN AS (ORG NR )</q.div>
+      </q.p>
+      <q.p pa="1em" fcbc id="copyright">COPYRIGHT 2020 STUDENTKULTURHUSET I BERGEN AS (ORG NR )</q.p>
     </q.div>
   )
 }

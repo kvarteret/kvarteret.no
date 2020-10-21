@@ -12,16 +12,31 @@ return(
 <div>{romNavn} {romTid}</div>
 )
 }
+
+
+const ColoredLine = () => (
+  <hr
+      style={{
+          color: "#393939",
+          backgroundColor: "#393939",
+          height: .5
+        
+      }}
+  />
+);
+
 const Tider = ({ siteTitle }) => {
 
   return (
     <div>
-      <q.div id="header_aapning">Åpningstider</q.div>
+      <q.div id="header_tittel">Åpningstider</q.div>
+      <ColoredLine/>
+      <q.div id="aapningstider">
       <RomTider romNavn={"Stjerne "} romTid={"14:00-20:00"}/> 
       <RomTider romNavn={"Halvtimen "} romTid={"14:00-20:00"}/> 
       <RomTider romNavn={"Grøndahls "} romTid={"14:00-20:00"}/> 
       <RomTider romNavn={"Stjerne "} romTid={"14:00-20:00"}/> 
-
+      </q.div>
       <q.div id="aapent_ved_arrangement">ÅPENT VED ARRANGEMENT</q.div>
 
     </div>
