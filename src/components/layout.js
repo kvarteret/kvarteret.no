@@ -14,6 +14,25 @@ import Header from './header'
 import Footer from './footer'
 
 import './layout.css'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: 'Hegval Display',
+    fontSize: 12,
+    h2: {
+      fontSize: 26
+    }
+  },
+  link: {
+    "&:hover": {
+      color: "red"
+    }
+  },
+  palette: {
+    primary: {main: "#F54B4B"}
+  }
+});
 
 const Layout = ({ children }) => {
   return (
@@ -28,20 +47,13 @@ const Layout = ({ children }) => {
         }
       `}
       render={data => (
-        <div fsb style={{backgroundColor: '#FFF' }}>
-          <Header siteTitle={data.site.siteMetadata.title} />
-          <div
-            style={{
-              margin: `0 auto`,
-              alignSelf: 'stretch',
-              paddingTop: 100,
-            }}
-          >
+        <ThemeProvider theme={theme}>
+          <div style={{backgroundColor: '#FFF' }}>
+            <Header siteTitle={data.site.siteMetadata.title} />
             <main>{children}</main>
-
             <Footer siteTitle={data.site.siteMetadata.title}/>
           </div>
-        </div>
+        </ThemeProvider>
       )}
     />
   )

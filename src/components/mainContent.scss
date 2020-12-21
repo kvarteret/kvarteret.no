@@ -1,19 +1,102 @@
+@font-face {
+	font-family: "Hegval Display";
+	src: url("https://kvarteret.no/wp-content/uploads/dak-font/The%20Northern%20Block%20Ltd%20-%20Hegval%20Display%20Light.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "Hegval Display";
+	font-weight: bold;
+	src: url("https://kvarteret.no/wp-content/uploads/dak-font/The%20Northern%20Block%20Ltd%20-%20Hegval%20Display%20Regular.otf") format("opentype");
+}
+
+$base-color: #F54B4B;
+
+* {
+    font-family: 'Hegval Display', sans-serif;
+}
+
+h1, h2, h3, h4 {
+    color: $base-color;
+    margin: 0;
+}
+
+h5 {
+    margin: 0;
+}
+
 .flex {
-    flex:1;
     display: flex;
+    flex-direction: column;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-break {
+    width: 100%;
+}
+
+.relevant-title {
+    margin-bottom: 10px;
+}
+
+.relevant-title h1 {
+    margin: 0;
+
+}
+
+.relevant-title h5 {
+    margin:0;
+    align-self: flex-end;
+}
+
+.relevant {
+    flex:1;
+    flex-grow: 1;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.news {
+    width: 370px;
 }
 
 .welcome-text {
-    flex:1;
+    order: 1;
+}
+
+.info {
+    flex: 70;
+    max-width: 70%;
+    margin-right: 40px;
+}
+
+.line::after {
+    content:' ';
+    display: block;
+    margin-top: 6px;
+    width: 100%;
+    border-bottom: 2px solid $base-color;
 }
 
 .opening-hours {
-    width: 400px;
+    flex: 30;
+    max-width:30%;
+    margin-right: 40px;
+}
+
+.opening-hours {
+    margin-bottom: 40px;
 }
 
 .opening-hours h4 {
     margin-bottom: 10px;
-    text-align: right;
 }
 
 .room-hours {
@@ -28,4 +111,96 @@
 
 .room-hours .time {
     text-align: right;
+}
+
+.content {
+    flex:1;
+    flex-wrap: wrap;
+}
+
+.card-container {
+    background-color: #f2f2f2;
+    padding: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.card {
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    margin: 5px;
+    margin-bottom: 15px;
+    box-shadow: -2px 2px 4px 2px rgba(0,0,0,0.1);
+}
+
+.card h5, .card img, .news-card h5, .news-card img {
+    margin: 0;
+}
+
+.card .card-content {
+    margin: 15px;
+}
+
+.news-card {
+    display:flex;
+    max-height: 100px;
+    margin-bottom: 15px;
+}
+
+.news-card .last-update {
+    font-size: 10px;
+    margin-bottom:5px;
+    display: block;
+}
+
+.news-card img {
+    width: 66px;
+    height: 66px;
+    object-fit: cover;
+}
+
+.news-card .card-content {
+    margin: 5px;
+}
+
+.news-card h5 {
+    color: $base-color;
+    margin-bottom: 3px;
+}
+
+.news-card  {
+    font-size: 10px;
+    line-height:12px;
+}
+
+.news-card h5 {
+    font-size: 14px;
+}
+
+.news h5, .news h3 {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .flex {
+        flex-direction: row;
+    }
+
+    .welcome-text {
+        order: 0;
+        flex:1;
+        flex-grow: 1;
+        margin-right: 80px;
+    }
+
+    .opening-hours {
+        width: 250px;
+        margin-bottom: 0;
+    }
+
+    .opening-hours h4 {
+        text-align: right;
+    }
 }
