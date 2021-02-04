@@ -6,14 +6,13 @@ import PageInfo from '../components/pageInfo'
 
 
 const Page = () => {
-  
   return(
     <Layout>
-        <Grid container direction="column">
-            <Grid item xs={12} >
+        <Grid container direction="row">
+            <Grid item xs={12} sm={12} md={6} lg={8} xl={9} >
                 <PictureDescription />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={12} md={6} lg={8} xl={9}>
                 <PageInfo/>
             </Grid>
         </Grid>
