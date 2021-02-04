@@ -17,12 +17,14 @@ const useStyles = makeStyles({
     backgroundColor: "#272727",
     backgroundBlendMode: "color-dodge",
     backgroundSize: "cover",
-    paddingBottom: "10px"
+    paddingBottom: "10px",
+    width: "100%"
   },
   content: {
     paddingTop: 90,
     paddingBottom: 35,
-    width: "100%"
+    width: "100%",
+    margin: 0,
   }
 });
 

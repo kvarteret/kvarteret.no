@@ -6,6 +6,7 @@ import './header.scss'
 import SearchIcon from '@material-ui/icons/Search';
 import { Box, Divider, Grid, Hidden, makeStyles, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
+import LanguageSelector from './languageSelector'
 
 const useStyles = makeStyles({
     root: {
@@ -72,39 +73,37 @@ const Header = ({ siteTitle }) => {
     const classes = useStyles();
   return (
 	  <Grid container direction="row" className={classes.root} justify="space-between" alignItems="center">
-		  <Hidden mdDown={true}>
-			<Grid item xs={5}>
-				<Grid container direction="row" justify="flex-start" alignItems="stretch" spacing={4}>
-					<Grid item className={classes.hamburger + " " + classes.center}>
-						<Grid container justify="center" alignItems="center"><MenuIcon/></Grid>
-					</Grid>
-					<Divider variant="fullWidth" className={classes.divider} orientation="vertical" flexItem />
+		<Grid item md={1} lg={5}>
+			<Grid container direction="row" justify="flex-start" alignItems="stretch" spacing={4}>
+				<Grid item className={classes.hamburger + " " + classes.center}>
+					<Grid container justify="center" alignItems="center"><MenuIcon/></Grid>
+				</Grid>
+				<Divider variant="fullWidth" className={classes.divider} orientation="vertical" flexItem />
+				<Hidden mdDown={true}>
 					<Grid item className={classes.center}><Link href="#" className="active">Aktuelt</Link></Grid>
 					<Grid item className={classes.center}><Link href="#">Kafèmeny</Link></Grid>
 					<Grid item className={classes.center}><Link href="#">Butikk</Link></Grid>
 					<Grid item className={classes.center}><Link href="#">Rombooking</Link></Grid>
-				</Grid>
+				</Hidden>
 			</Grid>
-			<Grid item >
-				<img src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png" className={classes.logo}></img>
-			</Grid>
-			<Grid item xs={5}>
-				<Grid container direction="row" justify="flex-end" alignItems="center" spacing={4}>
+		</Grid>
+		<Grid item >
+			<img src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png" className={classes.logo}></img>
+		</Grid>
+		<Grid item md={1} lg={5}>
+			<Grid container direction="row" justify="flex-end" alignItems="center" spacing={4}>
+				<Hidden mdDown={true}>
 					<Grid item><Link href="#">Bilder</Link></Grid>
 					<Grid item><Link href="#">Om oss</Link></Grid>
 					<Grid item><Link href="#">Kontakt</Link></Grid>
 					<Grid item><Link href="#" className={classes.becomeVolunteer} component="button">Bli frivillig</Link></Grid>
-					<Divider className={classes.divider2} orientation="vertical" flexItem />
-					<Grid item className={classes.hamburger}>
-						<Grid container justify="center" alignItems="center" spacing={1} direction="row">
-							<Grid item><Link href="#" className={classes.languageSize + " active"}>NO</Link></Grid>
-							<Divider orientation="vertical" className={classes.languageDivider} />
-							<Grid item><Link href="#" className={classes.languageSize}>EN</Link></Grid>
-						</Grid>
-					</Grid>
+				</Hidden>
+				<Divider className={classes.divider2} orientation="vertical" flexItem />
+				<Grid item className={classes.hamburger}>
+					<LanguageSelector/>
 				</Grid>
 			</Grid>
-		</Hidden>
+		</Grid>
 	</Grid>
   )
 }

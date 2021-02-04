@@ -44,5 +44,19 @@ module.exports = {
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-graphql`,
+      options: {
+        fieldName: `directus`,
+        url: `https://kvarteret-admin.azurewebsites.net/graphql`,
+        typeName: `DirectusCMS`,
+
+        // TODO: Fetch from env
+        headers: {
+          Authorization: `Bearer ThisIsTestToken`,
+        },
+        
+      },
+    },
   ],
 }

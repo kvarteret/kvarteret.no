@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     },
     imgText: {
         position: "absolute",
-        bottom: "3%",
+        bottom: "30px",
         left: "3%",
         color: "white",
         fontSize: 30,

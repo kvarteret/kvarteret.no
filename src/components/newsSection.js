@@ -3,6 +3,7 @@ import React from 'react';
 import NewsCard from './newsCard';
 
 import './mainContent.scss'
+import { graphql, useStaticQuery } from 'gatsby';
 
 const useStyles = makeStyles({
     title: {
@@ -22,6 +23,39 @@ const useStyles = makeStyles({
 
 const NewsSection = () => {
     const classes = useStyles();
+
+    const data = useStaticQuery(graphql`
+        query NewsSectionQuery {
+            directus {
+            items {
+                news {
+                date_created
+                date_updated
+                id
+                slug
+                status
+                translations {
+                    tagline
+                    title
+                }
+                }
+            }
+            }
+        }      
+    `);
+    const newsItems = data.directus.items.news.filter(x=>x.status == "published").map(x => (
+        <Grid item xs={12} key={x.id}>
+            <NewsCard
+                imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
+                alt={x.title}
+                date={x.date_updated || x.date_created}
+                title={x.translations[0].title}
+                text={x.translations[0].tagline}
+                url={"/news/" + x.slug}
+                />
+        </Grid>
+    ));
+
     return (
         <Grid 
             container
@@ -43,42 +77,7 @@ const NewsSection = () => {
             <Divider orientation="horizontal" flexItem variant="fullWidth" className={classes.divider} />
             <Grid item xs={12}>
                 <Grid container spacing={2} className={classes.mainContent}>
-                    <Grid item xs={12}>
-                        <NewsCard
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <NewsCard
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <NewsCard
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <NewsCard
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
+                    {newsItems}
                 </Grid >
             </Grid>
         </Grid>

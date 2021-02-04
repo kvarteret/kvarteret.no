@@ -1,5 +1,6 @@
 import { Divider, Grid, makeStyles, Typography } from '@material-ui/core';
 import React from 'react';
+import {graphql, useStaticQuery} from 'gatsby';
 import EventCard from './card';
 
 import './mainContent.scss'
@@ -22,6 +23,41 @@ const useStyles = makeStyles({
 
 const EventSection = () => {
     const classes = useStyles();
+
+    const data = useStaticQuery(graphql`
+    query IndexPageData {
+        directus {
+            items {
+              events {
+                id
+                status
+                slug
+                translations {
+                  description
+                  languages_code {
+                    code
+                    name
+                  }
+                  title
+                }
+              }
+            }
+          }
+        }
+    `);
+    const eventItems = data.directus.items.events.filter(x=>x.status == "published").map(x => (
+        <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
+            <EventCard 
+                imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
+                alt="Card image"
+                date="3. NOVEMBER | TEGLVERKET | DEBATT"
+                title={x.translations[0].title}
+                text={x.translations[0].description}
+                url={"/events/" + x.slug}
+                />
+        </Grid>
+    ));
+
     return (
         <Grid 
             container
@@ -45,82 +81,12 @@ const EventSection = () => {
             <Grid item><Divider orientation="horizontal" flexItem variant="fullWidth" className={classes.divider} /></Grid>
             <Grid item xs={12}>
                 <Grid container spacing={3} className={classes.mainContent}>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={12} lg={4} xl={3}>
-                        <EventCard 
-                            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png" 
-                            alt="Card image"
-                            date="3. NOVEMBER | TEGLVERKET | DEBATT"
-                            title="Safario // fri alder"
-                            text="Den 3. november inviterer Studentersamfunnet i Bergen til Amerikansk Valgvake på Det Akademiske Kvarter!"
-                            />
-                    </Grid>
+                    {eventItems}
                 </Grid >
             </Grid>
         </Grid>
     );
 }
+
 
 export default EventSection;

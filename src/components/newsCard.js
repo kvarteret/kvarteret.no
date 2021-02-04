@@ -43,10 +43,10 @@ const useStyles = makeStyles({
     }
   });
 
-export default function NewsCard({imgSrc, alt, date, title, text}) {
+export default function NewsCard({imgSrc, alt, date, title, text, url}) {
     const classes = useStyles();
     return (
-        <CardActionArea href="#">
+        <CardActionArea href={url}>
             <Grid container spacing={1} className={classes.root}>
                 <Hidden xsDown={false}>
                     <Grid item xs={3}>
@@ -59,17 +59,6 @@ export default function NewsCard({imgSrc, alt, date, title, text}) {
                         />
                     </Grid>
                 </Hidden>
-                {/* <Hidden smUp={true}>
-                    <Grid item xs={12}>
-                        <CardMedia
-                            component="img"
-                            className={classes.media}
-                            image={imgSrc}
-                            title={title}
-                            alt={alt}
-                        />
-                    </Grid>
-                </Hidden> */}
                 <Grid item xs={9} sm={9} className={classes.content}>
                     <Grid container direction="column">
                         <Grid item>

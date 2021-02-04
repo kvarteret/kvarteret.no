@@ -14,19 +14,25 @@ import Header from './header'
 import Footer from './footer'
 
 import './layout.css'
-import { createMuiTheme, ThemeProvider } from '@material-ui/core'
+import { createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
+import { makeStyles } from '@material-ui/styles'
+
+import LanguageContext from '../providers/languageProvider'
 
 const theme = createMuiTheme({
   typography: {
     fontFamily: 'Hegval Display',
     fontSize: 12,
+    h1: {
+      fontSize: 60
+    },
     h2: {
       fontSize: 26
     }
   },
   link: {
     "&:hover": {
-      color: "red"
+      color: "#F54B4B;"
     }
   },
   palette: {
@@ -34,7 +40,28 @@ const theme = createMuiTheme({
   }
 });
 
-const Layout = ({ children }) => {
+const useStyles = makeStyles({
+  root: {
+      minHeight: "100vh",
+      position: "relative"
+  },
+  body: {
+    paddingBottom: "387px"
+  },
+  footer: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "387px"
+  }
+});
+
+const Layout = ({ children, spacingTop }) => {
+
+  let spacing={};
+  if(spacingTop) spacing={paddingTop:80}
+
+  const classes = useStyles();
   return (
     <StaticQuery
       query={graphql`
@@ -47,13 +74,21 @@ const Layout = ({ children }) => {
         }
       `}
       render={data => (
-        <ThemeProvider theme={theme}>
-          <div style={{backgroundColor: '#FFF' }}>
-            <Header siteTitle={data.site.siteMetadata.title} />
-            <main>{children}</main>
-            <Footer siteTitle={data.site.siteMetadata.title}/>
-          </div>
-        </ThemeProvider>
+        <LanguageContext.Provider value={"no"}>
+          <ThemeProvider theme={theme}>
+            <Grid direction="column" className={classes.root}>
+              <Grid item>
+                <Header siteTitle={data.site.siteMetadata.title} />
+              </Grid>
+              <Grid item className={classes.body}>
+                <main style={spacing}>{children}</main>
+              </Grid>
+              <Grid item className={classes.footer}>
+                <Footer siteTitle={data.site.siteMetadata.title}/>
+              </Grid>
+            </Grid>
+          </ThemeProvider>
+        </LanguageContext.Provider>
       )}
     />
   )
