@@ -38,7 +38,7 @@ const OpeningHoursSection = () => {
         }
     ]
 
-    const components = data.map(x=> (<Grid container direction="row">
+    const components = data.map(x=> (<Grid container direction="row" key={x.roomId}>
         <Grid item xs={6}> 
             {x.name}
         </Grid>
@@ -60,7 +60,7 @@ const OpeningHoursSection = () => {
                 </Typography>
             </Grid>
 
-            <Grid item direction="column">
+            <Grid item>
                 {components}
             </Grid>
         </Grid>

@@ -8,7 +8,7 @@
     "@directus/gatsby-source-directus": "^0.2.9",
     "@material-ui/core": "^4.11.2",
     "@material-ui/icons": "^4.11.2",
-    "@material-ui/styles": "^4.11.2",
+    "@material-ui/styles": "^4.11.3",
     "gatsby": "^2.29.1",
     "gatsby-image": "^2.1.2",
     "gatsby-plugin-manifest": "^2.1.1",

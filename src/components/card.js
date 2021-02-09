@@ -81,11 +81,7 @@ export default function EventCard({imgSrc, alt, date, title, text, url}) {
                         >
                             {title}
                         </Typography>
-                        <Typography
-                            className={classes.text}
-                        >
-                            <div dangerouslySetInnerHTML={{__html: text}}></div>
-                        </Typography>
+                        <div dangerouslySetInnerHTML={{__html: text}}></div>
                     </CardContent>
                 </CardActionArea>
             </Card>

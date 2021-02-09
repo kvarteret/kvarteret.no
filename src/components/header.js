@@ -80,10 +80,10 @@ const Header = ({ siteTitle }) => {
 				</Grid>
 				<Divider variant="fullWidth" className={classes.divider} orientation="vertical" flexItem />
 				<Hidden mdDown={true}>
-					<Grid item className={classes.center}><Link href="#" className="active">Aktuelt</Link></Grid>
-					<Grid item className={classes.center}><Link href="#">Kafèmeny</Link></Grid>
-					<Grid item className={classes.center}><Link href="#">Butikk</Link></Grid>
-					<Grid item className={classes.center}><Link href="#">Rombooking</Link></Grid>
+					<Grid item className={classes.center}><Link to="#" className="active">Aktuelt</Link></Grid>
+					<Grid item className={classes.center}><Link to="#">Kafèmeny</Link></Grid>
+					<Grid item className={classes.center}><Link to="#">Butikk</Link></Grid>
+					<Grid item className={classes.center}><Link to="#">Rombooking</Link></Grid>
 				</Hidden>
 			</Grid>
 		</Grid>
@@ -93,10 +93,10 @@ const Header = ({ siteTitle }) => {
 		<Grid item md={1} lg={5}>
 			<Grid container direction="row" justify="flex-end" alignItems="center" spacing={4}>
 				<Hidden mdDown={true}>
-					<Grid item><Link href="#">Bilder</Link></Grid>
-					<Grid item><Link href="#">Om oss</Link></Grid>
-					<Grid item><Link href="#">Kontakt</Link></Grid>
-					<Grid item><Link href="#" className={classes.becomeVolunteer} component="button">Bli frivillig</Link></Grid>
+					<Grid item><Link to="#">Bilder</Link></Grid>
+					<Grid item><Link to="#">Om oss</Link></Grid>
+					<Grid item><Link to="#">Kontakt</Link></Grid>
+					<Grid item><Link to="#" className={classes.becomeVolunteer} component="button">Bli frivillig</Link></Grid>
 				</Hidden>
 				<Divider className={classes.divider2} orientation="vertical" flexItem />
 				<Grid item className={classes.hamburger}>

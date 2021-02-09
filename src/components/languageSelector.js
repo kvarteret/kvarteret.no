@@ -25,9 +25,9 @@ function LanguageSelector() {
         <Location>
             {locationProps => (
                 <Grid container justify="center" alignItems="center" spacing={1} direction="row">
-                    <Grid item><Link href={getUrl("no", locationProps.location.pathname)} className={classes.languageSize + " active"}>NO</Link></Grid>
+                    <Grid item><Link to={getUrl("no", locationProps.location.pathname)} className={classes.languageSize + " active"}>NO</Link></Grid>
                     <Divider orientation="vertical" className={classes.languageDivider} />
-                    <Grid item><Link href={getUrl("en", locationProps.location.pathname)} className={classes.languageSize}>EN</Link></Grid>
+                    <Grid item><Link to={getUrl("en", locationProps.location.pathname)} className={classes.languageSize}>EN</Link></Grid>
                 </Grid>
             )}
         </Location>

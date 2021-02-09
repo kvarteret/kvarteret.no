@@ -76,7 +76,7 @@ const Layout = ({ children, spacingTop }) => {
       render={data => (
         <LanguageContext.Provider value={"no"}>
           <ThemeProvider theme={theme}>
-            <Grid direction="column" className={classes.root}>
+            <Grid container direction="column" className={classes.root}>
               <Grid item>
                 <Header siteTitle={data.site.siteMetadata.title} />
               </Grid>
