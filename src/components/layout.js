@@ -5,7 +5,7 @@
  * See: https://www.gatsbyjs.org/docs/static-query/
  */
 
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
 import q from 'qjuul'
@@ -17,7 +17,10 @@ import './layout.css'
 import { createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
+import Sidedrawer from "../components/SideDrawer/Sidedrawer"
 import LanguageContext from '../providers/languageProvider'
+
+ 
 
 const theme = createMuiTheme({
   typography: {
@@ -56,7 +59,12 @@ const useStyles = makeStyles({
   }
 });
 
+
 const Layout = ({ children, spacingTop }) => {
+
+  const [isOpen, setDrawerState] = useState(false)
+
+  
 
   let spacing={};
   if(spacingTop) spacing={paddingTop:80}
@@ -75,10 +83,13 @@ const Layout = ({ children, spacingTop }) => {
       `}
       render={data => (
         <LanguageContext.Provider value={"no"}>
+            {/* <Sidedrawer
+                    open={this.state.showSideDrawer}
+                    closed={this.sideDrawerClosedHandler} /> */}
           <ThemeProvider theme={theme}>
             <Grid container direction="column" className={classes.root}>
               <Grid item>
-                <Header siteTitle={data.site.siteMetadata.title} />
+                <Header siteTitle={data.site.siteMetadata.title}  />
               </Grid>
               <Grid item className={classes.body}>
                 <main style={spacing}>{children}</main>

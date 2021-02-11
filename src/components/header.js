@@ -75,7 +75,7 @@ const Header = ({ siteTitle }) => {
 	  <Grid container direction="row" className={classes.root} justify="space-between" alignItems="center">
 		<Grid item md={1} lg={5}>
 			<Grid container direction="row" justify="flex-start" alignItems="stretch" spacing={4}>
-				<Grid item className={classes.hamburger + " " + classes.center}>
+				<Grid item className={classes.hamburger + " " + classes.center} >
 					<Grid container justify="center" alignItems="center"><MenuIcon/></Grid>
 				</Grid>
 				<Divider variant="fullWidth" className={classes.divider} orientation="vertical" flexItem />
