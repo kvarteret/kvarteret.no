@@ -21,12 +21,12 @@
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-source-graphql": "^2.11.0",
     "gatsby-transformer-sharp": "^2.1.20",
-    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "qjuul": "0.0.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "sass": "^1.32.7",
     "typeface-roboto": "0.0.54"
   },
   "devDependencies": {
