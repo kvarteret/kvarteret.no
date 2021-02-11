@@ -8,6 +8,7 @@ import NewsCard from './newsCard';
 import NewsSection from './newsSection';
 import OpeningHoursSection from './openingHoursSection';
 import TodaySection from './todaySection';
+import EventPage from './eventPage';
 
 const useStyles = makeStyles({
     root: {
@@ -44,7 +45,9 @@ const useStyles = makeStyles({
 const MainContent = ({content}) => {
     const classes = useStyles();
     return (
-        <Grid container direction="column" className={classes.root}>
+        <div>
+{/*         <EventPage/>
+ */}        <Grid container direction="column" className={classes.root}>
             <Grid item xs={12} className={classes.imgContainer}>
                 <img className={classes.img} src="https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"/>
                 <Typography variant="h1" className={classes.imgText}>Minner fra Datarock</Typography>
@@ -70,8 +73,37 @@ const MainContent = ({content}) => {
                 </Grid>
             </Grid>
         </Grid>
+        </div>
+
         );
         
 }
 
 export default MainContent;
+/* 
+<Grid container direction="column" className={classes.root}>
+            <Grid item xs={12} className={classes.imgContainer}>
+                <img className={classes.img} src="https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"/>
+                <Typography variant="h1" className={classes.imgText}>Minner fra Datarock</Typography>
+            </Grid>
+            <Grid item className={classes.content}>
+                <Grid container spacing={4}>
+                    <Grid item sm={12} md={6} lg={8} xl={9}>
+                        <Grid container spacing={4}>
+                            <Grid item xs={12} md={12} lg={8}>
+                                <TodaySection/>
+                            </Grid>
+                            <Grid item xs={12} md= {12} lg={4}>
+                                <OpeningHoursSection/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <EventSection/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item sm={12} md={6} lg={4} xl={3}>
+                        <NewsSection/>
+                    </Grid>            
+                </Grid>
+            </Grid>
+        </Grid> */
