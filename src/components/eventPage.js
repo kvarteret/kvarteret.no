@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Grid,  Typography ,makeStyles} from '@material-ui/core';
+import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
 import EventSection from './eventSection';
 import './mainContent.scss'
 import NewsSection from './newsSection';
@@ -38,49 +38,80 @@ export default function EventPage() {
                 fontSize: 80,
             }
         },
-        imgTop:{
-            height:"99%",
-            position: "absolute", 
+        imgTop: {
+            height: "99%",
+            position: "absolute",
             left: 0,
             right: 0,
-            margin : "0 auto 0 auto"
+            margin: "0 auto 0 auto"
         },
+        wrapperHor: {
+            margin: "0 2vw 0 2vw"
+        },
+        wrapperVert: {
+            margin: " 2vh 0 2vh 0 "
+        }
     });
     const classes = useStyles();
-    const bill={
-        a:12,
-        b:"emil",
-        c:"huset"
+    const bill = {
+        a: 12,
+        b: "emil",
+        c: "huset"
 
     }
     const bodyText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including v"
-    const img= "https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
+    const img = "https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
     return (
-       <Grid container direction="column" className={classes.root}>
+        <Grid container direction="column" className={classes.root}>
             <Grid item xs={12} className={classes.imgContainer}>
-                <img className={classes.img} src={img}/>
-                <img className={classes.imgTop} src={img}/>
+                <img className={classes.img} src={img} />
+                <img className={classes.imgTop} src={img} />
             </Grid>
-            <Grid container alignItems="center" >
-                    <Grid container direction="row" justify="space-evenly" alignItems="center" xs={12}>
-                        <Typography variant="subtitle" > Sted: {bill.c}</Typography>
-                        <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
-                        <Typography variant="subtitle"> Dato: {bill.a}</Typography>
-                        <Typography variant="subtitle"> Tid: {bill.a}</Typography>
-                        <Typography variant="subtitle"> Pris: {bill.a}</Typography>
-                        <Typography variant="subtitle"> Aldersgrense: {bill.a}</Typography>
-                    </Grid>
-                    <Grid container justify="flex-start" direction="column"
-                    alignItems="flex-start" xs={6}>
-                        <Typography variant="h3">NAVN ARTIST </Typography>
+            <Grid container className={classes.wrapperHor} alignItems="center"   >
+
+                <Grid container item direction="row" justify="space-evenly" alignItems="center" xs={12}>
+                    <Typography variant="subtitle" > Sted: {bill.c}</Typography>
+                    <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
+                    <Typography variant="subtitle"> Dato: {bill.a}</Typography>
+                    <Typography variant="subtitle"> Tid: {bill.a}</Typography>
+                    <Typography variant="subtitle"> Pris: {bill.a}</Typography>
+                    <Typography variant="subtitle"> Aldersgrense: {bill.a}</Typography>
+                </Grid>
+                <Grid container xs={12}/* put padding here? */ >
+                    <Grid item justify="center" direction="column"
+                        alignItems="center" xs={6}>
+                        <Grid xs={12} container alignItems="flex-start" direction="row" >
+                            <Grid item>
+                                <Typography className={classes.wrapperVert} variant="h3">NAVN aaARTIST </Typography>
+                            </Grid>
+                        </Grid>
                         <Typography variant="body2">
                             {bodyText}
-                             </Typography>
-                        </Grid>
-                    <Grid container justify="flex-start" direction="column"
-                    alignItems="center" xs={6}>
-
+                        </Typography>
                     </Grid>
+                    <Grid item xs={6}>
+                    <Grid container justify="space-evenly" alignContent="center" direction="column"
+                        alignItems="center">
+
+                        <Grid item xs={12}>
+                            <iframe
+                                src="https://www.youtube.com/embed/6awPL8yk_yY"
+                                height="420px"
+                                width="75%"
+                            />
+
+                        </Grid>
+                        <Grid item xs={12}>
+                            <iframe
+                                src="https://www.youtube.com/embed/6awPL8yk_yY"
+                                height="420px"
+                                width="75%"
+                            />
+                        </Grid>
+                    </Grid>
+                    </Grid>
+
+                </Grid>
             </Grid>
         </Grid>
     )
