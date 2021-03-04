@@ -1,11 +1,8 @@
-import React from 'react';
-import CafeMenu from '../components/cafeMenu';
-
+import React from 'react'
+import CafeMenu from '../components/cafeMenu'
 
 const cafePage = () => {
-  return(
-    <CafeMenu/>
-  )
+  return <CafeMenu />
 }
 
-export default cafePage;
+export default cafePage
