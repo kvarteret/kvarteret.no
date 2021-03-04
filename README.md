@@ -1,15 +1,15 @@
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby Material UI Starter
-</h1>
+# Kvarteret.no
+Git project for the website for The Academic Kvarter in Bergen!
 
-This starter includes [Material UI](https://material-ui.com/) boilerplate and configuration files along with the standard Gatsby configuration files. It provides a starting point for developing Gatsby apps with Material UI. 
+#### Recommended tools:
+- VSCode extension: Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 
-View the demo app [here](https://material-ui-starter.netlify.com/).
+#### How to develop:
+1. Open in vscode
+2. Open terminal in folder
+3. Enter `npm install`
+4. Enter `npm start`
+5. Takes some time, then page is visable at http://localhost:8000
 
 ## Features
 
