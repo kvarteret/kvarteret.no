@@ -3,25 +3,42 @@ import { Grid, Card } from '@material-ui/core'
 import Layout from '../components/layout'
 
 const style_image = {
-  height: '90%',
-  width: '90%',
+  height: '20%',
+  width: '20%',
 }
 
 /**
  * Liste over retter i menyen
  * TODO: Get this data from database
- * @type {MenuItem[]}
+ * @type {menuItem[]}
  */
-const menuItemsData = [
+const lunchItemsData = [
   {
-    navn: 'Mat1',
+    navn: 'Lunsj1',
     bildeUrl:
       'https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg',
     beskrivelse: 'Sykt digg',
     ingredienser: 'masse greier',
   },
   {
-    navn: 'Mat2',
+    navn: 'Lunsj2',
+    bildeUrl:
+      'https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg',
+    beskrivelse: 'Sykt digg',
+    ingredienser: 'masse greier',
+  },
+]
+
+const dinnerItemsData = [
+  {
+    navn: 'Middag1',
+    bildeUrl:
+      'https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg',
+    beskrivelse: 'Sykt digg',
+    ingredienser: 'masse greier',
+  },
+  {
+    navn: 'Middag2',
     bildeUrl:
       'https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg',
     beskrivelse: 'Sykt digg',
@@ -36,13 +53,16 @@ const menuItemsData = [
 const getCafeMenuItem = menuItem => {
   return (
     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-      {menuItem.navn}
+      <h3>{menuItem.navn}</h3>
+      {menuItem.beskrivelse}
+      {menuItem.ingredienser}
+      <img style={style_image} src={menuItem.bildeUrl} />
     </Grid>
   )
 }
 const cafeMenu = () => {
   const menuItemComponents = []
-  menuItemsData.forEach(menuItemData => {
+  lunchItemsData.forEach(menuItemData => {
     menuItemComponents.push(getCafeMenuItem(menuItemData))
   })
   return (
