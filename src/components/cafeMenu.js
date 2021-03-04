@@ -66,14 +66,25 @@ const cafeMenu = () => {
     menuItemComponents.push(getCafeMenuItem(menuItemData))
   })
 
+  dinnerItemsData.forEach(menuItemData => {
+    menuItemComponents.push(getCafeMenuItem(menuItemData))
+  })
+
   return (
     <Layout spacingTop={true}>
-      <Grid container direction="column">
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <img src="https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg" />
-          <h1>KAFEMENY</h1>
+      <div>
+        <img src="https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg" />
+        <h1>KAFEMENY</h1>
+      </div>
+      <Grid container direction="row">
+        <Grid item xs={6}>
+          <h2>LUNSJ</h2>
+          {lunchItemsData.map((menu, i) => getCafeMenuItem(menu))}
         </Grid>
-        {lunchItemsData.map((menu, i) => getCafeMenuItem(menu))}
+        <Grid item xs={6}>
+          <h2>MIDDAG</h2>
+          {dinnerItemsData.map((menu, i) => getCafeMenuItem(menu))}
+        </Grid>
       </Grid>
     </Layout>
   )

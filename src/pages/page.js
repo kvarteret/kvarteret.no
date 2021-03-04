@@ -12,7 +12,7 @@ const Page = () => {
           <PageInfo />
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <PictureDescription floor={3} />
+          <PictureDescription floor={69} capacity={420} bar={'ehhh ja takk'} />
         </Grid>
       </Grid>
     </Layout>

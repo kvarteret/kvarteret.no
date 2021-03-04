@@ -10,10 +10,7 @@ const PictureDescription = props => {
   return (
     <Grid container>
       <Grid item xs={12}>
-        <img
-          style={style_image}
-          src="https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
-        />
+        <img style={style_image} src="https://i.redd.it/ewix2nyg7ak31.jpg" />
       </Grid>
       <Grid item xs={12}>
         <Grid
@@ -23,8 +20,8 @@ const PictureDescription = props => {
           alignItems="center"
         >
           <Grid item>Etasje: {props.floor}</Grid>
-          <Grid item>Kapasitet: * </Grid>
-          <Grid item>Bar: </Grid>
+          <Grid item>Kapasitet: {props.capacity}*</Grid>
+          <Grid item>Bar: {props.bar}</Grid>
         </Grid>
       </Grid>
       <Grid item xs={12}>
