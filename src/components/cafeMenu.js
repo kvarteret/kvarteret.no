@@ -45,6 +45,7 @@ const cafeMenu = () => {
   menuItemsData.forEach(menuItemData => {
     menuItemComponents.push(getCafeMenuItem(menuItemData))
   })
+
   return (
     <Layout spacingTop={true}>
       <Grid container direction="column">
@@ -52,7 +53,7 @@ const cafeMenu = () => {
           <img src="https://cdn.digg.com/images/0d220736ec91419682471c71dfc8a439_407c1382cbc6d6213971e53f30091ec1_1_original.jpeg" />
           <h1>KAFEMENY</h1>
         </Grid>
-        {menuItemComponents}
+        {menuItemsData.map((menu, i) => getCafeMenuItem(menu))}
       </Grid>
     </Layout>
   )
