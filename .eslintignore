@@ -1,0 +1,4 @@
+config/
+test/
+node_modules
+.next
