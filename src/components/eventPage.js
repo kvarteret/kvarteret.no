@@ -14,16 +14,18 @@ export default function EventPage() {
         },
         img: {
             filter: "blur(4px)",
-            height: "480px",
+            height: "380px",
             width: "100%",
             objectFit: "cover",
+            margin: "-5px -10px"
         },
         content: {
             margin: "0 3%",
             marginTop: "20px"
         },
         imgContainer: {
-            position: "relative"
+            position: "relative",
+            overflow: "hidden"
         },
         imgText: {
             position: "absolute",
@@ -39,7 +41,7 @@ export default function EventPage() {
             }
         },
         imgTop: {
-            height: "99%",
+            height: "100%",
             position: "absolute",
             left: 0,
             right: 0,
@@ -49,13 +51,16 @@ export default function EventPage() {
             margin: "0 2vw 0 2vw"
         },
         wrapperVert: {
-            margin: " 2vh 0 2vh 0 "
+            margin: " 0vh 0 2vh 0 "
+        },
+        infoPadding: {
+            padding: "30px 30px"
         }
     });
     const classes = useStyles();
     const bill = {
         a: 12,
-        b: "emil",
+        b: "helene",
         c: "huset"
 
     }
@@ -68,8 +73,8 @@ export default function EventPage() {
                 <img className={classes.imgTop} src={img} />
             </Grid>
             <Grid container className={classes.wrapperHor} alignItems="center"   >
-
-                <Grid container item direction="row" justify="space-evenly" alignItems="center" xs={12}>
+    
+                <Grid container className={classes.infoPadding} item direction="row" justify="space-evenly" alignItems="center" xs={12}>
                     <Typography variant="subtitle" > Sted: {bill.c}</Typography>
                     <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
                     <Typography variant="subtitle"> Dato: {bill.a}</Typography>
