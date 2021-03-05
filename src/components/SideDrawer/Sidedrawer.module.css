@@ -1,32 +1,56 @@
 .SideDrawer {
-    position: fixed;
-    width: 280px;
-    max-width: 70%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    z-index: 200;
-    background-color: white;
-    padding: 32px 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease-out;
+  position: fixed;
+  width: 280px;
+  max-width: 70%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: white;
+  box-sizing: border-box;
+  transition: transform 0.3s ease-out;
 }
 
-@media (min-width: 500px) {
-    .SideDrawer {
-        display: none;
-    }
+.SideDrawer.a {
+  color: black;
 }
 
-.Open {
-    transform: translateX(0);
+.NavOpen {
+  opacity: 1;
+  z-index: 300000;
 }
 
-.Close {
-    transform: translateX(-100%);
+.NavClosed {
+  opacity: 0;
 }
 
 .Logo {
-    height: 11%;
-    margin-bottom: 32px;
+  height: 50px;
+  padding-left: 70px;
+  padding-right: 80px;
+}
+
+.Arrow {
+  height: 10px;
+}
+
+.ImageContainer {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 10px gray;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+.SearchContainer {
+  text-align: center;
+}
+
+.Search {
+  height: 35px;
+  margin-top: 25px;
+  box-shadow: 0 0 10px gray;
+  width: 80%;
+}
+
+.Button {
 }

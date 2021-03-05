@@ -28,6 +28,7 @@ const useStyles = makeStyles({
   },
   hamburger: {
     width: 80,
+    cursor: 'pointer',
   },
   divider: {
     height: 80,
@@ -74,7 +75,7 @@ const useStyles = makeStyles({
 })
 
 //TODO: gi a element padding sånn at de ser fine ut
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, open, closed }) => {
   const classes = useStyles()
   return (
     <Grid
@@ -92,11 +93,17 @@ const Header = ({ siteTitle }) => {
           alignItems="stretch"
           spacing={4}
         >
-          <Grid item className={classes.hamburger + ' ' + classes.center}>
-            <Grid container justify="center" alignItems="center">
-              <MenuIcon />
+          <Hidden lgUp={true}>
+            <Grid
+              item
+              className={classes.hamburger + ' ' + classes.center}
+              onClick={open}
+            >
+              <Grid container justify="center" alignItems="center">
+                <MenuIcon />
+              </Grid>
             </Grid>
-          </Grid>
+          </Hidden>
           <Divider
             variant="fullWidth"
             className={classes.divider}

@@ -77,13 +77,24 @@ const Layout = ({ children, spacingTop }) => {
       `}
       render={(data) => (
         <LanguageContext.Provider value={'no'}>
-          {/* <Sidedrawer
-                    open={this.state.showSideDrawer}
-                    closed={this.sideDrawerClosedHandler} /> */}
+          <Sidedrawer
+            open={isOpen}
+            closed={() => {
+              setDrawerState(false)
+            }}
+          />
           <ThemeProvider theme={theme}>
             <Grid container direction="column" className={classes.root}>
               <Grid item>
-                <Header siteTitle={data.site.siteMetadata.title} />
+                <Header
+                  siteTitle={data.site.siteMetadata.title}
+                  open={() => {
+                    setDrawerState(true)
+                  }}
+                  closed={() => {
+                    setDrawerState(false)
+                  }}
+                />
               </Grid>
               <Grid item className={classes.body}>
                 <main style={spacing}>{children}</main>
