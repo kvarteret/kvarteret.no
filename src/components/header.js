@@ -117,10 +117,10 @@ const Header = ({ siteTitle, open, closed }) => {
               </Link>
             </Grid>
             <Grid item className={classes.center}>
-              <Link to="#">Kafèmeny</Link>
+              <Link to="/cafe_page">Kafèmeny</Link>
             </Grid>
             <Grid item className={classes.center}>
-              <Link to="#">Butikk</Link>
+              <Link to="https://butikk.kvarteret.no/">Butikk</Link>
             </Grid>
             <Grid item className={classes.center}>
               <Link to="#">Rombooking</Link>
@@ -129,10 +129,12 @@ const Header = ({ siteTitle, open, closed }) => {
         </Grid>
       </Grid>
       <Grid item>
+      <Link to="/">
         <img
           src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
           className={classes.logo}
         ></img>
+        </Link>
       </Grid>
       <Grid item md={1} lg={5}>
         <Grid
@@ -144,17 +146,17 @@ const Header = ({ siteTitle, open, closed }) => {
         >
           <Hidden mdDown={true}>
             <Grid item>
-              <Link to="#">Bilder</Link>
+              <Link to="https://bilder.kvarteret.no/">Bilder</Link>
             </Grid>
             <Grid item>
-              <Link to="#">Om oss</Link>
+              <Link to="/about">Om oss</Link>
             </Grid>
             <Grid item>
               <Link to="#">Kontakt</Link>
             </Grid>
             <Grid item>
               <Link
-                to="#"
+                to="https://blifrivillig.no/"
                 className={classes.becomeVolunteer}
                 component="button"
               >
