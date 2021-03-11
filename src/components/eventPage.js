@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Typography, makeStyles, Divider } from '@material-ui/core';
+import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core';
 import EventSection from './eventSection';
 import './mainContent.scss'
 import NewsSection from './newsSection';
@@ -48,13 +48,13 @@ export default function EventPage() {
             margin: "0 auto 0 auto"
         },
         wrapperHor: {
-            margin: "0 2vw 0 2vw"
+            padding: "0 2vw 0 2vw"
         },
         wrapperVert: {
-            margin: " 0vh 0 2vh 0 "
+            margin: " 0vh 0 4vh 0 "
         },
         infoPadding: {
-            padding: "30px 30px"
+            padding: "25px 25px 15px 25px"
         }
     });
     const classes = useStyles();
@@ -72,9 +72,9 @@ export default function EventPage() {
                 <img className={classes.img} src={img} />
                 <img className={classes.imgTop} src={img} />
             </Grid>
-            <Grid container className={classes.wrapperHor} alignItems="center"   >
+            <Grid container className={classes.wrapperHor} alignItems="center">
     
-                <Grid container className={classes.infoPadding} item direction="row" justify="space-evenly" alignItems="center" xs={12}>
+                <Grid container item className={classes.infoPadding} item direction="row" justify="space-evenly" alignItems="center" xs={12}>
                     <Typography variant="subtitle" > Sted: {bill.c}</Typography>
                     <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
                     <Typography variant="subtitle"> Dato: {bill.a}</Typography>
@@ -83,38 +83,40 @@ export default function EventPage() {
                     <Typography variant="subtitle"> Aldersgrense: {bill.a}</Typography>
                 </Grid>
                 <Grid container xs={12}/* put padding here? */ >
-                    <Grid item justify="center" direction="column"
-                        alignItems="center" xs={6}>
-                        <Grid xs={12} container alignItems="flex-start" direction="row" >
+                    <Grid container item xl={6} lg={6} md={6} sm={12} xs={12} className={classes.wrapperVert} justify="center" direction="column"
+                        alignItems="center">
+                        <Grid container xs={12} alignItems="flex-start" direction="row" >
                             <Grid item>
-                                <Typography className={classes.wrapperVert} variant="h3">NAVN aaARTIST </Typography>
+                                <Typography className={classes.wrapperVert} variant="h3">NAVN ARTIST </Typography>
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="body2">
+                                    {bodyText}
+                                </Typography>
                             </Grid>
                         </Grid>
-                        <Typography variant="body2">
-                            {bodyText}
-                        </Typography>
                     </Grid>
-                    <Grid item xs={6}>
-                    <Grid container justify="space-evenly" alignContent="center" direction="column"
+                  
+                    <Grid container xl={6} lg={6} md={6} sm={12} xs={12}  justify="space-evenly" alignContent="center" direction="column"
                         alignItems="center">
 
-                        <Grid item xs={12}>
+                        <Grid item xs={12} >
                             <iframe
                                 src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                height="420px"
-                                width="75%"
+                                width="100%"
+                                height="200px"
                             />
 
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} >
                             <iframe
                                 src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                height="420px"
-                                width="75%"
+                                height="200px"
+                                width="100%"
                             />
                         </Grid>
                     </Grid>
-                    </Grid>
+
 
                 </Grid>
             </Grid>
