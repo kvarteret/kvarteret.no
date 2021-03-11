@@ -117,7 +117,7 @@ const Header = ({ siteTitle, open, closed }) => {
               </Link>
             </Grid>
             <Grid item className={classes.center}>
-              <Link to="#">Kafèmeny</Link>
+              <Link to="/cafe_page">Kafèmeny</Link>
             </Grid>
             <Grid item className={classes.center}>
               <Link to="#">Butikk</Link>
