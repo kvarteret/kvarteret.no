@@ -50,9 +50,19 @@ const dinnerItemsData = [
  * Generate menuItem based on MenuItemData
  * @param {MenuItem} menuItem
  */
-const getCafeMenuItem = (menuItem) => {
+const getCafeMenuItem = (menuItem, i) => {
+  var n = i % 2
   return (
-    <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+    <Grid
+      container
+      direction={n === 0 ? 'row-reverse' : 'row'}
+      item
+      xs={12}
+      sm={12}
+      md={6}
+      lg={6}
+      xl={6}
+    >
       <h3>{menuItem.navn}</h3>
       {menuItem.beskrivelse}
       {menuItem.ingredienser}
@@ -79,11 +89,11 @@ const cafeMenu = () => {
       <Grid container direction="row">
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>LUNSJ</h2>
-          {lunchItemsData.map((menu) => getCafeMenuItem(menu))}
+          {lunchItemsData.map((menu, i) => getCafeMenuItem(menu, i))}
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>MIDDAG</h2>
-          {dinnerItemsData.map((menu) => getCafeMenuItem(menu))}
+          {dinnerItemsData.map((menu, i) => getCafeMenuItem(menu, i))}
         </Grid>
       </Grid>
     </Layout>
