@@ -77,11 +77,11 @@ const cafeMenu = () => {
         <h1>KAFEMENY</h1>
       </div>
       <Grid container direction="row">
-        <Grid item xs={6}>
+      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>LUNSJ</h2>
           {lunchItemsData.map((menu, i) => getCafeMenuItem(menu))}
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>MIDDAG</h2>
           {dinnerItemsData.map((menu, i) => getCafeMenuItem(menu))}
         </Grid>
