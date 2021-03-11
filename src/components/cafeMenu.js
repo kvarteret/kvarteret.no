@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Card } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import Layout from '../components/layout'
 
 const style_image = {
@@ -50,7 +50,7 @@ const dinnerItemsData = [
  * Generate menuItem based on MenuItemData
  * @param {MenuItem} menuItem
  */
-const getCafeMenuItem = menuItem => {
+const getCafeMenuItem = (menuItem) => {
   return (
     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
       <h3>{menuItem.navn}</h3>
@@ -62,11 +62,11 @@ const getCafeMenuItem = menuItem => {
 }
 const cafeMenu = () => {
   const menuItemComponents = []
-  lunchItemsData.forEach(menuItemData => {
+  lunchItemsData.forEach((menuItemData) => {
     menuItemComponents.push(getCafeMenuItem(menuItemData))
   })
 
-  dinnerItemsData.forEach(menuItemData => {
+  dinnerItemsData.forEach((menuItemData) => {
     menuItemComponents.push(getCafeMenuItem(menuItemData))
   })
 
@@ -77,13 +77,13 @@ const cafeMenu = () => {
         <h1>KAFEMENY</h1>
       </div>
       <Grid container direction="row">
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>LUNSJ</h2>
-          {lunchItemsData.map((menu, i) => getCafeMenuItem(menu))}
+          {lunchItemsData.map((menu) => getCafeMenuItem(menu))}
         </Grid>
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
           <h2>MIDDAG</h2>
-          {dinnerItemsData.map((menu, i) => getCafeMenuItem(menu))}
+          {dinnerItemsData.map((menu) => getCafeMenuItem(menu))}
         </Grid>
       </Grid>
     </Layout>
