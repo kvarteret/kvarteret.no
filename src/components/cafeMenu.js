@@ -62,6 +62,7 @@ const getCafeMenuItem = (menuItem, i) => {
       md={6}
       lg={6}
       xl={6}
+      style={{padding: 20}}
     >
       <h3>{menuItem.navn}</h3>
       {menuItem.beskrivelse}
@@ -91,7 +92,7 @@ const cafeMenu = () => {
           <h2>LUNSJ</h2>
           {lunchItemsData.map((menu, i) => getCafeMenuItem(menu, i))}
         </Grid>
-        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6} spacing={10}>
           <h2>MIDDAG</h2>
           {dinnerItemsData.map((menu, i) => getCafeMenuItem(menu, i))}
         </Grid>
