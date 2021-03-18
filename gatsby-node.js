@@ -10,7 +10,7 @@ var glob = require( 'glob' )
   , path = require( 'path' );
 
   const generators = [];
-glob.sync( './page_generators/**/*.js' ).forEach( function( file ) {
+glob.sync( './src/page_generators/**/*.js' ).forEach( function( file ) {
   const generator = require( path.resolve( file ) );
   generators.push(generator);
 });
@@ -19,6 +19,10 @@ module.exports.createPages = async({graphql, actions}) => {
     const {createPage} = actions;
   
     await Promise.all(generators.map(async generator => {
-      await generator.generate(createPage, graphql, actions);
+      const newCreatePage = async (data) => {
+        console.log(`Created page ${data.path} with data: `, JSON.stringify(data.context));
+        await createPage(data);
+      };
+      await generator.generate(newCreatePage, graphql, actions);
     }))
 }

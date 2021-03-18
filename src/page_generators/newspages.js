@@ -41,7 +41,6 @@ module.exports.generate = async (createPage, graphql, actions) => {
                 body: translation.description,
             };
 
-            console.log(`Created page ${"/" + languageModifier + "news/" + newsItem.slug} with dataContext`, dataContext);
 
             createPage({
                 path: "/" + languageModifier + "news/" + newsItem.slug,
