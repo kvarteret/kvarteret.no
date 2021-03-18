@@ -24,21 +24,19 @@ module.exports.generate = async (createPage, graphql, actions) => {
       }  
     `);
 
-    const { data: { directus: { items: newsObject } } } = response;
-    await Promise.all(newsObject.news.map(async newsItem => {
-        if (newsItem.status !== "published") return;
+    const { data: { directus: { items: pageObject } } } = response;
+    await Promise.all(pageObject.news.map(async PageItems => {
+        if (PageItems.status !== "published") return;
 
-        newsItem.translations.forEach(translation => {
+        PageItems.translations.forEach(translation => {
             let languageModifier = translation.languages_code.url_code + "/";
 
             const dataContext = {
-                title: translation.title,
-                body: translation.description,
+                body: translation.text,
             };
 
-
             createPage({
-                path: "/" + languageModifier + "news/" + newsItem.slug,
+                path: "/" + languageModifier + "page/" + pageItems.slug,
                 component: path.resolve("./src/pages/page.js"),
                 context: dataContext
             });
