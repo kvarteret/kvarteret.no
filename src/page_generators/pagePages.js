@@ -4,29 +4,24 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
     // Query pages from Directus
     const response = await graphql(`
-    query NewsItems {
+    query PageItems {
         directus {
           items {
-            news {
-              date_created
-              date_updated
+            page {
               id
               slug
               status
               translations {
-                title
-                description
+                text
                 languages_code {
-                  code
-                  name
                   url_code
+                  name
                 }
               }
             }
           }
         }
-      }
-      
+      }  
     `);
 
     const { data: { directus: { items: newsObject } } } = response;
