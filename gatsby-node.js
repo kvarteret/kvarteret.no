@@ -6,77 +6,19 @@
 
 // You can delete this file if you're not using it
 
-const path = require('path');
+var glob = require( 'glob' )
+  , path = require( 'path' );
+
+  const generators = [];
+glob.sync( './page_generators/**/*.js' ).forEach( function( file ) {
+  const generator = require( path.resolve( file ) );
+  generators.push(generator);
+});
 
 module.exports.createPages = async({graphql, actions}) => {
     const {createPage} = actions;
-
-    // Query pages from Directus
-    const response = await graphql(`
-    query NewsItems {
-        directus {
-          items {
-            news {
-              date_created
-              date_updated
-              id
-              slug
-              status
-              translations {
-                title
-                description
-                languages_code {
-                  code
-                  name
-                  url_code
-                }
-              }
-            }
-          }
-        }
-      }
-      
-    `);
-
-    const {data: {directus: {items: newsObject}}} = response;
-    newsObject.news.forEach(newsItem => {
-        if(newsItem.status !== "published") return;
-
-        newsItem.translations.forEach(translation => {
-            let languageModifier = translation.languages_code.url_code + "/";
-
-            const dataContext = {
-                title: translation.title,
-                body: translation.description,
-            };
-
-            console.log(`Created page ${"/" + languageModifier + "news/" + newsItem.slug} with dataContext`, dataContext);
-
-            createPage({
-                path: "/" + languageModifier + "news/" + newsItem.slug,
-                component: path.resolve("./src/templates/page.js"),
-                context: dataContext
-            });
-        })
-    });
-
-    // edges.forEach(({node}) => {
-    //     if(node.status !== `published`) return;
-
-    //     node.translations.forEach((translation) => {
-    //         if(translation.language.toLowerCase() === "no") {
-    //             createPage({
-    //                 path: "/" + node.slug,
-    //                 component: path.resolve('./src/templates/page.jsx'),
-    //                 context: {status: node.status, slug: node.slug, ...translation}
-    //             });
-    //         }
-    //         createPage({
-    //             path: "/" + translation.language +"/" + node.slug,
-    //             component: path.resolve('./src/templates/page.jsx'),
-    //             context: {status: node.status, slug: node.slug, ...translation}
-    //         });
-    //     })
-
-    // });
+  
+    await Promise.all(generators.map(async generator => {
+      await generator.generate(createPage, graphql, actions);
+    }))
 }
