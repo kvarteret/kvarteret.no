@@ -23,7 +23,6 @@ module.exports.generate = async (createPage, graphql, actions) => {
         }
       }  
     `);
-    console.log(JSON.stringify(response))
     const { data: { directus: { items: pageObject } } } = response;
     await Promise.all(pageObject.page.map(async PageItems => {
         if (PageItems.status !== "published") return;
