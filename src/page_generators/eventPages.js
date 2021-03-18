@@ -42,7 +42,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
 
             createPage({
-                path: "/" + languageModifier + "events/" + eventItem.slug,
+                path: "/" + languageModifier + "events/" + eventi.slug,
                 component: path.resolve("./src/pages/event.js"),
                 context: dataContext
             });

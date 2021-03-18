@@ -6,7 +6,8 @@ import NewsSection from './newsSection'
 import OpeningHoursSection from './openingHoursSection'
 import TodaySection from './todaySection'
 
-export default function EventPage() {
+export default function EventPage(props) {
+    console.log(props)
     const useStyles = makeStyles({
         root: {
             marginBottom: 60,
@@ -105,11 +106,12 @@ export default function EventPage() {
                         <Grid container xs={12} direction="column" spacing={1}>
                             <Grid item>
                                 <Typography className={classes.wrapperVert} variant="h3">
-                                    NAVN ARTIST
-                </Typography>
+                                    {props.props.title}
+                                </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="body2">{bodyText}</Typography>
+                                <div dangerouslySetInnerHTML={{ __html: props.props.body }} />
+
                             </Grid>
                         </Grid>
                     </Grid>
