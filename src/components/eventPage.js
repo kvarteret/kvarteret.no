@@ -1,73 +1,71 @@
 import React from 'react'
-import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core';
-import EventSection from './eventSection';
+import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core'
+import EventSection from './eventSection'
 import './mainContent.scss'
-import NewsSection from './newsSection';
-import OpeningHoursSection from './openingHoursSection';
-import TodaySection from './todaySection';
+import NewsSection from './newsSection'
+import OpeningHoursSection from './openingHoursSection'
+import TodaySection from './todaySection'
 
-export default function EventPage({ props }) {
-
+export default function EventPage() {
     const useStyles = makeStyles({
         root: {
-            marginBottom: 60
+            marginBottom: 60,
         },
         img: {
-            filter: "blur(4px)",
-            height: "380px",
-            width: "100%",
-            objectFit: "cover",
-            margin: "-5px -10px"
+            filter: 'blur(4px)',
+            height: '380px',
+            width: '100%',
+            objectFit: 'cover',
+            margin: '-5px -10px',
         },
         content: {
-            margin: "0 3%",
-            marginTop: "20px"
+            margin: '0 3%',
+            marginTop: '20px',
         },
         imgContainer: {
-            position: "relative",
-            overflow: "hidden"
+            position: 'relative',
+            overflow: 'hidden',
         },
         imgText: {
-            position: "absolute",
-            bottom: "30px",
-            left: "3%",
-            color: "white",
+            position: 'absolute',
+            bottom: '30px',
+            left: '3%',
+            color: 'white',
             fontSize: 30,
-            "@media (min-width:600px)": {
+            '@media (min-width:600px)': {
                 fontSize: 50,
             },
-            "@media (min-width:960px)": {
+            '@media (min-width:960px)': {
                 fontSize: 80,
-            }
+            },
         },
         imgTop: {
-            height: "100%",
-            position: "absolute",
+            height: '100%',
+            position: 'absolute',
             left: 0,
             right: 0,
-            margin: "0 auto 0 auto"
+            margin: '0 auto 0 auto',
         },
         wrapperHor: {
-            padding: "0 2vw 0 2vw"
+            padding: '0 2vw 0 2vw',
         },
         wrapperVert: {
-            margin: " 0vh 0 4vh 0 "
+            margin: ' 0vh 0 4vh 0 ',
         },
         infoPadding: {
-            padding: "25px 25px 15px 25px"
-        }
-    });
-    const classes = useStyles();
+            padding: '25px 25px 15px 25px',
+        },
+    })
+    const classes = useStyles()
     const bill = {
         a: 12,
-        b: "helene",
-        c: "huset"
-
+        b: 'helene',
+        c: 'huset',
     }
-    const bodyText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including v"
-    const img = "https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
-
-    console.log(props)
+    const bodyText =
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including v"
+    const img =
+        'https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg'
     return (
         <Grid container direction="column" className={classes.root}>
             <Grid item xs={12} className={classes.imgContainer}>
@@ -75,51 +73,72 @@ export default function EventPage({ props }) {
                 <img className={classes.imgTop} src={img} />
             </Grid>
             <Grid container className={classes.wrapperHor} alignItems="center">
-
-                <Grid container item className={classes.infoPadding} item direction="row" justify="space-evenly" alignItems="center" xs={12}>
-                    <Typography variant="subtitle" > Sted: {props.title}</Typography>
+                <Grid
+                    container
+                    item
+                    className={classes.infoPadding}
+                    item
+                    direction="row"
+                    justify="space-evenly"
+                    alignItems="center"
+                    xs={12}
+                >
+                    <Typography variant="subtitle"> Sted: {bill.c}</Typography>
                     <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
                     <Typography variant="subtitle"> Dato: {bill.a}</Typography>
                     <Typography variant="subtitle"> Tid: {bill.a}</Typography>
                     <Typography variant="subtitle"> Pris: {bill.a}</Typography>
                     <Typography variant="subtitle"> Aldersgrense: {bill.a}</Typography>
                 </Grid>
-                <Grid container xs={12}/* put padding here? */ >
-                    <Grid container item xl={6} lg={6} md={6} sm={12} xs={12} className={classes.wrapperVert} justify="center" direction="column"
-                        alignItems="center">
-                        <Grid container xs={12} alignItems="flex-start" direction="row" >
+                <Grid container xs={12} /* put padding here? */>
+                    <Grid
+                        container
+                        item
+                        xl={6}
+                        lg={6}
+                        md={6}
+                        sm={12}
+                        xs={12}
+                        className={classes.wrapperVert}
+                        direction="column"
+                    >
+                        <Grid container xs={12} direction="column" spacing={1}>
                             <Grid item>
-                                <Typography className={classes.wrapperVert} variant="h3">NAVN ARTIST </Typography>
+                                <Typography className={classes.wrapperVert} variant="h3">
+                                    NAVN ARTIST
+                </Typography>
                             </Grid>
                             <Grid item>
-                                <Typography variant="body2">
-                                    {bodyText}
-                                </Typography>
+                                <Typography variant="body2">{bodyText}</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
 
-                    <Grid container xl={6} lg={6} md={6} sm={12} xs={12} justify="space-evenly" alignContent="center" direction="column"
-                        alignItems="center">
-
-                        <Grid item xs={12} >
+                    <Grid
+                        container
+                        xl={6}
+                        lg={6}
+                        md={6}
+                        sm={12}
+                        xs={12}
+                        direction="column"
+                        alignItems="center"
+                    >
+                        <Grid item xs={12}>
                             <iframe
                                 src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                width="100%"
-                                height="200px"
+                                width="500px"
+                                height="300px"
                             />
-
                         </Grid>
-                        <Grid item xs={12} >
+                        <Grid item xs={12}>
                             <iframe
                                 src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                height="200px"
-                                width="100%"
+                                width="500px"
+                                height="300px"
                             />
                         </Grid>
                     </Grid>
-
-
                 </Grid>
             </Grid>
         </Grid>

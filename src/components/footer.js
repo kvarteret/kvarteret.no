@@ -14,6 +14,7 @@ import { Box, Grid, makeStyles, Typography } from '@material-ui/core'
 const useStyles = makeStyles({
   root: {
     background: `url(\"${BergenImage}\") no-repeat`,
+    backgroundPositionX: "center",
     backgroundColor: "#272727",
     backgroundBlendMode: "color-dodge",
     backgroundSize: "cover",
@@ -34,10 +35,10 @@ const Footer = ({ siteTitle }) => {
   return (
     <Box className={classes.root}>
       <Grid container direction="row-reverse" justify="space-around" alignItems="stretch" spacing={8} className={classes.content}>
-        <Grid item xs={10} md={3} xl={2}>
+        <Grid item xs={12} md={3} xl={2}>
           <Tider/>
         </Grid>
-        <Grid item xs={10} md={5} lg={4} xl={3}>
+        <Grid item xs={12} md={5} lg={4} xl={3}>
           <Kontakt />
         </Grid>
       </Grid>
