@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
  * General component for showing information about a page with it's room
  * @param {Page} props
  */
-const Page = (props) => {
+const Room = (props) => {
   return (
     <Layout spacingTop={true}>
       <Grid container direction="row">
@@ -23,16 +23,24 @@ const Page = (props) => {
             </p>
           </div>
         </Grid>
+        <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+          <PictureDescription
+            floor={props.roomInfo.floor}
+            capacity={props.roomInfo.floor.capacity}
+            bar={props.roomInfo.bar}
+            imgUrl={props.roomInfo.imgUrl}
+          />
+        </Grid>
       </Grid>
     </Layout>
   )
 }
 
-Page.propTypes = {
+Room.propTypes = {
   title: PropTypes.string,
   roomInfo: PropTypes.object,
 }
-Page.defaultProps = {
+Room.defaultProps = {
   title: 'Stjernesalen',
   roomInfo: {
     floor: 12,
@@ -48,4 +56,4 @@ Page.defaultProps = {
  * @prop {Room} roomInfo
  */
 
-export default Page
+export default Room
