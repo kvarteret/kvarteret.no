@@ -6,7 +6,7 @@ import NewsSection from './newsSection';
 import OpeningHoursSection from './openingHoursSection';
 import TodaySection from './todaySection';
 
-export default function EventPage() {
+export default function EventPage({ props }) {
 
     const useStyles = makeStyles({
         root: {
@@ -66,6 +66,8 @@ export default function EventPage() {
     }
     const bodyText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including v"
     const img = "https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
+
+    console.log(props)
     return (
         <Grid container direction="column" className={classes.root}>
             <Grid item xs={12} className={classes.imgContainer}>
@@ -73,9 +75,9 @@ export default function EventPage() {
                 <img className={classes.imgTop} src={img} />
             </Grid>
             <Grid container className={classes.wrapperHor} alignItems="center">
-    
+
                 <Grid container item className={classes.infoPadding} item direction="row" justify="space-evenly" alignItems="center" xs={12}>
-                    <Typography variant="subtitle" > Sted: {bill.c}</Typography>
+                    <Typography variant="subtitle" > Sted: {props.title}</Typography>
                     <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
                     <Typography variant="subtitle"> Dato: {bill.a}</Typography>
                     <Typography variant="subtitle"> Tid: {bill.a}</Typography>
@@ -96,8 +98,8 @@ export default function EventPage() {
                             </Grid>
                         </Grid>
                     </Grid>
-                  
-                    <Grid container xl={6} lg={6} md={6} sm={12} xs={12}  justify="space-evenly" alignContent="center" direction="column"
+
+                    <Grid container xl={6} lg={6} md={6} sm={12} xs={12} justify="space-evenly" alignContent="center" direction="column"
                         alignItems="center">
 
                         <Grid item xs={12} >
