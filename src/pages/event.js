@@ -2,11 +2,11 @@ import React from 'react'
 import EventPage from '../components/eventPage'
 import Layout from '../components/layout';
 
-const Event = (props) => {
-  console.log(props.pathContext)
+const Event = ({ pageContext }) => {
+  console.log(pageContext)
   return (
     <Layout>
-      <EventPage props={props.pathContext} />
+      <EventPage dataContext={pageContext} />
     </Layout>
   )
 }

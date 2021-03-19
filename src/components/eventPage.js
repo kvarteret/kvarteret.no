@@ -6,8 +6,8 @@ import NewsSection from './newsSection'
 import OpeningHoursSection from './openingHoursSection'
 import TodaySection from './todaySection'
 
-export default function EventPage(props) {
-    console.log(props)
+export default function EventPage({ dataContext }) {
+    console.log(dataContext)
     const useStyles = makeStyles({
         root: {
             marginBottom: 60,
@@ -106,11 +106,11 @@ export default function EventPage(props) {
                         <Grid container xs={12} direction="column" spacing={1}>
                             <Grid item>
                                 <Typography className={classes.wrapperVert} variant="h3">
-                                    {props.props.title}
+                                    {dataContext.title}
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <div dangerouslySetInnerHTML={{ __html: props.props.body }} />
+                                <div dangerouslySetInnerHTML={{ __html: dataContext.body }} />
 
                             </Grid>
                         </Grid>
