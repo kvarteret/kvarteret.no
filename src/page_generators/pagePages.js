@@ -23,9 +23,8 @@ module.exports.generate = async (createPage, graphql, actions) => {
         }
       }  
     `);
-
     const { data: { directus: { items: pageObject } } } = response;
-    await Promise.all(pageObject.news.map(async PageItems => {
+    await Promise.all(pageObject.page.map(async PageItems => {
         if (PageItems.status !== "published") return;
 
         PageItems.translations.forEach(translation => {
@@ -36,7 +35,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
             };
 
             createPage({
-                path: "/" + languageModifier + "page/" + pageItems.slug,
+                path: "/" + languageModifier + "page/" + PageItems.slug,
                 component: path.resolve("./src/pages/page.js"),
                 context: dataContext
             });
