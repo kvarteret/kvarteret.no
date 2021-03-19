@@ -32,17 +32,17 @@ const navigationItems = () => (
         Bilder
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
+    <Grid item className={classes.Center}>
       <Link className={classes.Link} to="#">
         Om oss
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
+    <Grid item className={classes.Center}>
       <Link className={classes.Link} to="#">
         Kontakt
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
+    <Grid item className={classes.Center}>
       <Link
         className={classes.Link}
         to="#"
