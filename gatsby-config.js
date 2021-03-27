@@ -48,7 +48,7 @@ module.exports = {
       resolve: `gatsby-source-graphql`,
       options: {
         fieldName: `directus`,
-        url: `https://kvarteret-admin.azurewebsites.net/graphql`,
+        url: `https://cms.kvarteret.no/graphql`,
         typeName: `DirectusCMS`,
 
         // TODO: Fetch from env
