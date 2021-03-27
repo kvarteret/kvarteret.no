@@ -1,12 +1,11 @@
 import React from 'react'
 
 import Layout from '../components/layout'
-import Group from "../components/Groups/Group/Group"
+import Group from '../components/Groups/Group/Group'
 const groupPage = () => {
-
-  return(
-    <Layout>
-      <Group/>
+  return (
+    <Layout spacingTop={true}>
+      <Group />
     </Layout>
   )
 }

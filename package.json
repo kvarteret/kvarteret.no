@@ -26,6 +26,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.1",
+    "react-material-ui-carousel": "^2.2.1",
     "sass": "^1.32.7",
     "typeface-roboto": "0.0.54"
   },
