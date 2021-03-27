@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import LanguageSelector from './languageSelector'
+import Sidedrawer from "./SideDrawer/Sidedrawer"
 
 const useStyles = makeStyles({
   root: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     background: 'rgba(0,0,0,0.6)',
     backdropFilter: 'blur(4px)',
-    zIndex: 9999,
+    zIndex: 1100,
   },
   hamburger: {
     width: 80,
@@ -99,9 +100,7 @@ const Header = ({ siteTitle, open, closed }) => {
               className={classes.hamburger + ' ' + classes.center}
               onClick={open}
             >
-              <Grid container justify="center" alignItems="center">
-                <MenuIcon />
-              </Grid>
+              <Sidedrawer />
             </Grid>
           </Hidden>
           <Divider
@@ -129,11 +128,11 @@ const Header = ({ siteTitle, open, closed }) => {
         </Grid>
       </Grid>
       <Grid item>
-      <Link to="/">
-        <img
-          src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
-          className={classes.logo}
-        ></img>
+        <Link to="/">
+          <img
+            src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
+            className={classes.logo}
+          ></img>
         </Link>
       </Grid>
       <Grid item md={1} lg={5}>

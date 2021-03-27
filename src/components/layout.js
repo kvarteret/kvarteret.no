@@ -57,7 +57,6 @@ const useStyles = makeStyles({
 })
 
 const Layout = ({ children, spacingTop }) => {
-  const [isOpen, setDrawerState] = useState(false)
 
   let spacing = {}
   if (spacingTop) spacing = { paddingTop: 80 }
@@ -76,23 +75,11 @@ const Layout = ({ children, spacingTop }) => {
       `}
       render={(data) => (
         <LanguageContext.Provider value={'no'}>
-          <Sidedrawer
-            open={isOpen}
-            closed={() => {
-              setDrawerState(false)
-            }}
-          />
           <ThemeProvider theme={theme}>
             <Grid container direction="column" className={classes.root}>
               <Grid item>
                 <Header
                   siteTitle={data.site.siteMetadata.title}
-                  open={() => {
-                    setDrawerState(true)
-                  }}
-                  closed={() => {
-                    setDrawerState(false)
-                  }}
                 />
               </Grid>
               <Grid item className={classes.body}>

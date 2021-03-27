@@ -2,7 +2,6 @@ import React from 'react'
 import {
   Center,
   Link as LinkCss,
-  Other,
   becomeVolunteer,
 } from './NavigationItems.module.css'
 import { Link } from 'gatsby'
@@ -37,17 +36,17 @@ const navigationItems = () => (
         Bilder
       </Link>
     </Grid>
-    <Grid item className={Other}>
+    <Grid item className={Center}>
       <Link className={LinkCss} to="#">
         Om oss
       </Link>
     </Grid>
-    <Grid item className={Other}>
+    <Grid item className={Center}>
       <Link className={LinkCss} to="#">
         Kontakt
       </Link>
     </Grid>
-    <Grid item className={Other}>
+    <Grid item className={Center}>
       <Link
         className={LinkCss}
         to="#"
