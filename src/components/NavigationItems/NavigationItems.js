@@ -1,52 +1,57 @@
 import React from 'react'
-import classes from './NavigationItems.module.css'
+import {
+  Center,
+  Link as LinkCss,
+  Other,
+  becomeVolunteer,
+} from './NavigationItems.module.css'
 import { Link } from 'gatsby'
 import { Grid } from '@material-ui/core'
 
 const navigationItems = () => (
   <div>
-    <Grid item className={classes.Center}>
+    <Grid item className={Center}>
       {' '}
       <Link to="#" className="active">
         {' '}
         Aktuelt
       </Link>{' '}
     </Grid>
-    <Grid item className={classes.Center}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Center}>
+      <Link className={LinkCss} to="#">
         Kafèmeny
       </Link>
     </Grid>
-    <Grid item className={classes.Center}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Center}>
+      <Link className={LinkCss} to="#">
         Butikk
       </Link>
     </Grid>
-    <Grid item className={classes.Center}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Center}>
+      <Link className={LinkCss} to="#">
         Rombooking
       </Link>{' '}
     </Grid>
-    <Grid item className={classes.Center}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Center}>
+      <Link className={LinkCss} to="#">
         Bilder
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Other}>
+      <Link className={LinkCss} to="#">
         Om oss
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
-      <Link className={classes.Link} to="#">
+    <Grid item className={Other}>
+      <Link className={LinkCss} to="#">
         Kontakt
       </Link>
     </Grid>
-    <Grid item className={classes.Other}>
+    <Grid item className={Other}>
       <Link
-        className={classes.Link}
+        className={LinkCss}
         to="#"
-        className={classes.becomeVolunteer}
+        className={becomeVolunteer}
         component="button"
       >
         Bli frivillig

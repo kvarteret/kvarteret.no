@@ -1,10 +1,5 @@
 import React from 'react'
 import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core'
-import EventSection from './eventSection'
-import './mainContent.scss'
-import NewsSection from './newsSection'
-import OpeningHoursSection from './openingHoursSection'
-import TodaySection from './todaySection'
 
 export default function EventPage() {
   const useStyles = makeStyles({

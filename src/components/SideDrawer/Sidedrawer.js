@@ -1,7 +1,14 @@
 import React from 'react'
 import Backdrop from '../Backdrop/Backdrop'
 import NavigationItems from '../../components/NavigationItems/NavigationItems'
-import classes from './Sidedrawer.module.css'
+import {
+  SideDrawer,
+  NavOpen,
+  NavClosed,
+  ImageContainer,
+  SearchContainer,
+  Search,
+} from './Sidedrawer.module.css'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 import {
   Box,
@@ -13,8 +20,8 @@ import {
 } from '@material-ui/core'
 
 const sideDrawer = (props) => {
-  let attachedClasses = [classes.SideDrawer, classes.NavOpen]
-  const openClass = props.open ? classes.NavOpen : classes.NavClosed
+  let attachedClasses = [SideDrawer, NavOpen]
+  const openClass = props.open ? NavOpen : NavClosed
   return (
     <div className={openClass}>
       <Backdrop show={props.open} clicked={props.closed} />
@@ -23,7 +30,7 @@ const sideDrawer = (props) => {
           container
           direction="row"
           alignItems="center"
-          className={classes.ImageContainer}
+          className={ImageContainer}
         >
           <Grid item xs={2}>
             <ArrowBackIcon style={{ height: '40px' }} fontSize="large" />
@@ -35,8 +42,8 @@ const sideDrawer = (props) => {
             ></img>
           </Grid>
         </Grid>
-        <div className={classes.SearchContainer}>
-          <input placeholder="Søk" className={classes.Search}></input>
+        <div className={SearchContainer}>
+          <input placeholder="Søk" className={Search}></input>
         </div>
         <Grid container direction="column" style={{ height: '100%' }}>
           <nav>

@@ -8,7 +8,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { StaticQuery, graphql } from 'gatsby'
-import q from 'qjuul'
 
 import Header from './header'
 import Footer from './footer'

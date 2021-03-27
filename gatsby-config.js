@@ -55,7 +55,6 @@ module.exports = {
         headers: {
           Authorization: `Bearer ThisIsTestToken`,
         },
-        
       },
     },
   ],
