@@ -8,10 +8,10 @@ a {
   transition: 0.2s;
 }
 
-.active {
+/* .active {
   color: #f54b4b;
   font-weight: bold;
-}
+} */
 
 html,
 body {

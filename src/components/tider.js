@@ -10,24 +10,10 @@ import moment from 'moment'
 
 const useStyles = makeStyles({
   title: {
-    color: 'white',
+    marginBottom: 8,
   },
   divider: {
-    backgroundColor: '#707070',
-    height: 1,
-    marginBottom: 11,
-    marginTop: 10,
-  },
-  textTitle: {
-    fontSize: 12,
-    marginTop: 4,
-    color: 'white',
-  },
-  text: {
-    fontSize: 12,
-    marginTop: 4,
-    color: '#929292',
-    textTransform: 'uppercase',
+    marginBottom: 8,
   },
 })
 
@@ -79,12 +65,16 @@ const RoomTime = ({ classes, time }) => {
       alignItems="center"
     >
       <Grid item>
-        <Typography variant="h6" className={classes.text}>
+        <Typography variant="h6" color="textSecondary" className={classes.text}>
           {time.roomName}
         </Typography>
       </Grid>
       <Grid item>
-        <Typography variant="h6" className={classes.textTitle}>
+        <Typography
+          variant="h6"
+          color="textPrimary"
+          className={classes.textTitle}
+        >
           {timeStr}
         </Typography>
       </Grid>
@@ -92,7 +82,7 @@ const RoomTime = ({ classes, time }) => {
   )
 }
 
-const Tider = ({ siteTitle }) => {
+const Tider = ({ siteTitle, isFooter }) => {
   const classes = useStyles()
 
   const data = useStaticQuery(graphql`
@@ -122,10 +112,10 @@ const Tider = ({ siteTitle }) => {
   ))
   return (
     <Box>
-      <Typography variant="h2" className={classes.title}>
+      <Typography color="primary" variant="h3" className={classes.title}>
         ÅPNINGSTIDER
       </Typography>
-      <Divider className={classes.divider}></Divider>
+      {isFooter && <Divider className={classes.divider}></Divider>}
       <Grid container direction="column">
         {dateComponents}
       </Grid>

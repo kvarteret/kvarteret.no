@@ -6,21 +6,28 @@ import './header.scss'
 import SearchIcon from '@material-ui/icons/Search'
 import {
   Box,
+  Button,
   Divider,
   Grid,
   Hidden,
   makeStyles,
+  Menu,
+  MenuItem,
   Typography,
 } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import LanguageSelector from './languageSelector'
-import Sidedrawer from "./SideDrawer/Sidedrawer"
+import Sidedrawer from './SideDrawer/Sidedrawer'
+import { GetLeftNavItems } from '../helpers/navHelper'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import { ExpandLess } from '@material-ui/icons'
+import NestedMenuItem from 'material-ui-nested-menu-item'
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
     padding: 10,
-    boxShadow: '0px 2px 2px rgba(0,0,0,0.16)',
+    boxShadow: '0px 4px 4px rgba(0,0,0,0.4)',
     height: 80,
     position: 'fixed',
     background: 'rgba(0,0,0,0.6)',
@@ -75,9 +82,109 @@ const useStyles = makeStyles({
   },
 })
 
+const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
+  if (item.items) {
+    const menuItems = item.items.map((child, id) => (
+      <NavMenuItem
+        item={child}
+        key={item.text + id}
+        onClick={onClick}
+        parentMenuOpen={parentMenuOpen}
+        handleClose={handleClose}
+      ></NavMenuItem>
+    ))
+    return (
+      <NestedMenuItem
+        label={item.text}
+        parentMenuOpen={parentMenuOpen}
+        onClick={handleClose}
+        className="menu-item"
+      >
+        {menuItems}
+      </NestedMenuItem>
+    )
+  }
+  return (
+    <MenuItem onClick={handleClose}>
+      <NavItem item={item}></NavItem>
+    </MenuItem>
+  )
+}
+
+const NavItem = ({ item }) => {
+  // TODO: Dropdown menu
+  console.log('ITEM', item)
+  const text = item.text
+
+  if (item.items) {
+    const [anchorEl, setAnchorEl] = React.useState(null)
+
+    const handleClick = (event) => {
+      console.log('Click', event)
+      setAnchorEl(event.currentTarget)
+    }
+
+    const handleClose = () => {
+      setAnchorEl(null)
+    }
+
+    const menuItems = item.items.map((child, id) => (
+      <NavMenuItem
+        onClick={handleClick}
+        handleClose={handleClose}
+        parentMenuOpen={!!anchorEl}
+        item={child}
+        key={item.text + id}
+      ></NavMenuItem>
+    ))
+    return (
+      <div>
+        <a onClick={handleClick} id={text} className="menu-item">
+          {text}{' '}
+          {(anchorEl && <ExpandLess className="float-right" />) || (
+            <ExpandMoreIcon className="float-right" />
+          )}
+        </a>
+
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          disableScrollLock
+          getContentAnchorEl={null}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          variant="menu"
+          className={'navbar-menu'}
+        >
+          {menuItems}
+        </Menu>
+      </div>
+    )
+  }
+
+  const link = item.url
+  // const link = '/en/page/vaktetaten'
+  // TODO: Check if internal elemet
+  return (
+    <Link to={link} className="menu-item">
+      {text}
+    </Link>
+  )
+}
+
 //TODO: gi a element padding sånn at de ser fine ut
 const Header = ({ siteTitle, open, closed }) => {
   const classes = useStyles()
+
+  const navItems = GetLeftNavItems()
+  const leftNav = navItems.map((item, id) => (
+    <Grid item className={classes.center}>
+      <NavItem item={item} key={id}></NavItem>
+    </Grid>
+  ))
   return (
     <Grid
       container
@@ -86,7 +193,34 @@ const Header = ({ siteTitle, open, closed }) => {
       justify="space-between"
       alignItems="center"
     >
-      <Grid item md={1} lg={5}>
+      <Grid
+        item
+        xs={4}
+        lg={1}
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        spacing={4}
+      >
+        <Hidden lgUp={true}>
+          <Grid
+            item
+            className={classes.hamburger + ' ' + classes.center}
+            onClick={open}
+          >
+            <Sidedrawer />
+          </Grid>
+          <Divider
+            variant="fullWidth"
+            className={classes.divider}
+            orientation="vertical"
+            flexItem
+          />
+        </Hidden>
+      </Grid>
+
+      <Grid item xs={1} lg={4}>
         <Grid
           container
           direction="row"
@@ -94,40 +228,18 @@ const Header = ({ siteTitle, open, closed }) => {
           alignItems="stretch"
           spacing={4}
         >
-          <Hidden lgUp={true}>
-            <Grid
-              item
-              className={classes.hamburger + ' ' + classes.center}
-              onClick={open}
-            >
-              <Sidedrawer />
-            </Grid>
-          </Hidden>
-          <Divider
-            variant="fullWidth"
-            className={classes.divider}
-            orientation="vertical"
-            flexItem
-          />
-          <Hidden mdDown={true}>
-            <Grid item className={classes.center}>
-              <Link to="#" className="active">
-                Aktuelt
-              </Link>
-            </Grid>
-            <Grid item className={classes.center}>
-              <Link to="/cafe_page">Kafèmeny</Link>
-            </Grid>
-            <Grid item className={classes.center}>
-              <Link to="https://butikk.kvarteret.no/">Butikk</Link>
-            </Grid>
-            <Grid item className={classes.center}>
-              <Link to="#">Rombooking</Link>
-            </Grid>
-          </Hidden>
+          <Hidden mdDown={true}>{leftNav}</Hidden>
         </Grid>
       </Grid>
-      <Grid item>
+      <Grid
+        item
+        xs={2}
+        lg={2}
+        container
+        direction="row"
+        justify="center"
+        alignItems="stretch"
+      >
         <Link to="/">
           <img
             src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
@@ -135,7 +247,7 @@ const Header = ({ siteTitle, open, closed }) => {
           ></img>
         </Link>
       </Grid>
-      <Grid item md={1} lg={5}>
+      <Grid item xs={1} lg={4}>
         <Grid
           container
           direction="row"
@@ -163,14 +275,21 @@ const Header = ({ siteTitle, open, closed }) => {
               </Link>
             </Grid>
           </Hidden>
-          <Divider
-            className={classes.divider2}
-            orientation="vertical"
-            flexItem
-          />
-          <Grid item className={classes.hamburger}>
-            <LanguageSelector />
-          </Grid>
+        </Grid>
+      </Grid>
+      <Grid
+        item
+        xs={4}
+        lg={1}
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        spacing={4}
+      >
+        <Divider className={classes.divider2} orientation="vertical" flexItem />
+        <Grid item className={classes.hamburger}>
+          <LanguageSelector />
         </Grid>
       </Grid>
     </Grid>

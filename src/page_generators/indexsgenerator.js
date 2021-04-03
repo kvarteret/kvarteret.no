@@ -4,10 +4,12 @@ module.exports.generate = async (createPage, graphql, actions) => {
   createPage({
     path: '/no',
     component: path.resolve('./src/pages/index.js'),
+    context: {},
   })
 
   createPage({
     path: '/en',
     component: path.resolve('./src/pages/index.js'),
+    context: {},
   })
 }

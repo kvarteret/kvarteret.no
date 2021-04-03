@@ -17,6 +17,7 @@ import OpeningHoursSection from './openingHoursSection'
 import TodaySection from './todaySection'
 import EventPage from './eventPage'
 import './mainContent.scss'
+import Tider from './tider'
 
 const useStyles = makeStyles({
   root: {
@@ -74,7 +75,7 @@ const MainContent = ({ content }) => {
                   <TodaySection />
                 </Grid>
                 <Grid item xs={12} md={12} lg={4}>
-                  <OpeningHoursSection />
+                  <Tider />
                 </Grid>
                 <Grid item xs={12}>
                   <EventSection />

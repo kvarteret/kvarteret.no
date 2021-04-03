@@ -40,7 +40,7 @@ const Footer = ({ siteTitle }) => {
         className={classes.content}
       >
         <Grid item xs={12} md={3} xl={2}>
-          <Tider />
+          <Tider isFooter={true} />
         </Grid>
         <Grid item xs={12} md={5} lg={4} xl={3}>
           <Kontakt />

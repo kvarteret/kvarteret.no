@@ -12,6 +12,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
             status
             translations {
               text
+              snippets
               languages_code {
                 url_code
                 name
@@ -39,20 +40,23 @@ module.exports.generate = async (createPage, graphql, actions) => {
     pageObject.page.map(async (PageItems) => {
       if (PageItems.status !== 'published') return
 
-      PageItems.translations.forEach((translation) => {
-        let languageModifier = translation.languages_code.url_code + '/'
+      return Promise.all(
+        PageItems.translations.map(async (translation) => {
+          let languageModifier = translation.languages_code.url_code + '/'
 
-        const dataContext = {
-          body: translation.text,
-          gallery: PageItems.gallery,
-        }
+          const dataContext = {
+            body: translation.text,
+            gallery: PageItems.gallery,
+            snippets: translation.snippets,
+          }
 
-        createPage({
-          path: '/' + languageModifier + 'page/' + PageItems.slug,
-          component: path.resolve('./src/pages/page.js'),
-          context: dataContext,
+          createPage({
+            path: '/' + languageModifier + 'page/' + PageItems.slug,
+            component: path.resolve('./src/pages/page.js'),
+            context: dataContext,
+          })
         })
-      })
+      )
     })
   )
 }

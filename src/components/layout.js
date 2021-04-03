@@ -16,48 +16,21 @@ import './layout.css'
 import { createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import Sidedrawer from '../components/SideDrawer/Sidedrawer'
 import LanguageContext from '../providers/languageProvider'
-
-const theme = createMuiTheme({
-  typography: {
-    fontFamily: 'Hegval Display',
-    fontSize: 12,
-    h1: {
-      fontSize: 60,
-    },
-    h2: {
-      fontSize: 26,
-    },
-  },
-  link: {
-    '&:hover': {
-      color: '#F54B4B;',
-    },
-  },
-  palette: {
-    primary: { main: '#F54B4B' },
-  },
-})
+import { darkTheme, lightTheme } from '../themes/kvarteretTheme'
 
 const useStyles = makeStyles({
   root: {
     minHeight: '100vh',
     position: 'relative',
   },
-  body: {
-    paddingBottom: '387px',
-  },
+  body: {},
   footer: {
-    position: 'absolute',
-    bottom: 0,
     width: '100%',
-    height: '387px',
   },
 })
 
 const Layout = ({ children, spacingTop }) => {
-
   let spacing = {}
   if (spacingTop) spacing = { paddingTop: 80 }
 
@@ -75,18 +48,18 @@ const Layout = ({ children, spacingTop }) => {
       `}
       render={(data) => (
         <LanguageContext.Provider value={'no'}>
-          <ThemeProvider theme={theme}>
+          <ThemeProvider theme={lightTheme}>
             <Grid container direction="column" className={classes.root}>
               <Grid item>
-                <Header
-                  siteTitle={data.site.siteMetadata.title}
-                />
+                <Header siteTitle={data.site.siteMetadata.title} />
               </Grid>
-              <Grid item className={classes.body}>
+              <Grid item className={classes.body} xs>
                 <main style={spacing}>{children}</main>
               </Grid>
               <Grid item className={classes.footer}>
-                <Footer siteTitle={data.site.siteMetadata.title} />
+                <ThemeProvider theme={darkTheme}>
+                  <Footer siteTitle={data.site.siteMetadata.title} />
+                </ThemeProvider>
               </Grid>
             </Grid>
           </ThemeProvider>
