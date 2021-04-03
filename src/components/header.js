@@ -23,6 +23,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { ExpandLess } from '@material-ui/icons'
 import NestedMenuItem from 'material-ui-nested-menu-item'
 
+import HovedLogo from '../images/Kvarteret hovedlogo.svg'
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -217,6 +219,17 @@ const Header = ({ siteTitle, open, closed }) => {
             orientation="vertical"
             flexItem
           />
+        </Hidden>
+        <Hidden mdDown>
+          <Link to="/" style={{ width: '100%' }}>
+            <Grid container alignItems="center" justify="center">
+              <img
+                src={HovedLogo}
+                width="80%"
+                style={{ maxHeight: '60px' }}
+              ></img>
+            </Grid>
+          </Link>
         </Hidden>
       </Grid>
 

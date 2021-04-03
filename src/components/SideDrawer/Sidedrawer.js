@@ -9,6 +9,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import NavigationItems from '../NavigationItems/NavigationItems'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
+import HovedLogo from '../../images/Kvarteret hovedlogo.svg'
+
 import {
   Box,
   Divider,
@@ -17,6 +19,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core'
+import { Link } from 'gatsby'
 
 const useStyles = makeStyles({
   list: {
@@ -98,10 +101,9 @@ export default function sideDrawer() {
           <ArrowBackIcon style={{ height: '40px' }} fontSize="large" />
         </Grid>
         <Grid item xs={8}>
-          <img
-            style={{ height: '50px' }}
-            src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
-          ></img>
+          <Link to="/">
+            <img src={HovedLogo} width="80%"></img>
+          </Link>
         </Grid>
       </Grid>
       <div className={classes.SearchContainer}>
