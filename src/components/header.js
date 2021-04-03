@@ -18,17 +18,16 @@ import {
 import MenuIcon from '@material-ui/icons/Menu'
 import LanguageSelector from './languageSelector'
 import Sidedrawer from './SideDrawer/Sidedrawer'
-import { GetLeftNavItems } from '../helpers/navHelper'
+import { GetNavItems } from '../helpers/navHelper'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { ExpandLess } from '@material-ui/icons'
 import NestedMenuItem from 'material-ui-nested-menu-item'
 
-import HovedLogo from '../images/Kvarteret hovedlogo.svg'
+import HovedLogo from '../images/Hoved logo.png'
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    padding: 10,
     boxShadow: '0px 4px 4px rgba(0,0,0,0.4)',
     height: 80,
     position: 'fixed',
@@ -181,10 +180,16 @@ const NavItem = ({ item }) => {
 const Header = ({ siteTitle, open, closed }) => {
   const classes = useStyles()
 
-  const navItems = GetLeftNavItems()
-  const leftNav = navItems.map((item, id) => (
-    <Grid item className={classes.center}>
-      <NavItem item={item} key={id}></NavItem>
+  const navItems = GetNavItems()
+  const leftNav = navItems.leftNavItems.map((item, id) => (
+    <Grid item className={classes.center} key={'left' + id}>
+      <NavItem item={item}></NavItem>
+    </Grid>
+  ))
+
+  const rightNav = navItems.rightNavItems.map((item, id) => (
+    <Grid item className={classes.center} key={'right' + id}>
+      <NavItem item={item}></NavItem>
     </Grid>
   ))
   return (
@@ -203,7 +208,6 @@ const Header = ({ siteTitle, open, closed }) => {
         direction="row"
         justify="flex-start"
         alignItems="center"
-        spacing={4}
       >
         <Hidden lgUp={true}>
           <Grid
@@ -221,28 +225,25 @@ const Header = ({ siteTitle, open, closed }) => {
           />
         </Hidden>
         <Hidden mdDown>
-          <Link to="/" style={{ width: '100%' }}>
+          <Link to="/">
             <Grid container alignItems="center" justify="center">
-              <img
-                src={HovedLogo}
-                width="80%"
-                style={{ maxHeight: '60px' }}
-              ></img>
+              <img src={HovedLogo} height="80px"></img>
             </Grid>
           </Link>
         </Hidden>
       </Grid>
 
-      <Grid item xs={1} lg={4}>
-        <Grid
-          container
-          direction="row"
-          justify="flex-start"
-          alignItems="stretch"
-          spacing={4}
-        >
-          <Hidden mdDown={true}>{leftNav}</Hidden>
-        </Grid>
+      <Grid
+        item
+        xs={1}
+        lg={4}
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        spacing={4}
+      >
+        <Hidden mdDown={true}>{leftNav}</Hidden>
       </Grid>
       <Grid
         item
@@ -260,35 +261,27 @@ const Header = ({ siteTitle, open, closed }) => {
           ></img>
         </Link>
       </Grid>
-      <Grid item xs={1} lg={4}>
-        <Grid
-          container
-          direction="row"
-          justify="flex-end"
-          alignItems="center"
-          spacing={4}
-        >
-          <Hidden mdDown={true}>
-            <Grid item>
-              <Link to="https://bilder.kvarteret.no/">Bilder</Link>
-            </Grid>
-            <Grid item>
-              <Link to="/about">Om oss</Link>
-            </Grid>
-            <Grid item>
-              <Link to="#">Kontakt</Link>
-            </Grid>
-            <Grid item>
-              <Link
-                to="https://blifrivillig.no/"
-                className={classes.becomeVolunteer}
-                component="button"
-              >
-                Bli frivillig
-              </Link>
-            </Grid>
-          </Hidden>
-        </Grid>
+      <Grid
+        item
+        xs={1}
+        lg={4}
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+        spacing={4}
+      >
+        <Hidden mdDown={true}>
+          {rightNav}
+          <Grid item>
+            <a
+              href="https://blifrivillig.no/"
+              className={classes.becomeVolunteer}
+            >
+              Bli frivillig!
+            </a>
+          </Grid>
+        </Hidden>
       </Grid>
       <Grid
         item
@@ -298,7 +291,6 @@ const Header = ({ siteTitle, open, closed }) => {
         direction="row"
         justify="flex-end"
         alignItems="center"
-        spacing={4}
       >
         <Divider className={classes.divider2} orientation="vertical" flexItem />
         <Grid item className={classes.hamburger}>

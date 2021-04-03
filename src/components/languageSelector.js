@@ -15,7 +15,7 @@ const useStyles = makeStyles({
 })
 
 function isNorwegian(pathName) {
-  return pathName.startsWith('/no')
+  return !pathName || pathName.startsWith('/no')
 }
 
 function getUrl(lang, pathName) {

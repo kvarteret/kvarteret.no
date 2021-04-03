@@ -1,13 +1,18 @@
 @font-face {
-  font-family: 'Hegval Display';
-  src: url('https://kvarteret.no/wp-content/uploads/dak-font/The%20Northern%20Block%20Ltd%20-%20Hegval%20Display%20Light.otf')
+  font-family: 'Hegval-medium';
+  src: url('../fonts/The Northern Block Ltd - Hegval Display Medium.otf')
     format('opentype');
 }
-
 @font-face {
-  font-family: 'Hegval Display';
+  font-family: 'Hegval-light';
+  font-weight: lighter;
+  src: url('../fonts/The Northern Block Ltd - Hegval Display Light.otf')
+    format('opentype');
+}
+@font-face {
+  font-family: 'Hegval-regular';
   font-weight: bold;
-  src: url('https://kvarteret.no/wp-content/uploads/dak-font/The%20Northern%20Block%20Ltd%20-%20Hegval%20Display%20Regular.otf')
+  src: url('../fonts/The Northern Block Ltd - Hegval Display Regular.otf')
     format('opentype');
 }
 

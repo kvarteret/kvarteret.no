@@ -1,19 +1,3 @@
-@font-face {
-  font-family: 'Hegval-medium';
-  src: url('../fonts/The Northern Block Ltd - Hegval Display Medium.otf')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-light';
-  src: url('../fonts/The Northern Block Ltd - Hegval Display Light.otf')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-regular';
-  src: url('../fonts/The Northern Block Ltd - Hegval Display Regular.otf')
-    format('opentype');
-}
-
 #header_aapning {
   color: white;
 }
@@ -47,7 +31,7 @@ strong {
 
   text-transform: capitalize;
   color: white;
-  font-family: Hegval-regular;
+  font-family: 'Hegval Display';
   font-weight: lighter;
   padding-bottom: 5px;
 }
@@ -57,14 +41,15 @@ strong {
 
   text-transform: capitalize;
   color: white;
-  font-family: Hegval-light;
+  font-family: 'Hegval Display';
+  font-weight: lighter;
 }
 
 #header_content {
   letter-spacing: 2px;
 
   color: #a9a8a8;
-  font-family: Hegval-light;
+  font-family: 'Hegval Display';
   font-weight: lighter;
   text-transform: uppercase;
 }

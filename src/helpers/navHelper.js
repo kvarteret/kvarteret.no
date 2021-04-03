@@ -44,6 +44,42 @@ const getData = () => {
                 }
               }
             }
+            right_navigation {
+              collection
+              id
+              item {
+                ... on DirectusCMS_page {
+                  id
+                  status
+                  slug
+                }
+                ... on DirectusCMS_news {
+                  id
+                  status
+                  slug
+                }
+                ... on DirectusCMS_navigation_item {
+                  id
+                  status
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
+                }
+                ... on DirectusCMS_link {
+                  id
+                  status
+                  url
+                }
+                ... on DirectusCMS_events {
+                  id
+                  status
+                  slug
+                }
+              }
+            }
           }
           navigation_item {
             status
@@ -106,14 +142,14 @@ const getNavItemsDict = (allNavItems) => {
   return dict
 }
 
-const GetLeftNavItems = () => {
+const GetNavItems = () => {
   const data = getData()
   const leftNav = data.directus.items.general_information.left_navigation
+  const rightNav = data.directus.items.general_information.right_navigation
   const navItemsDict = getNavItemsDict(data.directus.items)
-  console.log('LEFTNAV', leftNav, 'DICT', navItemsDict)
-  const items = getNavItems(leftNav, navItemsDict)
-  console.log('FINAL', items)
-  return items
+  const leftNavItems = getNavItems(leftNav, navItemsDict)
+  const rightNavItems = getNavItems(rightNav, navItemsDict)
+  return { leftNavItems, rightNavItems }
 }
 
 const NavigationItemHander = (item, navItemsDict, depth) => {
@@ -175,4 +211,4 @@ const getNavItems = (data, navItemsDict) => {
     .filter(Boolean)
 }
 
-export { GetLeftNavItems }
+export { GetNavItems }
