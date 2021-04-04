@@ -22,6 +22,9 @@ import './mainContent.scss'
 import Tider from './tider'
 import DAKCarousel from './dakCarousel'
 import FastAverageColor from 'fast-average-color'
+import { getFullImageUrl } from '../helpers/fileHelper'
+import { graphql, useStaticQuery } from 'gatsby'
+import { getTranslation } from '../helpers/languageHelper'
 
 const useStyles = makeStyles({
   root: {
@@ -80,34 +83,61 @@ const CarouselItem = ({ item }) => {
 
   return (
     <Box className={classes.carousel}>
-      <img className={classes.img} src={item.img} />
-      <Typography variant="h1" className={textClasses} style={{ color }}>
-        {item.text}
-      </Typography>
+      <img crossorigin="anonymous" className={classes.img} src={item.img} />
+      {item.text && (
+        <Typography variant="h1" className={textClasses} style={{ color }}>
+          {item.text}
+        </Typography>
+      )}
     </Box>
   )
 }
 
+const sanitizeData = (data) =>
+  data.directus.items.general_information.carousel_items.map((item) => ({
+    img: getFullImageUrl(item.image.id),
+    text: getTranslation(item.translations)?.title,
+  }))
+
 const MainContent = ({ content }) => {
   const classes = useStyles()
+
+  const data = sanitizeData(
+    useStaticQuery(graphql`
+      query CarouselData {
+        directus {
+          items {
+            general_information {
+              carousel_items {
+                image {
+                  id
+                }
+                translations {
+                  title
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `)
+  )
+  if (data.length == 0) {
+    data.push({
+      img: getFullImageUrl('7ddddb91-846a-4da9-b4fd-c2d0a5ba9cd2'),
+    })
+  }
+
   return (
     <div>
       <Grid container direction="column" className={classes.root}>
         <Grid item xs={12} className={classes.imgContainer}>
           <DAKCarousel
             animationSpeed={1000}
-            items={[
-              {
-                img:
-                  'https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg',
-                text: 'Minner fra Datarock',
-              },
-              {
-                img:
-                  'https://kvarteret.no/wp-content/uploads/2021/02/Upop7-2.jpg',
-                text: 'Fremtidens sykdommer',
-              },
-            ]}
+            items={data}
             template={CarouselItem}
           ></DAKCarousel>
         </Grid>
@@ -137,30 +167,3 @@ const MainContent = ({ content }) => {
 }
 
 export default MainContent
-/* 
-<Grid container direction="column" className={classes.root}>
-            <Grid item xs={12} className={classes.imgContainer}>
-                <img className={classes.img} src="https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"/>
-                <Typography variant="h1" className={classes.imgText}>Minner fra Datarock</Typography>
-            </Grid>
-            <Grid item className={classes.content}>
-                <Grid container spacing={4}>
-                    <Grid item sm={12} md={6} lg={8} xl={9}>
-                        <Grid container spacing={4}>
-                            <Grid item xs={12} md={12} lg={8}>
-                                <TodaySection/>
-                            </Grid>
-                            <Grid item xs={12} md= {12} lg={4}>
-                                <OpeningHoursSection/>
-                            </Grid>
-                            <Grid item xs={12}>
-                                <EventSection/>
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item sm={12} md={6} lg={4} xl={3}>
-                        <NewsSection/>
-                    </Grid>            
-                </Grid>
-            </Grid>
-        </Grid> */
