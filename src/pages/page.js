@@ -20,6 +20,11 @@ const Snippets = ({ items }) => {
   return <div>{snippets}</div>
 }
 
+const sanitizeGalleryData = (data) =>
+  data.map((item) => ({
+    img: 'https://cms.kvarteret.no/assets/' + item.directus_files_id.id,
+  }))
+
 /**
  * General component for showing information about a page
  * @param {Page} pageContext
@@ -35,14 +40,24 @@ const Page = ({ pageContext }) => {
   const spacingTop =
     pageContext.gallery.length == 0 || useMediaQuery(theme.breakpoints.up('md'))
 
+  const galleryData = sanitizeGalleryData(pageContext.gallery)
+
   return (
     <Layout spacingTop={spacingTop}>
       <Box>
         <Grid container direction="row-reverse">
           <Grid item xs={12} md={6}>
             {pageContext.gallery.length > 0 && (
-              <Box p={{ xs: 0, md: 4 }} pr={{ xs: 0, md: 4, lg: 8 }}>
-                <DAKCarousel items={pageContext.gallery}></DAKCarousel>
+              <Box
+                p={{ xs: 0, md: 4 }}
+                pr={{ xs: 0, md: 4, lg: 8 }}
+                mb={{ xs: 4, md: 4 }}
+              >
+                <DAKCarousel
+                  dots={true}
+                  arrows={spacingTop}
+                  items={galleryData}
+                ></DAKCarousel>
               </Box>
             )}
             <Hidden smDown>{snippets}</Hidden>

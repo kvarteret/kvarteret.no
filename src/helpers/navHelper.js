@@ -1,6 +1,10 @@
 import { graphql, useStaticQuery } from 'gatsby'
+import { UrlLanguageCode, getTranslation } from './languageHelper'
 
 const UnpackDirectus = (data) => data.directus.items
+
+const MANY_ANY_NAV = `
+`
 
 const getData = () => {
   const data = useStaticQuery(graphql`
@@ -16,6 +20,12 @@ const getData = () => {
                   id
                   status
                   slug
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_news {
                   id
@@ -36,6 +46,14 @@ const getData = () => {
                   id
                   status
                   url
+
+                  button
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_events {
                   id
@@ -52,6 +70,12 @@ const getData = () => {
                   id
                   status
                   slug
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_news {
                   id
@@ -72,6 +96,13 @@ const getData = () => {
                   id
                   status
                   url
+                  button
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_events {
                   id
@@ -93,6 +124,12 @@ const getData = () => {
                   id
                   status
                   slug
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_room {
                   id
@@ -110,12 +147,23 @@ const getData = () => {
                   status
                   translations {
                     name
+                    languages_code {
+                      url_code
+                    }
                   }
                 }
                 ... on DirectusCMS_link {
                   id
                   status
                   url
+
+                  button
+                  translations {
+                    name
+                    languages_code {
+                      url_code
+                    }
+                  }
                 }
                 ... on DirectusCMS_events {
                   id
@@ -157,8 +205,12 @@ const NavigationItemHander = (item, navItemsDict, depth) => {
   if (depth > 5) return null
   const id = item.id
   var destinations = navItemsDict[id]
+
+  const translation = getTranslation(item.translations)
+  if (!translation) return null
+
   return {
-    text: item.translations[0].name,
+    text: translation.name,
     items: destinations
       .map((child) =>
         collectionHandlers[child.collection](
@@ -179,11 +231,28 @@ const RoomItemHandler = (item, navItemsDict, depth) => {
   }
 }
 
+const LinkItemHandler = (item, navItemsDict, depth) => {
+  if (item.status !== 'published') return null
+
+  const translation = getTranslation(item.translations)
+  if (!translation) return null
+
+  return {
+    url: item.url,
+    text: translation.name,
+    isButton: item.button,
+  }
+}
+
 const PageItemHandler = (item, navItemsDict, depth) => {
   if (item.status !== 'published') return null
+
+  const translation = getTranslation(item.translations)
+  if (!translation) return null
+
   return {
     url: '/en/page/' + item.slug,
-    text: item.slug,
+    text: translation.name || item.slug,
   }
 }
 
@@ -200,6 +269,7 @@ const collectionHandlers = {
   room: RoomItemHandler,
   page: PageItemHandler,
   news: NewsItemHandler,
+  link: LinkItemHandler,
 }
 
 const getNavItems = (data, navItemsDict) => {

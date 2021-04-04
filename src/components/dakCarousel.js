@@ -9,36 +9,49 @@ import './dakCarousel.scss'
 
 import Slider from 'react-slick'
 
-export default function DAKCarousel({ items }) {
+export default function DAKCarousel({
+  items,
+  dots,
+  template,
+  animationSpeed,
+  arrows,
+}) {
   if (items.length == 1) {
-    return <Item item={items[0]} />
+    if (template) {
+      return template({ item: items[0] })
+    } else {
+      return <Item item={items[0]} />
+    }
   }
   var settings = {
-    dots: true,
+    dots: dots,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 500,
+    speed: animationSpeed || 500,
+    arrows,
     autoplaySpeed: 5000,
   }
   return (
     <Slider {...settings}>
-      {items.map((item, i) => (
-        <Item key={i} item={item} />
-      ))}
+      {items.map((item, i) => {
+        if (template) {
+          return template({ key: i, item: item })
+        } else {
+          return <Item key={i} item={item} />
+        }
+      })}
     </Slider>
   )
 }
 
-function Item(props) {
+function Item({ item }) {
   return (
     <div>
       <img
         style={{ width: '100%', height: '500px', objectFit: 'cover' }}
-        src={
-          'https://cms.kvarteret.no/assets/' + props.item.directus_files_id.id
-        }
+        src={item.img}
       ></img>
       {/* <span>{props.item.directus_files_id.description}</span> */}
     </div>

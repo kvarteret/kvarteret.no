@@ -14,8 +14,8 @@ const useStyles = makeStyles({
   },
 })
 
-function isNorwegian(pathName) {
-  return !pathName || pathName.startsWith('/no')
+function IsEnglish(pathName) {
+  return pathName && pathName.startsWith('/en')
 }
 
 function getUrl(lang, pathName) {
@@ -28,7 +28,7 @@ function LanguageSelector() {
   return (
     <Location>
       {(locationProps) => {
-        const nor = isNorwegian(locationProps.location.pathname)
+        const eng = IsEnglish(locationProps.location.pathname)
         return (
           <Grid
             container
@@ -40,7 +40,7 @@ function LanguageSelector() {
             <Grid item>
               <Link
                 to={getUrl('no', locationProps.location.pathname)}
-                className={classes.languageSize + (nor ? ' active' : '')}
+                className={classes.languageSize + (!eng ? ' active' : '')}
               >
                 NO
               </Link>
@@ -52,7 +52,7 @@ function LanguageSelector() {
             <Grid item>
               <Link
                 to={getUrl('en', locationProps.location.pathname)}
-                className={classes.languageSize + (!nor ? ' active' : '')}
+                className={classes.languageSize + (eng ? ' active' : '')}
               >
                 EN
               </Link>

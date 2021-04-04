@@ -7,6 +7,7 @@ import './footer.scss'
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import moment from 'moment'
+import { getTranslatedText } from '../helpers/textHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -49,7 +50,7 @@ const dateLookup = [
 const currentDay = () => dateLookup[new Date().getDay()]
 
 const RoomTime = ({ classes, time }) => {
-  let timeStr = 'CLOSED'
+  let timeStr = getTranslatedText('closed')
   if (time.openingTime && time.closingTime && time.open) {
     const opening = moment(time.openingTime, 'HH:mm:ss').format('HH:mm')
     const closing = moment(time.closingTime, 'HH:mm:ss').format('HH:mm')
@@ -113,7 +114,7 @@ const Tider = ({ siteTitle, isFooter }) => {
   return (
     <Box>
       <Typography color="primary" variant="h3" className={classes.title}>
-        ÅPNINGSTIDER
+        {getTranslatedText('opening-hours')}
       </Typography>
       {isFooter && <Divider className={classes.divider}></Divider>}
       <Grid container direction="column">

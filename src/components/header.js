@@ -1,29 +1,12 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import kvarteretLogo from '../images/logo.png'
-import { Link } from 'gatsby'
+import { graphql, Link, useStaticQuery } from 'gatsby'
 import './header.scss'
-import SearchIcon from '@material-ui/icons/Search'
-import {
-  Box,
-  Button,
-  Divider,
-  Grid,
-  Hidden,
-  makeStyles,
-  Menu,
-  MenuItem,
-  Typography,
-} from '@material-ui/core'
-import MenuIcon from '@material-ui/icons/Menu'
+import { Divider, Grid, Hidden, makeStyles } from '@material-ui/core'
 import LanguageSelector from './languageSelector'
 import Sidedrawer from './SideDrawer/Sidedrawer'
-import { GetNavItems } from '../helpers/navHelper'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import { ExpandLess } from '@material-ui/icons'
-import NestedMenuItem from 'material-ui-nested-menu-item'
 
-import HovedLogo from '../images/Hoved logo.png'
+import NavBar from './Navigation/NavBar'
+import { getFullImageUrl } from '../helpers/fileHelper'
 
 const useStyles = makeStyles({
   root: {
@@ -58,23 +41,6 @@ const useStyles = makeStyles({
     height: 16,
     background: '#6B6B6B',
   },
-  becomeVolunteer: {
-    background: '#F54B4B',
-    color: 'white',
-    height: 40,
-    padding: '0 30px',
-    display: 'inline-block',
-    textAlign: 'center',
-    lineHeight: '40px',
-    '&:hover': {
-      background: '#F85B5B',
-      color: 'white',
-    },
-    '&:active': {
-      background: '#F23B3B',
-      color: 'white',
-    },
-  },
   center: {
     display: 'flex',
     justifyContent: 'center',
@@ -83,115 +49,30 @@ const useStyles = makeStyles({
   },
 })
 
-const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
-  if (item.items) {
-    const menuItems = item.items.map((child, id) => (
-      <NavMenuItem
-        item={child}
-        key={item.text + id}
-        onClick={onClick}
-        parentMenuOpen={parentMenuOpen}
-        handleClose={handleClose}
-      ></NavMenuItem>
-    ))
-    return (
-      <NestedMenuItem
-        label={item.text}
-        parentMenuOpen={parentMenuOpen}
-        onClick={handleClose}
-        className="menu-item"
-      >
-        {menuItems}
-      </NestedMenuItem>
-    )
-  }
-  return (
-    <MenuItem onClick={handleClose}>
-      <NavItem item={item}></NavItem>
-    </MenuItem>
-  )
-}
-
-const NavItem = ({ item }) => {
-  // TODO: Dropdown menu
-  console.log('ITEM', item)
-  const text = item.text
-
-  if (item.items) {
-    const [anchorEl, setAnchorEl] = React.useState(null)
-
-    const handleClick = (event) => {
-      console.log('Click', event)
-      setAnchorEl(event.currentTarget)
-    }
-
-    const handleClose = () => {
-      setAnchorEl(null)
-    }
-
-    const menuItems = item.items.map((child, id) => (
-      <NavMenuItem
-        onClick={handleClick}
-        handleClose={handleClose}
-        parentMenuOpen={!!anchorEl}
-        item={child}
-        key={item.text + id}
-      ></NavMenuItem>
-    ))
-    return (
-      <div>
-        <a onClick={handleClick} id={text} className="menu-item">
-          {text}{' '}
-          {(anchorEl && <ExpandLess className="float-right" />) || (
-            <ExpandMoreIcon className="float-right" />
-          )}
-        </a>
-
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          keepMounted
-          disableScrollLock
-          getContentAnchorEl={null}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          variant="menu"
-          className={'navbar-menu'}
-        >
-          {menuItems}
-        </Menu>
-      </div>
-    )
-  }
-
-  const link = item.url
-  // const link = '/en/page/vaktetaten'
-  // TODO: Check if internal elemet
-  return (
-    <Link to={link} className="menu-item">
-      {text}
-    </Link>
-  )
-}
-
 //TODO: gi a element padding sånn at de ser fine ut
 const Header = ({ siteTitle, open, closed }) => {
   const classes = useStyles()
 
-  const navItems = GetNavItems()
-  const leftNav = navItems.leftNavItems.map((item, id) => (
-    <Grid item className={classes.center} key={'left' + id}>
-      <NavItem item={item}></NavItem>
-    </Grid>
-  ))
+  const data = useStaticQuery(graphql`
+    query HeaderQuery {
+      directus {
+        items {
+          general_information {
+            logo {
+              id
+            }
+            hoved_logo {
+              id
+            }
+          }
+        }
+      }
+    }
+  `)
+  const generalInfo = data.directus.items.general_information
+  const logoPath = getFullImageUrl(generalInfo.logo.id)
+  const mainLogoPath = getFullImageUrl(generalInfo.hoved_logo.id)
 
-  const rightNav = navItems.rightNavItems.map((item, id) => (
-    <Grid item className={classes.center} key={'right' + id}>
-      <NavItem item={item}></NavItem>
-    </Grid>
-  ))
   return (
     <Grid
       container
@@ -227,7 +108,7 @@ const Header = ({ siteTitle, open, closed }) => {
         <Hidden mdDown>
           <Link to="/">
             <Grid container alignItems="center" justify="center">
-              <img src={HovedLogo} height="80px"></img>
+              <img src={mainLogoPath} height="80px"></img>
             </Grid>
           </Link>
         </Hidden>
@@ -243,7 +124,9 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="center"
         spacing={4}
       >
-        <Hidden mdDown={true}>{leftNav}</Hidden>
+        <Hidden mdDown={true}>
+          <NavBar />
+        </Hidden>
       </Grid>
       <Grid
         item
@@ -255,10 +138,7 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="stretch"
       >
         <Link to="/">
-          <img
-            src="https://kvarteret.no/wp-content/uploads/dak-logo/Kvarteret_logo_rod.png"
-            className={classes.logo}
-          ></img>
+          <img src={logoPath} className={classes.logo}></img>
         </Link>
       </Grid>
       <Grid
@@ -272,15 +152,7 @@ const Header = ({ siteTitle, open, closed }) => {
         spacing={4}
       >
         <Hidden mdDown={true}>
-          {rightNav}
-          <Grid item>
-            <a
-              href="https://blifrivillig.no/"
-              className={classes.becomeVolunteer}
-            >
-              Bli frivillig!
-            </a>
-          </Grid>
+          <NavBar isRightNav={true} />
         </Hidden>
       </Grid>
       <Grid

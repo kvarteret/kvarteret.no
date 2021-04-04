@@ -1,90 +1,124 @@
-import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import { CardActionArea, CardMedia } from '@material-ui/core';
-import { LineWeight } from '@material-ui/icons';
-import { Link } from 'gatsby';
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Card from '@material-ui/core/Card'
+import CardActions from '@material-ui/core/CardActions'
+import CardContent from '@material-ui/core/CardContent'
+import Button from '@material-ui/core/Button'
+import Typography from '@material-ui/core/Typography'
+import { Box, CardActionArea, CardMedia } from '@material-ui/core'
+import { LineWeight } from '@material-ui/icons'
+import { Link } from 'gatsby'
+import { getTranslatedText } from '../helpers/textHelper'
 
 const useStyles = makeStyles({
-    root: {
-        borderRadius: 0,
-        boxShadow: "0px 3px 4px rgba(0,0,0,0.16)"
+  root: {
+    height: '100%',
+    borderRadius: 0,
+  },
+  rootShadow: {
+    boxShadow: '0px 3px 4px rgba(0,0,0,0.16)',
+  },
+  actionArea: {
+    height: '100%',
+    paddingBottom: '4px',
+  },
+  content: {
+    padding: '2px 8px',
+    height: '100%',
+  },
+  media: {
+    marginBottom: 0,
+  },
+
+  dateText: {
+    fontSize: 10,
+    margin: 2,
+    textTransform: 'uppercase',
+  },
+
+  title: {
+    fontSize: 16,
+    color: 'black',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  imageContainer: {
+    position: 'relative',
+  },
+  ticket: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    backgroundColor: '#f54b4b',
+    padding: '5px 10px',
+    color: 'white',
+    border: '1px solid white',
+    '&:hover': {
+      backgroundColor: '#FF6767',
     },
-    content: {
-        padding: "2px 8px"
+  },
+
+  text: {
+    fontSize: 12,
+    lineHeight: '14px',
+    display: 'inline-block',
+    '& *': {
+      margin: 0,
+      marginBottom: 4,
     },
-    media: {
-        marginBottom: 0
-    },
+  },
+})
 
-    dateText: {
-        fontSize: 10,
-        margin: 2,
-        textTransform: "uppercase"
-    },
+export default function EventCard({
+  imgSrc,
+  alt,
+  date,
+  title,
+  text,
+  url,
+  ticketUrl,
+  room,
+}) {
+  const classes = useStyles()
 
-    title: {
-        fontSize: 16,
-        color: "black",
-        fontWeight: "bold",
-        textTransform: "uppercase",
-        marginBottom: 4
-    },
+  const [raised, setRaised] = useState(false)
 
-    text: {
-        fontSize: 12,
-        lineHeight: "14px",
-        display: "inline-block",
-        "& *": {
-            margin: 0,
-            marginBottom: 4
-        }
-    }
-  });
-
-export default function EventCard({imgSrc, alt, date, title, text, url}) {
-    const classes = useStyles();
-
-    const [raised, setRaised] = useState(false);
-
-    return (
-        <Link to={url}>
-            <Card 
-                className={raised ? "" : classes.root} 
-                raised={raised}
-                onMouseOver={()=>setRaised(true)} 
-                onMouseOut={()=>setRaised(false)} 
-                >
-                <CardActionArea>
-                    <CardMedia
-                        component="img"
-                        className={classes.media}
-                        image={imgSrc}
-                        title={title}
-                        alt={alt}
-                    />
-                    <CardContent className={classes.content}>
-                        <Typography
-                            gutterBottom
-                            className={classes.dateText}
-                        >
-                            {date}
-                        </Typography>
-                        <Typography
-                            variant={"h1"}
-                            component="h1"
-                            className={classes.title}
-                        >
-                            {title}
-                        </Typography>
-                        <div dangerouslySetInnerHTML={{__html: text}}></div>
-                    </CardContent>
-                </CardActionArea>
-            </Card>
-        </Link>
-    );
+  return (
+    <a href={url}>
+      <Card
+        className={classes.root + ' ' + (raised ? '' : classes.rootShadow)}
+        raised={raised}
+        onMouseOver={() => setRaised(true)}
+        onMouseOut={() => setRaised(false)}
+      >
+        <CardActionArea className={classes.actionArea}>
+          <Box className={classes.imageContainer}>
+            <CardMedia
+              component="img"
+              className={classes.media}
+              image={imgSrc}
+              title={title}
+              alt={alt}
+            />
+            {ticketUrl && (
+              <a href={ticketUrl} className={classes.ticket}>
+                {getTranslatedText('buy-ticket')}
+              </a>
+            )}
+          </Box>
+          <CardContent className={classes.content}>
+            <Typography gutterBottom className={classes.dateText}>
+              {date}
+              {room && ' | ' + room}
+            </Typography>
+            <Typography variant={'h1'} component="h1" className={classes.title}>
+              {title}
+            </Typography>
+            <div dangerouslySetInnerHTML={{ __html: text }}></div>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </a>
+  )
 }

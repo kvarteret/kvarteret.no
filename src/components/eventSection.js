@@ -4,6 +4,10 @@ import { graphql, useStaticQuery } from 'gatsby'
 import EventCard from './card'
 
 import './mainContent.scss'
+import { getTranslatedText } from '../helpers/textHelper'
+import { getFullImageUrl } from '../helpers/fileHelper'
+import moment from 'moment'
+import { getTranslation } from '../helpers/languageHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -33,32 +37,56 @@ const EventSection = () => {
             status
             slug
             translations {
-              description
               languages_code {
-                code
-                name
+                url_code
               }
               title
+              tagline
+            }
+            event_end
+            event_start
+            ticket_url
+            image {
+              id
+            }
+            rooms {
+              room_id {
+                name
+              }
             }
           }
         }
       }
     }
   `)
-  const eventItems = data.directus.items.events
-    .filter((x) => x.status == 'published')
-    .map((x) => (
-      <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
-        <EventCard
-          imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png"
-          alt="Card image"
-          date="3. NOVEMBER | TEGLVERKET | DEBATT"
-          title={x.translations[0].title}
-          text={x.translations[0].description}
-          url={'/events/' + x.slug}
-        />
-      </Grid>
-    ))
+  let eventItems = data.directus.items.events
+  eventItems.sort((x, y) => new Date(x.event_start) - new Date(y.event_start))
+  eventItems = eventItems
+    .filter(
+      (x) => x.status == 'published' && new Date(x.event_end) - new Date() > 0
+    )
+    .map((x) => {
+      const start = moment(x.event_start).format('DD. MMM')
+      const translation = getTranslation(x.translations)
+      let primaryRoom = null
+      if (x.rooms.length > 0) {
+        primaryRoom = x.rooms[0].room_id.name
+      }
+      return (
+        <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
+          <EventCard
+            imgSrc={getFullImageUrl(x.image.id)}
+            alt="Card image"
+            date={start}
+            title={translation.title}
+            text={translation.tagline}
+            url={'/events/' + x.slug}
+            ticketUrl={x.ticket_url}
+            room={primaryRoom}
+          />
+        </Grid>
+      )
+    })
 
   return (
     <Grid container direction="column">
@@ -70,9 +98,9 @@ const EventSection = () => {
           className={classes.title}
         >
           <Typography color="primary" variant="h2">
-            Aktuelt
+            {getTranslatedText('what-is-happening')}
           </Typography>
-          <Typography>Alle arrangementer</Typography>
+          <Typography>{getTranslatedText('all-events')}</Typography>
         </Grid>
       </Grid>
       <Grid item>
@@ -84,7 +112,12 @@ const EventSection = () => {
         />
       </Grid>
       <Grid item xs={12}>
-        <Grid container spacing={3} className={classes.mainContent}>
+        <Grid
+          container
+          alignItems="stretch"
+          spacing={3}
+          className={classes.mainContent}
+        >
           {eventItems}
         </Grid>
       </Grid>

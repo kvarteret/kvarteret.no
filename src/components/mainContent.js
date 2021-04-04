@@ -1,5 +1,7 @@
 import {
   Box,
+  Card,
+  CardMedia,
   Divider,
   Grid,
   GridList,
@@ -7,7 +9,7 @@ import {
   makeStyles,
   Typography,
 } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import EventCard from './card'
 import EventSection from './eventSection'
 
@@ -18,6 +20,8 @@ import TodaySection from './todaySection'
 import EventPage from './eventPage'
 import './mainContent.scss'
 import Tider from './tider'
+import DAKCarousel from './dakCarousel'
+import FastAverageColor from 'fast-average-color'
 
 const useStyles = makeStyles({
   root: {
@@ -27,7 +31,6 @@ const useStyles = makeStyles({
     height: '480px',
     width: '100%',
     objectFit: 'cover',
-    filter: 'brightness(60%)',
   },
   content: {
     margin: '0 3%',
@@ -42,6 +45,9 @@ const useStyles = makeStyles({
     left: '3%',
     color: 'white',
     fontSize: 30,
+    borderRadius: '25%',
+    backgroundColor: 'rgba(0,0,0,0.25)',
+    boxShadow: '0 0 50px 50px rgba(0,0,0,0.25)',
     '@media (min-width:600px)': {
       fontSize: 50,
     },
@@ -49,23 +55,61 @@ const useStyles = makeStyles({
       fontSize: 80,
     },
   },
+  imgTextDark: {
+    backgroundColor: 'rgba(255,255,255,0.25)',
+    boxShadow: '0 0 50px 50px rgba(255,255,255,0.25)',
+  },
+  carousel: {
+    position: 'relative',
+  },
 })
+
+const CarouselItem = ({ item }) => {
+  const classes = useStyles()
+
+  const [color, setColor] = useState('#fff')
+  useEffect(() => {
+    const fac = new FastAverageColor()
+    fac.getColorAsync(item.img, { width: 500 }).then(function (color) {
+      setColor(color.isDark ? '#fff' : '#000')
+    })
+  }, [])
+
+  const textClasses =
+    classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
+
+  return (
+    <Box className={classes.carousel}>
+      <img className={classes.img} src={item.img} />
+      <Typography variant="h1" className={textClasses} style={{ color }}>
+        {item.text}
+      </Typography>
+    </Box>
+  )
+}
 
 const MainContent = ({ content }) => {
   const classes = useStyles()
   return (
     <div>
-      {/*         <EventPage/>
-       */}{' '}
       <Grid container direction="column" className={classes.root}>
         <Grid item xs={12} className={classes.imgContainer}>
-          <img
-            className={classes.img}
-            src="https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg"
-          />
-          <Typography variant="h1" className={classes.imgText}>
-            Minner fra Datarock
-          </Typography>
+          <DAKCarousel
+            animationSpeed={1000}
+            items={[
+              {
+                img:
+                  'https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg',
+                text: 'Minner fra Datarock',
+              },
+              {
+                img:
+                  'https://kvarteret.no/wp-content/uploads/2021/02/Upop7-2.jpg',
+                text: 'Fremtidens sykdommer',
+              },
+            ]}
+            template={CarouselItem}
+          ></DAKCarousel>
         </Grid>
         <Grid item className={classes.content}>
           <Grid container spacing={4}>

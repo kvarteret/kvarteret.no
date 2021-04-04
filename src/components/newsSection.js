@@ -4,6 +4,8 @@ import NewsCard from './newsCard'
 
 import './mainContent.scss'
 import { graphql, useStaticQuery } from 'gatsby'
+import { getTranslatedText } from '../helpers/textHelper'
+import { getTranslation } from '../helpers/languageHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -37,6 +39,9 @@ const NewsSection = () => {
             translations {
               tagline
               title
+              languages_code {
+                url_code
+              }
             }
           }
         }
@@ -45,18 +50,21 @@ const NewsSection = () => {
   `)
   const newsItems = data.directus.items.news
     .filter((x) => x.status == 'published')
-    .map((x) => (
-      <Grid item xs={12} key={x.id}>
-        <NewsCard
-          imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png"
-          alt={x.title}
-          date={x.date_updated || x.date_created}
-          title={x.translations[0].title}
-          text={x.translations[0].tagline}
-          url={'/news/' + x.slug}
-        />
-      </Grid>
-    ))
+    .map((x) => {
+      const translation = getTranslation(x.translations)
+      return (
+        <Grid item xs={12} key={x.id}>
+          <NewsCard
+            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png"
+            alt={x.title}
+            date={x.date_updated || x.date_created}
+            title={translation.title}
+            text={translation.tagline}
+            url={'/news/' + x.slug}
+          />
+        </Grid>
+      )
+    })
 
   return (
     <Grid container direction="column">
@@ -67,9 +75,9 @@ const NewsSection = () => {
         className={classes.title}
       >
         <Typography color="primary" variant="h2">
-          Nyheter
+          {getTranslatedText('news')}
         </Typography>
-        <Typography>Flere nyheter</Typography>
+        <Typography>{getTranslatedText('more-news')}</Typography>
       </Grid>
       <Divider
         orientation="horizontal"
