@@ -5,7 +5,7 @@ import NewsCard from './newsCard'
 import './mainContent.scss'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslatedText } from '../helpers/textHelper'
-import { getTranslation } from '../helpers/languageHelper'
+import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -60,7 +60,7 @@ const NewsSection = () => {
             date={x.date_updated || x.date_created}
             title={translation.title}
             text={translation.tagline}
-            url={'/news/' + x.slug}
+            url={getTranslatedUrl('news/' + x.slug)}
           />
         </Grid>
       )

@@ -7,7 +7,7 @@ import './mainContent.scss'
 import { getTranslatedText } from '../helpers/textHelper'
 import { getFullImageUrl } from '../helpers/fileHelper'
 import moment from 'moment'
-import { getTranslation } from '../helpers/languageHelper'
+import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -80,7 +80,7 @@ const EventSection = () => {
             date={start}
             title={translation.title}
             text={translation.tagline}
-            url={'/events/' + x.slug}
+            url={getTranslatedUrl('events/' + x.slug)}
             ticketUrl={x.ticket_url}
             room={primaryRoom}
           />

@@ -12,3 +12,8 @@ export function getTranslation(translations) {
   const urlCode = UrlLanguageCode()
   return translations.filter((x) => x.languages_code.url_code == urlCode)[0]
 }
+
+export function getTranslatedUrl(path) {
+  const urlCode = UrlLanguageCode()
+  return urlCode + '/' + path
+}
