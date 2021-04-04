@@ -1,17 +1,33 @@
 import React from 'react'
 import { Button, Paper } from '@material-ui/core'
-import Carousel from 'react-material-ui-carousel'
+
+// Import css files
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+
+import './dakCarousel.scss'
+
+import Slider from 'react-slick'
 
 export default function DAKCarousel({ items }) {
   if (items.length == 1) {
     return <Item item={items[0]} />
   }
+  var settings = {
+    dots: true,
+    infinite: true,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 500,
+    autoplaySpeed: 5000,
+  }
   return (
-    <Carousel>
+    <Slider {...settings}>
       {items.map((item, i) => (
         <Item key={i} item={item} />
       ))}
-    </Carousel>
+    </Slider>
   )
 }
 
@@ -24,7 +40,7 @@ function Item(props) {
           'https://cms.kvarteret.no/assets/' + props.item.directus_files_id.id
         }
       ></img>
-      <span>{props.item.directus_files_id.description}</span>
+      {/* <span>{props.item.directus_files_id.description}</span> */}
     </div>
   )
 }
