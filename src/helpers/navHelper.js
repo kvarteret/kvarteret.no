@@ -1,10 +1,9 @@
+import { InsertEmoticon } from '@material-ui/icons'
 import { graphql, useStaticQuery } from 'gatsby'
+import { isValidStatus } from './helper'
 import { UrlLanguageCode, getTranslation } from './languageHelper'
 
 const UnpackDirectus = (data) => data.directus.items
-
-const MANY_ANY_NAV = `
-`
 
 const getData = () => {
   const data = useStaticQuery(graphql`
@@ -201,7 +200,7 @@ const GetNavItems = () => {
 }
 
 const NavigationItemHander = (item, navItemsDict, depth) => {
-  if (item.status !== 'published') return null
+  if (!isValidStatus(item.status)) return null
   if (depth > 5) return null
   const id = item.id
   var destinations = navItemsDict[id]
@@ -224,7 +223,7 @@ const NavigationItemHander = (item, navItemsDict, depth) => {
 }
 
 const RoomItemHandler = (item, navItemsDict, depth) => {
-  if (item.status !== 'published') return null
+  if (!isValidStatus(item.status)) return null
   return {
     url: '/en/rooms/' + item.slug,
     text: item.name,
@@ -232,7 +231,7 @@ const RoomItemHandler = (item, navItemsDict, depth) => {
 }
 
 const LinkItemHandler = (item, navItemsDict, depth) => {
-  if (item.status !== 'published') return null
+  if (!isValidStatus(item.status)) return null
 
   const translation = getTranslation(item.translations)
   if (!translation) return null
@@ -245,7 +244,7 @@ const LinkItemHandler = (item, navItemsDict, depth) => {
 }
 
 const PageItemHandler = (item, navItemsDict, depth) => {
-  if (item.status !== 'published') return null
+  if (!isValidStatus(item.status)) return null
 
   const translation = getTranslation(item.translations)
   if (!translation) return null
@@ -257,7 +256,7 @@ const PageItemHandler = (item, navItemsDict, depth) => {
 }
 
 const NewsItemHandler = (item, navItemsDict, depth) => {
-  if (item.status !== 'published') return null
+  if (!isValidStatus(item.status)) return null
   return {
     url: '/en/news/' + item.slug,
     text: item.slug,

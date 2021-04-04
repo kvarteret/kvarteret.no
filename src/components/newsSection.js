@@ -6,6 +6,7 @@ import './mainContent.scss'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslatedText } from '../helpers/textHelper'
 import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
+import { isValidStatus } from '../helpers/helper'
 
 const useStyles = makeStyles({
   title: {
@@ -49,7 +50,7 @@ const NewsSection = () => {
     }
   `)
   const newsItems = data.directus.items.news
-    .filter((x) => x.status == 'published')
+    .filter((x) => isValidStatus(x.status))
     .map((x) => {
       const translation = getTranslation(x.translations)
       return (

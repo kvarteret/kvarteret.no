@@ -2,6 +2,7 @@ import { Box, Divider, Grid, makeStyles, Typography } from '@material-ui/core'
 import { graphql, useStaticQuery } from 'gatsby'
 import moment from 'moment'
 import React from 'react'
+import { isValidStatus } from '../helpers/helper'
 import { getTranslation } from '../helpers/languageHelper'
 import { getTranslatedText } from '../helpers/textHelper'
 import EventCard from './card'
@@ -27,7 +28,7 @@ const useStyles = makeStyles({
 const sanitizeData = (data) => {
   const roomEvents = []
   data.directus.items.events.forEach((event) => {
-    if (event.status !== 'published') return
+    if (!isValidStatus(event.status)) return
     const translation = getTranslation(event.translations)
     const today = new Date()
     today.setHours(0, 0, 0, 0)

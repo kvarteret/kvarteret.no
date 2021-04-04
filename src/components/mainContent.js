@@ -83,7 +83,7 @@ const CarouselItem = ({ item }) => {
 
   return (
     <Box className={classes.carousel}>
-      <img crossorigin="anonymous" className={classes.img} src={item.img} />
+      <img crossOrigin="anonymous" className={classes.img} src={item.img} />
       {item.text && (
         <Typography variant="h1" className={textClasses} style={{ color }}>
           {item.text}
@@ -101,7 +101,6 @@ const sanitizeData = (data) =>
 
 const MainContent = ({ content }) => {
   const classes = useStyles()
-
   const data = sanitizeData(
     useStaticQuery(graphql`
       query CarouselData {

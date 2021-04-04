@@ -8,6 +8,7 @@ import { getTranslatedText } from '../helpers/textHelper'
 import { getFullImageUrl } from '../helpers/fileHelper'
 import moment from 'moment'
 import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
+import { isValidStatus } from '../helpers/helper'
 
 const useStyles = makeStyles({
   title: {
@@ -63,7 +64,7 @@ const EventSection = () => {
   eventItems.sort((x, y) => new Date(x.event_start) - new Date(y.event_start))
   eventItems = eventItems
     .filter(
-      (x) => x.status == 'published' && new Date(x.event_end) - new Date() > 0
+      (x) => isValidStatus(x.status) && new Date(x.event_end) - new Date() > 0
     )
     .map((x) => {
       const start = moment(x.event_start).format('DD. MMM')

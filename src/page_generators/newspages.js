@@ -34,7 +34,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
   } = response
   await Promise.all(
     newsObject.news.map(async (newsItem) => {
-      if (newsItem.status !== 'published') return
+      if (!isValidStatus(newItems.status)) return
 
       return Promise.all(
         newsItem.translations.map(async (translation) => {

@@ -34,7 +34,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
   } = response
   await Promise.all(
     eventObj.events.map(async (eventItem) => {
-      if (eventItem.status !== 'published') return
+      if (!isValidStatus(eventItem.status)) return
 
       eventItem.translations.forEach((translation) => {
         let languageModifier = translation.languages_code.url_code + '/'
