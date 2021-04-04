@@ -1,4 +1,5 @@
 const path = require('path')
+const { isValidStatus } = require('../helpers/helper')
 
 module.exports.generate = async (createPage, graphql, actions) => {
   // Query pages from Directus
@@ -34,7 +35,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
   } = response
   await Promise.all(
     newsObject.news.map(async (newsItem) => {
-      if (!isValidStatus(newItems.status)) return
+      if (!isValidStatus(newsItem.status)) return
 
       return Promise.all(
         newsItem.translations.map(async (translation) => {
