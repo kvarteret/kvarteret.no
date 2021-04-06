@@ -4,10 +4,12 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 
+RUN npm install -g gatsby-cli
+
 RUN npm install
 
 COPY . .
 
-EXPOSE 8080
+EXPOSE 8000
 
-CMD ["npm", "start"]
+CMD ["gatsby", "develop", "-H", "0.0.0.0"]
