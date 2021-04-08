@@ -23,6 +23,7 @@ const Snippets = ({ items }) => {
 const sanitizeGalleryData = (data) =>
   data.map((item) => ({
     img: 'https://cms.kvarteret.no/assets/' + item.directus_files_id.id,
+    imageFile: item.directus_files_id.imageFile,
   }))
 
 /**
@@ -30,15 +31,17 @@ const sanitizeGalleryData = (data) =>
  * @param {Page} pageContext
  */
 const Page = ({ pageContext }) => {
-  const snippets = pageContext.snippets && (
+  console.log('CONTEXT', pageContext)
+  const snippets = (pageContext.snippets && (
     <Box m={{ xs: 2, md: 4, lg: 8 }} mt={{ xs: 0, lg: 4 }}>
       <Snippets items={pageContext.snippets} />
     </Box>
-  )
+  )) || <div></div>
 
   const theme = useTheme()
   const spacingTop =
-    pageContext?.gallery?.length == 0 || useMediaQuery(theme.breakpoints.up('md'))
+    pageContext?.gallery?.length == 0 ||
+    useMediaQuery(theme.breakpoints.up('md'))
 
   const galleryData = sanitizeGalleryData(pageContext.gallery)
 

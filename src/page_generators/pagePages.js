@@ -24,6 +24,11 @@ module.exports.generate = async (createPage, graphql, actions) => {
                 id
                 title
                 description
+                imageFile {
+                  childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
+                  }
+                }
               }
             }
           }

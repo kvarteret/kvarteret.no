@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css'
 import './dakCarousel.scss'
 
 import Slider from 'react-slick'
+import { getImage, GatsbyImage } from 'gatsby-plugin-image'
 
 export default function DAKCarousel({
   items,
@@ -47,12 +48,15 @@ export default function DAKCarousel({
 }
 
 function Item({ item }) {
+  console.log('ITEM', item)
+  const image = getImage(item.imageFile)
   return (
     <div>
-      <img
+      <GatsbyImage
         style={{ width: '100%', height: '500px', objectFit: 'cover' }}
-        src={item.img}
-      ></img>
+        image={image}
+        alt={'image'}
+      ></GatsbyImage>
       {/* <span>{props.item.directus_files_id.description}</span> */}
     </div>
   )

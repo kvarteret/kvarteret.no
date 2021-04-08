@@ -9,7 +9,7 @@ import { Box, CardActionArea, CardMedia } from '@material-ui/core'
 import { ContactsOutlined, LineWeight } from '@material-ui/icons'
 import { Link } from 'gatsby'
 import { getTranslatedText } from '../helpers/textHelper'
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const useStyles = makeStyles({
   root: {
@@ -97,10 +97,10 @@ export default function EventCard({
         <CardActionArea className={classes.actionArea}>
           <Box className={classes.imageContainer}>
             <GatsbyImage
-            className={classes.media}
-            image={image} 
-            title={title}
-            alt={alt}
+              className={classes.media}
+              image={image}
+              title={title}
+              alt={alt}
             />
             {/* <CardMedia
               component="img"

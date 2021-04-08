@@ -225,7 +225,7 @@ const NavigationItemHander = (item, navItemsDict, depth) => {
 const RoomItemHandler = (item, navItemsDict, depth) => {
   if (!isValidStatus(item.status)) return null
   return {
-    url: '/en/rooms/' + item.slug,
+    url: '/en/room/' + item.slug,
     text: item.name,
   }
 }

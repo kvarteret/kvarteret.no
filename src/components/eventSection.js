@@ -54,6 +54,7 @@ const EventSection = () => {
                   gatsbyImageData(
                     placeholder: BLURRED
                     formats: PNG
+                    height: 285
                   )
                 }
               }
