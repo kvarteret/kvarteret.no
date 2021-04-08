@@ -1,31 +1,17 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-  Divider,
-  Grid,
-  GridList,
-  GridListTile,
-  makeStyles,
-  Typography,
-} from '@material-ui/core'
+import { Box, Grid, makeStyles, Typography } from '@material-ui/core'
 import React, { useEffect, useState } from 'react'
-import EventCard from './card'
 import EventSection from './eventSection'
 
-import NewsCard from './newsCard'
 import NewsSection from './newsSection'
-import OpeningHoursSection from './openingHoursSection'
 import TodaySection from './todaySection'
-import EventPage from './eventPage'
 import './mainContent.scss'
-import Tider from './tider'
-import DAKCarousel from './dakCarousel'
+import Tider from '../shared/tider'
+import DAKCarousel from '../shared/dakCarousel'
 import FastAverageColor from 'fast-average-color'
-import { getFullImageUrl } from '../helpers/fileHelper'
+import { getFullImageUrl } from '../../helpers/fileHelper'
 import { graphql, useStaticQuery } from 'gatsby'
-import { getTranslation } from '../helpers/languageHelper'
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
+import { getTranslation } from '../../helpers/languageHelper'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const useStyles = makeStyles({
   root: {
@@ -74,15 +60,19 @@ const CarouselItem = ({ item }) => {
   const [color, setColor] = useState('#fff')
   useEffect(() => {
     const fac = new FastAverageColor()
-    fac.getColorAsync(item.imageFile.childImageSharp.gatsbyImageData.placeholder.fallback).then(function (color) {
-      setColor(color.isDark ? '#fff' : '#000')
-    })
+    fac
+      .getColorAsync(
+        item.imageFile.childImageSharp.gatsbyImageData.placeholder.fallback
+      )
+      .then(function (color) {
+        setColor(color.isDark ? '#fff' : '#000')
+      })
   }, [])
 
   const textClasses =
     classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
 
-    const image = getImage(item.imageFile)
+  const image = getImage(item.imageFile)
   return (
     <Box className={classes.carousel}>
       <GatsbyImage image={image} className={classes.img} alt={item.text} />
@@ -115,10 +105,7 @@ const MainContent = ({ content }) => {
                   id
                   imageFile {
                     childImageSharp {
-                      gatsbyImageData(
-                        placeholder: BLURRED
-                        formats: PNG
-                      )
+                      gatsbyImageData(placeholder: BLURRED, formats: PNG)
                     }
                   }
                 }

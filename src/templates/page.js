@@ -1,8 +1,8 @@
 import React from 'react'
 import { Box, Grid, Hidden } from '@material-ui/core'
-import Layout from '../components/layout'
-import DAKCarousel from '../components/dakCarousel'
-import ExternalContent from '../components/externalContent'
+import Layout from '../components/shared/layout/layout'
+import DAKCarousel from '../components/shared/dakCarousel'
+import ExternalContent from '../components/mainSection/externalContent'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 

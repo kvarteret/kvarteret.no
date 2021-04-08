@@ -3,13 +3,13 @@ import { graphql, Link, useStaticQuery } from 'gatsby'
 import './header.scss'
 import { Divider, Grid, Hidden, makeStyles } from '@material-ui/core'
 import LanguageSelector from './languageSelector'
-import Sidedrawer from './SideDrawer/Sidedrawer'
+import Sidedrawer from '../navigation/SideDrawer/Sidedrawer'
 
-import NavBar from './Navigation/NavBar'
-import { getFullImageUrl } from '../helpers/fileHelper'
+import NavBar from '../navigation/NavBar'
+import { getFullImageUrl } from '../../../helpers/fileHelper'
 
-import Logo from '../images/logo.png'
-import HovedLogo from "../images/Hoved logo.png"
+import Logo from '../../../images/logo.png'
+import HovedLogo from '../../../images/Hoved logo.png'
 
 const useStyles = makeStyles({
   root: {
@@ -141,7 +141,7 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="stretch"
       >
         <Link to="/">
-              <img src= {Logo} alt="Kvarteret's logo" className={classes.logo}></img>
+          <img src={Logo} alt="Kvarteret's logo" className={classes.logo}></img>
         </Link>
       </Grid>
       <Grid

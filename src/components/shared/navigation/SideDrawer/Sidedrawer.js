@@ -9,7 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import NavigationItems from '../NavigationItems/NavigationItems'
 import ArrowBackIcon from '@material-ui/icons/ArrowBack'
 
-import HovedLogo from '../../images/Kvarteret hovedlogo.svg'
+import HovedLogo from '../../../../images/Kvarteret hovedlogo.svg'
 
 import {
   Box,

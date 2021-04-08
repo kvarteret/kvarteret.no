@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography'
 import { Box, CardActionArea, CardMedia } from '@material-ui/core'
 import { ContactsOutlined, LineWeight } from '@material-ui/icons'
 import { Link } from 'gatsby'
-import { getTranslatedText } from '../helpers/textHelper'
+import { getTranslatedText } from '../../helpers/textHelper'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 const useStyles = makeStyles({

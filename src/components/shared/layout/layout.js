@@ -16,8 +16,8 @@ import './layout.css'
 import { createMuiTheme, Grid, ThemeProvider } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 
-import LanguageContext from '../providers/languageProvider'
-import { darkTheme, lightTheme } from '../themes/kvarteretTheme'
+import LanguageContext from '../../../providers/languageProvider'
+import { darkTheme, lightTheme } from '../../../themes/kvarteretTheme'
 
 const useStyles = makeStyles({
   root: {

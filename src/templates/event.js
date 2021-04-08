@@ -1,6 +1,6 @@
 import React from 'react'
 import EventPage from '../components/eventPage'
-import Layout from '../components/layout';
+import Layout from '../components/shared/layout/layout'
 
 const Event = ({ pageContext }) => {
   return (

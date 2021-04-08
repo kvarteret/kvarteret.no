@@ -4,9 +4,9 @@ import NewsCard from './newsCard'
 
 import './mainContent.scss'
 import { graphql, useStaticQuery } from 'gatsby'
-import { getTranslatedText } from '../helpers/textHelper'
-import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
-import { isValidStatus } from '../helpers/helper'
+import { getTranslatedText } from '../../helpers/textHelper'
+import { getTranslatedUrl, getTranslation } from '../../helpers/languageHelper'
+import { isValidStatus } from '../../helpers/helper'
 
 const useStyles = makeStyles({
   title: {

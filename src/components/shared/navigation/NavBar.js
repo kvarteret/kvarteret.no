@@ -3,7 +3,7 @@ import { ExpandLess, ExpandMore } from '@material-ui/icons'
 import { Link } from 'gatsby'
 import NestedMenuItem from 'material-ui-nested-menu-item'
 import React from 'react'
-import { GetNavItems } from '../../helpers/navHelper'
+import { GetNavItems } from '../../../helpers/navHelper'
 import { center } from './NavBar.module.scss'
 
 const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {

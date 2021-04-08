@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { Link } from 'gatsby'
-import Tider from './tider.js'
+import Tider from '../tider.js'
 import Kontakt from './kontakt.js'
 
-import BergenImage from '../images/footer_bergen.png'
+import BergenImage from '../../../images/footer_bergen.png'
 
 import './footer.scss'
 import { Box, Grid, makeStyles, Typography } from '@material-ui/core'

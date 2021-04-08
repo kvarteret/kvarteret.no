@@ -3,11 +3,12 @@ import React from 'react'
 
 import { graphql, Link, useStaticQuery } from 'gatsby'
 
-import './footer.scss'
+// TODO: Do not rely on footer.scss for this... and convert to module
+import './layout/footer.scss'
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import moment from 'moment'
-import { getTranslatedText } from '../helpers/textHelper'
+import { getTranslatedText } from '../../helpers/textHelper'
 
 const useStyles = makeStyles({
   title: {

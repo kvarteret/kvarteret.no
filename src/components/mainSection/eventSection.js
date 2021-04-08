@@ -4,11 +4,11 @@ import { graphql, useStaticQuery } from 'gatsby'
 import EventCard from './card'
 
 import './mainContent.scss'
-import { getTranslatedText } from '../helpers/textHelper'
-import { getFullImageUrl } from '../helpers/fileHelper'
+import { getTranslatedText } from '../../helpers/textHelper'
+import { getFullImageUrl } from '../../helpers/fileHelper'
 import moment from 'moment'
-import { getTranslatedUrl, getTranslation } from '../helpers/languageHelper'
-import { isValidStatus } from '../helpers/helper'
+import { getTranslatedUrl, getTranslation } from '../../helpers/languageHelper'
+import { isValidStatus } from '../../helpers/helper'
 
 const useStyles = makeStyles({
   title: {

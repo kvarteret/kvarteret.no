@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Layout from '../components/layout'
+import Layout from '../components/shared/layout/layout'
 import Group from '../components/Groups/Group/Group'
 const groupPage = () => {
   return (

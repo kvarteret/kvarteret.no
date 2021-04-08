@@ -1,13 +1,12 @@
 import React from 'react'
 
-import Layout from '../components/layout'
-import MainContent from '../components/mainContent'
+import Layout from '../components/shared/layout/layout'
+import MainContent from '../components/mainSection/mainContent'
 
 const IndexPage = () => {
-
-  return(
+  return (
     <Layout>
-      <MainContent/>
+      <MainContent />
     </Layout>
   )
 }
