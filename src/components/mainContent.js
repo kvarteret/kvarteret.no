@@ -25,6 +25,7 @@ import FastAverageColor from 'fast-average-color'
 import { getFullImageUrl } from '../helpers/fileHelper'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslation } from '../helpers/languageHelper'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const useStyles = makeStyles({
   root: {
@@ -73,7 +74,7 @@ const CarouselItem = ({ item }) => {
   const [color, setColor] = useState('#fff')
   useEffect(() => {
     const fac = new FastAverageColor()
-    fac.getColorAsync(item.img, { width: 500 }).then(function (color) {
+    fac.getColorAsync(item.imageFile.childImageSharp.gatsbyImageData.placeholder.fallback).then(function (color) {
       setColor(color.isDark ? '#fff' : '#000')
     })
   }, [])
@@ -81,9 +82,10 @@ const CarouselItem = ({ item }) => {
   const textClasses =
     classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
 
+    const image = getImage(item.imageFile)
   return (
     <Box className={classes.carousel}>
-      <img crossOrigin="anonymous" className={classes.img} src={item.img} />
+      <GatsbyImage image={image} className={classes.img} alt={item.text} />
       {item.text && (
         <Typography variant="h1" className={textClasses} style={{ color }}>
           {item.text}
@@ -96,6 +98,7 @@ const CarouselItem = ({ item }) => {
 const sanitizeData = (data) =>
   data.directus.items.general_information.carousel_items.map((item) => ({
     img: getFullImageUrl(item.image.id),
+    imageFile: item.image.imageFile,
     text: getTranslation(item.translations)?.title,
   }))
 
@@ -110,6 +113,14 @@ const MainContent = ({ content }) => {
               carousel_items {
                 image {
                   id
+                  imageFile {
+                    childImageSharp {
+                      gatsbyImageData(
+                        placeholder: BLURRED
+                        formats: PNG
+                      )
+                    }
+                  }
                 }
                 translations {
                   title

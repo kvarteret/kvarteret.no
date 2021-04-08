@@ -31,7 +31,6 @@ module.exports.generate = async (createPage, graphql, actions) => {
       }
     }
   `)
-  console.log(JSON.stringify(response))
   const {
     data: {
       directus: { items: pageObject },

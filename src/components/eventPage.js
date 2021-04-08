@@ -2,7 +2,6 @@ import React from 'react'
 import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core'
 
 export default function EventPage({ dataContext }) {
-    console.log(dataContext)
     const useStyles = makeStyles({
         root: {
             marginBottom: 60,

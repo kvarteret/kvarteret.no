@@ -27,7 +27,6 @@ module.exports.generate = async (createPage, graphql, actions) => {
       }
     }
   `)
-  console.log(response)
   const {
     data: {
       directus: { items: eventObj },

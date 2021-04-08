@@ -6,9 +6,10 @@ import CardContent from '@material-ui/core/CardContent'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import { Box, CardActionArea, CardMedia } from '@material-ui/core'
-import { LineWeight } from '@material-ui/icons'
+import { ContactsOutlined, LineWeight } from '@material-ui/icons'
 import { Link } from 'gatsby'
 import { getTranslatedText } from '../helpers/textHelper'
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const useStyles = makeStyles({
   root: {
@@ -84,6 +85,7 @@ export default function EventCard({
 
   const [raised, setRaised] = useState(false)
 
+  const image = getImage(imgSrc)
   return (
     <a href={url}>
       <Card
@@ -94,13 +96,19 @@ export default function EventCard({
       >
         <CardActionArea className={classes.actionArea}>
           <Box className={classes.imageContainer}>
-            <CardMedia
+            <GatsbyImage
+            className={classes.media}
+            image={image} 
+            title={title}
+            alt={alt}
+            />
+            {/* <CardMedia
               component="img"
               className={classes.media}
               image={imgSrc}
               title={title}
               alt={alt}
-            />
+            /> */}
             {ticketUrl && (
               <a href={ticketUrl} className={classes.ticket}>
                 {getTranslatedText('buy-ticket')}

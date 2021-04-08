@@ -49,6 +49,14 @@ const EventSection = () => {
             ticket_url
             image {
               id
+              imageFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: PNG
+                  )
+                }
+              }
             }
             rooms {
               room_id {
@@ -76,7 +84,7 @@ const EventSection = () => {
       return (
         <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
           <EventCard
-            imgSrc={getFullImageUrl(x.image.id)}
+            imgSrc={x.image.imageFile}
             alt="Card image"
             date={start}
             title={translation.title}

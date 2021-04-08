@@ -8,6 +8,9 @@ import Sidedrawer from './SideDrawer/Sidedrawer'
 import NavBar from './Navigation/NavBar'
 import { getFullImageUrl } from '../helpers/fileHelper'
 
+import Logo from '../images/logo.png'
+import HovedLogo from "../images/Hoved logo.png"
+
 const useStyles = makeStyles({
   root: {
     width: '100%',
@@ -108,7 +111,7 @@ const Header = ({ siteTitle, open, closed }) => {
         <Hidden mdDown>
           <Link to="/">
             <Grid container alignItems="center" justify="center">
-              <img src={mainLogoPath} height="80px"></img>
+              <img src={HovedLogo} height="80px"></img>
             </Grid>
           </Link>
         </Hidden>
@@ -138,7 +141,7 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="stretch"
       >
         <Link to="/">
-          <img src={logoPath} className={classes.logo}></img>
+              <img src= {Logo} alt="Kvarteret's logo" className={classes.logo}></img>
         </Link>
       </Grid>
       <Grid

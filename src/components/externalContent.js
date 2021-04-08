@@ -2,7 +2,6 @@ import { withStyles } from '@material-ui/styles'
 import React from 'react'
 
 const styles = (theme) => {
-  console.log(theme)
   return {
     root: {
       '& h1': {
@@ -21,7 +20,6 @@ const styles = (theme) => {
   }
 }
 const ExternalContent = withStyles(styles)((props) => {
-  console.log(props)
   return (
     <div
       className={props.classes.root}

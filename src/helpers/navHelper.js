@@ -274,7 +274,6 @@ const collectionHandlers = {
 const getNavItems = (data, navItemsDict) => {
   return data
     .map((item) => {
-      console.log('ITEM', item)
       return collectionHandlers[item.collection](item.item, navItemsDict, 0)
     })
     .filter(Boolean)

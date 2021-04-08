@@ -37,14 +37,12 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
 
 const NavItem = ({ item }) => {
   // TODO: Dropdown menu
-  console.log('ITEM', item)
   const text = item.text
 
   if (item.items) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const handleClick = (event) => {
-      console.log('Click', event)
       setAnchorEl(event.currentTarget)
     }
 

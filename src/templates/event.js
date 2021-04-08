@@ -3,7 +3,6 @@ import EventPage from '../components/eventPage'
 import Layout from '../components/layout';
 
 const Event = ({ pageContext }) => {
-  console.log(pageContext)
   return (
     <Layout>
       <EventPage dataContext={pageContext} />
