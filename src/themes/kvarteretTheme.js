@@ -1,11 +1,13 @@
-import { createMuiTheme } from '@material-ui/core'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 
-const lightTheme = createMuiTheme({
+let lightTheme = createMuiTheme({
   typography: {
     fontFamily: 'Hegval Display',
     fontSize: 12,
     h1: {
       fontSize: 60,
+      wordBreak: 'break-word',
+      fontWeight: 'bolder',
     },
     h2: {
       fontSize: 40,
@@ -32,8 +34,9 @@ const lightTheme = createMuiTheme({
     },
   },
 })
+lightTheme = responsiveFontSizes(lightTheme)
 
-const darkTheme = createMuiTheme({
+let darkTheme = createMuiTheme({
   typography: {
     fontFamily: 'Hegval Display',
     fontSize: 12,
@@ -69,5 +72,6 @@ const darkTheme = createMuiTheme({
     text: { secondary: '#929292' },
   },
 })
+darkTheme = responsiveFontSizes(darkTheme)
 
 export { lightTheme, darkTheme }

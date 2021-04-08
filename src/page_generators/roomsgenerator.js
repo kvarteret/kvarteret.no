@@ -15,7 +15,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
                 description
                 imageFile {
                   childImageSharp {
-                    gatsbyImageData
+                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
                   }
                 }
               }
@@ -27,6 +27,16 @@ module.exports.generate = async (createPage, graphql, actions) => {
               description
               languages_code {
                 url_code
+              }
+            }
+            facilities {
+              translations {
+                languages_code {
+                  url_code
+                }
+                name
+                value
+                note
               }
             }
           }
@@ -45,16 +55,27 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
       return Promise.all(
         room.translations.map(async (translation) => {
-          let languageModifier = translation.languages_code.url_code + '/'
+          const urlCode = translation.languages_code.url_code
+          let languageModifier = urlCode + '/'
+
+          const facilities = room.facilities.map((facility) => {
+            const translation = facility.translations.filter(
+              (x) => x.languages_code.url_code == urlCode
+            )[0]
+            return {
+              ...translation,
+            }
+          })
 
           const dataContext = {
             body: translation.description,
             gallery: room.gallery,
+            facilities: facilities,
           }
 
           createPage({
             path: '/' + languageModifier + 'room/' + room.slug,
-            component: path.resolve('./src/templates/page.js'),
+            component: path.resolve('./src/templates/room.js'),
             context: dataContext,
           })
         })

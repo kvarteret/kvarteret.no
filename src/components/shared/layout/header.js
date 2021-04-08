@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import './header.scss'
-import { Divider, Grid, Hidden, makeStyles } from '@material-ui/core'
+import { Box, Divider, Grid, Hidden, makeStyles } from '@material-ui/core'
 import LanguageSelector from './languageSelector'
 import Sidedrawer from '../navigation/SideDrawer/Sidedrawer'
 
@@ -111,7 +111,16 @@ const Header = ({ siteTitle, open, closed }) => {
         <Hidden mdDown>
           <Link to="/">
             <Grid container alignItems="center" justify="center">
-              <img src={HovedLogo} height="80px"></img>
+              <img
+                src={HovedLogo}
+                height="80px"
+                width="100%"
+                style={{
+                  objectFit: 'contain',
+                  minWidth: '106px',
+                  backgroundColor: '#f54b4b',
+                }}
+              ></img>
             </Grid>
           </Link>
         </Hidden>

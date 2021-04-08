@@ -53,7 +53,7 @@ const Page = ({ pageContext }) => {
             {pageContext.gallery.length > 0 && (
               <Box
                 p={{ xs: 0, md: 4 }}
-                pr={{ xs: 0, md: 4, lg: 8 }}
+                pr={{ xs: 0, md: 4, lg: 6 }}
                 mb={{ xs: 4, md: 4 }}
               >
                 <DAKCarousel
@@ -65,8 +65,8 @@ const Page = ({ pageContext }) => {
             )}
             <Hidden smDown>{snippets}</Hidden>
           </Grid>
-          <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-            <Box m={{ xs: 2, md: 4, lg: 8 }} mt={{ xs: 0, lg: 4 }}>
+          <Grid item xs={12} md={6}>
+            <Box m={{ xs: 2, md: 4, lg: 6 }} mt={{ xs: 0, lg: 4 }}>
               <ExternalContent data={pageContext.body} />
             </Box>
           </Grid>

@@ -23,6 +23,8 @@ const useStyles = makeStyles({
   root: {
     minHeight: '100vh',
     position: 'relative',
+    overflow: 'auto',
+    width: '100%',
   },
   body: {},
   footer: {
@@ -31,8 +33,8 @@ const useStyles = makeStyles({
 })
 
 const Layout = ({ children, spacingTop }) => {
-  let spacing = {}
-  if (spacingTop) spacing = { paddingTop: 80 }
+  let spacing = { overflowX: 'hidden' }
+  if (spacingTop) spacing = { paddingTop: 80, overflowX: 'hidden' }
 
   const classes = useStyles()
   return (
