@@ -5,14 +5,12 @@ function getAllTextsDict() {
   const data = useStaticQuery(graphql`
     query TextQuery {
       directus {
-        items {
-          texts {
-            text_id
-            translations {
-              text
-              languages_code {
-                url_code
-              }
+        texts {
+          text_id
+          translations {
+            text
+            languages_code {
+              url_code
             }
           }
         }
@@ -21,7 +19,7 @@ function getAllTextsDict() {
   `)
 
   const dictionaries = { no: {}, en: {} }
-  data.directus.items.texts.forEach((text) => {
+  data.directus.texts.forEach((text) => {
     text.translations.forEach((translation) => {
       const languageCode = translation.languages_code.url_code
       dictionaries[languageCode][text.text_id] = translation.text

@@ -59,20 +59,18 @@ const Header = ({ siteTitle, open, closed }) => {
   const data = useStaticQuery(graphql`
     query HeaderQuery {
       directus {
-        items {
-          general_information {
-            logo {
-              id
-            }
-            hoved_logo {
-              id
-            }
+        general_information {
+          logo {
+            id
+          }
+          hoved_logo {
+            id
           }
         }
       }
     }
   `)
-  const generalInfo = data.directus.items.general_information
+  const generalInfo = data.directus.general_information
   const logoPath = getFullImageUrl(generalInfo.logo.id)
   const mainLogoPath = getFullImageUrl(generalInfo.hoved_logo.id)
 

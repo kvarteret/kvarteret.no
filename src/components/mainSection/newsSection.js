@@ -30,26 +30,24 @@ const NewsSection = () => {
   const data = useStaticQuery(graphql`
     query NewsSectionQuery {
       directus {
-        items {
-          news {
-            date_created
-            date_updated
-            id
-            slug
-            status
-            translations {
-              tagline
-              title
-              languages_code {
-                url_code
-              }
+        news {
+          date_created
+          date_updated
+          id
+          slug
+          status
+          translations {
+            tagline
+            title
+            languages_code {
+              url_code
             }
           }
         }
       }
     }
   `)
-  const newsItems = data.directus.items.news
+  const newsItems = data.directus.news
     .filter((x) => isValidStatus(x.status))
     .map((x) => {
       const translation = getTranslation(x.translations)

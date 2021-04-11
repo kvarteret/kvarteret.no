@@ -6,28 +6,26 @@ module.exports.generate = async (createPage, graphql, actions) => {
   const response = await graphql(`
     query PageItems {
       directus {
-        items {
-          page {
-            id
-            slug
-            status
-            translations {
-              text
-              snippets
-              languages_code {
-                url_code
-                name
-              }
+        page {
+          id
+          slug
+          status
+          translations {
+            text
+            snippets
+            languages_code {
+              url_code
+              name
             }
-            gallery {
-              directus_files_id {
-                id
-                title
-                description
-                imageFile {
-                  childImageSharp {
-                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
-                  }
+          }
+          gallery {
+            directus_files_id {
+              id
+              title
+              description
+              imageFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder: BLURRED, formats: PNG)
                 }
               }
             }
@@ -37,9 +35,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
     }
   `)
   const {
-    data: {
-      directus: { items: pageObject },
-    },
+    data: { directus: pageObject },
   } = response
   await Promise.all(
     pageObject.page.map(async (PageItems) => {

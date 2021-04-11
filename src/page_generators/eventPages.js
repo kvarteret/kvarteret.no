@@ -6,21 +6,19 @@ module.exports.generate = async (createPage, graphql, actions) => {
   const response = await graphql(`
     query eventItems {
       directus {
-        items {
-          events {
-            date_created
-            date_updated
-            id
-            slug
-            status
-            translations {
-              title
-              description
-              languages_code {
-                code
-                name
-                url_code
-              }
+        events {
+          date_created
+          date_updated
+          id
+          slug
+          status
+          translations {
+            title
+            description
+            languages_code {
+              code
+              name
+              url_code
             }
           }
         }
@@ -28,9 +26,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
     }
   `)
   const {
-    data: {
-      directus: { items: eventObj },
-    },
+    data: { directus: eventObj },
   } = response
   await Promise.all(
     eventObj.events.map(async (eventItem) => {

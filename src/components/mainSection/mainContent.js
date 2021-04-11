@@ -86,7 +86,7 @@ const CarouselItem = ({ item }) => {
 }
 
 const sanitizeData = (data) =>
-  data.directus.items.general_information.carousel_items.map((item) => ({
+  data.directus.general_information.carousel_items.map((item) => ({
     img: getFullImageUrl(item.image.id),
     imageFile: item.image.imageFile,
     text: getTranslation(item.translations)?.title,
@@ -98,22 +98,20 @@ const MainContent = ({ content }) => {
     useStaticQuery(graphql`
       query CarouselData {
         directus {
-          items {
-            general_information {
-              carousel_items {
-                image {
-                  id
-                  imageFile {
-                    childImageSharp {
-                      gatsbyImageData(placeholder: BLURRED, formats: PNG)
-                    }
+          general_information {
+            carousel_items {
+              image {
+                id
+                imageFile {
+                  childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
                   }
                 }
-                translations {
-                  title
-                  languages_code {
-                    url_code
-                  }
+              }
+              translations {
+                title
+                languages_code {
+                  url_code
                 }
               }
             }

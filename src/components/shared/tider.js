@@ -21,11 +21,10 @@ const useStyles = makeStyles({
 
 const extractData = (data) => {
   let dates = {}
-  var openingTimes = data.directus.items.opening_time
+  var openingTimes = data.directus.opening_time
   openingTimes.forEach((item) => {
     let times = []
-    item.opening_times.forEach((timeobj) => {
-      var time = timeobj.opening_time_day_id
+    item.opening_time_day.forEach((time) => {
       times.push({
         openingTime: time.opening_time,
         closingTime: time.closing_time,
@@ -90,17 +89,14 @@ const Tider = ({ siteTitle, isFooter }) => {
   const data = useStaticQuery(graphql`
     query OpeningTimeQuery {
       directus {
-        items {
-          opening_time {
-            day
-            opening_times {
-              opening_time_day_id {
-                opening_time
-                closing_time
-                room {
-                  name
-                }
-              }
+        opening_time {
+          day
+          opening_time_day {
+            is_open
+            opening_time
+            closing_time
+            room {
+              name
             }
           }
         }

@@ -32,44 +32,38 @@ const EventSection = () => {
   const data = useStaticQuery(graphql`
     query IndexPageData {
       directus {
-        items {
-          events {
+        events {
+          id
+          status
+          slug
+          translations {
+            languages_code {
+              url_code
+            }
+            title
+            tagline
+          }
+          event_end
+          event_start
+          ticket_url
+          image {
             id
-            status
-            slug
-            translations {
-              languages_code {
-                url_code
-              }
-              title
-              tagline
-            }
-            event_end
-            event_start
-            ticket_url
-            image {
-              id
-              imageFile {
-                childImageSharp {
-                  gatsbyImageData(
-                    placeholder: BLURRED
-                    formats: PNG
-                    height: 285
-                  )
-                }
+            imageFile {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, formats: PNG, height: 285)
               }
             }
-            rooms {
-              room_id {
-                name
-              }
+          }
+          rooms {
+            room_id {
+              name
             }
           }
         }
       }
     }
   `)
-  let eventItems = data.directus.items.events
+  let eventItems = data.directus.events
   eventItems.sort((x, y) => new Date(x.event_start) - new Date(y.event_start))
   eventItems = eventItems
     .filter(

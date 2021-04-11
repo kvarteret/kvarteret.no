@@ -27,7 +27,7 @@ const useStyles = makeStyles({
 
 const sanitizeData = (data) => {
   const roomEvents = []
-  data.directus.items.events.forEach((event) => {
+  data.directus.events.forEach((event) => {
     if (!isValidStatus(event.status)) return
     const translation = getTranslation(event.translations)
     const today = new Date()
@@ -59,24 +59,22 @@ const TodaySection = () => {
   const newData = useStaticQuery(graphql`
     query TodaySectionData {
       directus {
-        items {
-          events {
-            id
-            status
-            slug
-            translations {
-              languages_code {
-                url_code
-              }
-              title
+        events {
+          id
+          status
+          slug
+          translations {
+            languages_code {
+              url_code
             }
-            event_end
-            event_start
-            rooms {
-              room_id {
-                name
-                floor
-              }
+            title
+          }
+          event_end
+          event_start
+          rooms {
+            room_id {
+              name
+              floor
             }
           }
         }

@@ -6,38 +6,36 @@ module.exports.generate = async (createPage, graphql, actions) => {
   const response = await graphql(`
     query RoomDataQuery {
       directus {
-        items {
-          room {
-            gallery {
-              directus_files_id {
-                id
-                title
-                description
-                imageFile {
-                  childImageSharp {
-                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
-                  }
+        room {
+          gallery {
+            directus_files_id {
+              id
+              title
+              description
+              imageFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder: BLURRED, formats: PNG)
                 }
               }
             }
-            name
-            slug
-            status
+          }
+          name
+          slug
+          status
+          translations {
+            description
+            languages_code {
+              url_code
+            }
+          }
+          facilities {
             translations {
-              description
               languages_code {
                 url_code
               }
-            }
-            facilities {
-              translations {
-                languages_code {
-                  url_code
-                }
-                name
-                value
-                note
-              }
+              name
+              value
+              note
             }
           }
         }
@@ -45,9 +43,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
     }
   `)
   const {
-    data: {
-      directus: { items: roomObject },
-    },
+    data: { directus: roomObject },
   } = response
   await Promise.all(
     roomObject.room.map(async (room) => {
