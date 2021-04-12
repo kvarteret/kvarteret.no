@@ -31,6 +31,7 @@ const useStyles = makeStyles({
   },
   hamburger: {
     width: 80,
+    height: 80,
     cursor: 'pointer',
   },
   center: {
@@ -89,16 +90,21 @@ export default function sideDrawer() {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Grid
         container
         direction="row"
         alignItems="center"
+        justify="space-between"
         className={classes.ImageContainer}
       >
-        <Grid item xs={2}>
+        <Grid
+          item
+          xs={2}
+          style={{ cursor: 'pointer' }}
+          onClick={toggleDrawer(anchor, false)}
+        >
           <ArrowBackIcon style={{ height: '40px' }} fontSize="large" />
         </Grid>
         <Grid item xs={8}>

@@ -13,6 +13,13 @@
   align-items: flex-end;
 }
 
+.ListItem {
+}
+
+.ListItem:hover {
+  background-color: unset !important;
+}
+
 .Link {
   color: black;
 }

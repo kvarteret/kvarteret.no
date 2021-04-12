@@ -43,6 +43,20 @@ const NewsSection = () => {
               url_code
             }
           }
+          thumbnail {
+            id
+            imageFile {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: PNG
+                  layout: FIXED
+                  width: 66
+                  height: 66
+                )
+              }
+            }
+          }
         }
       }
     }
@@ -54,7 +68,7 @@ const NewsSection = () => {
       return (
         <Grid item xs={12} key={x.id}>
           <NewsCard
-            imgSrc="https://kvarteret.no/wp-content/uploads/2020/10/V%C3%A5peneksport-1024x536.png"
+            imgSrc={x?.thumbnail?.imageFile}
             alt={x.title}
             date={x.date_updated || x.date_created}
             title={translation.title}

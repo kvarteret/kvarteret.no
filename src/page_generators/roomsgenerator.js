@@ -18,6 +18,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
                     placeholder: BLURRED
                     formats: PNG
                     aspectRatio: 1.8
+                    width: 1080
                   )
                 }
               }

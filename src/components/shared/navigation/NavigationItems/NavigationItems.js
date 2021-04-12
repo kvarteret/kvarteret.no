@@ -3,6 +3,7 @@ import {
   Center,
   Link as LinkCss,
   becomeVolunteer,
+  ListItem as ListItemCss,
 } from './NavigationItems.module.css'
 import { Link } from 'gatsby'
 import { Collapse, Grid, List, ListItem, ListItemText } from '@material-ui/core'
@@ -24,7 +25,7 @@ const NavItem = ({ item }) => {
 
     return (
       <div>
-        <ListItem button onClick={handleClick}>
+        <ListItem button onClick={handleClick} className={ListItemCss}>
           <ListItemText primary={text} />
           {open ? <ExpandLess /> : <ExpandMore />}
         </ListItem>
@@ -41,84 +42,47 @@ const NavItem = ({ item }) => {
 
   let linkElem = (
     <Link className={LinkCss} to={link}>
-      {text}
+      <ListItem button className={ListItemCss}>
+        <ListItemText>{text}</ListItemText>
+      </ListItem>
     </Link>
   )
 
   if (isButton) {
     linkElem = (
-      <Link
-        className={LinkCss}
-        to={link}
-        className={becomeVolunteer}
-        component="button"
-      >
-        {text}
-      </Link>
+      <ListItem button className={ListItemCss}>
+        <ListItemText>
+          <Link
+            className={LinkCss}
+            to={link}
+            className={becomeVolunteer}
+            component="button"
+          >
+            {text}
+          </Link>
+        </ListItemText>
+      </ListItem>
     )
   }
 
-  return (
-    <ListItem button>
-      <ListItemText>{linkElem}</ListItemText>
-    </ListItem>
-  )
+  return linkElem
 }
 
 const navigationItems = () => {
   const navItems = GetNavItems()
 
-  const allItems = [...navItems.leftNavItems, ...navItems.rightNavItems]
-  const elements = allItems.map((item, id) => (
+  const topItems = [...navItems.leftNavItems]
+  const elements = topItems.map((item, id) => (
     <NavItem key={id} item={item} />
     // <Grid key={id} item className={Center}>
     // </Grid>
   ))
 
   return (
-    <div>
-      {/* <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Kafèmeny
-        </Link>
-      </Grid>
-      <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Butikk
-        </Link>
-      </Grid>
-      <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Rombooking
-        </Link>{' '}
-      </Grid>
-      <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Bilder
-        </Link>
-      </Grid>
-      <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Om oss
-        </Link>
-      </Grid>
-      <Grid item className={Center}>
-        <Link className={LinkCss} to="#">
-          Kontakt
-        </Link>
-      </Grid>
-      <Grid item className={Center}>
-        <Link
-          className={LinkCss}
-          to="#"
-          className={becomeVolunteer}
-          component="button"
-        >
-          Bli frivillig
-        </Link>
-      </Grid> */}
-      {elements}
-    </div>
+    <Grid container direction="column" justify="space-between">
+      <Grid item>{elements}</Grid>
+      <Grid item>{elements}</Grid>
+    </Grid>
   )
 }
 

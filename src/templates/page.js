@@ -21,10 +21,10 @@ const Snippets = ({ items }) => {
 }
 
 const sanitizeGalleryData = (data) =>
-  data.map((item) => ({
+  data?.map((item) => ({
     img: 'https://cms.kvarteret.no/assets/' + item.directus_files_id.id,
     imageFile: item.directus_files_id.imageFile,
-  }))
+  })) || []
 
 /**
  * General component for showing information about a page
@@ -49,7 +49,7 @@ const Page = ({ pageContext }) => {
       <Box>
         <Grid container direction="row-reverse">
           <Grid item xs={12} md={6}>
-            {pageContext.gallery.length > 0 && (
+            {galleryData.length > 0 && (
               <Box
                 p={{ xs: 0, md: 4 }}
                 pr={{ xs: 0, md: 4, lg: 6 }}

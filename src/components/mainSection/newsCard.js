@@ -8,12 +8,13 @@ import Typography from '@material-ui/core/Typography'
 import { CardActionArea, CardMedia, Grid, Hidden } from '@material-ui/core'
 import { LineWeight } from '@material-ui/icons'
 import moment from 'moment'
+import { getImage, GatsbyImage } from 'gatsby-plugin-image'
 
 const useStyles = makeStyles({
   root: {
     borderRadius: 0,
   },
-  content: {},
+  content: { width: 'calc(100% - 74px)' },
   media: {
     marginBottom: 0,
     objectFit: 'cover',
@@ -45,21 +46,30 @@ const useStyles = makeStyles({
 
 export default function NewsCard({ imgSrc, alt, date, title, text, url }) {
   const classes = useStyles()
+  const image = getImage(imgSrc)
+  console.log('WTF', image, imgSrc)
   return (
     <CardActionArea href={url}>
-      <Grid container spacing={1} className={classes.root}>
+      <Grid container spacing={1} direction="row" className={classes.root}>
         <Hidden xsDown={false}>
-          <Grid item xs={3}>
-            <CardMedia
+          <Grid item>
+            <GatsbyImage
+              className={classes.media}
+              image={image}
+              title={title}
+              alt={alt}
+            />
+
+            {/* <CardMedia
               component="img"
               className={classes.media}
               image={imgSrc}
               title={title}
               alt={alt}
-            />
+            /> */}
           </Grid>
         </Hidden>
-        <Grid item xs={9} sm={9} className={classes.content}>
+        <Grid item className={classes.content}>
           <Grid container direction="column">
             <Grid item>
               <Typography

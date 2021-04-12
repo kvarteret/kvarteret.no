@@ -33,6 +33,7 @@ export default function DAKCarousel({
     speed: animationSpeed || 500,
     arrows,
     autoplaySpeed: 5000,
+    pauseOnHover: true,
   }
   return (
     <Slider {...settings}>
@@ -48,11 +49,10 @@ export default function DAKCarousel({
 }
 
 function Item({ item }) {
-  console.log('ITEM', item)
   const image = getImage(item.imageFile)
   return (
     <GatsbyImage
-      style={{ width: '100%', objectFit: 'cover' }}
+      style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
       image={image}
       alt={'image'}
     ></GatsbyImage>
