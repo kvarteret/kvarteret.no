@@ -25,7 +25,11 @@ module.exports.generate = async (createPage, graphql, actions) => {
               description
               imageFile {
                 childImageSharp {
-                  gatsbyImageData(placeholder: BLURRED, formats: PNG)
+                  gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: PNG
+                    aspectRatio: 1.8
+                  )
                 }
               }
             }

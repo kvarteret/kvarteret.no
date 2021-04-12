@@ -31,7 +31,6 @@ const sanitizeGalleryData = (data) =>
  * @param {Page} pageContext
  */
 const Page = ({ pageContext }) => {
-  console.log('CONTEXT', pageContext)
   const snippets = (pageContext.snippets && (
     <Box m={{ xs: 2, md: 4, lg: 8 }} mt={{ xs: 0, lg: 4 }}>
       <Snippets items={pageContext.snippets} />

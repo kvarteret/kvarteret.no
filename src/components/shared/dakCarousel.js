@@ -51,13 +51,10 @@ function Item({ item }) {
   console.log('ITEM', item)
   const image = getImage(item.imageFile)
   return (
-    <div>
-      <GatsbyImage
-        style={{ width: '100%', height: '500px', objectFit: 'cover' }}
-        image={image}
-        alt={'image'}
-      ></GatsbyImage>
-      {/* <span>{props.item.directus_files_id.description}</span> */}
-    </div>
+    <GatsbyImage
+      style={{ width: '100%', objectFit: 'cover' }}
+      image={image}
+      alt={'image'}
+    ></GatsbyImage>
   )
 }

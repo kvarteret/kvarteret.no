@@ -17,6 +17,7 @@ import {
   Grid,
   Hidden,
   makeStyles,
+  SwipeableDrawer,
   Typography,
 } from '@material-ui/core'
 import { Link } from 'gatsby'
@@ -51,8 +52,8 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     textAlign: 'center',
     boxShadow: '0 0 10px gray',
-    paddingBottom: '15px',
-    paddingTop: '15px',
+    paddingBottom: '4.66px',
+    paddingTop: '4.66px',
   },
   SearchContainer: {
     textAlign: 'center',
@@ -88,7 +89,7 @@ export default function sideDrawer() {
         [classes.fullList]: anchor === 'top' || anchor === 'bottom',
       })}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
+      // onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Grid
@@ -106,34 +107,33 @@ export default function sideDrawer() {
           </Link>
         </Grid>
       </Grid>
-      <div className={classes.SearchContainer}>
+      {/* <div className={classes.SearchContainer}>
         <input placeholder="Søk" className={classes.Search}></input>
-      </div>
+      </div> */}
       <List>
         <NavigationItems />
       </List>
     </div>
   )
-
+  const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent)
   return (
     <div>
-      {['left'].map((anchor) => (
-        <React.Fragment key={anchor}>
-          <Button
-            className={classes.hamburger + ' ' + classes.center}
-            onClick={toggleDrawer(anchor, true)}
-          >
-            <MenuIcon />
-          </Button>
-          <Drawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-          >
-            {list(anchor)}
-          </Drawer>
-        </React.Fragment>
-      ))}
+      <Button
+        className={classes.hamburger + ' ' + classes.center}
+        onClick={toggleDrawer('left', true)}
+      >
+        <MenuIcon />
+      </Button>
+      <SwipeableDrawer
+        anchor={'left'}
+        open={state['left']}
+        onOpen={toggleDrawer('left', true)}
+        onClose={toggleDrawer('left', false)}
+        disableBackdropTransition={!iOS}
+        disableDiscovery={iOS}
+      >
+        {list('left')}
+      </SwipeableDrawer>
     </div>
   )
 }
