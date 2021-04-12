@@ -77,14 +77,16 @@ const Room = ({ pageContext }) => {
             <ExternalContent data={pageContext.body} />
           </Grid>
           <Grid item xs={12} md={6}>
-            <DAKCarousel
-              dots={true}
-              arrows={true}
-              items={galleryData}
-            ></DAKCarousel>
-            {pageContext.facilities?.length > 0 && (
-              <RoomFacilities facilities={pageContext.facilities} />
-            )}
+            <Box mt={{ xs: 4 }}>
+              <DAKCarousel
+                dots={true}
+                arrows={true}
+                items={galleryData}
+              ></DAKCarousel>
+              {pageContext.facilities?.length > 0 && (
+                <RoomFacilities facilities={pageContext.facilities} />
+              )}
+            </Box>
           </Grid>
         </Grid>
       </Box>

@@ -65,7 +65,11 @@ const Page = ({ pageContext }) => {
             <Hidden smDown>{snippets}</Hidden>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box m={{ xs: 2, md: 4, lg: 6 }} mt={{ xs: 0, lg: 4 }}>
+            <Box
+              m={{ xs: 2, md: 4, lg: 6 }}
+              mt={{ xs: 0, lg: 4 }}
+              mb={{ xs: 8 }}
+            >
               <ExternalContent data={pageContext.body} />
             </Box>
           </Grid>

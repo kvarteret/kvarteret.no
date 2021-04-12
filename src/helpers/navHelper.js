@@ -1,7 +1,11 @@
 import { InsertEmoticon } from '@material-ui/icons'
 import { graphql, useStaticQuery } from 'gatsby'
 import { isValidStatus } from './helper'
-import { UrlLanguageCode, getTranslation } from './languageHelper'
+import {
+  UrlLanguageCode,
+  getTranslation,
+  getTranslatedUrl,
+} from './languageHelper'
 
 const UnpackDirectus = (data) => data.directus.items
 
@@ -223,7 +227,7 @@ const NavigationItemHander = (item, navItemsDict, depth) => {
 const RoomItemHandler = (item, navItemsDict, depth) => {
   if (!isValidStatus(item.status)) return null
   return {
-    url: '/en/room/' + item.slug,
+    url: '/' + getTranslatedUrl('room/' + item.slug),
     text: item.name,
   }
 }
@@ -246,9 +250,8 @@ const PageItemHandler = (item, navItemsDict, depth) => {
 
   const translation = getTranslation(item.translations)
   if (!translation) return null
-
   return {
-    url: '/en/page/' + item.slug,
+    url: '/' + getTranslatedUrl('page/' + item.slug),
     text: translation.name || item.slug,
   }
 }
@@ -256,7 +259,7 @@ const PageItemHandler = (item, navItemsDict, depth) => {
 const NewsItemHandler = (item, navItemsDict, depth) => {
   if (!isValidStatus(item.status)) return null
   return {
-    url: '/en/news/' + item.slug,
+    url: '/' + getTranslatedUrl('news/' + item.slug),
     text: item.slug,
   }
 }

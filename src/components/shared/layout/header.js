@@ -90,6 +90,7 @@ const Header = ({ siteTitle, open, closed }) => {
         direction="row"
         justify="flex-start"
         alignItems="center"
+        style={{ maxWidth: '120px' }}
       >
         <Hidden lgUp={true}>
           <Grid
@@ -114,6 +115,7 @@ const Header = ({ siteTitle, open, closed }) => {
                 height="80px"
                 width="100%"
                 style={{
+                  maxWidth: '120px',
                   objectFit: 'contain',
                   minWidth: '106px',
                   backgroundColor: '#f54b4b',
@@ -167,8 +169,7 @@ const Header = ({ siteTitle, open, closed }) => {
       </Grid>
       <Grid
         item
-        xs={4}
-        lg={1}
+        style={{ width: '90px' }}
         container
         direction="row"
         justify="flex-end"
