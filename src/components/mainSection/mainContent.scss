@@ -1,21 +1,3 @@
-@font-face {
-  font-family: 'Hegval-medium';
-  src: url('../../fonts/The Northern Block Ltd - Hegval Display Medium.otf')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-light';
-  font-weight: lighter;
-  src: url('../../fonts/The Northern Block Ltd - Hegval Display Light.otf')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-regular';
-  font-weight: bold;
-  src: url('../../fonts/The Northern Block Ltd - Hegval Display Regular.otf')
-    format('opentype');
-}
-
 $base-color: #f54b4b;
 
 * {

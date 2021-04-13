@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
   hamburger: {
     width: 80,
-    height: 80,
+    height: 'auto',
     cursor: 'pointer',
   },
   divider: {

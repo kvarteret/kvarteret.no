@@ -72,16 +72,18 @@ const navigationItems = () => {
   const navItems = GetNavItems()
 
   const topItems = [...navItems.leftNavItems]
-  const elements = topItems.map((item, id) => (
+  const bottomItems = [...navItems.rightNavItems]
+  const topElements = topItems.map((item, id) => (
     <NavItem key={id} item={item} />
-    // <Grid key={id} item className={Center}>
-    // </Grid>
+  ))
+  const bottomElements = bottomItems.map((item, id) => (
+    <NavItem key={id} item={item} />
   ))
 
   return (
     <Grid container direction="column" justify="space-between">
-      <Grid item>{elements}</Grid>
-      <Grid item>{elements}</Grid>
+      <Grid item>{topElements}</Grid>
+      <Grid item>{bottomElements}</Grid>
     </Grid>
   )
 }
