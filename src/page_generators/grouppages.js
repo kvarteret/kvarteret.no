@@ -12,6 +12,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
           sort
           status
           translations {
+            text
             group_id {
               date_updated
               id
@@ -42,7 +43,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
           let languageModifier = translation.languages_code.url_code + '/'
 
           const dataContext = {
-            body: translation.description,
+            body: translation.text,
             gallery: groupItem.gallery,
           }
 

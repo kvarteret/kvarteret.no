@@ -2,24 +2,6 @@
   color: #F54B4B;
 } */
 
-@font-face {
-  font-family: 'Hegval-medium';
-  src: url('https://cms.kvarteret.no/assets/f1dce70d-bd36-47df-baa0-72673b6d4f26')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-light';
-  font-weight: lighter;
-  src: url('https://cms.kvarteret.no/assets/90dc663b-5dcb-4b74-b8f8-87c15d03a882')
-    format('opentype');
-}
-@font-face {
-  font-family: 'Hegval-regular';
-  font-weight: bold;
-  src: url('https://cms.kvarteret.no/assets/6fa48ede-41ad-4538-9b46-a58ca1211a00')
-    format('opentype');
-}
-
 a {
   text-decoration: none;
   color: white;
