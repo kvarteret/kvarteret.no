@@ -32,6 +32,7 @@ const useStyles = makeStyles({
   imgText: {
     position: 'absolute',
     bottom: '30px',
+    transform: 'translateZ(0)',
     left: '3%',
     color: 'white',
     fontSize: 30,
