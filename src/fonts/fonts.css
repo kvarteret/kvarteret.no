@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Hegval Display';
-  font-weight: 300;
+  font-weight: 400;
   font-style: italic;
   src: url('./The\ Northern\ Block\ Ltd\ -\ Hegval\ Display\ Medium.otf')
     format('opentype');
@@ -14,7 +14,7 @@
 @font-face {
   font-family: 'Hegval Display';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   src: url('./The\ Northern\ Block\ Ltd\ -\ Hegval\ Display\ Regular.otf')
     format('opentype');
 }

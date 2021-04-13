@@ -7,7 +7,7 @@ let lightTheme = createMuiTheme({
     h1: {
       fontSize: 60,
       wordBreak: 'break-word',
-      fontWeight: 'bolder',
+      fontWeight: 'bold',
     },
     h2: {
       fontSize: 40,
