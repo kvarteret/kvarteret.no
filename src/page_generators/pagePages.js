@@ -1,45 +1,68 @@
-const path = require('path');
+const path = require('path')
+const { isValidStatus } = require('../helpers/helper')
 
 module.exports.generate = async (createPage, graphql, actions) => {
-
-    // Query pages from Directus
-    const response = await graphql(`
+  // Query pages from Directus
+  const response = await graphql(`
     query PageItems {
-        directus {
-          items {
-            page {
+      directus {
+        page {
+          id
+          slug
+          status
+          translations {
+            text
+            snippets
+            languages_code {
+              url_code
+              name
+            }
+          }
+          gallery {
+            directus_files_id {
               id
-              slug
-              status
-              translations {
-                text
-                languages_code {
-                  url_code
-                  name
+              title
+              description
+              imageFile {
+                childImageSharp {
+                  gatsbyImageData(
+                    placeholder: BLURRED
+                    formats: PNG
+                    aspectRatio: 1.8
+                    width: 1080
+                  )
                 }
               }
             }
           }
         }
-      }  
-    `);
+      }
+    }
+  `)
+  const {
+    data: { directus: pageObject },
+  } = response
+  await Promise.all(
+    pageObject.page.map(async (PageItems) => {
+      if (!isValidStatus(PageItems.status)) return
 
-    const { data: { directus: { items: pageObject } } } = response;
-    await Promise.all(pageObject.page.map(async PageItems => {
-        if (PageItems.status !== "published") return;
+      return Promise.all(
+        PageItems.translations.map(async (translation) => {
+          let languageModifier = translation.languages_code.url_code + '/'
 
-        PageItems.translations.forEach(translation => {
-            let languageModifier = translation.languages_code.url_code + "/";
+          const dataContext = {
+            body: translation.text,
+            gallery: PageItems.gallery,
+            snippets: translation.snippets,
+          }
 
-            const dataContext = {
-                body: translation.text,
-            };
-
-            createPage({
-                path: "/" + languageModifier + "page/" + pageItems.slug,
-                component: path.resolve("./src/pages/page.js"),
-                context: dataContext
-            });
+          createPage({
+            path: '/' + languageModifier + 'page/' + PageItems.slug,
+            component: path.resolve('./src/templates/page.js'),
+            context: dataContext,
+          })
         })
-    }));
+      )
+    })
+  )
 }

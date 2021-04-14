@@ -2,6 +2,15 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
     "[javascript]": {
-      "editor.defaultFormatter": "vscode.typescript-language-features"
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "appService.zipIgnorePattern": [
+      "node_modules{,/**}",
+      ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e10d2249-edec-4b09-922a-c99e44b19709/resourceGroups/Kvarteret-linux/providers/Microsoft.Web/sites/kvarteret-preview",
+    "appService.deploySubpath": ".",
+    "[json]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
     }
   }

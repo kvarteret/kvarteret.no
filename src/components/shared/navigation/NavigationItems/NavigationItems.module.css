@@ -1,0 +1,45 @@
+.Center {
+  display: flex;
+  padding-top: 20px;
+  padding-left: 4%;
+  justify-content: left;
+  align-items: center;
+  color: black;
+}
+
+.Other {
+  display: flex;
+  justify-content: end;
+  align-items: flex-end;
+}
+
+.ListItem {
+}
+
+.ListItem:hover {
+  background-color: unset !important;
+}
+
+.Link {
+  color: black;
+}
+
+.becomeVolunteer {
+  background-color: #f54b4b;
+  color: white;
+  height: 40;
+  padding: 0 30px;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+}
+
+.becomeVolunteer:hover {
+  background-color: #f85b5b;
+  color: white;
+}
+
+.becomeVolunteer:active {
+  background-color: #f23b3b;
+  color: white;
+}

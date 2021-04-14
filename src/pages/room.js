@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid } from '@material-ui/core'
-import Layout from '../components/layout'
+import Layout from '../components/shared/layout/layout'
 import PictureDescription from '../components/pictureDescription'
 import PropTypes from 'prop-types'
 /**@typedef {import('../components/pictureDescription.js').Room} Room */
