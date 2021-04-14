@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 });
 
 const NewsPage = ({pageContext}) => {
-    const classes=useStyles();
+    const classes = useStyles();
   return(
     <Layout spacingTop={true}>
         <Grid container direction="row" spacing={2} className={classes.root}>
