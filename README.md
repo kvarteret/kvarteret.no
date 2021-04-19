@@ -1,49 +1,103 @@
-# Kvarteret.no
-Git project for the website for The Academic Kvarter in Bergen!
+<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
+<p align="center">
+  <a href="https://www.kvarteret.no">
+    <img alt="Kvarteret.no" src="https://cms.kvarteret.no/assets/871c82fa-1748-45b2-92f3-b28213194f80" width="60" />
+  </a>
+</p>
+<h1 align="center">
+  Github repository for Kvarteret.no 
+</h1>
 
-#### Recommended tools:
-- VSCode extension: Prettier - Code formatter https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+Her ligger all kode nødvendig for å teste og hoste [kvarteret.no](kvarteret.no). Vi er koblet til to forskjellige systemer for uthenting av CMS data, dette er Directus for generell sidedata og Crescat for data om eventer.
 
-#### How to develop:
-1. Open in vscode
-2. Open terminal in folder
-3. Enter `npm install`
-4. Enter `npm start`
-5. Takes some time, then page is visable at http://localhost:8000
+Ellers for å kjøre prosjektet trenger du å ha installert npm og gatsbyjs. Dette kan du gjøre gjennom å gå til [NodeJs](https://nodejs.org/en/) sin nettside og laste ned nyeste versjon. Deretter i en terminal kjører du `npm install -g gatsby-cli`. 
 
-## Features
+## 🚀 Quick start
 
-- Material UI Framework
-- Roboto Typeface (self hosted)
-- SEO
-- Offline Support
-- Based on Gatsby Default Starter
+1.  **Førstegangsoppsett.**
 
-## Quick start
+    Første gang du kjører prosjektet må du installere alle dependencies, om noen har lagt til en ny må du kanskje kjøre `npm install` på nytt!
 
-1.  **Create a Gatsby site.**
+    ```shell
+    # Installer gatsbyjs
+    npm install -g gatsby-cli
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
-
-    ```sh
-    # create a new Gatsby site using the Material UI starter
-    gatsby new <project-name> https://github.com/dominicabela/gatsby-starter-material-ui
+    # Installere dependencies
+    npm install
     ```
 
 2.  **Start developing.**
 
-    Navigate into your new site’s directory and start it up.
+    Deretter er det bare å kjøre kommandoen under, den kan ta litt tid.
 
-    ```sh
-    cd <project-name>
+    ```shell
     gatsby develop
     ```
 
 3.  **Open the source code and start editing!**
 
-    Your site is now running at `http://localhost:8000`!
+    Hvis du går til [urlen](http://localhost:8000) `http://localhost:8000`! Så skal du se at siden kjører. 😊
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+    Der er også en del info på urlen `http://localhost:8000/___graphql` som kan brukes for uthenting av data fra Directus. Disse er veldig nyttige for raskt å konstruere graphQL queries.
 
-    Open the `<project-name>` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+    Under finner du litt relevant info til prosjektet.
 
+### Anbefalte verktøy
+
+- VS Code Extension: [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+## 🧐 What's inside?
+
+A quick look at the top-level files and directories you'll see in a Gatsby project.
+
+    .
+    ├── node_modules
+    ├── src
+    ├── .gitignore
+    ├── .prettierrc
+    ├── gatsby-browser.js
+    ├── gatsby-config.js
+    ├── gatsby-node.js
+    ├── gatsby-ssr.js
+    ├── LICENSE
+    ├── package-lock.json
+    ├── package.json
+    └── README.md
+
+1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+
+2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+
+3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+
+4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+
+5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.com/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+
+6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.com/docs/gatsby-config/) for more detail).
+
+7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.com/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+
+8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.com/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+
+9.  **`LICENSE`**: This Gatsby starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
+
+10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+
+11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+
+12. **`README.md`**: A text file containing useful reference information about your project.
+
+## 🎓 Learning Gatsby
+
+Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.com/). Here are some places to start:
+
+- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+
+- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.com/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+
+## 💫 Deploy
+
+Deployment skjer automatisk! 
+
+Bygging av docker images skjer automatisk på Docker hub og lanseringer legges ut automatisk på Azure
