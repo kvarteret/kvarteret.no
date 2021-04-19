@@ -1,5 +1,6 @@
 import { withStyles } from '@material-ui/styles'
 import React from 'react'
+import DangerouslySetHtmlContent from '../shared/DangerousSetHtmlContent'
 
 const styles = (theme) => {
   return {
@@ -21,9 +22,9 @@ const styles = (theme) => {
 }
 const ExternalContent = withStyles(styles)((props) => {
   return (
-    <div
+    <DangerouslySetHtmlContent
       className={props.classes.root}
-      dangerouslySetInnerHTML={{ __html: props.data }}
+      html={props.data}
     />
   )
 })

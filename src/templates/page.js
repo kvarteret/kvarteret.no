@@ -5,10 +5,11 @@ import DAKCarousel from '../components/shared/dakCarousel'
 import ExternalContent from '../components/mainSection/externalContent'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
+import DangerouslySetHtmlContent from '../components/shared/DangerousSetHtmlContent'
 
 const Snippet = ({ title, body }) => (
   <div>
-    <h3>{title}</h3> <div dangerouslySetInnerHTML={{ __html: body }}></div>
+    <h2>{title}</h2> <DangerouslySetHtmlContent html={body} />
   </div>
 )
 
