@@ -105,9 +105,9 @@ const Tider = ({ siteTitle, isFooter }) => {
   `)
 
   var date = extractData(data)[currentDay()]
-  const dateComponents = date.map((time, index) => (
+  const dateComponents = date?.map((time, index) => (
     <RoomTime key={index} time={time} classes={classes}></RoomTime>
-  ))
+  )) ?? <div></div>
   return (
     <Box>
       <Typography color="primary" variant="h3" className={classes.title}>
