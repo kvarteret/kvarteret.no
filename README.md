@@ -10,7 +10,7 @@
 
 Her ligger all kode nødvendig for å teste og hoste [kvarteret.no](kvarteret.no). Vi er koblet til to forskjellige systemer for uthenting av CMS data, dette er Directus for generell sidedata og Crescat for data om eventer.
 
-Ellers for å kjøre prosjektet trenger du å ha installert npm og gatsbyjs. Dette kan du gjøre gjennom å gå til [NodeJs](https://nodejs.org/en/) sin nettside og laste ned nyeste versjon. Deretter i en terminal kjører du `npm install -g gatsby-cli`. 
+Ellers for å kjøre prosjektet trenger du å ha installert npm og gatsbyjs. Dette kan du gjøre gjennom å gå til [NodeJs](https://nodejs.org/en/) sin nettside og laste ned nyeste versjon. Deretter i en terminal kjører du `npm install -g gatsby-cli`.
 
 ## 🚀 Quick start
 
@@ -98,6 +98,6 @@ Looking for more guidance? Full documentation for Gatsby lives [on the website](
 
 ## 💫 Deploy
 
-Deployment skjer automatisk! 
+Deployment skjer automatisk!
 
 Bygging av docker images skjer automatisk på Docker hub og lanseringer legges ut automatisk på Azure
