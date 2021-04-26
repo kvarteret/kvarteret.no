@@ -170,7 +170,7 @@ const Header = ({ siteTitle, open, closed }) => {
       </Grid>
       <Grid
         item
-        style={{ width: '90px' }}
+        style={{ width: '123px' }}
         container
         direction="row"
         justify="flex-end"

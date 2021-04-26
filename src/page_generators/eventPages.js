@@ -21,6 +21,17 @@ module.exports.generate = async (createPage, graphql, actions) => {
               url_code
             }
           }
+          event_end
+          event_start
+          ticket_url
+          top_gallery {
+            id
+            imageFile {
+              childImageSharp {
+                gatsbyImageData(placeholder: BLURRED, formats: PNG)
+              }
+            }
+          }
         }
       }
     }
@@ -38,6 +49,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
         const dataContext = {
           title: translation.title,
           body: translation.description,
+          image: eventItem.top_gallery.imageFile,
         }
 
         createPage({

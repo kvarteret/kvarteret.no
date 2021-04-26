@@ -7,11 +7,10 @@ import TodaySection from './todaySection'
 import './mainContent.scss'
 import Tider from '../shared/tider'
 import DAKCarousel from '../shared/dakCarousel'
-import FastAverageColor from 'fast-average-color'
 import { getFullImageUrl } from '../../helpers/fileHelper'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslation } from '../../helpers/languageHelper'
-import { GatsbyImage, getImage } from 'gatsby-plugin-image'
+import TopGalleryCarouselItem from '../shared/TopGalleryCarouselItem'
 
 const useStyles = makeStyles({
   root: {
@@ -54,37 +53,6 @@ const useStyles = makeStyles({
     position: 'relative',
   },
 })
-
-const CarouselItem = ({ item }) => {
-  const classes = useStyles()
-
-  const [color, setColor] = useState('#fff')
-  useEffect(() => {
-    const fac = new FastAverageColor()
-    fac
-      .getColorAsync(
-        item.imageFile.childImageSharp.gatsbyImageData.placeholder.fallback
-      )
-      .then(function (color) {
-        setColor(color.isDark ? '#fff' : '#000')
-      })
-  }, [])
-
-  const textClasses =
-    classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
-
-  const image = getImage(item.imageFile)
-  return (
-    <Box className={classes.carousel}>
-      <GatsbyImage image={image} className={classes.img} alt={item.text} />
-      {item.text && (
-        <Typography variant="h1" className={textClasses} style={{ color }}>
-          {item.text}
-        </Typography>
-      )}
-    </Box>
-  )
-}
 
 const sanitizeData = (data) =>
   data.directus.general_information.carousel_items.map((item) => ({
@@ -134,7 +102,7 @@ const MainContent = ({ content }) => {
           <DAKCarousel
             animationSpeed={1000}
             items={data}
-            template={CarouselItem}
+            template={TopGalleryCarouselItem}
           ></DAKCarousel>
         </Grid>
         <Grid item className={classes.content}>

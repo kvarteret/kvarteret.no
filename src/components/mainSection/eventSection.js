@@ -46,7 +46,7 @@ const EventSection = () => {
           event_end
           event_start
           ticket_url
-          image {
+          top_gallery {
             id
             imageFile {
               childImageSharp {

@@ -1,142 +1,130 @@
 import React from 'react'
-import { Grid, Typography, makeStyles, Box, Divider } from '@material-ui/core'
+import { Grid, Typography, Box, Link } from '@material-ui/core'
+import DAKCarousel from './shared/dakCarousel'
+import TopGalleryCarouselItem from './shared/TopGalleryCarouselItem'
+import ExternalContent from './mainSection/externalContent'
+
+const OverviewItem = ({ label, value }) => {
+  return (
+    <Grid container direction="row" spacing="space-between" spacing={4}>
+      <Grid item xs={6}>
+        {label}
+      </Grid>
+      <Grid item xs={6}>
+        {value}
+      </Grid>
+    </Grid>
+  )
+}
+
+const exampleOverviewItems = [
+  { label: 'Sted', value: 'Teglverket' },
+  { label: 'Arrangør', value: 'Studentersamfunnet i Bergen' },
+  { label: 'Dato', value: '4. Mai 2021' },
+  { label: 'Tid', value: '18:00 - 21:00' },
+  { label: 'Pris', value: '57,-' },
+  { label: 'Aldersgrense', value: '20 år, 18 år med studentbevis' },
+]
+
+const getImageFromData = (data) => [
+  {
+    imageFile: data.image,
+    text: data.title,
+  },
+]
+//   data.directus.general_information.carousel_items.map((item) => ({
+//     img: getFullImageUrl(item.image.id),
+//     imageFile: item.image.imageFile,
+//     text: getTranslation(item.translations)?.title,
+//   }))
 
 export default function EventPage({ dataContext }) {
-    const useStyles = makeStyles({
-        root: {
-            marginBottom: 60,
-        },
-        img: {
-            filter: 'blur(4px)',
-            height: '380px',
-            width: '100%',
-            objectFit: 'cover',
-            margin: '-5px -10px',
-        },
-        content: {
-            margin: '0 3%',
-            marginTop: '20px',
-        },
-        imgContainer: {
-            position: 'relative',
-            overflow: 'hidden',
-        },
-        imgText: {
-            position: 'absolute',
-            bottom: '30px',
-            left: '3%',
-            color: 'white',
-            fontSize: 30,
-            '@media (min-width:600px)': {
-                fontSize: 50,
-            },
-            '@media (min-width:960px)': {
-                fontSize: 80,
-            },
-        },
-        imgTop: {
-            height: '100%',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            margin: '0 auto 0 auto',
-        },
-        wrapperHor: {
-            padding: '0 2vw 0 2vw',
-        },
-        wrapperVert: {
-            margin: ' 0vh 0 4vh 0 ',
-        },
-        infoPadding: {
-            padding: '25px 25px 15px 25px',
-        },
-    })
-    const classes = useStyles()
-    const bill = {
-        a: 12,
-        b: 'helene',
-        c: 'huset',
-    }
-    const bodyText =
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including v"
-    const img =
-        'https://photos.smugmug.com/photos/i-N3ZBZDf/1/X3/i-N3ZBZDf-X3.jpg'
-    return (
-        <Grid container direction="column" className={classes.root}>
-            <Grid item xs={12} className={classes.imgContainer}>
-                <img className={classes.img} src={img} />
-                <img className={classes.imgTop} src={img} />
-            </Grid>
-            <Grid container className={classes.wrapperHor} alignItems="center">
-                <Grid
-                    container
-                    item
-                    className={classes.infoPadding}
-                    item
-                    direction="row"
-                    justify="space-evenly"
-                    alignItems="center"
-                    xs={12}
-                >
-                    <Typography variant="subtitle"> Sted: {bill.c}</Typography>
-                    <Typography variant="subtitle"> Arrangør: {bill.b}</Typography>
-                    <Typography variant="subtitle"> Dato: {bill.a}</Typography>
-                    <Typography variant="subtitle"> Tid: {bill.a}</Typography>
-                    <Typography variant="subtitle"> Pris: {bill.a}</Typography>
-                    <Typography variant="subtitle"> Aldersgrense: {bill.a}</Typography>
-                </Grid>
-                <Grid container xs={12} /* put padding here? */>
-                    <Grid
-                        container
-                        item
-                        xl={6}
-                        lg={6}
-                        md={6}
-                        sm={12}
-                        xs={12}
-                        className={classes.wrapperVert}
-                        direction="column"
-                    >
-                        <Grid container xs={12} direction="column" spacing={1}>
-                            <Grid item>
-                                <Typography className={classes.wrapperVert} variant="h3">
-                                    {dataContext.title}
-                                </Typography>
-                            </Grid>
-                            <Grid item>
-                                <div dangerouslySetInnerHTML={{ __html: dataContext.body }} />
+  const overviewItems = exampleOverviewItems.map((item, i) => (
+    <OverviewItem key={i} {...item} />
+  ))
 
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid
-                        container
-                        xl={6}
-                        lg={6}
-                        md={6}
-                        sm={12}
-                        xs={12}
-                        direction="column"
-                        alignItems="center"
-                    >
-                        <Grid item xs={12}>
-                            <iframe
-                                src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                width="500px"
-                                height="300px"
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <iframe
-                                src="https://www.youtube.com/embed/6awPL8yk_yY"
-                                width="500px"
-                                height="300px"
-                            />
-                        </Grid>
-                    </Grid>
-                </Grid>
+  return (
+    <Grid container direction="row">
+      <Grid item xs={12}>
+        <DAKCarousel
+          animationSpeed={1000}
+          items={getImageFromData(dataContext)}
+          template={TopGalleryCarouselItem}
+        ></DAKCarousel>
+      </Grid>
+      <Grid item xs={12} style={{ position: 'relative', top: -30 }}>
+        <Box mx={{ xs: 2, md: 4 }}>
+          <Grid
+            container
+            direction="row"
+            alignItems="center"
+            justify="space-between"
+          >
+            <Grid
+              item
+              style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
+              container
+              alignItems="center"
+              justify="center"
+            >
+              <Link
+                component="button"
+                style={{
+                  width: '100%',
+                  height: 50,
+                  fontSize: 18,
+                  color: 'white',
+                  backgroundColor: '#f54b4b',
+                }}
+              >
+                Kjøp billetter
+              </Link>
             </Grid>
-        </Grid>
-    )
+            <Grid
+              item
+              style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
+              container
+              alignItems="center"
+              justify="center"
+            >
+              <Link
+                component="button"
+                style={{
+                  width: '100%',
+                  height: 50,
+                  fontSize: 18,
+                  color: 'white',
+                  backgroundColor: '#f54b4b',
+                }}
+              >
+                Facebook Event
+              </Link>
+            </Grid>
+          </Grid>
+        </Box>
+      </Grid>
+      <Grid item xs={12}>
+        <Box mt={{ xs: 0, md: 0 }} m={{ xs: 2, md: 4 }}>
+          <Grid container direction="row">
+            <Grid item container xs={12} md={6} direction="column">
+              <Grid item>
+                <Box mb={2}>
+                  <Typography color="primary" variant="h2">
+                    Oversikt
+                  </Typography>
+                </Box>
+                {overviewItems}
+              </Grid>
+              <Grid item>
+                <ExternalContent data={dataContext.body}></ExternalContent>
+              </Grid>
+            </Grid>
+            <Grid item container xs={12} md={6} direction="column">
+              right
+            </Grid>
+          </Grid>
+        </Box>
+      </Grid>
+    </Grid>
+  )
 }
