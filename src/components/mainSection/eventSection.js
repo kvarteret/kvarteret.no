@@ -79,7 +79,7 @@ const EventSection = () => {
       return (
         <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
           <EventCard
-            imgSrc={x.image.imageFile}
+            imgSrc={x.top_gallery.imageFile}
             alt="Card image"
             date={start}
             title={translation.title}
