@@ -5,22 +5,25 @@ import { useEffect, useState } from 'react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import FastAverageColor from 'fast-average-color'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: 60,
   },
   img: {
-    height: '480px',
+    height: '240px',
     width: '100%',
     objectFit: 'cover',
+    [theme.breakpoints.up('md')]: {
+      height: '480px',
+    },
   },
   imgText: {
     position: 'absolute',
     bottom: '30px',
     transform: 'translateZ(0)',
-    left: '3%',
+    left: '2%',
     color: 'white',
-    fontSize: 30,
+    fontSize: 25,
     borderRadius: '25%',
     backgroundColor: 'rgba(0,0,0,0.25)',
     boxShadow: '0 0 50px 50px rgba(0,0,0,0.25)',
@@ -38,9 +41,9 @@ const useStyles = makeStyles({
   carousel: {
     position: 'relative',
   },
-})
+}))
 
-const TopGalleryCarouselItem = ({ item }) => {
+const TopGalleryCarouselItem = ({ item, styleImgText }) => {
   const classes = useStyles()
 
   const [color, setColor] = useState('#fff')
@@ -63,7 +66,11 @@ const TopGalleryCarouselItem = ({ item }) => {
     <Box className={classes.carousel}>
       <GatsbyImage image={image} className={classes.img} alt={item.text} />
       {item.text && (
-        <Typography variant="h1" className={textClasses} style={{ color }}>
+        <Typography
+          variant="h1"
+          className={textClasses}
+          style={{ color, ...styleImgText }}
+        >
           {item.text}
         </Typography>
       )}

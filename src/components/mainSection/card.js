@@ -52,7 +52,7 @@ const useStyles = makeStyles({
     right: 0,
     bottom: 0,
     backgroundColor: '#f54b4b',
-    padding: '5px 10px',
+    padding: '10px 30px',
     color: 'white',
     border: '1px solid white',
     '&:hover': {
@@ -110,7 +110,7 @@ export default function EventCard({
               alt={alt}
             /> */}
             {ticketUrl && (
-              <a href={ticketUrl} className={classes.ticket}>
+              <a href={ticketUrl} target="_blank" className={classes.ticket}>
                 {getTranslatedText('buy-ticket')}
               </a>
             )}

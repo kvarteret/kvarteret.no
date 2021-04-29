@@ -1,8 +1,17 @@
 import React from 'react'
-import { Grid, Typography, Box, Link } from '@material-ui/core'
+import {
+  Grid,
+  Typography,
+  Box,
+  Link,
+  useMediaQuery,
+  useTheme,
+} from '@material-ui/core'
 import DAKCarousel from './shared/dakCarousel'
 import TopGalleryCarouselItem from './shared/TopGalleryCarouselItem'
 import ExternalContent from './mainSection/externalContent'
+import { withStyles } from '@material-ui/styles'
+import { Snippets } from './shared/snippets'
 
 const OverviewItem = ({ label, value }) => {
   return (
@@ -32,16 +41,38 @@ const getImageFromData = (data) => [
     text: data.title,
   },
 ]
+
+const sanitizeGalleryData = (data) =>
+  data.map((item) => ({
+    imageFile: item.directus_files_id.imageFile,
+  }))
+
+const Snippet = ({ item }) => (
+  <div>
+    <h2>{item.title}</h2> <DangerouslySetHtmlContent html={item.code} />
+  </div>
+)
+
 //   data.directus.general_information.carousel_items.map((item) => ({
 //     img: getFullImageUrl(item.image.id),
 //     imageFile: item.image.imageFile,
 //     text: getTranslation(item.translations)?.title,
 //   }))
 
+const customCarouselComponent = (props) => (
+  <TopGalleryCarouselItem {...props} styleImgText={{ bottom: 51 }} />
+)
+
 export default function EventPage({ dataContext }) {
   const overviewItems = exampleOverviewItems.map((item, i) => (
     <OverviewItem key={i} {...item} />
   ))
+  const galleryData = sanitizeGalleryData(dataContext.gallery)
+
+  const theme = useTheme()
+  const spacingTop =
+    dataContext?.gallery?.length == 0 ||
+    useMediaQuery(theme.breakpoints.up('md'))
 
   return (
     <Grid container direction="row">
@@ -49,7 +80,8 @@ export default function EventPage({ dataContext }) {
         <DAKCarousel
           animationSpeed={1000}
           items={getImageFromData(dataContext)}
-          template={TopGalleryCarouselItem}
+          template={customCarouselComponent}
+          marginBottom={51}
         ></DAKCarousel>
       </Grid>
       <Grid item xs={12} style={{ position: 'relative', top: -30 }}>
@@ -67,18 +99,24 @@ export default function EventPage({ dataContext }) {
               alignItems="center"
               justify="center"
             >
-              <Link
-                component="button"
-                style={{
-                  width: '100%',
-                  height: 50,
-                  fontSize: 18,
-                  color: 'white',
-                  backgroundColor: '#f54b4b',
-                }}
-              >
-                Kjøp billetter
-              </Link>
+              {dataContext.ticket_url && (
+                <a
+                  href={dataContext.ticket_url}
+                  target="_blank"
+                  style={{
+                    width: '100%',
+                    height: 50,
+                    fontSize: 18,
+                    color: 'white',
+                    backgroundColor: '#f54b4b',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ textAlign: 'center' }}>Kjøp billetter</div>
+                </a>
+              )}
             </Grid>
             <Grid
               item
@@ -87,24 +125,30 @@ export default function EventPage({ dataContext }) {
               alignItems="center"
               justify="center"
             >
-              <Link
-                component="button"
-                style={{
-                  width: '100%',
-                  height: 50,
-                  fontSize: 18,
-                  color: 'white',
-                  backgroundColor: '#f54b4b',
-                }}
-              >
-                Facebook Event
-              </Link>
+              {dataContext.facebook_url && (
+                <a
+                  href={dataContext.facebook_url}
+                  target="_blank"
+                  style={{
+                    width: '100%',
+                    height: 50,
+                    fontSize: 18,
+                    color: 'white',
+                    backgroundColor: '#f54b4b',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ textAlign: 'center' }}>Facebook Event</div>
+                </a>
+              )}
             </Grid>
           </Grid>
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Box mt={{ xs: 0, md: 0 }} m={{ xs: 2, md: 4 }}>
+        <Box mt={{ xs: 1 }} m={{ xs: 2, md: 4 }}>
           <Grid container direction="row">
             <Grid item container xs={12} md={6} direction="column">
               <Grid item>
@@ -119,8 +163,28 @@ export default function EventPage({ dataContext }) {
                 <ExternalContent data={dataContext.body}></ExternalContent>
               </Grid>
             </Grid>
-            <Grid item container xs={12} md={6} direction="column">
-              right
+            <Grid
+              item
+              container
+              xs={12}
+              md={6}
+              direction="column"
+              alignItems="center"
+            >
+              <Grid item xs={12} xl={8}>
+                <Box mx={{ xs: 0, md: 6 }} mt={2}>
+                  {galleryData.length > 0 && (
+                    <DAKCarousel
+                      dots={true}
+                      arrows={spacingTop}
+                      items={galleryData}
+                    ></DAKCarousel>
+                  )}
+                  <Box mt={4}>
+                    <Snippets items={dataContext.snippets} />
+                  </Box>
+                </Box>
+              </Grid>
             </Grid>
           </Grid>
         </Box>

@@ -17,6 +17,7 @@ export default function DAKCarousel({
   animationSpeed,
   arrows,
 }) {
+  if (!items) return <div></div>
   if (items.length == 1) {
     if (template) {
       return template({ item: items[0] })

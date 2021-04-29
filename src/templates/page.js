@@ -1,25 +1,12 @@
 import React from 'react'
 import { Box, Grid, Hidden } from '@material-ui/core'
+import useMediaQuery from '@material-ui/core/useMediaQuery'
+import { useTheme } from '@material-ui/core/styles'
 import Layout from '../components/shared/layout/layout'
 import DAKCarousel from '../components/shared/dakCarousel'
 import ExternalContent from '../components/mainSection/externalContent'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { useTheme } from '@material-ui/core/styles'
 import DangerouslySetHtmlContent from '../components/shared/DangerousSetHtmlContent'
-
-const Snippet = ({ title, body }) => (
-  <div>
-    <h2>{title}</h2> <DangerouslySetHtmlContent html={body} />
-  </div>
-)
-
-const Snippets = ({ items }) => {
-  const snippets = items.map((item, id) => (
-    <Snippet key={id} title={item.title} body={item.snippet} />
-  ))
-
-  return <div>{snippets}</div>
-}
+import { Snippets } from '../components/shared/snippets'
 
 const sanitizeGalleryData = (data) =>
   data?.map((item) => ({
@@ -34,7 +21,12 @@ const sanitizeGalleryData = (data) =>
 const Page = ({ pageContext }) => {
   const snippets = (pageContext.snippets && (
     <Box m={{ xs: 2, md: 4, lg: 8 }} mt={{ xs: 0, lg: 4 }}>
-      <Snippets items={pageContext.snippets} />
+      <Snippets
+        items={pageContext.snippets.map((item) => ({
+          title: item.title,
+          code: item.snippet,
+        }))}
+      />
     </Box>
   )) || <div></div>
 
