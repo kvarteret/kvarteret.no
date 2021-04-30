@@ -57,7 +57,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
           }
 
           createPage({
-            path: '/' + languageModifier + 'page/' + PageItems.slug,
+            path: '/' + languageModifier + PageItems.slug,
             component: path.resolve('./src/templates/page.js'),
             context: dataContext,
           })

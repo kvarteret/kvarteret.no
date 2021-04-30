@@ -71,24 +71,26 @@ const Room = ({ pageContext }) => {
   const galleryData = sanitizeGalleryData(pageContext.gallery)
   return (
     <Layout spacingTop={true}>
-      <Box m={{ xs: 3, md: 4, lg: 6 }}>
-        <Grid container direction="row" spacing={4}>
-          <Grid item xs={12} md={6}>
-            <ExternalContent data={pageContext.body} />
+      <Box style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}>
+        <Box m={{ xs: 3, md: 4, lg: 6 }}>
+          <Grid container direction="row" spacing={4}>
+            <Grid item xs={12} md={6}>
+              <ExternalContent data={pageContext.body} />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box mt={{ xs: 4 }}>
+                <DAKCarousel
+                  dots={true}
+                  arrows={true}
+                  items={galleryData}
+                ></DAKCarousel>
+                {pageContext.facilities?.length > 0 && (
+                  <RoomFacilities facilities={pageContext.facilities} />
+                )}
+              </Box>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Box mt={{ xs: 4 }}>
-              <DAKCarousel
-                dots={true}
-                arrows={true}
-                items={galleryData}
-              ></DAKCarousel>
-              {pageContext.facilities?.length > 0 && (
-                <RoomFacilities facilities={pageContext.facilities} />
-              )}
-            </Box>
-          </Grid>
-        </Grid>
+        </Box>
       </Box>
     </Layout>
   )

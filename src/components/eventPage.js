@@ -20,7 +20,7 @@ const OverviewItem = ({ label, value }) => {
         {label}
       </Grid>
       <Grid item xs={6}>
-        {value}
+        <strong>{value}</strong>
       </Grid>
     </Grid>
   )
@@ -60,7 +60,10 @@ const Snippet = ({ item }) => (
 //   }))
 
 const customCarouselComponent = (props) => (
-  <TopGalleryCarouselItem {...props} styleImgText={{ bottom: 51 }} />
+  <TopGalleryCarouselItem
+    {...props}
+    styleImgText={{ bottom: 51, left: 'max(32px, calc(50% - 700px))' }}
+  />
 )
 
 export default function EventPage({ dataContext }) {
@@ -84,7 +87,17 @@ export default function EventPage({ dataContext }) {
           marginBottom={51}
         ></DAKCarousel>
       </Grid>
-      <Grid item xs={12} style={{ position: 'relative', top: -30 }}>
+      <Grid
+        item
+        xs={12}
+        style={{
+          position: 'relative',
+          top: -30,
+          maxWidth: '1500px',
+          width: '100%',
+          margin: '0 auto',
+        }}
+      >
         <Box mx={{ xs: 2, md: 4 }}>
           <Grid
             container
@@ -147,11 +160,15 @@ export default function EventPage({ dataContext }) {
           </Grid>
         </Box>
       </Grid>
-      <Grid item xs={12}>
-        <Box mt={{ xs: 1 }} m={{ xs: 2, md: 4 }}>
+      <Grid
+        item
+        xs={12}
+        style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}
+      >
+        <Box mt={{ xs: 0 }} m={{ xs: 2, md: 4 }}>
           <Grid container direction="row">
-            <Grid item container xs={12} md={6} direction="column">
-              <Grid item>
+            <Grid item container xs={12} md={6} direction="row" spacing={4}>
+              <Grid item xs={12}>
                 <Box mb={2}>
                   <Typography color="primary" variant="h2">
                     Oversikt
@@ -159,7 +176,7 @@ export default function EventPage({ dataContext }) {
                 </Box>
                 {overviewItems}
               </Grid>
-              <Grid item>
+              <Grid item xs={12}>
                 <ExternalContent data={dataContext.body}></ExternalContent>
               </Grid>
             </Grid>
@@ -171,8 +188,8 @@ export default function EventPage({ dataContext }) {
               direction="column"
               alignItems="center"
             >
-              <Grid item xs={12} xl={8}>
-                <Box mx={{ xs: 0, md: 6 }} mt={2}>
+              <Grid item xs={12} xl={10}>
+                <Box ml={{ xs: 0, md: 6 }} mt={1}>
                   {galleryData.length > 0 && (
                     <DAKCarousel
                       dots={true}

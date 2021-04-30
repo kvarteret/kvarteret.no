@@ -38,8 +38,8 @@ const Page = ({ pageContext }) => {
   const galleryData = sanitizeGalleryData(pageContext.gallery)
 
   return (
-    <Layout spacingTop={spacingTop}>
-      <Box>
+    <Layout spacingTop={true}>
+      <Box style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}>
         <Grid container direction="row-reverse">
           <Grid item xs={12} md={6}>
             {galleryData.length > 0 && (

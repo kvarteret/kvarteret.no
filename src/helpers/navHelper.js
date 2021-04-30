@@ -251,7 +251,7 @@ const PageItemHandler = (item, navItemsDict, depth) => {
   const translation = getTranslation(item.translations)
   if (!translation) return null
   return {
-    url: '/' + getTranslatedUrl('page/' + item.slug),
+    url: '/' + getTranslatedUrl(item.slug),
     text: translation.name || item.slug,
   }
 }
