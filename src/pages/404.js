@@ -18,7 +18,12 @@ const styles = {
     backgroundBlendMode: 'multiply',
   },
   boxStyle: {
-    marginTop: '50vh',
+    width: '130%',
+    height: '100%',
+  },
+  boxStyleRow: {
+    width: '50%',
+    height: '50%',
   },
 }
 
@@ -26,12 +31,18 @@ const NotFoundPage = () => (
   <Layout>
     <SEO title="404: Not found" />
     <Paper style={styles.backgroundContainer}>
-      <Grid container direction="row" justify="flex-end" alignItems="center">
+      <Grid
+        style={styles.boxStyleRow}
+        container
+        direction="row"
+        justify="flex-end"
+        alignItems="center"
+      >
         <Grid
           style={styles.boxStyle}
           container
           direction="column"
-          justify="flex-end"
+          justify="flex-start"
           alignItems="center"
         >
           <Typography variant="h1">404</Typography>
