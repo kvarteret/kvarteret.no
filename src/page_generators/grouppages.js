@@ -3,32 +3,47 @@ const { isValidStatus } = require('../helpers/helper')
 
 module.exports.generate = async (createPage, graphql, actions) => {
   const response = await graphql(`
-    query GroupItems {
-      directus {
-        group {
-          date_updated
-          id
-          slug
-          sort
-          status
-          translations {
-            text
-            group_id {
-              date_updated
-              id
-              slug
-              sort
-              status
-            }
-            languages_code {
-              name
-              url_code
-              code
+  query MyQuery {
+    directus {
+      group {
+        translations {
+          languages_code {
+            url_code
+            name
+          }
+          group_id {
+            date_updated
+            id
+            slug
+            sort
+            status
+          }
+          snippets
+          text
+        }
+        date_updated
+        id
+        slug
+        sort
+        status
+        page_gallery {
+          directus_files_id {
+            id
+            imageFile {
+              childImageSharp {
+                gatsbyImageData(
+                  placeholder: BLURRED
+                  formats: PNG
+                  aspectRatio: 1.8
+                  width: 1080
+                )
+              }
             }
           }
         }
       }
     }
+  }  
   `)
 
   const {
@@ -44,7 +59,8 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
           const dataContext = {
             body: translation.text,
-            gallery: groupItem.gallery,
+            gallery: groupItem.page_gallery,
+            snippets: translation.snippets,
           }
 
           createPage({
