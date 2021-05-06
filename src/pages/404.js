@@ -2,14 +2,49 @@ import React from 'react'
 
 import Layout from '../components/shared/layout/layout'
 import SEO from '../components/seo'
+import { Paper, Grid, Typography, darken } from '@material-ui/core'
+import BgImg from '../images/sad_penguin.jpg'
+import { relativeTimeRounding } from 'moment'
+
+const styles = {
+  backgroundContainer: {
+    height: '100vh',
+    width: '100vw',
+    backgroundImage: `url(${BgImg})`,
+    padding: '0',
+    margin: '0',
+    backgroundSize: 'cover',
+    backgroundColor: '#F54B4B',
+    backgroundBlendMode: 'multiply',
+  },
+  boxStyle: {
+    marginTop: '505',
+  },
+}
 
 const NotFoundPage = () => (
   <Layout>
     <SEO title="404: Not found" />
-    <h1 style={{ paddingTop: '100px', paddingLeft: '40px' }}>NOT FOUND</h1>
-    <p style={{ paddingLeft: '40px' }}>
-      You just hit a route that doesn&#39;t exist... the sadness.
-    </p>
+    <Paper style={styles.backgroundContainer}>
+      <Grid container direction="row" justify="flex-end" alignItems="center">
+        <Grid
+          style={styles.boxStyle}
+          container
+          direction="column"
+          justify="flex-end"
+          alignItems="center"
+        >
+          <Typography variant="h1">404</Typography>
+          <Typography variant="h6">
+            Pingvinen kunne ikke finne siden!
+          </Typography>
+          <Typography variant="body1">
+            Men frykt ikke! Du kan hjelpe han å finne veien tilbake ved å klikke
+            knappen under.
+          </Typography>
+        </Grid>
+      </Grid>
+    </Paper>
   </Layout>
 )
 
