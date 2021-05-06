@@ -18,7 +18,7 @@ const styles = {
     backgroundBlendMode: 'multiply',
   },
   boxStyle: {
-    marginTop: '505',
+    marginTop: '50vh',
   },
 }
 
