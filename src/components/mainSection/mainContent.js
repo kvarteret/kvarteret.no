@@ -54,12 +54,13 @@ const useStyles = makeStyles({
   },
 })
 
-const sanitizeData = (data) =>
-  data.directus.general_information.carousel_items.map((item) => ({
-    img: getFullImageUrl(item.image.id),
-    imageFile: item.image.imageFile,
-    text: getTranslation(item.translations)?.title,
-  }))
+const sanitizeData = (data) => console.log(data)
+data.directus.general_information.carousel_items.map((item) => ({
+  img: getFullImageUrl(item.image.id),
+  imageFile: item.image.imageFile,
+  text: getTranslation(item.translations)?.title,
+  link: 'https://blifrivillig.no',
+}))
 
 const MainContent = ({ content }) => {
   const classes = useStyles()
