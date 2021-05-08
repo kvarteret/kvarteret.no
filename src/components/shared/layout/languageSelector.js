@@ -20,6 +20,9 @@ function IsEnglish(pathName) {
 
 function getUrl(lang, pathName) {
   pathName = pathName.substring(3)
+
+  if (!pathName.startsWith('/')) pathName = '/' + pathName
+
   return '/' + lang + pathName
 }
 
