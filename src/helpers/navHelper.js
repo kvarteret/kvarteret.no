@@ -300,7 +300,6 @@ const NewsItemHandler = (item, navItemsDict, depth) => {
 }
 
 const GroupItemHandler = (item, navItemsDict, depth) => {
-  console.log('GROUP ITEM', item)
   if (!isValidStatus(item.status)) return null
 
   const translation = getTranslation(item.translations)
@@ -311,6 +310,17 @@ const GroupItemHandler = (item, navItemsDict, depth) => {
   }
 }
 
+const EventItemHandler = (item, navItemsDict, depth) => {
+  if (!isValidStatus(item.status)) return null
+
+  const translation = getTranslation(item.translations)
+  if (!translation) return null
+  return {
+    url: '/' + getTranslatedUrl('events/' + item.slug),
+    text: translation.title || item.slug,
+  }
+}
+
 const collectionHandlers = {
   navigation_item: NavigationItemHander,
   room: RoomItemHandler,
@@ -318,6 +328,7 @@ const collectionHandlers = {
   news: NewsItemHandler,
   link: LinkItemHandler,
   group: GroupItemHandler,
+  events: EventItemHandler,
 }
 
 const getNavItems = (data, navItemsDict) => {
@@ -328,4 +339,8 @@ const getNavItems = (data, navItemsDict) => {
     .filter(Boolean)
 }
 
-export { GetNavItems }
+const getCarouselLink = (item) => {
+  console.log('ITEM', item)
+  return collectionHandlers[item.collection](item.item, [], 0).url
+}
+export { GetNavItems, getCarouselLink }

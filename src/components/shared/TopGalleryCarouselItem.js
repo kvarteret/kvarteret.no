@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, makeStyles, Typography } from '@material-ui/core'
+import { Box, makeStyles, Typography, Link } from '@material-ui/core'
 import { useEffect, useState } from 'react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import FastAverageColor from 'fast-average-color'
@@ -43,7 +43,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const TopGalleryCarouselItem = ({ item, styleImgText }) => {
+const LinkWrapper = ({ children, href }) => {
+  if (href == null) {
+    return children
+  }
+
+  return <Link href={href}>{children}</Link>
+}
+
+const TopGalleryCarouselItem = ({ item, styleImgText, link }) => {
   const classes = useStyles()
 
   const [color, setColor] = useState('#fff')
@@ -60,20 +68,22 @@ const TopGalleryCarouselItem = ({ item, styleImgText }) => {
 
   const textClasses =
     classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
-
+  console.log(item)
   const image = getImage(item.imageFile)
   return (
     <Box className={classes.carousel}>
-      <GatsbyImage image={image} className={classes.img} alt={item.text} />
-      {item.text && (
-        <Typography
-          variant="h1"
-          className={textClasses}
-          style={{ color, ...styleImgText }}
-        >
-          {item.text}
-        </Typography>
-      )}
+      <LinkWrapper href={item.link}>
+        <GatsbyImage image={image} className={classes.img} alt={item.text} />
+        {item.text && (
+          <Typography
+            variant="h1"
+            className={textClasses}
+            style={{ color, ...styleImgText }}
+          >
+            {item.text}
+          </Typography>
+        )}
+      </LinkWrapper>
     </Box>
   )
 }

@@ -78,6 +78,8 @@ export default function EventPage({ dataContext }) {
     dataContext?.gallery?.length == 0 ||
     useMediaQuery(theme.breakpoints.up('md'))
 
+  const fullWidth = galleryData.length == 0 && dataContext.snippets?.length == 0
+
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
@@ -104,57 +106,79 @@ export default function EventPage({ dataContext }) {
               alignItems="center"
               justify="space-between"
             >
-              <Grid
-                item
-                style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
-                container
-                alignItems="center"
-                justify="center"
-              >
-                {dataContext.ticket_url && (
-                  <a
-                    href={dataContext.ticket_url}
-                    target="_blank"
-                    style={{
-                      width: '100%',
-                      height: 50,
-                      fontSize: 18,
-                      color: 'white',
-                      backgroundColor: '#f54b4b',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <div style={{ textAlign: 'center' }}>Kjøp billetter</div>
-                  </a>
-                )}
+              {dataContext.ticket_url && (
+                <a
+                  href={dataContext.ticket_url}
+                  target="_blank"
+                  style={{
+                    width: '100%',
+                    height: 50,
+                    fontSize: 18,
+                    color: 'white',
+                    backgroundColor: '#f54b4b',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ textAlign: 'center' }}>Kjøp billetter</div>
+                </a>
+              )}
+            </Grid>
+            <Grid
+              item
+              style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
+              container
+              alignItems="center"
+              justify="center"
+            >
+              {dataContext.facebook_url && (
+                <a
+                  href={dataContext.facebook_url}
+                  target="_blank"
+                  style={{
+                    width: '100%',
+                    height: 50,
+                    fontSize: 18,
+                    color: 'white',
+                    backgroundColor: '#f54b4b',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <div style={{ textAlign: 'center' }}>Facebook Event</div>
+                </a>
+              )}
+            </Grid>
+          </Grid>
+        </Box>
+      </Grid>
+      <Grid
+        item
+        xs={12}
+        style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}
+      >
+        <Box mt={{ xs: 0 }} m={{ xs: 2, md: 4 }}>
+          <Grid container direction="row">
+            <Grid
+              item
+              container
+              xs={12}
+              md={fullWidth ? 12 : 6}
+              direction="row"
+              spacing={4}
+            >
+              <Grid item xs={fullWidth ? 6 : 12}>
+                <Box mb={2}>
+                  <Typography color="primary" variant="h2">
+                    Oversikt
+                  </Typography>
+                </Box>
+                {overviewItems}
               </Grid>
-              <Grid
-                item
-                style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
-                container
-                alignItems="center"
-                justify="center"
-              >
-                {dataContext.facebook_url && (
-                  <a
-                    href={dataContext.facebook_url}
-                    target="_blank"
-                    style={{
-                      width: '100%',
-                      height: 50,
-                      fontSize: 18,
-                      color: 'white',
-                      backgroundColor: '#f54b4b',
-                      display: 'flex',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <div style={{ textAlign: 'center' }}>Facebook Event</div>
-                  </a>
-                )}
+              <Grid item xs={fullWidth ? 6 : 12}>
+                <ExternalContent data={dataContext.body}></ExternalContent>
               </Grid>
             </Grid>
           </Box>

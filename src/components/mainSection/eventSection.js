@@ -69,6 +69,7 @@ const EventSection = () => {
     .filter(
       (x) => isValidStatus(x.status) && new Date(x.event_end) - new Date() > 0
     )
+    .splice(0, 8)
     .map((x) => {
       const start = moment(x.event_start).format('DD. MMM')
       const translation = getTranslation(x.translations)
