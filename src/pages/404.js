@@ -22,6 +22,7 @@ const styles = {
   backgroundContainer: {
     gridArea: '1/1',
     mixBlendMode: 'multiply',
+    maxHeight: '100vh',
   },
   otherContainer: {
     gridArea: '1/1',
