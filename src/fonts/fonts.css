@@ -18,3 +18,7 @@
   src: url('./The\ Northern\ Block\ Ltd\ -\ Hegval\ Display\ Regular.otf')
     format('opentype');
 }
+
+* {
+  font-family: 'Hegval Display', sans-serif;
+}

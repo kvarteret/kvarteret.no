@@ -8,6 +8,7 @@
 
 var glob = require('glob'),
   path = require('path')
+require('dotenv').config()
 
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 
@@ -22,6 +23,8 @@ glob.sync('./src/page_generators/**/*.js').forEach(function (file) {
 
 module.exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
+  const bliFrivillig = process.env.BLIFRIVILLIG !== undefined
+  if (bliFrivillig) return
 
   await Promise.all(
     generators.map(async (generator) => {
@@ -105,3 +108,29 @@ exports.createResolvers = async ({ createResolvers }) => {
     },
   })
 }
+
+module.exports.onCreatePage = ({ page, actions }) => {
+  const { createPage, deletePage } = actions // renamed to `actions` in Gatsby v2
+  const bliFrivillig = process.env.BLIFRIVILLIG !== undefined
+  if (
+    bliFrivillig &&
+    !/404/.test(page.path) &&
+    page.path !== '/blifrivillig/'
+  ) {
+    deletePage(page)
+  }
+
+  if (page.path == '/blifrivillig/') {
+    deletePage(page)
+    console.log('PAGE', page)
+    createPage({
+      path: '/',
+      component: page.component,
+      context: page.context,
+    })
+  }
+}
+
+// module.exports.onPostBuild = () => {
+
+// }
