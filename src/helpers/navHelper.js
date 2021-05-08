@@ -11,194 +11,210 @@ const UnpackDirectus = (data) => data.directus.items
 
 const getData = () => {
   const data = useStaticQuery(graphql`
-  query NavBarQuery {
-    directus {
-      general_information {
-        left_navigation {
-          collection
-          id
-          item {
-            ... on DirectusCMS_page {
-              id
-              status
-              slug
-              translations {
-                name
-                languages_code {
-                  url_code
+    query NavBarQuery {
+      directus {
+        general_information {
+          left_navigation {
+            collection
+            id
+            item {
+              ... on DirectusCMS_page {
+                id
+                status
+                slug
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
                 }
               }
-            }
-            ... on DirectusCMS_news {
-              id
-              status
-              slug
-            }
-            ... on DirectusCMS_navigation_item {
-              id
-              status
-              translations {
-                name
-                languages_code {
-                  url_code
+              ... on DirectusCMS_news {
+                id
+                status
+                slug
+              }
+              ... on DirectusCMS_navigation_item {
+                id
+                status
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
                 }
               }
-            }
-            ... on DirectusCMS_link {
-              id
-              status
-              url
-              button
-              translations {
-                name
-                languages_code {
-                  url_code
+              ... on DirectusCMS_link {
+                id
+                status
+                url
+                button
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
                 }
               }
-            }
-            ... on DirectusCMS_events {
-              id
-              status
-              slug
-            }
-            ... on DirectusCMS_room {
-              id
-              name
-            }
-          }
-        }
-        right_navigation {
-          collection
-          id
-          item {
-            ... on DirectusCMS_page {
-              id
-              status
-              slug
-              translations {
-                name
-                languages_code {
-                  url_code
-                }
+              ... on DirectusCMS_events {
+                id
+                status
+                slug
               }
-            }
-            ... on DirectusCMS_news {
-              id
-              status
-              slug
-            }
-            ... on DirectusCMS_navigation_item {
-              id
-              status
-              translations {
+              ... on DirectusCMS_room {
+                id
                 name
-                languages_code {
-                  url_code
-                }
               }
-            }
-            ... on DirectusCMS_link {
-              id
-              status
-              url
-              button
-              translations {
-                name
-                languages_code {
-                  url_code
-                }
-              }
-            }
-            ... on DirectusCMS_events {
-              id
-              status
-              slug
-            }
-            ... on DirectusCMS_group {
-              id
-            }
-            ... on DirectusCMS_room {
-              id
-              name
-            }
-          }
-        }
-      }
-      navigation_item {
-        status
-        translations {
-          name
-        }
-        destination {
-          collection
-          item {
-            ... on DirectusCMS_page {
-              id
-              status
-              slug
-              translations {
-                name
-                languages_code {
-                  url_code
-                }
-              }
-            }
-            ... on DirectusCMS_room {
-              id
-              name
-              status
-              slug
-            }
-            ... on DirectusCMS_news {
-              id
-              status
-              slug
-            }
-            ... on DirectusCMS_navigation_item {
-              id
-              status
-              translations {
-                name
-                languages_code {
-                  url_code
-                }
-              }
-            }
-            ... on DirectusCMS_link {
-              id
-              status
-              url
-              button
-              translations {
-                name
-                languages_code {
-                  url_code
-                }
-              }
-            }
-            ... on DirectusCMS_events {
-              id
-              slug
-              status
-            }
-            ... on DirectusCMS_group {
-              id
-              slug
-              status
-              translations {
-                languages_code {
-                  url_code
+              ... on DirectusCMS_group {
+                id
+                status
+                slug
+                translations {
+                  languages_code {
+                    url_code
+                  }
                 }
               }
             }
           }
+          right_navigation {
+            collection
+            id
+            item {
+              ... on DirectusCMS_page {
+                id
+                status
+                slug
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_news {
+                id
+                status
+                slug
+              }
+              ... on DirectusCMS_navigation_item {
+                id
+                status
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_link {
+                id
+                status
+                url
+                button
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_events {
+                id
+                status
+                slug
+              }
+              ... on DirectusCMS_group {
+                id
+                status
+                slug
+                translations {
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_room {
+                id
+                name
+              }
+            }
+          }
+        }
+        navigation_item {
+          status
+          translations {
+            name
+          }
+          destination {
+            collection
+            item {
+              ... on DirectusCMS_page {
+                id
+                status
+                slug
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_room {
+                id
+                name
+                status
+                slug
+              }
+              ... on DirectusCMS_news {
+                id
+                status
+                slug
+              }
+              ... on DirectusCMS_navigation_item {
+                id
+                status
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_link {
+                id
+                status
+                url
+                button
+                translations {
+                  name
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_events {
+                id
+                slug
+                status
+              }
+              ... on DirectusCMS_group {
+                id
+                slug
+                status
+                translations {
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+            }
+            id
+          }
           id
         }
-        id
       }
     }
-  }
-  
   `)
   return data
 }
@@ -285,6 +301,7 @@ const NewsItemHandler = (item, navItemsDict, depth) => {
 }
 
 const GroupItemHandler = (item, navItemsDict, depth) => {
+  console.log('GROUP ITEM', item)
   if (!isValidStatus(item.status)) return null
 
   const translation = getTranslation(item.translations)

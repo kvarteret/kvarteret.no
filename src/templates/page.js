@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Hidden } from '@material-ui/core'
+import { Box, Container, Grid, Hidden } from '@material-ui/core'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import Layout from '../components/shared/layout/layout'
@@ -39,7 +39,7 @@ const Page = ({ pageContext }) => {
 
   return (
     <Layout spacingTop={true}>
-      <Box style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}>
+      <Container disableGutters={true}>
         <Grid container direction="row-reverse">
           <Grid item xs={12} md={6}>
             {galleryData.length > 0 && (
@@ -72,7 +72,7 @@ const Page = ({ pageContext }) => {
             </Grid>
           </Hidden>
         </Grid>
-      </Box>
+      </Container>
     </Layout>
   )
 }
