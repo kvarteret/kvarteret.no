@@ -11,6 +11,7 @@ import { getFullImageUrl } from '../../helpers/fileHelper'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslation } from '../../helpers/languageHelper'
 import TopGalleryCarouselItem from '../shared/TopGalleryCarouselItem'
+import { getCarouselLink } from '../../helpers/navHelper'
 
 const useStyles = makeStyles({
   root: {
@@ -54,13 +55,13 @@ const useStyles = makeStyles({
   },
 })
 
-const sanitizeData = (data) => console.log(data)
-data.directus.general_information.carousel_items.map((item) => ({
-  img: getFullImageUrl(item.image.id),
-  imageFile: item.image.imageFile,
-  text: getTranslation(item.translations)?.title,
-  link: 'https://blifrivillig.no',
-}))
+const sanitizeData = (data) =>
+  data.directus.general_information.carousel_items.map((item) => ({
+    img: getFullImageUrl(item.image.id),
+    imageFile: item.image.imageFile,
+    text: getTranslation(item.translations)?.title,
+    link: getCarouselLink(item.destination[0]),
+  }))
 
 const MainContent = ({ content }) => {
   const classes = useStyles()
@@ -83,6 +84,77 @@ const MainContent = ({ content }) => {
                 languages_code {
                   url_code
                 }
+              }
+              destination {
+                item {
+                  ... on DirectusCMS_room {
+                    id
+                    name
+                    status
+                    translations {
+                      languages_code {
+                        url_code
+                      }
+                    }
+                    slug
+                  }
+                  ... on DirectusCMS_page {
+                    id
+                    status
+                    slug
+                    translations {
+                      languages_code {
+                        url_code
+                      }
+                      name
+                    }
+                  }
+                  ... on DirectusCMS_news {
+                    id
+                    status
+                    slug
+                    translations {
+                      title
+                      languages_code {
+                        url_code
+                      }
+                    }
+                  }
+                  ... on DirectusCMS_link {
+                    id
+                    status
+                    url
+                    translations {
+                      name
+                      languages_code {
+                        url_code
+                      }
+                    }
+                  }
+                  ... on DirectusCMS_group {
+                    id
+                    status
+                    slug
+                    translations {
+                      languages_code {
+                        url_code
+                      }
+                    }
+                  }
+                  ... on DirectusCMS_events {
+                    id
+                    status
+                    slug
+                    translations {
+                      title
+                      languages_code {
+                        url_code
+                      }
+                    }
+                  }
+                }
+                collection
+                id
               }
             }
           }

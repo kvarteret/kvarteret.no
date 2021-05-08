@@ -77,6 +77,8 @@ export default function EventPage({ dataContext }) {
     dataContext?.gallery?.length == 0 ||
     useMediaQuery(theme.breakpoints.up('md'))
 
+  const fullWidth = galleryData.length == 0 && dataContext.snippets?.length == 0
+
   return (
     <Grid container direction="row">
       <Grid item xs={12}>
@@ -167,8 +169,15 @@ export default function EventPage({ dataContext }) {
       >
         <Box mt={{ xs: 0 }} m={{ xs: 2, md: 4 }}>
           <Grid container direction="row">
-            <Grid item container xs={12} md={6} direction="row" spacing={4}>
-              <Grid item xs={12}>
+            <Grid
+              item
+              container
+              xs={12}
+              md={fullWidth ? 12 : 6}
+              direction="row"
+              spacing={4}
+            >
+              <Grid item xs={fullWidth ? 6 : 12}>
                 <Box mb={2}>
                   <Typography color="primary" variant="h2">
                     Oversikt
@@ -176,7 +185,7 @@ export default function EventPage({ dataContext }) {
                 </Box>
                 {overviewItems}
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={fullWidth ? 6 : 12}>
                 <ExternalContent data={dataContext.body}></ExternalContent>
               </Grid>
             </Grid>
