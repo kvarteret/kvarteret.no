@@ -48,7 +48,6 @@ const getData = () => {
                 id
                 status
                 url
-
                 button
                 translations {
                   name
@@ -61,6 +60,20 @@ const getData = () => {
                 id
                 status
                 slug
+              }
+              ... on DirectusCMS_room {
+                id
+                name
+              }
+              ... on DirectusCMS_group {
+                id
+                status
+                slug
+                translations {
+                  languages_code {
+                    url_code
+                  }
+                }
               }
             }
           }
@@ -111,6 +124,20 @@ const getData = () => {
                 status
                 slug
               }
+              ... on DirectusCMS_group {
+                id
+                status
+                slug
+                translations {
+                  languages_code {
+                    url_code
+                  }
+                }
+              }
+              ... on DirectusCMS_room {
+                id
+                name
+              }
             }
           }
         }
@@ -158,7 +185,6 @@ const getData = () => {
                 id
                 status
                 url
-
                 button
                 translations {
                   name
@@ -171,6 +197,16 @@ const getData = () => {
                 id
                 slug
                 status
+              }
+              ... on DirectusCMS_group {
+                id
+                slug
+                status
+                translations {
+                  languages_code {
+                    url_code
+                  }
+                }
               }
             }
             id
@@ -263,13 +299,25 @@ const NewsItemHandler = (item, navItemsDict, depth) => {
   }
 }
 
+const GroupItemHandler = (item, navItemsDict, depth) => {
+  console.log('GROUP ITEM', item)
+  if (!isValidStatus(item.status)) return null
+
+  const translation = getTranslation(item.translations)
+  if (!translation) return null
+  return {
+    url: '/' + getTranslatedUrl('group/' + item.slug),
+    text: translation.name || item.slug,
+  }
+}
+
 const collectionHandlers = {
   navigation_item: NavigationItemHander,
   room: RoomItemHandler,
   page: PageItemHandler,
   news: NewsItemHandler,
   link: LinkItemHandler,
-  group: () => ({ url: '', text: '' }),
+  group: GroupItemHandler,
 }
 
 const getNavItems = (data, navItemsDict) => {

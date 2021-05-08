@@ -6,6 +6,7 @@ import {
   Link,
   useMediaQuery,
   useTheme,
+  Container,
 } from '@material-ui/core'
 import DAKCarousel from './shared/dakCarousel'
 import TopGalleryCarouselItem from './shared/TopGalleryCarouselItem'
@@ -62,7 +63,7 @@ const Snippet = ({ item }) => (
 const customCarouselComponent = (props) => (
   <TopGalleryCarouselItem
     {...props}
-    styleImgText={{ bottom: 51, left: 'max(32px, calc(50% - 700px))' }}
+    styleImgText={{ bottom: 51, left: 'max(32px, calc(50% - 610px))' }}
   />
 )
 
@@ -93,118 +94,115 @@ export default function EventPage({ dataContext }) {
         style={{
           position: 'relative',
           top: -30,
-          maxWidth: '1500px',
-          width: '100%',
-          margin: '0 auto',
         }}
       >
-        <Box mx={{ xs: 2, md: 4 }}>
-          <Grid
-            container
-            direction="row"
-            alignItems="center"
-            justify="space-between"
-          >
+        <Container disableGutters>
+          <Box mx={{ xs: 2, md: 4 }}>
             <Grid
-              item
-              style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
               container
+              direction="row"
               alignItems="center"
-              justify="center"
+              justify="space-between"
             >
-              {dataContext.ticket_url && (
-                <a
-                  href={dataContext.ticket_url}
-                  target="_blank"
-                  style={{
-                    width: '100%',
-                    height: 50,
-                    fontSize: 18,
-                    color: 'white',
-                    backgroundColor: '#f54b4b',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div style={{ textAlign: 'center' }}>Kjøp billetter</div>
-                </a>
-              )}
+              <Grid
+                item
+                style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
+                container
+                alignItems="center"
+                justify="center"
+              >
+                {dataContext.ticket_url && (
+                  <a
+                    href={dataContext.ticket_url}
+                    target="_blank"
+                    style={{
+                      width: '100%',
+                      height: 50,
+                      fontSize: 18,
+                      color: 'white',
+                      backgroundColor: '#f54b4b',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div style={{ textAlign: 'center' }}>Kjøp billetter</div>
+                  </a>
+                )}
+              </Grid>
+              <Grid
+                item
+                style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
+                container
+                alignItems="center"
+                justify="center"
+              >
+                {dataContext.facebook_url && (
+                  <a
+                    href={dataContext.facebook_url}
+                    target="_blank"
+                    style={{
+                      width: '100%',
+                      height: 50,
+                      fontSize: 18,
+                      color: 'white',
+                      backgroundColor: '#f54b4b',
+                      display: 'flex',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                    }}
+                  >
+                    <div style={{ textAlign: 'center' }}>Facebook Event</div>
+                  </a>
+                )}
+              </Grid>
             </Grid>
-            <Grid
-              item
-              style={{ flexGrow: 0, maxWidth: '48%', flexBasis: '48%' }}
-              container
-              alignItems="center"
-              justify="center"
-            >
-              {dataContext.facebook_url && (
-                <a
-                  href={dataContext.facebook_url}
-                  target="_blank"
-                  style={{
-                    width: '100%',
-                    height: 50,
-                    fontSize: 18,
-                    color: 'white',
-                    backgroundColor: '#f54b4b',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <div style={{ textAlign: 'center' }}>Facebook Event</div>
-                </a>
-              )}
-            </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        </Container>
       </Grid>
-      <Grid
-        item
-        xs={12}
-        style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}
-      >
-        <Box mt={{ xs: 0 }} m={{ xs: 2, md: 4 }}>
-          <Grid container direction="row">
-            <Grid item container xs={12} md={6} direction="row" spacing={4}>
-              <Grid item xs={12}>
-                <Box mb={2}>
-                  <Typography color="primary" variant="h2">
-                    Oversikt
-                  </Typography>
-                </Box>
-                {overviewItems}
-              </Grid>
-              <Grid item xs={12}>
-                <ExternalContent data={dataContext.body}></ExternalContent>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              container
-              xs={12}
-              md={6}
-              direction="column"
-              alignItems="center"
-            >
-              <Grid item xs={12} xl={10}>
-                <Box ml={{ xs: 0, md: 6 }} mt={1}>
-                  {galleryData.length > 0 && (
-                    <DAKCarousel
-                      dots={true}
-                      arrows={spacingTop}
-                      items={galleryData}
-                    ></DAKCarousel>
-                  )}
-                  <Box mt={4}>
-                    <Snippets items={dataContext.snippets} />
+      <Grid item xs={12}>
+        <Container disableGutters>
+          <Box mt={{ xs: 0 }} m={{ xs: 2, md: 4 }}>
+            <Grid container direction="row">
+              <Grid item container xs={12} md={6} direction="row" spacing={4}>
+                <Grid item xs={12}>
+                  <Box mb={2}>
+                    <Typography color="primary" variant="h2">
+                      Oversikt
+                    </Typography>
                   </Box>
-                </Box>
+                  {overviewItems}
+                </Grid>
+                <Grid item xs={12}>
+                  <ExternalContent data={dataContext.body}></ExternalContent>
+                </Grid>
+              </Grid>
+              <Grid
+                item
+                container
+                xs={12}
+                md={6}
+                direction="column"
+                alignItems="center"
+              >
+                <Grid item xs={12} xl={10}>
+                  <Box ml={{ xs: 0, md: 6 }} mt={1}>
+                    {galleryData.length > 0 && (
+                      <DAKCarousel
+                        dots={true}
+                        arrows={spacingTop}
+                        items={galleryData}
+                      ></DAKCarousel>
+                    )}
+                    <Box mt={4}>
+                      <Snippets items={dataContext.snippets} />
+                    </Box>
+                  </Box>
+                </Grid>
               </Grid>
             </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        </Container>
       </Grid>
     </Grid>
   )
