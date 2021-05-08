@@ -245,17 +245,16 @@ const NavigationItemHander = (item, navItemsDict, depth) => {
 
   const translation = getTranslation(item.translations)
   if (!translation) return null
-
   return {
     text: translation.name,
     items: destinations
-      .map((child) =>
-        collectionHandlers[child.collection](
+      .map((child) => {
+        return collectionHandlers[child.collection](
           child.item,
           navItemsDict,
           depth + 1
         )
-      )
+      })
       .filter(Boolean),
   }
 }
