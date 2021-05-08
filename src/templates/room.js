@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Grid, Hidden } from '@material-ui/core'
+import { Box, Container, Grid, Hidden } from '@material-ui/core'
 import Layout from '../components/shared/layout/layout'
 import DAKCarousel from '../components/shared/dakCarousel'
 import ExternalContent from '../components/mainSection/externalContent'
@@ -71,7 +71,7 @@ const Room = ({ pageContext }) => {
   const galleryData = sanitizeGalleryData(pageContext.gallery)
   return (
     <Layout spacingTop={true}>
-      <Box style={{ maxWidth: '1500px', width: '100%', margin: '0 auto' }}>
+      <Container disableGutters>
         <Box m={{ xs: 3, md: 4, lg: 6 }}>
           <Grid container direction="row" spacing={4}>
             <Grid item xs={12} md={6}>
@@ -91,7 +91,7 @@ const Room = ({ pageContext }) => {
             </Grid>
           </Grid>
         </Box>
-      </Box>
+      </Container>
     </Layout>
   )
 }
