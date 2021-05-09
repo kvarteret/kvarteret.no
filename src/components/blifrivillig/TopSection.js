@@ -2,6 +2,8 @@ import { Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 
+import scrollTo from 'gatsby-plugin-smoothscroll'
+
 const useStyles = makeStyles((theme) => ({
   buttonStyle: {
     height: 120,
