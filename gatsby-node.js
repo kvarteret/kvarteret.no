@@ -120,15 +120,15 @@ module.exports.onCreatePage = ({ page, actions }) => {
     deletePage(page)
   }
 
-  if (page.path == '/blifrivillig/') {
-    deletePage(page)
-    console.log('PAGE', page)
-    createPage({
-      path: '/',
-      component: page.component,
-      context: page.context,
-    })
-  }
+  // if (page.path == '/blifrivillig/') {
+  //   deletePage(page)
+  //   console.log('PAGE', page)
+  //   createPage({
+  //     path: '/',
+  //     component: page.component,
+  //     context: page.context,
+  //   })
+  // }
 }
 
 // module.exports.onPostBuild = () => {
