@@ -90,8 +90,7 @@ const NotFoundPage = () => {
                       href={'/' + UrlLanguageCode()}
                       underline="none"
                       variant="contained"
-                      fullWidth="true"
-                      color="white"
+                      fullWidth
                       style={{ height: 55 }}
                     >
                       <Typography variant="h6" color="primary">
