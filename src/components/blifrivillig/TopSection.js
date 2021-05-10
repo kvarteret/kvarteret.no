@@ -41,7 +41,7 @@ export default function TopSection({ videoUrl }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe> */}
-        <video width="100%" height="75vh" muted autoPlay loop>
+        <video width="100%" height="75vh" muted autoPlay loop playsInline>
           <source
             src="https://cms.kvarteret.no/assets/50f27482-6b44-4a43-9483-8b465077933c"
             type="video/mp4"
