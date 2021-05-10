@@ -132,7 +132,6 @@ const useStyles = makeStyles({
 const BliFrivillig = () => {
   const styles = useStyles()
   const data = sanitizeData(useStaticQuery(Query))
-  console.log(data)
 
   const topSectionItems = data.topSection.map((item, key) => (
     <Grid item key={key} className={key % 2 == 1 ? styles.redSection : ''}>
@@ -167,7 +166,7 @@ const BliFrivillig = () => {
           <GroupSection groups={data.groups} />
         </Grid>
         {bottomSectionItems}
-        <Grid item id="signup">
+        <Grid item>
           <Box my={8}>
             <Container fixed>
               <Grid container direction="row" spacing={4} justify="center">

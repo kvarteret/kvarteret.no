@@ -2,11 +2,23 @@ import { Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React from 'react'
 
-import scrollTo from 'gatsby-plugin-smoothscroll'
+function scrollTo(elem) {
+  const element = document.querySelector(elem)
+
+  if (element) {
+    const yOffset = -100
+    const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset
+
+    window.scrollTo({ top: y, behavior: 'smooth' })
+
+    return true
+  }
+}
 
 const useStyles = makeStyles((theme) => ({
   buttonStyle: {
     height: 120,
+    maxWidth: 950,
     border: '3px solid white',
     color: 'white',
     '&:hover': { backgroundColor: 'white', color: '#f54b4b' },
@@ -18,15 +30,23 @@ export default function TopSection({ videoUrl }) {
   return (
     <div>
       <div className="video-background">
-        <iframe
+        {/* <iframe
           width="100%"
-          height="900px"
+          height="75vh"
+          muted
+          autoPlay
           src={`${videoUrl}?controls=0&rel=0&showinfo=0&playlist=P7SbB2_HW1o&autoplay=1&loop=1&mute=1`}
           title="YouTube video player"
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-        ></iframe>
+        ></iframe> */}
+        <video width="100%" height="75vh" muted autoPlay loop>
+          <source
+            src="https://cms.kvarteret.no/assets/50f27482-6b44-4a43-9483-8b465077933c"
+            type="video/mp4"
+          />
+        </video>
       </div>
       <div
         style={{
@@ -57,7 +77,7 @@ export default function TopSection({ videoUrl }) {
           alignItems="center"
           justify="center"
           style={{
-            minHeight: '900px',
+            minHeight: '75vh',
             color: 'white',
             textAlign: 'center',
           }}
@@ -87,7 +107,7 @@ export default function TopSection({ videoUrl }) {
               fullWidth
               className={styles.buttonStyle}
             >
-              <Typography variant="h1">Bli frivillig nå!</Typography>
+              <Typography variant="h2">Bli frivillig nå!</Typography>
             </Button>
           </Grid>
         </Grid>
