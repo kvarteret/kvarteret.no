@@ -83,6 +83,7 @@ exports.sourceNodes = async ({
 
   await Promise.all(
     files.data.map(async (image) => {
+      if(image.type == "video/mp4") return;
       const node = await createImageObject(image)
       createNode(node)
     })
