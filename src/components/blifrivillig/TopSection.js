@@ -29,8 +29,8 @@ export default function TopSection({ videoUrl }) {
   const styles = useStyles()
   return (
     <div>
-      <div className="video-background">
-        {/* <iframe
+      {/* <div className="video-background"> */}
+      {/* <iframe
           width="100%"
           height="75vh"
           muted
@@ -41,13 +41,21 @@ export default function TopSection({ videoUrl }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe> */}
+      <div
+        className="video-background"
+        dangerouslySetInnerHTML={{
+          __html: `
         <video width="100%" height="75vh" muted autoPlay loop playsInline>
-          <source
-            src="https://cms.kvarteret.no/assets/b8236d98-2679-4f7e-bdea-8cee65b2c457"
-            type="video/webm"
-          />
-        </video>
-      </div>
+        <source
+          src="https://cms.kvarteret.no/assets/b8236d98-2679-4f7e-bdea-8cee65b2c457"
+          type="video/webm"
+        />
+        Your browser does not support the video tag.
+      </video>
+  `,
+        }}
+      />
+      {/* </div> */}
       <div
         style={{
           position: 'absolute',
