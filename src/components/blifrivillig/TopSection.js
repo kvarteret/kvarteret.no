@@ -43,7 +43,7 @@ export default function TopSection({ videoUrl }) {
         ></iframe> */}
         <video width="100%" height="75vh" muted autoPlay loop playsInline>
           <source
-            src="https://cms.kvarteret.no/assets/50f27482-6b44-4a43-9483-8b465077933c"
+            src="https://cms.kvarteret.no/assets/88b18ec7-f315-4fe9-b0d9-949ab8e0e6ad"
             type="video/mp4"
           />
         </video>
