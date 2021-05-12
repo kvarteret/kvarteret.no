@@ -52,7 +52,7 @@ export default function TopSection({ videoUrl }) {
         className="video-background"
         dangerouslySetInnerHTML={{
           __html: `
-        <video id="BgVideo" width="100%" height="75vh" muted autoplay loop playsinline>
+        <video id="BgVideo" width="100%" height="75vh" muted autoplay loop playsinline poster="https://cms.kvarteret.no/assets/2d256d0e-fcec-457f-9bbf-a5f125054178">
         <source
           src="https://cms.kvarteret.no/assets/b8236d98-2679-4f7e-bdea-8cee65b2c457"
           type="video/webm"
