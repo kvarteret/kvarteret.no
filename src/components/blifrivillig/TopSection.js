@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 function scrollTo(elem) {
   const element = document.querySelector(elem)
@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopSection({ videoUrl }) {
   const styles = useStyles()
+
+  // useEffect(() => {
+  //   const bgVideo = document.getElementById('BgVideo')
+  //   bgVideo.muted = true
+  //   bgVideo.play()
+  // }, [])
+
   return (
     <div>
       {/* <div className="video-background"> */}
@@ -45,7 +52,7 @@ export default function TopSection({ videoUrl }) {
         className="video-background"
         dangerouslySetInnerHTML={{
           __html: `
-        <video width="100%" height="75vh" muted autoPlay loop playsInline>
+        <video id="BgVideo" width="100%" height="75vh" muted autoplay loop playsinline>
         <source
           src="https://cms.kvarteret.no/assets/b8236d98-2679-4f7e-bdea-8cee65b2c457"
           type="video/webm"
