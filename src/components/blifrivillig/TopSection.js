@@ -28,11 +28,11 @@ const useStyles = makeStyles((theme) => ({
 export default function TopSection({ videoUrl }) {
   const styles = useStyles()
 
-  // useEffect(() => {
-  //   const bgVideo = document.getElementById('BgVideo')
-  //   bgVideo.muted = true
-  //   bgVideo.play()
-  // }, [])
+  useEffect(() => {
+    const bgVideo = document.getElementById('BgVideo')
+    bgVideo.muted = true
+    bgVideo.play()
+  }, [])
 
   return (
     <div>
