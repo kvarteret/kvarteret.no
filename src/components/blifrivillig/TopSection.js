@@ -70,7 +70,7 @@ export default function TopSection({ videoUrl }) {
       >
         <Grid
           container
-          spacing={2}
+          spacing={1}
           direction="column"
           alignItems="center"
           justify="center"
@@ -95,7 +95,7 @@ export default function TopSection({ videoUrl }) {
             item
             xs={12}
             md={6}
-            style={{ width: '100%', marginTop: '60px' }}
+            style={{ width: '100%', marginTop: '40px' }}
           >
             <Button
               component={'a'}

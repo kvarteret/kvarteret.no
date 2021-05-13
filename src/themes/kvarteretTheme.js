@@ -3,7 +3,7 @@ import { createMuiTheme, responsiveFontSizes } from '@material-ui/core'
 let lightTheme = createMuiTheme({
   typography: {
     fontFamily: 'Hegval Display',
-    fontSize: 12,
+    fontSize: 13,
     h1: {
       fontSize: 60,
       wordBreak: 'break-word',

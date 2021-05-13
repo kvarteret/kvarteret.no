@@ -5,7 +5,7 @@ import ExternalContent from '../mainSection/externalContent'
 const SignupSection = ({ snippet }) => {
   return (
     <div id="signup">
-      <Typography variant="h1" component="h1" color="primary">
+      <Typography variant="h1" component="h1" color="primary" align="center">
         Meld deg inn i her!
       </Typography>
 

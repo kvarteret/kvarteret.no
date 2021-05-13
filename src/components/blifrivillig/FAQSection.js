@@ -8,7 +8,9 @@ export const FAQuestion = ({ title, text }) => {
       <Typography variant="h3" component="h3" color="primary">
         {title}
       </Typography>
-      <ExternalContent data={text} />
+      <Typography>
+        <ExternalContent data={text} />
+      </Typography>
     </Box>
   )
 }

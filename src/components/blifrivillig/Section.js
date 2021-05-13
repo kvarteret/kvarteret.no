@@ -30,7 +30,9 @@ const Section = ({ swap, title, image, text, titleColor }) => {
               </Typography>
             </Grid>
             <Grid item>
-              <ExternalContent data={text} />
+              <Typography>
+                <ExternalContent data={text} />
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

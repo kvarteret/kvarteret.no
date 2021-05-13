@@ -38,7 +38,7 @@ const GroupCard = ({ image, title, description, link }) => {
               objectFit: 'cover',
             }}
           />
-          <CardContent style={{ height: '100%' }}>
+          <CardContent style={{ height: '100%', fontSize: 14 }}>
             <Typography
               variant="h3"
               component="h3"
@@ -47,7 +47,9 @@ const GroupCard = ({ image, title, description, link }) => {
             >
               {title}
             </Typography>
-            <ExternalContent data={description} />
+            <Typography>
+              <ExternalContent data={description} />
+            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
@@ -65,14 +67,12 @@ const GroupSection = ({ groups }) => {
   return (
     <Container fixed>
       <Box my={4}>
-        <Grid container direction="column" spacing={2}>
+        <Grid container direction="column" spacing={4}>
           <Grid item>
             <Typography variant="h1" component="h1" color="primary">
               Hva kan du gjøre?
             </Typography>
-          </Grid>
-          <Grid item>
-            <Typography>
+            <Typography style={{ marginTop: 10 }}>
               Mange tror at vi bare har grupper for å drive huset, men vi har
               langt mer enn dette! Om du er interessert i å forbedre
               kaffekunsten din så har du mulighet til å bli servitør i vår egen
