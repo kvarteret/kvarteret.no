@@ -36,7 +36,7 @@ export default function TopSection({ videoUrl }) {
         <video
           id="BgVideo"
           width="100%"
-          height="80vh"
+          height="85vh"
           muted
           autoPlay
           loop
@@ -75,17 +75,17 @@ export default function TopSection({ videoUrl }) {
           alignItems="center"
           justify="center"
           style={{
-            minHeight: '80vh',
+            minHeight: '85vh',
             color: 'white',
             textAlign: 'center',
           }}
         >
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={12} lg={9}>
             <Typography variant="h1">
               Få mer ut av studietiden med oss!
             </Typography>
           </Grid>
-          <Grid item xs={12} lg={7}>
+          <Grid item xs={12} lg={9}>
             <Typography variant="h3">
               Venner for livet, erfaring å være stolt av og minner du aldri vil
               glemme!
@@ -94,8 +94,8 @@ export default function TopSection({ videoUrl }) {
           <Grid
             item
             xs={12}
-            lg={7}
-            style={{ width: '100%', marginTop: '40px' }}
+            lg={9}
+            style={{ width: '100%', marginTop: '20px' }}
           >
             <Button
               component={'a'}
