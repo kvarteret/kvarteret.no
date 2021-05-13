@@ -11,7 +11,7 @@
     "@material-ui/styles": "^4.11.3",
     "dotenv": "^8.2.0",
     "fast-average-color": "^6.3.0",
-    "gatsby": "^3.1.2",
+    "gatsby": "^3.5.0",
     "gatsby-image": "^3.1.0",
     "gatsby-plugin-image": "^1.2.1",
     "gatsby-plugin-manifest": "^3.1.0",
