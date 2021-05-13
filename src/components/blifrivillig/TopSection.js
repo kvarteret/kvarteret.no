@@ -19,8 +19,8 @@ function scrollTo(elem) {
 
 const useStyles = makeStyles((theme) => ({
   buttonStyle: {
-    height: 120,
-    maxWidth: 950,
+    height: 100,
+    maxWidth: 550,
     border: '3px solid white',
     color: 'white',
     '&:hover': { backgroundColor: 'white', color: '#f54b4b' },
@@ -36,7 +36,7 @@ export default function TopSection({ videoUrl }) {
         <video
           id="BgVideo"
           width="100%"
-          height="75vh"
+          height="80vh"
           muted
           autoPlay
           loop
@@ -70,23 +70,23 @@ export default function TopSection({ videoUrl }) {
       >
         <Grid
           container
-          spacing={1}
+          spacing={4}
           direction="column"
           alignItems="center"
           justify="center"
           style={{
-            minHeight: '75vh',
+            minHeight: '80vh',
             color: 'white',
             textAlign: 'center',
           }}
         >
-          <Grid item xs={12} md={6}>
+          <Grid item xs={12} lg={7}>
             <Typography variant="h1">
               Få mer ut av studietiden med oss!
             </Typography>
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Typography variant="h4">
+          <Grid item xs={12} lg={7}>
+            <Typography variant="h3">
               Venner for livet, erfaring å være stolt av og minner du aldri vil
               glemme!
             </Typography>
@@ -94,7 +94,7 @@ export default function TopSection({ videoUrl }) {
           <Grid
             item
             xs={12}
-            md={6}
+            lg={7}
             style={{ width: '100%', marginTop: '40px' }}
           >
             <Button
@@ -122,7 +122,7 @@ export default function TopSection({ videoUrl }) {
           color: 'white',
         }}
       >
-        <Typography variant="h4">Eller lær mer om kvarteret under</Typography>
+        <Typography variant="h5">Eller lær mer om kvarteret under</Typography>
       </div>
     </div>
   )
