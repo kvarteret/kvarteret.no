@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { useEffect } from 'react'
 
-import ReklameFile from '../../images/reklamefilm.webm'
+import ReklameFile from '../../images/reklamefilm.mp4'
 
 function scrollTo(elem) {
   const element = document.querySelector(elem)
@@ -50,20 +50,20 @@ export default function TopSection({ videoUrl }) {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         ></iframe> */}
-      <div
-        className="video-background"
-        dangerouslySetInnerHTML={{
-          __html: `
-        <video id="BgVideo" width="100%" height="75vh" muted autoplay loop playsinline poster="https://cms.kvarteret.no/assets/2d256d0e-fcec-457f-9bbf-a5f125054178">
-        <source
-          src="${ReklameFile}"
-          type="video/webm"
-        />
-        Your browser does not support the video tag.
-      </video>
-  `,
-        }}
-      />
+      <div className="video-background">
+        <video
+          id="BgVideo"
+          width="100%"
+          height="75vh"
+          muted
+          autoplay
+          loop
+          playsinline
+          poster="https://cms.kvarteret.no/assets/2d256d0e-fcec-457f-9bbf-a5f125054178"
+        >
+          <source src={`${ReklameFile}`} type="video/mp4" />
+        </video>
+      </div>
       {/* </div> */}
       <div
         style={{
