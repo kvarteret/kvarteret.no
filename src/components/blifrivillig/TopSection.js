@@ -30,41 +30,22 @@ const useStyles = makeStyles((theme) => ({
 export default function TopSection({ videoUrl }) {
   const styles = useStyles()
 
-  useEffect(() => {
-    const bgVideo = document.getElementById('BgVideo')
-    bgVideo.muted = true
-    bgVideo.play()
-  }, [])
-
   return (
     <div>
-      {/* <div className="video-background"> */}
-      {/* <iframe
-          width="100%"
-          height="75vh"
-          muted
-          autoPlay
-          src={`${videoUrl}?controls=0&rel=0&showinfo=0&playlist=P7SbB2_HW1o&autoplay=1&loop=1&mute=1`}
-          title="YouTube video player"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        ></iframe> */}
       <div className="video-background">
         <video
           id="BgVideo"
           width="100%"
           height="75vh"
           muted
-          autoplay
+          autoPlay
           loop
-          playsinline
+          playsInline
           poster="https://cms.kvarteret.no/assets/2d256d0e-fcec-457f-9bbf-a5f125054178"
         >
           <source src={`${ReklameFile}`} type="video/mp4" />
         </video>
       </div>
-      {/* </div> */}
       <div
         style={{
           position: 'absolute',
