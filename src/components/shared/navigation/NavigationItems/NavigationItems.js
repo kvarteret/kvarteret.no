@@ -11,15 +11,15 @@ import { GetNavItems } from '../../../../helpers/navHelper'
 import { ExpandLess, ExpandMore } from '@material-ui/icons'
 
 const NavItem = ({ item }) => {
-  const text = item.text
-  if (item.items) {
+  const text = item.title
+  if (item.children) {
     const [open, setOpen] = useState(false)
 
     const handleClick = () => {
       setOpen(!open)
     }
 
-    const childElements = item.items.map((item, id) => (
+    const childElements = item.children.map((item, id) => (
       <NavItem key={id} item={item} />
     ))
 
