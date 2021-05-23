@@ -29,7 +29,7 @@ const sanitizeData = (data) => {
   const roomEvents = []
   data.directus.events.forEach((event) => {
     if (!isValidStatus(event.status)) return
-    const translation = getTranslation(event.translations)
+    const translation = getTranslation(event.page.translations)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
@@ -40,7 +40,7 @@ const sanitizeData = (data) => {
     let startTime = moment(event.event_start).format('HH:mm')
     let endTime = moment(event.event_end).format('HH:mm')
 
-    event.rooms.forEach((room) => {
+    event.event_room.forEach((room) => {
       roomEvents.push({
         eventid: event.id,
         floor: room.room_id.floor,
@@ -62,19 +62,21 @@ const TodaySection = () => {
         events {
           id
           status
-          slug
-          translations {
-            languages_code {
-              url_code
-            }
-            title
-          }
           event_end
           event_start
-          rooms {
+          event_room {
             room_id {
               name
               floor
+            }
+          }
+
+          page {
+            translations {
+              languages_code {
+                url_code
+              }
+              title
             }
           }
         }

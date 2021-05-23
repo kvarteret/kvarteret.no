@@ -7,6 +7,10 @@ import { Location } from '@reach/router'
 const useStyles = makeStyles({
   languageSize: {
     fontSize: 12,
+    color: 'white',
+  },
+  active: {
+    color: '#f54b4b',
   },
   languageDivider: {
     height: 16,
@@ -43,7 +47,9 @@ function LanguageSelector() {
             <Grid item>
               <Link
                 to={getUrl('no', locationProps.location.pathname)}
-                className={classes.languageSize + (!eng ? ' active' : '')}
+                className={
+                  classes.languageSize + (!eng ? ' ' + classes.active : '')
+                }
               >
                 NO
               </Link>
@@ -55,7 +61,9 @@ function LanguageSelector() {
             <Grid item>
               <Link
                 to={getUrl('en', locationProps.location.pathname)}
-                className={classes.languageSize + (eng ? ' active' : '')}
+                className={
+                  classes.languageSize + (eng ? ' ' + classes.active : '')
+                }
               >
                 EN
               </Link>

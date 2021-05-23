@@ -9,6 +9,6 @@ function validStatuses() {
 module.exports.validStatuses = validStatuses
 
 module.exports.isValidStatus = function (status) {
-  if (status == undefined) throw Exception('Status must not be undefined!')
+  if (status == undefined) throw new Error('Status must not be undefined!')
   return validStatuses().includes(status)
 }

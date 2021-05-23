@@ -2,18 +2,7 @@ import React from 'react'
 
 import Layout from '../components/shared/layout/layout'
 import SEO from '../components/seo'
-import {
-  Paper,
-  Grid,
-  Typography,
-  darken,
-  Box,
-  Link,
-  Button,
-} from '@material-ui/core'
-import BgImg from '../images/sad_penguin.jpg'
-import { relativeTimeRounding } from 'moment'
-import { graphql, StaticQuery, useStaticQuery } from 'gatsby'
+import { Grid, Typography, Box, Link, Button } from '@material-ui/core'
 import { StaticImage } from 'gatsby-plugin-image'
 import { UrlLanguageCode } from '../helpers/languageHelper'
 import { getTranslatedText } from '../helpers/textHelper'

@@ -37,9 +37,9 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
 
 const NavItem = ({ item }) => {
   // TODO: Dropdown menu
-  const text = item.text
+  const text = item.title
 
-  if (item.items) {
+  if (item.children) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const handleClick = (event) => {
@@ -50,13 +50,13 @@ const NavItem = ({ item }) => {
       setAnchorEl(null)
     }
 
-    const menuItems = item.items.map((child, id) => (
+    const menuItems = item.children.map((child, id) => (
       <NavMenuItem
         onClick={handleClick}
         handleClose={handleClose}
         parentMenuOpen={!!anchorEl}
         item={child}
-        key={item.text + id}
+        key={TextEvent + id}
       ></NavMenuItem>
     ))
     return (
@@ -92,9 +92,9 @@ const NavItem = ({ item }) => {
   if (isButton) {
     return (
       <Grid item>
-        <a href={link} className={'nav-button'}>
-          {item.text}
-        </a>
+        <Link to={link} className={'nav-button'}>
+          {text}
+        </Link>
       </Grid>
     )
   }
@@ -111,7 +111,7 @@ export default function NavBar({ isRightNav }) {
   let navItems = GetNavItems()
 
   navItems = isRightNav ? navItems.rightNavItems : navItems.leftNavItems
-
+  console.log('NAVITEMS', navItems)
   return navItems.map((item, id) => (
     <Grid item className={center} key={id}>
       <NavItem item={item}></NavItem>

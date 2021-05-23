@@ -11,25 +11,13 @@ module.exports.generate = async (createPage, graphql, actions) => {
     query eventItems {
       directus {
         events {
-          date_created
-          date_updated
           id
-          slug
           status
-          translations {
-            title
-            description
-            languages_code {
-              code
-              name
-              url_code
-            }
-          }
-          event_end
           event_start
+          event_end
+          facebook_url
           ticket_url
-          facebook_event
-          top_gallery {
+          top_image {
             id
             imageFile {
               childImageSharp {
@@ -37,23 +25,32 @@ module.exports.generate = async (createPage, graphql, actions) => {
               }
             }
           }
-          snippet {
-            snippets_id {
-              code
-              translations {
+          page {
+            id
+            status
+            slug
+            translations {
+              snippets {
                 title
-                languages_code {
-                  url_code
-                }
+                code
               }
+              languages_code {
+                url_code
+                name
+              }
+              content
+              description
+              title
             }
-          }
-          gallery {
-            directus_files_id {
-              id
-              imageFile {
-                childImageSharp {
-                  gatsbyImageData(placeholder: BLURRED, formats: PNG)
+            gallery {
+              directus_files_id {
+                id
+                title
+                description
+                imageFile {
+                  childImageSharp {
+                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
+                  }
                 }
               }
             }
@@ -68,11 +65,12 @@ module.exports.generate = async (createPage, graphql, actions) => {
   await Promise.all(
     eventObj.events.map(async (eventItem) => {
       if (!isValidStatus(eventItem.status)) return
+      if (!eventItem.page || !isValidStatus(eventItem.page.status)) return
 
-      eventItem.translations.forEach((translation) => {
+      eventItem.page.translations.forEach((translation) => {
         let languageModifier = translation.languages_code.url_code + '/'
 
-        const sanitizedSnippet = eventItem.snippet.map((item) => ({
+        const sanitizedSnippet = translation.snippets.map((item) => ({
           code: item.snippets_id.code,
           title: getTranslationForCode(
             item.snippets_id.translations,
@@ -82,16 +80,22 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
         const dataContext = {
           title: translation.title,
-          body: translation.description,
-          image: eventItem.top_gallery.imageFile,
-          gallery: eventItem.gallery,
+          body: translation.content,
+          image: eventItem.top_image.imageFile,
+          gallery: eventItem.page.gallery,
           snippets: sanitizedSnippet,
           ticket_url: eventItem.ticket_url,
           facebook_url: eventItem.facebook_event,
         }
 
         createPage({
-          path: '/' + languageModifier + 'events/' + eventItem.slug,
+          path: '/' + languageModifier + 'events/' + eventItem.page.slug,
+          component: path.resolve('./src/templates/event.js'),
+          context: dataContext,
+        })
+
+        createPage({
+          path: '/' + languageModifier + eventItem.page.slug,
           component: path.resolve('./src/templates/event.js'),
           context: dataContext,
         })

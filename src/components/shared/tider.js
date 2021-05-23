@@ -28,7 +28,7 @@ const extractData = (data) => {
       times.push({
         openingTime: time.opening_time,
         closingTime: time.closing_time,
-        roomName: time.room.name,
+        roomName: time.room?.name,
         open: true,
       })
     })
