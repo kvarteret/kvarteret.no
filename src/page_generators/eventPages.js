@@ -85,7 +85,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
           gallery: eventItem.page.gallery,
           snippets: sanitizedSnippet,
           ticket_url: eventItem.ticket_url,
-          facebook_url: eventItem.facebook_event,
+          facebook_url: eventItem.facebook_url,
         }
 
         createPage({
