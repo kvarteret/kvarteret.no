@@ -20,29 +20,28 @@ const getData = () => {
           }
         }
         navigation_item {
-          is_button
           id
+          is_button
           translations {
+            name
             languages_code {
               url_code
             }
-            name
           }
-          children {
-            collection
-            id
+          destination {
             item {
-              ... on DirectusCMS_navigation_item {
-                id
-              }
-              ... on DirectusCMS_page {
-                slug
-                status
-              }
               ... on DirectusCMS_link {
                 url
               }
+              ... on DirectusCMS_page {
+                status
+                slug
+              }
             }
+            collection
+          }
+          children {
+            id
           }
         }
       }
@@ -86,16 +85,19 @@ const getNavItems = (itemIds, lookupDict, depth) => {
     if (!item) continue
     const title = getTranslation(item.translations).name
     const isButton = item.is_button
-    let children = getDestination(item.children, lookupDict, depth)
-    if (children.length == 0) continue
-    let url = undefined
-    if (children.length == 1) {
-      url = children[0].url
-      children = undefined
+    let destination = getDestination(item.destination, lookupDict, depth)
+    let url = null
+    if (destination.length >= 1) {
+      url = destination[0].url
     }
+
+    let children = null
+    if (item.children && item.children.length > 0) {
+      children = getNavItems(item.children, lookupDict, depth + 1)
+    }
+
     items.push({ title, isButton, url, children })
   }
-  console.log('items', items)
   return items
 }
 

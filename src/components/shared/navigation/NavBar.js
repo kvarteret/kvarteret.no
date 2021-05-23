@@ -7,11 +7,11 @@ import { GetNavItems } from '../../../helpers/navHelper'
 import { center } from './NavBar.module.scss'
 
 const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
-  if (item.items) {
-    const menuItems = item.items.map((child, id) => (
+  if (item.children) {
+    const menuItems = item.children.map((child, id) => (
       <NavMenuItem
         item={child}
-        key={item.text + id}
+        key={item.title + id}
         onClick={onClick}
         parentMenuOpen={parentMenuOpen}
         handleClose={handleClose}
@@ -19,7 +19,7 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
     ))
     return (
       <NestedMenuItem
-        label={item.text}
+        label={item.title}
         parentMenuOpen={parentMenuOpen}
         onClick={handleClose}
         className="menu-item"
@@ -111,7 +111,6 @@ export default function NavBar({ isRightNav }) {
   let navItems = GetNavItems()
 
   navItems = isRightNav ? navItems.rightNavItems : navItems.leftNavItems
-  console.log('NAVITEMS', navItems)
   return navItems.map((item, id) => (
     <Grid item className={center} key={id}>
       <NavItem item={item}></NavItem>
