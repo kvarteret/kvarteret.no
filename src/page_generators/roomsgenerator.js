@@ -90,6 +90,14 @@ module.exports.generate = async (createPage, graphql, actions) => {
             context: dataContext,
           })
 
+          if (urlCode == 'no') {
+            createPage({
+              path: '/' + room.page.slug,
+              component: path.resolve('./src/templates/room.js'),
+              context: dataContext,
+            })
+          }
+
           createPage({
             path: '/' + languageModifier + 'room/' + room.page.slug,
             component: path.resolve('./src/templates/room.js'),

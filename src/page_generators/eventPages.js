@@ -68,7 +68,8 @@ module.exports.generate = async (createPage, graphql, actions) => {
       if (!eventItem.page || !isValidStatus(eventItem.page.status)) return
 
       eventItem.page.translations.forEach((translation) => {
-        let languageModifier = translation.languages_code.url_code + '/'
+        const urlCode = translation.languages_code.url_code
+        let languageModifier = urlCode + '/'
 
         const sanitizedSnippet = translation.snippets.map((item) => ({
           code: item.snippets_id.code,
@@ -93,6 +94,14 @@ module.exports.generate = async (createPage, graphql, actions) => {
           component: path.resolve('./src/templates/event.js'),
           context: dataContext,
         })
+
+        if (urlCode == 'no') {
+          createPage({
+            path: '/' + eventItem.page.slug,
+            component: path.resolve('./src/templates/event.js'),
+            context: dataContext,
+          })
+        }
 
         createPage({
           path: '/' + languageModifier + eventItem.page.slug,

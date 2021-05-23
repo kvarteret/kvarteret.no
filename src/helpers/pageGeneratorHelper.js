@@ -14,16 +14,20 @@ module.exports.createPage = function (page, pageCreator, additionalSlugs) {
         snippets: translation.snippets,
       }
 
-      const createObj = (slug) => ({
-        path: '/' + languageModifier + slug + page.slug,
+      const createObj = (slug, langModifier) => ({
+        path: '/' + langModifier + slug + page.slug,
         component: path.resolve('./src/templates/page.js'),
         context: dataContext,
       })
 
-      pageCreator(createObj(''))
+      pageCreator(createObj('', languageModifier))
+
+      if (translation.languages_code.url_code == 'no') {
+        pageCreator(createObj('', ''))
+      }
 
       for (let slug of additionalSlugs ?? []) {
-        pageCreator(createObj(`${slug}/`))
+        pageCreator(createObj(`${slug}/`, languageModifier))
       }
     })
   )
