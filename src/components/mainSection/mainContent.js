@@ -86,75 +86,16 @@ const MainContent = ({ content }) => {
                 }
               }
               destination {
+                collection
                 item {
-                  ... on DirectusCMS_room {
-                    id
-                    name
-                    status
-                    translations {
-                      languages_code {
-                        url_code
-                      }
-                    }
-                    slug
+                  ... on DirectusCMS_link {
+                    url
                   }
                   ... on DirectusCMS_page {
-                    id
-                    status
                     slug
-                    translations {
-                      languages_code {
-                        url_code
-                      }
-                      name
-                    }
-                  }
-                  ... on DirectusCMS_news {
-                    id
                     status
-                    slug
-                    translations {
-                      title
-                      languages_code {
-                        url_code
-                      }
-                    }
-                  }
-                  ... on DirectusCMS_link {
-                    id
-                    status
-                    url
-                    translations {
-                      name
-                      languages_code {
-                        url_code
-                      }
-                    }
-                  }
-                  ... on DirectusCMS_group {
-                    id
-                    status
-                    slug
-                    translations {
-                      languages_code {
-                        url_code
-                      }
-                    }
-                  }
-                  ... on DirectusCMS_events {
-                    id
-                    status
-                    slug
-                    translations {
-                      title
-                      languages_code {
-                        url_code
-                      }
-                    }
                   }
                 }
-                collection
-                id
               }
             }
           }

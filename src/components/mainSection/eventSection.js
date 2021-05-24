@@ -35,18 +35,11 @@ const EventSection = () => {
         events {
           id
           status
-          slug
-          translations {
-            languages_code {
-              url_code
-            }
-            title
-            tagline
-          }
-          event_end
           event_start
+          event_end
+          facebook_url
           ticket_url
-          top_gallery {
+          top_image {
             id
             imageFile {
               childImageSharp {
@@ -54,9 +47,19 @@ const EventSection = () => {
               }
             }
           }
-          rooms {
+          event_room {
             room_id {
               name
+            }
+          }
+          page {
+            slug
+            translations {
+              languages_code {
+                url_code
+              }
+              title
+              description
             }
           }
         }
@@ -72,20 +75,20 @@ const EventSection = () => {
     .splice(0, 8)
     .map((x) => {
       const start = moment(x.event_start).format('DD. MMM')
-      const translation = getTranslation(x.translations)
+      const translation = getTranslation(x.page.translations)
       let primaryRoom = null
-      if (x.rooms.length > 0) {
-        primaryRoom = x.rooms[0].room_id.name
+      if (x.event_room.length > 0) {
+        primaryRoom = x.event_room[0].room_id.name
       }
       return (
         <Grid item xs={12} sm={6} md={12} lg={6} xl={3} key={x.id}>
           <EventCard
-            imgSrc={x.top_gallery.imageFile}
+            imgSrc={x.top_image.imageFile}
             alt="Card image"
             date={start}
             title={translation.title}
-            text={translation.tagline}
-            url={getTranslatedUrl('events/' + x.slug)}
+            text={translation.description}
+            url={getTranslatedUrl('events/' + x.page.slug)}
             ticketUrl={x.ticket_url}
             room={primaryRoom}
           />

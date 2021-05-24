@@ -72,8 +72,6 @@ const Header = ({ siteTitle, open, closed }) => {
     }
   `)
   const generalInfo = data.directus.general_information
-  const logoPath = getFullImageUrl(generalInfo.logo.id)
-  const mainLogoPath = getFullImageUrl(generalInfo.hoved_logo.id)
 
   return (
     <Grid

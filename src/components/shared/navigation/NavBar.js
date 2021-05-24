@@ -7,11 +7,11 @@ import { GetNavItems } from '../../../helpers/navHelper'
 import { center } from './NavBar.module.scss'
 
 const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
-  if (item.items) {
-    const menuItems = item.items.map((child, id) => (
+  if (item.children) {
+    const menuItems = item.children.map((child, id) => (
       <NavMenuItem
         item={child}
-        key={item.text + id}
+        key={item.title + id}
         onClick={onClick}
         parentMenuOpen={parentMenuOpen}
         handleClose={handleClose}
@@ -19,7 +19,7 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
     ))
     return (
       <NestedMenuItem
-        label={item.text}
+        label={item.title}
         parentMenuOpen={parentMenuOpen}
         onClick={handleClose}
         className="menu-item"
@@ -37,9 +37,9 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
 
 const NavItem = ({ item }) => {
   // TODO: Dropdown menu
-  const text = item.text
+  const text = item.title
 
-  if (item.items) {
+  if (item.children) {
     const [anchorEl, setAnchorEl] = React.useState(null)
 
     const handleClick = (event) => {
@@ -50,13 +50,13 @@ const NavItem = ({ item }) => {
       setAnchorEl(null)
     }
 
-    const menuItems = item.items.map((child, id) => (
+    const menuItems = item.children.map((child, id) => (
       <NavMenuItem
         onClick={handleClick}
         handleClose={handleClose}
         parentMenuOpen={!!anchorEl}
         item={child}
-        key={item.text + id}
+        key={TextEvent + id}
       ></NavMenuItem>
     ))
     return (
@@ -92,9 +92,9 @@ const NavItem = ({ item }) => {
   if (isButton) {
     return (
       <Grid item>
-        <a href={link} className={'nav-button'}>
-          {item.text}
-        </a>
+        <Link to={link} className={'nav-button'}>
+          {text}
+        </Link>
       </Grid>
     )
   }
@@ -111,7 +111,6 @@ export default function NavBar({ isRightNav }) {
   let navItems = GetNavItems()
 
   navItems = isRightNav ? navItems.rightNavItems : navItems.leftNavItems
-
   return navItems.map((item, id) => (
     <Grid item className={center} key={id}>
       <NavItem item={item}></NavItem>

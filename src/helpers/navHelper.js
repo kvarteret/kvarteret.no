@@ -7,211 +7,42 @@ import {
   getTranslatedUrl,
 } from './languageHelper'
 
-const UnpackDirectus = (data) => data.directus.items
-
 const getData = () => {
   const data = useStaticQuery(graphql`
     query NavBarQuery {
       directus {
         general_information {
           left_navigation {
-            collection
             id
-            item {
-              ... on DirectusCMS_page {
-                id
-                status
-                slug
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_news {
-                id
-                status
-                slug
-              }
-              ... on DirectusCMS_navigation_item {
-                id
-                status
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_link {
-                id
-                status
-                url
-                button
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_events {
-                id
-                status
-                slug
-              }
-              ... on DirectusCMS_room {
-                id
-                name
-              }
-              ... on DirectusCMS_group {
-                id
-                status
-                slug
-                translations {
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-            }
           }
           right_navigation {
-            collection
             id
-            item {
-              ... on DirectusCMS_page {
-                id
-                status
-                slug
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_news {
-                id
-                status
-                slug
-              }
-              ... on DirectusCMS_navigation_item {
-                id
-                status
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_link {
-                id
-                status
-                url
-                button
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_events {
-                id
-                status
-                slug
-              }
-              ... on DirectusCMS_group {
-                id
-                status
-                slug
-                translations {
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_room {
-                id
-                name
-              }
-            }
           }
         }
         navigation_item {
-          status
+          id
+          is_button
           translations {
             name
+            languages_code {
+              url_code
+            }
           }
           destination {
-            collection
             item {
-              ... on DirectusCMS_page {
-                id
-                status
-                slug
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
-              ... on DirectusCMS_room {
-                id
-                name
-                status
-                slug
-              }
-              ... on DirectusCMS_news {
-                id
-                status
-                slug
-              }
-              ... on DirectusCMS_navigation_item {
-                id
-                status
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
-              }
               ... on DirectusCMS_link {
-                id
-                status
                 url
-                button
-                translations {
-                  name
-                  languages_code {
-                    url_code
-                  }
-                }
               }
-              ... on DirectusCMS_events {
-                id
-                slug
+              ... on DirectusCMS_page {
                 status
-              }
-              ... on DirectusCMS_group {
-                id
                 slug
-                status
-                translations {
-                  languages_code {
-                    url_code
-                  }
-                }
               }
             }
+            collection
+          }
+          children {
             id
           }
-          id
         }
       }
     }
@@ -222,125 +53,86 @@ const getData = () => {
 const getNavItemsDict = (allNavItems) => {
   let dict = {}
   allNavItems.navigation_item.forEach((item) => {
-    dict[item.id] = item.destination
+    dict[item.id] = item
   })
   return dict
 }
 
 const GetNavItems = () => {
+  // Fetch data from api
   const data = getData()
+
+  // Split data for navigation parts
   const leftNav = data.directus.general_information.left_navigation
   const rightNav = data.directus.general_information.right_navigation
+  // Navigation lookup
   const navItemsDict = getNavItemsDict(data.directus)
-  const leftNavItems = getNavItems(leftNav, navItemsDict)
-  const rightNavItems = getNavItems(rightNav, navItemsDict)
+
+  // Recursively iterate navigation to sanitize navigation tree
+  const leftNavItems = getNavItems(leftNav, navItemsDict, 0)
+  const rightNavItems = getNavItems(rightNav, navItemsDict, 0)
   return { leftNavItems, rightNavItems }
 }
 
-const NavigationItemHander = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
+const getNavItems = (itemIds, lookupDict, depth) => {
   if (depth > 5) return null
-  const id = item.id
-  var destinations = navItemsDict[id]
+  if (!itemIds) return null
 
-  const translation = getTranslation(item.translations)
-  if (!translation) return null
-  return {
-    text: translation.name,
-    items: destinations
-      .map((child) => {
-        return collectionHandlers[child.collection](
-          child.item,
-          navItemsDict,
-          depth + 1
-        )
-      })
-      .filter(Boolean),
+  const items = []
+
+  for (let itemId of itemIds) {
+    const item = lookupDict[itemId.id]
+    if (!item) continue
+    const title = getTranslation(item.translations).name
+    const isButton = item.is_button
+    let destination = getDestination(item.destination, lookupDict, depth)
+    let url = null
+    if (destination.length >= 1) {
+      url = destination[0].url
+    }
+
+    let children = null
+    if (item.children && item.children.length > 0) {
+      children = getNavItems(item.children, lookupDict, depth + 1)
+    }
+
+    items.push({ title, isButton, url, children })
   }
+  return items
 }
 
-const RoomItemHandler = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
-  return {
-    url: '/' + getTranslatedUrl('room/' + item.slug),
-    text: item.name,
+const getDestination = (items, lookupDict, depth) => {
+  const result = []
+  for (let item of items) {
+    const handler = collectionHandlers[item.collection]
+    if (!handler) throw new Error('Missing handler for type ' + item.collection)
+    const destinations = handler(item.item, lookupDict, depth)
+    if (destinations == null) continue
+    result.push(destinations)
   }
+  return result
+}
+
+const NavigationItemHander = (item, navItemsDict, depth) => {
+  return getNavItems([item.id], navItemsDict, depth + 1)
 }
 
 const LinkItemHandler = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
-
-  const translation = getTranslation(item.translations)
-  if (!translation) return null
-
-  return {
-    url: item.url,
-    text: translation.name,
-    isButton: item.button,
-  }
+  return { url: item.url }
 }
 
 const PageItemHandler = (item, navItemsDict, depth) => {
   if (!isValidStatus(item.status)) return null
-
-  const translation = getTranslation(item.translations)
-  if (!translation) return null
-  return {
-    url: '/' + getTranslatedUrl(item.slug),
-    text: translation.name || item.slug,
-  }
-}
-
-const NewsItemHandler = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
-  return {
-    url: '/' + getTranslatedUrl('news/' + item.slug),
-    text: item.slug,
-  }
-}
-
-const GroupItemHandler = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
-
-  const translation = getTranslation(item.translations)
-  if (!translation) return null
-  return {
-    url: '/' + getTranslatedUrl('group/' + item.slug),
-    text: translation.name || item.slug,
-  }
-}
-
-const EventItemHandler = (item, navItemsDict, depth) => {
-  if (!isValidStatus(item.status)) return null
-
-  const translation = getTranslation(item.translations)
-  if (!translation) return null
-  return {
-    url: '/' + getTranslatedUrl('events/' + item.slug),
-    text: translation.title || item.slug,
-  }
+  return { url: '/' + getTranslatedUrl(item.slug) }
 }
 
 const collectionHandlers = {
   navigation_item: NavigationItemHander,
-  room: RoomItemHandler,
   page: PageItemHandler,
-  news: NewsItemHandler,
   link: LinkItemHandler,
-  group: GroupItemHandler,
-  events: EventItemHandler,
-}
-
-const getNavItems = (data, navItemsDict) => {
-  return data
-    .map((item) => {
-      return collectionHandlers[item.collection](item.item, navItemsDict, 0)
-    })
-    .filter(Boolean)
 }
 
 const getCarouselLink = (item) => {
-  console.log('ITEM', item)
   return collectionHandlers[item.collection](item.item, [], 0).url
 }
 export { GetNavItems, getCarouselLink }

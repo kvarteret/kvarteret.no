@@ -7,6 +7,7 @@ import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslatedText } from '../../helpers/textHelper'
 import { getTranslatedUrl, getTranslation } from '../../helpers/languageHelper'
 import { isValidStatus } from '../../helpers/helper'
+import { getCarouselLink } from '../../helpers/navHelper'
 
 const useStyles = makeStyles({
   title: {
@@ -34,15 +35,7 @@ const NewsSection = () => {
           date_created
           date_updated
           id
-          slug
           status
-          translations {
-            tagline
-            title
-            languages_code {
-              url_code
-            }
-          }
           thumbnail {
             id
             imageFile {
@@ -57,6 +50,25 @@ const NewsSection = () => {
               }
             }
           }
+          translations {
+            languages_code {
+              url_code
+            }
+            tagline
+            title
+          }
+          destination {
+            collection
+            item {
+              ... on DirectusCMS_link {
+                url
+              }
+              ... on DirectusCMS_page {
+                slug
+                status
+              }
+            }
+          }
         }
       }
     }
@@ -65,6 +77,8 @@ const NewsSection = () => {
     .filter((x) => isValidStatus(x.status))
     .map((x) => {
       const translation = getTranslation(x.translations)
+      const destination = x.destination
+      const url = getCarouselLink(destination[0])
       return (
         <Grid item xs={12} key={x.id}>
           <NewsCard
@@ -73,7 +87,7 @@ const NewsSection = () => {
             date={x.date_updated || x.date_created}
             title={translation.title}
             text={translation.tagline}
-            url={getTranslatedUrl('news/' + x.slug)}
+            url={url}
           />
         </Grid>
       )

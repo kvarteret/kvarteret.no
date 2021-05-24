@@ -47,7 +47,6 @@ const useStyles = makeStyles({
 export default function NewsCard({ imgSrc, alt, date, title, text, url }) {
   const classes = useStyles()
   const image = getImage(imgSrc)
-  console.log('WTF', image, imgSrc)
   return (
     <CardActionArea href={url}>
       <Grid container spacing={1} direction="row" className={classes.root}>

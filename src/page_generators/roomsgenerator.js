@@ -7,30 +7,40 @@ module.exports.generate = async (createPage, graphql, actions) => {
     query RoomDataQuery {
       directus {
         room {
-          gallery {
-            directus_files_id {
-              id
-              title
+          status
+          page {
+            id
+            status
+            slug
+            translations {
+              snippets {
+                title
+                code
+              }
+              languages_code {
+                url_code
+                name
+              }
+              content
               description
-              imageFile {
-                childImageSharp {
-                  gatsbyImageData(
-                    placeholder: BLURRED
-                    formats: PNG
-                    aspectRatio: 1.8
-                    width: 1080
-                  )
+              title
+            }
+            gallery {
+              directus_files_id {
+                id
+                title
+                description
+                imageFile {
+                  childImageSharp {
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                      formats: PNG
+                      aspectRatio: 1.8
+                      width: 1080
+                    )
+                  }
                 }
               }
-            }
-          }
-          name
-          slug
-          status
-          translations {
-            description
-            languages_code {
-              url_code
             }
           }
           facilities {
@@ -53,9 +63,9 @@ module.exports.generate = async (createPage, graphql, actions) => {
   await Promise.all(
     roomObject.room.map(async (room) => {
       if (!isValidStatus(room.status)) return
-
+      if (!room.page || !isValidStatus(room.page.status)) return
       return Promise.all(
-        room.translations.map(async (translation) => {
+        room.page.translations.map(async (translation) => {
           const urlCode = translation.languages_code.url_code
           let languageModifier = urlCode + '/'
 
@@ -69,13 +79,27 @@ module.exports.generate = async (createPage, graphql, actions) => {
           })
 
           const dataContext = {
-            body: translation.description,
-            gallery: room.gallery,
+            body: translation.content,
+            gallery: room.page.gallery,
             facilities: facilities,
           }
 
           createPage({
-            path: '/' + languageModifier + 'room/' + room.slug,
+            path: '/' + languageModifier + room.page.slug,
+            component: path.resolve('./src/templates/room.js'),
+            context: dataContext,
+          })
+
+          if (urlCode == 'no') {
+            createPage({
+              path: '/' + room.page.slug,
+              component: path.resolve('./src/templates/room.js'),
+              context: dataContext,
+            })
+          }
+
+          createPage({
+            path: '/' + languageModifier + 'room/' + room.page.slug,
             component: path.resolve('./src/templates/room.js'),
             context: dataContext,
           })

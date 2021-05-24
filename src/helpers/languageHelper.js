@@ -14,6 +14,7 @@ export function getTranslation(translations) {
 }
 
 export function getTranslatedUrl(path) {
+  if (path.indexOf('www') != -1) return path
   const urlCode = UrlLanguageCode()
   return urlCode + '/' + path
 }

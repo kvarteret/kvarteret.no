@@ -24,7 +24,7 @@ const Page = ({ pageContext }) => {
       <Snippets
         items={pageContext.snippets.map((item) => ({
           title: item.title,
-          code: item.snippet,
+          code: item.code,
         }))}
       />
     </Box>

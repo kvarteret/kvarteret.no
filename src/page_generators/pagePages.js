@@ -1,7 +1,6 @@
-const path = require('path')
-const { isValidStatus } = require('../helpers/helper')
+const { createPage } = require('../helpers/pageGeneratorHelper')
 
-module.exports.generate = async (createPage, graphql, actions) => {
+module.exports.generate = async (pageCreator, graphql, actions) => {
   // Query pages from Directus
   const response = await graphql(`
     query PageItems {
@@ -11,12 +10,17 @@ module.exports.generate = async (createPage, graphql, actions) => {
           slug
           status
           translations {
-            text
-            snippets
+            snippets {
+              title
+              code
+            }
             languages_code {
               url_code
               name
             }
+            content
+            description
+            title
           }
           gallery {
             directus_files_id {
@@ -44,25 +48,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
   } = response
   await Promise.all(
     pageObject.page.map(async (PageItems) => {
-      if (!isValidStatus(PageItems.status)) return
-
-      return Promise.all(
-        PageItems.translations.map(async (translation) => {
-          let languageModifier = translation.languages_code.url_code + '/'
-
-          const dataContext = {
-            body: translation.text,
-            gallery: PageItems.gallery,
-            snippets: translation.snippets,
-          }
-
-          createPage({
-            path: '/' + languageModifier + PageItems.slug,
-            component: path.resolve('./src/templates/page.js'),
-            context: dataContext,
-          })
-        })
-      )
+      createPage(PageItems, pageCreator)
     })
   )
 }

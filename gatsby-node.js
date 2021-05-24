@@ -18,23 +18,48 @@ const generators = []
 glob.sync('./src/page_generators/**/*.js').forEach(function (file) {
   const generator = require(path.resolve(file))
   if (!generator || !generator.generate) return
-  generators.push(generator)
+  generators.push({ file, generator })
 })
 
-module.exports.createPages = async ({ graphql, actions }) => {
+module.exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const bliFrivillig = process.env.BLIFRIVILLIG !== undefined
   if (bliFrivillig) return
 
+  const createdPages = []
+  let pageGenerator = null
+
+  const newCreatePage = async (data) => {
+    const cleanPath = data.path.trim()
+
+    // Trying to create duplicate page
+    if (createdPages.includes(cleanPath)) return
+    await createPage(data)
+    createdPages.push(cleanPath)
+    reporter.info(`Created page ${data.path}`)
+  }
+
   await Promise.all(
-    generators.map(async (generator) => {
-      const newCreatePage = async (data) => {
-        // console.log(`Created page ${data.path} with data: `, JSON.stringify(data.context));
-        await createPage(data)
+    generators.map(async ({ generator, file }) => {
+      if (file.indexOf('pagePages.js') != -1) {
+        pageGenerator = generator
+        return
       }
-      await generator.generate(newCreatePage, graphql, actions)
+      try {
+        await generator.generate(newCreatePage, graphql, actions)
+      } catch (e) {
+        reporter.error(e)
+      }
     })
   )
+
+  if (pageGenerator) {
+    try {
+      await pageGenerator.generate(newCreatePage, graphql, actions)
+    } catch (e) {
+      reporter.error(e)
+    }
+  }
 }
 
 exports.sourceNodes = async ({
@@ -83,8 +108,8 @@ exports.sourceNodes = async ({
 
   await Promise.all(
     files.data.map(async (image) => {
-      if(image.type == "video/mp4") return;
-      if(image.type == "video/webm") return;
+      if (image.type == 'video/mp4') return
+      if (image.type == 'video/webm') return
       const node = await createImageObject(image)
       createNode(node)
     })
