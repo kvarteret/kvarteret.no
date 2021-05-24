@@ -60,7 +60,9 @@ const sanitizeData = (data) =>
     img: getFullImageUrl(item.image.id),
     imageFile: item.image.imageFile,
     text: getTranslation(item.translations)?.title,
-    link: getCarouselLink(item.destination[0]),
+    link: getCarouselLink(
+      item.destination?.length > 0 ? item.destination[0] : null
+    ),
   }))
 
 const MainContent = ({ content }) => {

@@ -133,6 +133,7 @@ const collectionHandlers = {
 }
 
 const getCarouselLink = (item) => {
-  return collectionHandlers[item.collection](item.item, [], 0).url
+  if (item == null) return null
+  return collectionHandlers[item.collection](item.item, [], 0)?.url
 }
 export { GetNavItems, getCarouselLink }
