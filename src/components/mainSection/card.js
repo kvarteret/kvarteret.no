@@ -110,7 +110,12 @@ export default function EventCard({
               alt={alt}
             /> */}
             {ticketUrl && (
-              <a href={ticketUrl} target="_blank" className={classes.ticket}>
+              <a
+                href={ticketUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={classes.ticket}
+              >
                 {getTranslatedText('buy-ticket')}
               </a>
             )}
