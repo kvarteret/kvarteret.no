@@ -7,12 +7,17 @@ import Kontakt from './kontakt.js'
 import BergenImage from '../../../images/footer_bergen.png'
 
 import './footer.scss'
-import { Box, Grid, makeStyles, Typography, createStyles } from '@material-ui/core'
+import {
+  Box,
+  Grid,
+  makeStyles,
+  Typography,
+  createStyles,
+} from '@material-ui/core'
 import SoMeLinks from '../soMeLinks.js'
 
-
-const useStyles = makeStyles((theme) => createStyles
-  ({
+const useStyles = makeStyles((theme) =>
+  createStyles({
     root: {
       background: `url(\"${BergenImage}\") no-repeat`,
       backgroundPositionX: 'center',
@@ -46,9 +51,8 @@ const useStyles = makeStyles((theme) => createStyles
         order: 3,
       },
     },
-
-  }))
-
+  })
+)
 
 const Footer = ({ siteTitle }) => {
   const classes = useStyles()
@@ -56,18 +60,18 @@ const Footer = ({ siteTitle }) => {
     <Box className={classes.root}>
       <Grid
         container
-        justify="space-around"
+        justify="space-evenly"
         alignItems="stretch"
         spacing={8}
         className={classes.content}
       >
-        <Grid item xs={12} md={3} xl={2} className={classes.item1}>
+        <Grid item xs={12} md={4} xl={3} className={classes.item1}>
           <Tider isFooter={true} />
         </Grid>
-        <Grid item xs={12} md={3} xl={2} className={classes.item2}>
+        <Grid item xs={12} md={4} xl={3} className={classes.item2}>
           <SoMeLinks />
         </Grid>
-        <Grid item xs={12} md={5} lg={4} xl={3} className={classes.item3}>
+        <Grid item xs={12} md={4} xl={3} className={classes.item3}>
           <Kontakt />
         </Grid>
       </Grid>

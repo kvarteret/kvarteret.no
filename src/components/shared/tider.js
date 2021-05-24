@@ -109,7 +109,7 @@ const Tider = ({ siteTitle, isFooter }) => {
     <RoomTime key={index} time={time} classes={classes}></RoomTime>
   )) ?? <div></div>
   return (
-    <Box>
+    <Box px={8}>
       <Typography color="primary" variant="h3" className={classes.title}>
         {getTranslatedText('opening-hours')}
       </Typography>
