@@ -79,6 +79,8 @@ module.exports.generate = async (createPage, graphql, actions) => {
           })
 
           const dataContext = {
+            title: translation.title,
+            description: translation.description,
             body: translation.content,
             gallery: room.page.gallery,
             facilities: facilities,
@@ -99,7 +101,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
           }
 
           createPage({
-            path: '/' + languageModifier + 'room/' + room.page.slug,
+            path: '/' + languageModifier + 'rooms/' + room.page.slug,
             component: path.resolve('./src/templates/room.js'),
             context: dataContext,
           })

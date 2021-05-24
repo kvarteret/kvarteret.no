@@ -3,6 +3,7 @@ import React from 'react'
 import Layout from '../components/shared/layout/layout'
 import MainContent from '../components/mainSection/mainContent'
 import { useMediaQuery, useTheme } from '@material-ui/core'
+import SEO from '../components/seo'
 
 const IndexPage = ({ pageContext }) => {
   const theme = useTheme()
@@ -11,6 +12,7 @@ const IndexPage = ({ pageContext }) => {
     useMediaQuery(theme.breakpoints.up('md'))
   return (
     <Layout spacingTop={!spacingTop}>
+      <SEO />
       <MainContent />
     </Layout>
   )

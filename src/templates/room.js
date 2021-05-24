@@ -5,6 +5,7 @@ import DAKCarousel from '../components/shared/dakCarousel'
 import ExternalContent from '../components/mainSection/externalContent'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
+import SEO from '../components/seo'
 
 const Snippet = ({ title, body }) => (
   <div>
@@ -71,6 +72,7 @@ const Room = ({ pageContext }) => {
   const galleryData = sanitizeGalleryData(pageContext.gallery)
   return (
     <Layout spacingTop={true}>
+      <SEO title={pageContext.title} description={pageContext.description} />
       <Container disableGutters>
         <Box m={{ xs: 3, md: 4, lg: 6 }}>
           <Grid container direction="row" spacing={4}>

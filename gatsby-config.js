@@ -1,8 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: `Kvarteret.no`,
-    description: `Kick off your next, great Gatsby project with this Material UI starter. This barebones starter ships with the main Gatsby and Material UI configuration files you might need.`,
-    author: `IT-gruppen`,
+    title: `Det Akademiske Kvarter`,
+    author: `Det Akademiske Kvarter`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

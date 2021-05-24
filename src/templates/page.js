@@ -7,6 +7,7 @@ import DAKCarousel from '../components/shared/dakCarousel'
 import ExternalContent from '../components/mainSection/externalContent'
 import DangerouslySetHtmlContent from '../components/shared/DangerousSetHtmlContent'
 import { Snippets } from '../components/shared/snippets'
+import SEO from '../components/seo'
 
 const sanitizeGalleryData = (data) =>
   data?.map((item) => ({
@@ -39,6 +40,7 @@ const Page = ({ pageContext }) => {
 
   return (
     <Layout spacingTop={true}>
+      <SEO title={pageContext.title} description={pageContext.description} />
       <Container disableGutters={true}>
         <Grid container direction="row-reverse">
           <Grid item xs={12} md={6}>

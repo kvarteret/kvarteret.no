@@ -81,6 +81,7 @@ module.exports.generate = async (createPage, graphql, actions) => {
 
         const dataContext = {
           title: translation.title,
+          description: translation.description,
           body: translation.content,
           image: eventItem.top_image.imageFile,
           gallery: eventItem.page.gallery,

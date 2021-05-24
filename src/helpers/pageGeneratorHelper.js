@@ -12,6 +12,8 @@ module.exports.createPage = function (page, pageCreator, additionalSlugs) {
         body: translation.content,
         gallery: page.gallery,
         snippets: translation.snippets,
+        title: translation.title,
+        description: translation.description,
       }
 
       const createObj = (slug, langModifier) => ({
