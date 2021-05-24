@@ -94,7 +94,7 @@ const NavItem = ({ item }) => {
   const LinkComponent = (className) => {
     if (isExternal) {
       return (
-        <a href={link} rel="noreferrer noopene">
+        <a href={link} className={className} rel="noreferrer noopene">
           {text}
         </a>
       )
@@ -109,7 +109,7 @@ const NavItem = ({ item }) => {
   if (isButton) {
     return (
       <Grid item>
-        <LinkComponent className="nav-button" />
+        <LinkComponent className={'nav-button'} />
       </Grid>
     )
   }
