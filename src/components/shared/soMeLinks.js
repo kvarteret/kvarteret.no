@@ -15,8 +15,8 @@ const useStyles = makeStyles({
     },
   },
   image: {
-    width: 64,
-    height: 64,
+    width: 60,
+    height: 60,
   },
 })
 
@@ -49,7 +49,12 @@ function SoMeLinks() {
       const image = getImage(item.icon.imageFile)
       return (
         <Grid key={key} item>
-          <a href={item.url} className={styles.someIcon}>
+          <a
+            href={item.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.someIcon}
+          >
             <GatsbyImage
               className={styles.image}
               image={image}
