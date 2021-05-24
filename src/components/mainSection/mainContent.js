@@ -77,7 +77,11 @@ const MainContent = ({ content }) => {
                 id
                 imageFile {
                   childImageSharp {
-                    gatsbyImageData(placeholder: BLURRED, formats: PNG)
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                      formats: PNG
+                      height: 480
+                    )
                   }
                 }
               }

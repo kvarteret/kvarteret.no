@@ -2,6 +2,7 @@ module.exports = {
   siteMetadata: {
     title: `Det Akademiske Kvarter`,
     author: `Det Akademiske Kvarter`,
+    siteUrl: 'https://beta.kvarteret.no',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -16,6 +17,8 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sass`,
+    'gatsby-plugin-robots-txt',
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-smoothscroll`,
     {
       resolve: `gatsby-plugin-manifest`,

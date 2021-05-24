@@ -89,22 +89,33 @@ const NavItem = ({ item }) => {
 
   const link = item.url
   const isButton = item.isButton
+  const isExternal = item.url.indexOf('www') != -1
+
+  const LinkComponent = (className) => {
+    if (isExternal) {
+      return (
+        <a href={link} rel="noreferrer noopene">
+          {text}
+        </a>
+      )
+    }
+    return (
+      <Link to={link} className={className} rel="">
+        {text}
+      </Link>
+    )
+  }
+
   if (isButton) {
     return (
       <Grid item>
-        <Link to={link} className={'nav-button'}>
-          {text}
-        </Link>
+        <LinkComponent className="nav-button" />
       </Grid>
     )
   }
   // const link = '/en/page/vaktetaten'
   // TODO: Check if internal elemet
-  return (
-    <Link to={link} className="menu-item">
-      {text}
-    </Link>
-  )
+  return <LinkComponent className="menu-item" />
 }
 
 export default function NavBar({ isRightNav }) {
