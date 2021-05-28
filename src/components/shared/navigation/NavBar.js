@@ -91,7 +91,7 @@ const NavItem = ({ item }) => {
   const isButton = item.isButton
   const isExternal = item.url.indexOf('www') != -1
 
-  const LinkComponent = (className) => {
+  const LinkComponent = ({ className }) => {
     if (isExternal) {
       return (
         <a href={link} className={className} rel="noreferrer noopene">

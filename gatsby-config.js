@@ -38,15 +38,12 @@ module.exports = {
       // - Change the injection order
       // - Add the plugin
       options: {
-        // stylesProvider: {
-        //   injectFirst: true,
-        // },
+        stylesProvider: {
+          injectFirst: true,
+        },
       },
       // 'gatsby-plugin-styled-components',
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
     {
       resolve: `gatsby-source-graphql`,
       options: {
