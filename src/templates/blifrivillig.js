@@ -129,7 +129,7 @@ const useStyles = makeStyles({
   },
 })
 
-const BliFrivillig = () => {
+const BliFrivillig = ({ pageContext }) => {
   const styles = useStyles()
   const data = sanitizeData(useStaticQuery(Query))
 
@@ -156,7 +156,7 @@ const BliFrivillig = () => {
   ))
 
   return (
-    <Layout>
+    <Layout isBliFrivillig={pageContext.isBliFrivillig}>
       <Grid container direction="column">
         <Grid item style={{ position: 'relative' }}>
           <TopSection videoUrl={data.video} />

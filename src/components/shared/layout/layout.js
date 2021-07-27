@@ -32,7 +32,7 @@ const useStyles = makeStyles({
   },
 })
 
-const Layout = ({ children, spacingTop }) => {
+const Layout = ({ children, spacingTop, isBliFrivillig }) => {
   let spacing = { overflowX: 'hidden' }
   if (spacingTop) spacing = { paddingTop: 80, overflowX: 'hidden' }
 
@@ -53,7 +53,10 @@ const Layout = ({ children, spacingTop }) => {
           <ThemeProvider theme={lightTheme}>
             <Grid container direction="column" className={classes.root}>
               <Grid item>
-                <Header siteTitle={data.site.siteMetadata.title} />
+                <Header
+                  siteTitle={data.site.siteMetadata.title}
+                  isBliFrivillig={isBliFrivillig}
+                />
               </Grid>
               <Grid item className={classes.body} xs>
                 <main style={spacing}>{children}</main>

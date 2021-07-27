@@ -55,7 +55,7 @@ const useStyles = makeStyles({
 })
 
 //TODO: gi a element padding sånn at de ser fine ut
-const Header = ({ siteTitle, open, closed }) => {
+const Header = ({ siteTitle, open, closed, isBliFrivillig }) => {
   const classes = useStyles()
 
   const data = useStaticQuery(graphql`
@@ -73,7 +73,7 @@ const Header = ({ siteTitle, open, closed }) => {
     }
   `)
   const generalInfo = data.directus.general_information
-  const isBlifrivllig = isBliFrivillig()
+  const isBlifrivllig = isBliFrivillig
   return (
     <Grid
       container
