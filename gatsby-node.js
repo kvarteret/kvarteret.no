@@ -24,7 +24,6 @@ glob.sync('./src/page_generators/**/*.js').forEach(function (file) {
 module.exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions
   const bliFrivillig = process.env.BLIFRIVILLIG !== undefined
-  if (bliFrivillig) return
 
   const createdPages = []
   let pageGenerator = null
@@ -41,6 +40,9 @@ module.exports.createPages = async ({ graphql, actions, reporter }) => {
 
   await Promise.all(
     generators.map(async ({ generator, file }) => {
+      if (bliFrivillig && file.indexOf('blifrivillig') == -1) {
+        return
+      }
       if (file.indexOf('pagePages.js') != -1) {
         pageGenerator = generator
         return

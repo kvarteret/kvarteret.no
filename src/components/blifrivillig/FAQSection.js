@@ -1,5 +1,6 @@
 import { Box, Grid, Typography } from '@material-ui/core'
 import React from 'react'
+import { getTranslatedText } from '../../helpers/textHelper'
 import ExternalContent from '../mainSection/externalContent'
 
 export const FAQuestion = ({ title, text }) => {
@@ -26,7 +27,7 @@ const FAQSection = ({ faq }) => {
     <Grid container direction="column" spacing={4}>
       <Grid item>
         <Typography variant="h1" component="h1" color="primary">
-          Ofte stilte spørsmål
+          {getTranslatedText('blifrivillig-faq')}
         </Typography>
       </Grid>
       {faqQuestions}

@@ -89,7 +89,7 @@ const NavItem = ({ item }) => {
 
   const link = item.url
   const isButton = item.isButton
-  const isExternal = item.url.indexOf('www') != -1
+  const isExternal = item.url?.indexOf('www') != -1
 
   const LinkComponent = ({ className }) => {
     if (isExternal) {

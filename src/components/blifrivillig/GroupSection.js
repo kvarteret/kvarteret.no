@@ -14,6 +14,23 @@ import React, { useState } from 'react'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import ExternalContent from '../mainSection/externalContent'
 
+import { graphql, useStaticQuery } from 'gatsby'
+import { getTranslation } from '../../helpers/languageHelper'
+
+const Query = graphql`
+  query BlifrivilligTranslations {
+    directus {
+      blifrivillig_translations {
+        group_description
+        group_title
+        languages_code {
+          url_code
+        }
+      }
+    }
+  }
+`
+
 const GroupCard = ({ image, title, description, link }) => {
   const [shadow, setShadow] = useState(false)
 
@@ -57,6 +74,10 @@ const GroupCard = ({ image, title, description, link }) => {
   )
 }
 
+const sanitizeData = (data) => {
+  return getTranslation(data.directus.blifrivillig_translations)
+}
+
 const GroupSection = ({ groups }) => {
   const groupElems = groups?.map((item, key) => (
     <Grid key={key} item xs={12} sm={6} md={4}>
@@ -64,26 +85,18 @@ const GroupSection = ({ groups }) => {
     </Grid>
   ))
 
+  const data = sanitizeData(useStaticQuery(Query))
+
   return (
     <Container fixed>
       <Box my={4}>
         <Grid container direction="column" spacing={4}>
           <Grid item>
             <Typography variant="h1" component="h1" color="primary">
-              Hva kan du gjøre?
+              {data.group_title}
             </Typography>
             <Typography style={{ marginTop: 10 }}>
-              Mange tror at vi bare har grupper for å drive huset, men vi har
-              langt mer enn dette! Om du er interessert i å forbedre
-              kaffekunsten din så har du mulighet til å bli servitør i vår egen
-              Kafè, Stjernesalen. Kanskje du ønsker å drive med lyd og lys, da
-              har du muligheten til å bli med i Kraft! Ønsker du å være del av
-              kvarterets natteliv og forsikre at gjestene fester forsvarlig kan
-              du bli med i Vaktetaten. Er du mer interessert i design eller
-              kanskje utvikling har vi en PR-gruppe. Ønsker du å bli Bergens nye
-              store DJ, bli med i DJ-gruppen i produksjonsgruppen vår! Du kan
-              lese mer om alle våre grupper under. For mer informasjon om hver
-              gruppe kan du klikke på kortet.
+              <ExternalContent data={data.group_description} />
             </Typography>
           </Grid>
           <Grid

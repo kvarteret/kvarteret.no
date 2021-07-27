@@ -12,3 +12,7 @@ module.exports.isValidStatus = function (status) {
   if (status == undefined) throw new Error('Status must not be undefined!')
   return validStatuses().includes(status)
 }
+
+module.exports.isBliFrivillig = function () {
+  return process.env.BLIFRIVILLIG !== undefined
+}

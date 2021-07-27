@@ -10,6 +10,7 @@ import { getFullImageUrl } from '../../../helpers/fileHelper'
 
 import Logo from '../../../images/logo.png'
 import HovedLogo from '../../../images/Hoved logo.png'
+import { isBliFrivillig } from '../../../helpers/helper'
 
 const useStyles = makeStyles({
   root: {
@@ -72,7 +73,7 @@ const Header = ({ siteTitle, open, closed }) => {
     }
   `)
   const generalInfo = data.directus.general_information
-
+  const isBlifrivllig = isBliFrivillig()
   return (
     <Grid
       container
@@ -91,38 +92,42 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="center"
         style={{ maxWidth: '123px' }}
       >
-        <Hidden lgUp={true}>
-          <Grid
-            item
-            className={classes.hamburger + ' ' + classes.center}
-            onClick={open}
-          >
-            <Sidedrawer />
-          </Grid>
-          <Divider
-            variant="fullWidth"
-            className={classes.divider}
-            orientation="vertical"
-            flexItem
-          />
-        </Hidden>
-        <Hidden mdDown>
-          <Link to="/">
-            <Grid container alignItems="center" justify="center">
-              <img
-                src={HovedLogo}
-                height="80px"
-                width="100%"
-                style={{
-                  maxWidth: '123px',
-                  objectFit: 'contain',
-                  minWidth: '106px',
-                  backgroundColor: '#f54b4b',
-                }}
-              ></img>
+        {!isBlifrivllig && (
+          <Hidden lgUp={true}>
+            <Grid
+              item
+              className={classes.hamburger + ' ' + classes.center}
+              onClick={open}
+            >
+              <Sidedrawer />
             </Grid>
-          </Link>
-        </Hidden>
+            <Divider
+              variant="fullWidth"
+              className={classes.divider}
+              orientation="vertical"
+              flexItem
+            />
+          </Hidden>
+        )}
+        {!isBlifrivllig && (
+          <Hidden mdDown>
+            <Link to="/">
+              <Grid container alignItems="center" justify="center">
+                <img
+                  src={HovedLogo}
+                  height="80px"
+                  width="100%"
+                  style={{
+                    maxWidth: '123px',
+                    objectFit: 'contain',
+                    minWidth: '106px',
+                    backgroundColor: '#f54b4b',
+                  }}
+                ></img>
+              </Grid>
+            </Link>
+          </Hidden>
+        )}
       </Grid>
 
       <Grid
@@ -135,9 +140,11 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="center"
         spacing={4}
       >
-        <Hidden mdDown={true}>
-          <NavBar />
-        </Hidden>
+        {!isBlifrivllig && (
+          <Hidden mdDown={true}>
+            <NavBar />
+          </Hidden>
+        )}
       </Grid>
       <Grid
         item
@@ -162,9 +169,11 @@ const Header = ({ siteTitle, open, closed }) => {
         alignItems="center"
         spacing={4}
       >
-        <Hidden mdDown={true}>
-          <NavBar isRightNav={true} />
-        </Hidden>
+        {!isBlifrivllig && (
+          <Hidden mdDown={true}>
+            <NavBar isRightNav={true} />
+          </Hidden>
+        )}
       </Grid>
       <Grid
         item

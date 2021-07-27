@@ -1,6 +1,8 @@
 import { Button, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
 import React, { useEffect } from 'react'
+import { getTranslation } from '../../helpers/languageHelper'
+import { getTranslatedText } from '../../helpers/textHelper'
 
 import ReklameFile from '../../images/reklamefilm.mp4'
 
@@ -82,13 +84,12 @@ export default function TopSection({ videoUrl }) {
         >
           <Grid item xs={12} lg={9}>
             <Typography variant="h1">
-              Få mer ut av studietiden med oss!
+              {getTranslatedText('blifrivillig-title')}
             </Typography>
           </Grid>
           <Grid item xs={12} lg={9}>
             <Typography variant="h3">
-              Venner for livet, erfaring å være stolt av og minner du aldri vil
-              glemme!
+              {getTranslatedText('blifrivillig-description')}
             </Typography>
           </Grid>
           <Grid
@@ -105,7 +106,9 @@ export default function TopSection({ videoUrl }) {
               fullWidth
               className={styles.buttonStyle}
             >
-              <Typography variant="h2">Bli frivillig nå!</Typography>
+              <Typography variant="h2">
+                {getTranslatedText('blifrivillig-call-to-action')}
+              </Typography>
             </Button>
           </Grid>
         </Grid>
@@ -122,7 +125,9 @@ export default function TopSection({ videoUrl }) {
           color: 'white',
         }}
       >
-        <Typography variant="h5">Eller lær mer om kvarteret under</Typography>
+        <Typography variant="h5">
+          {getTranslatedText('blifrillig-learn-more')}
+        </Typography>
       </div>
     </div>
   )
