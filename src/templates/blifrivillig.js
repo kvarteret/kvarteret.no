@@ -161,7 +161,7 @@ const BliFrivillig = ({ pageContext }) => {
     <Layout isBliFrivillig={pageContext.isBliFrivillig}>
       <SEO
         title={getTranslatedText('blifrivilig-meta-title')}
-        description={'blifrivillig-meta-description'}
+        description={getTranslatedText('blifrivillig-meta-description')}
       />
       <Grid container direction="column">
         <Grid item style={{ position: 'relative' }}>
