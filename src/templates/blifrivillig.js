@@ -12,6 +12,8 @@ import SignupSection from '../components/blifrivillig/SignupSection'
 import { graphql, useStaticQuery } from 'gatsby'
 import { getTranslation } from '../helpers/languageHelper'
 import { makeStyles } from '@material-ui/styles'
+import SEO from '../components/seo'
+import { getTranslatedText } from '../helpers/textHelper'
 
 const Query = graphql`
   query BliFrivilligQuery {
@@ -157,6 +159,10 @@ const BliFrivillig = ({ pageContext }) => {
 
   return (
     <Layout isBliFrivillig={pageContext.isBliFrivillig}>
+      <SEO
+        title={getTranslatedText('blifrivilig-meta-title')}
+        description={'blifrivillig-meta-description'}
+      />
       <Grid container direction="column">
         <Grid item style={{ position: 'relative' }}>
           <TopSection videoUrl={data.video} />

@@ -43,7 +43,7 @@ export default function TopSection({ videoUrl }) {
           autoPlay
           loop
           playsInline
-          poster="https://cms.kvarteret.no/assets/2d256d0e-fcec-457f-9bbf-a5f125054178"
+          poster="https://cms.kvarteret.no/assets/5df422aa-a791-4bad-adde-65c29b618865"
         >
           <source src={`${ReklameFile}`} type="video/mp4" />
         </video>
