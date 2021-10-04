@@ -4,45 +4,42 @@ const { createPage } = require('../helpers/pageGeneratorHelper')
 
 module.exports.generate = async (pageCreator, graphql, actions) => {
   // Query pages from Directus
-  const response = await graphql(`
+    const response = await graphql(`
     query NewsItems {
       directus {
         news {
           status
-          destination {
-            item {
-              ... on DirectusCMS_page {
+          type
+          page {
+            id
+            status
+            slug
+            translations {
+              snippets {
+                title
+                code
+              }
+              languages_code {
+                url_code
+                name
+              }
+              content
+              description
+              title
+            }
+            gallery {
+              directus_files_id {
                 id
-                status
-                slug
-                translations {
-                  snippets {
-                    title
-                    code
-                  }
-                  languages_code {
-                    url_code
-                    name
-                  }
-                  content
-                  description
-                  title
-                }
-                gallery {
-                  directus_files_id {
-                    id
-                    title
-                    description
-                    imageFile {
-                      childImageSharp {
-                        gatsbyImageData(
-                          placeholder: BLURRED
-                          formats: PNG
-                          aspectRatio: 1.8
-                          width: 1080
-                        )
-                      }
-                    }
+                title
+                description
+                imageFile {
+                  childImageSharp {
+                    gatsbyImageData(
+                      placeholder: BLURRED
+                      formats: PNG
+                      aspectRatio: 1.8
+                      width: 1080
+                    )
                   }
                 }
               }
@@ -58,13 +55,9 @@ module.exports.generate = async (pageCreator, graphql, actions) => {
   } = response
   await Promise.all(
     newsObject.news.map(async (newsItem) => {
-      if (!isValidStatus(newsItem.status)) return
-
-      return Promise.all(
-        newsItem.destination.map(async (page) => {
-          createPage(page.item, pageCreator, ['news'])
-        })
-      )
+      if (!isValidStatus(newsItem.status)) return;
+      if(newsItem.type != "page") return;
+      createPage(newsItem.page, pageCreator, ["news"]);
     })
   )
 }

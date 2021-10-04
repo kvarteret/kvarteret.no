@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: '0 0 50px 50px rgba(255,255,255,0.25)',
   },
   carousel: {
-    position: 'relative',
+    position: 'relative'
   },
 }))
 
@@ -56,20 +56,22 @@ const TopGalleryCarouselItem = ({ item, styleImgText, link }) => {
 
   const [color, setColor] = useState('#fff')
   useEffect(() => {
-    const fac = new FastAverageColor()
-    fac
-      .getColorAsync(
-        item.imageFile.childImageSharp.gatsbyImageData.placeholder.fallback
-      )
-      .then(function (color) {
-        setColor(color.isDark ? '#fff' : '#000')
-      })
+    const fac = new FastAverageColor();
+    const fallback = item.imageFile?.childImageSharp?.gatsbyImageData?.placeholder?.fallback;
+    if(fallback) {
+      fac.getColorAsync(
+          fallback   
+        )
+        .then(function (color) {
+          setColor(color.isDark ? '#fff' : '#000')
+        })
+    }
   }, [])
 
   const textClasses =
     classes.imgText + ' ' + (color == '#000' ? classes.imgTextDark : '')
-  console.log(item)
-  const image = getImage(item.imageFile)
+
+    const image = getImage(item.imageFile)
   return (
     <Box className={classes.carousel}>
       <LinkWrapper href={item.link}>

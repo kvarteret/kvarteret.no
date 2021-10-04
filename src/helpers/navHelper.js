@@ -22,26 +22,22 @@ const getData = () => {
         navigation_item {
           id
           is_button
+          children {
+            id
+          }
+          type
           translations {
             name
             languages_code {
               url_code
             }
           }
-          destination {
-            item {
-              ... on DirectusCMS_link {
-                url
-              }
-              ... on DirectusCMS_page {
-                status
-                slug
-              }
-            }
-            collection
+          link {
+            url
           }
-          children {
-            id
+          page {
+            slug
+            status
           }
         }
       }
@@ -52,7 +48,7 @@ const getData = () => {
 
 const getNavItemsDict = (allNavItems) => {
   let dict = {}
-  allNavItems.navigation_item.forEach((item) => {
+  allNavItems.navigation_item?.forEach((item) => {
     dict[item.id] = item
   })
   return dict
@@ -61,6 +57,8 @@ const getNavItemsDict = (allNavItems) => {
 const GetNavItems = () => {
   // Fetch data from api
   const data = getData()
+
+  console.log("NAV DATA", data);
 
   // Split data for navigation parts
   const leftNav = data.directus.general_information.left_navigation
@@ -79,17 +77,13 @@ const getNavItems = (itemIds, lookupDict, depth) => {
   if (!itemIds) return null
 
   const items = []
-
   for (let itemId of itemIds) {
     const item = lookupDict[itemId.id]
     if (!item) continue
     const title = getTranslation(item.translations).name
     const isButton = item.is_button
-    let destination = getDestination(item.destination, lookupDict, depth)
-    let url = null
-    if (destination.length >= 1) {
-      url = destination[0].url
-    }
+    let destination = getDestination(item, lookupDict, depth)
+    let url = destination ? destination.url : null;
 
     let children = null
     if (item.children && item.children.length > 0) {
@@ -101,33 +95,26 @@ const getNavItems = (itemIds, lookupDict, depth) => {
   return items
 }
 
-const getDestination = (items, lookupDict, depth) => {
-  const result = []
-  for (let item of items) {
-    const handler = collectionHandlers[item.collection]
-    if (!handler) throw new Error('Missing handler for type ' + item.collection)
-    const destinations = handler(item.item, lookupDict, depth)
-    if (destinations == null) continue
-    result.push(destinations)
-  }
-  return result
-}
-
-const NavigationItemHander = (item, navItemsDict, depth) => {
-  return getNavItems([item.id], navItemsDict, depth + 1)
+const getDestination = (item, lookupDict, depth) => {
+    const handler = collectionHandlers[item.type]
+    if (!handler) throw new Error('Missing handler for type ' + item.type)
+    const destination = handler(item[item.type], lookupDict, depth)
+    return destination;
 }
 
 const LinkItemHandler = (item, navItemsDict, depth) => {
+  if(!item) return null;
   return { url: item.url }
 }
 
 const PageItemHandler = (item, navItemsDict, depth) => {
+  if(!item) return null;
+  console.log("ITEM", item);
   if (!isValidStatus(item.status)) return null
   return { url: '/' + getTranslatedUrl(item.slug) }
 }
 
 const collectionHandlers = {
-  navigation_item: NavigationItemHander,
   page: PageItemHandler,
   link: LinkItemHandler,
 }
