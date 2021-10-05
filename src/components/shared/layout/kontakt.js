@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Box, Divider, Grid, Typography } from '@material-ui/core'
 import { makeStyles } from '@material-ui/styles'
+import { getTranslatedText } from '../../../helpers/textHelper'
 
 const useStyles = makeStyles({
   divider: {
@@ -26,7 +27,7 @@ const Kontakt = ({ siteTitle }) => {
         spacing={2}
       >
         <Grid item xs={12} sm={5}>
-          <Typography variant="h6">BESØKSADDRESSE</Typography>
+          <Typography variant="h6">{getTranslatedText('besoksaddresse')}</Typography>
           <Typography variant="h6" color="textSecondary">
             OLAV KYRRES GATE
           </Typography>
@@ -35,7 +36,7 @@ const Kontakt = ({ siteTitle }) => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={7}>
-          <Typography variant="h6">POSTADDRESSE</Typography>
+          <Typography variant="h6">{getTranslatedText('postaddresse')}</Typography>
           <Typography variant="h6" color="textSecondary">
             POSTBOKS 1822 HÅKONSGATEN
           </Typography>
