@@ -6,6 +6,22 @@ import React from 'react'
 import { GetNavItems } from '../../../helpers/navHelper'
 import { center } from './NavBar.module.scss'
 
+const LinkComponent = ({ className, children, link }) => {
+  const isExternal = link.indexOf('www') != -1
+  if (isExternal) {
+    return (
+      <a href={link} className={className} rel="noreferrer noopene">
+        {children}
+      </a>
+    )
+  }
+  return (
+    <Link to={link} className={className} rel="">
+      {children}
+    </Link>
+  )
+}
+
 const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
   if (item.children) {
     const menuItems = item.children.map((child, id) => (
@@ -18,14 +34,16 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
       ></NavMenuItem>
     ))
     return (
-      <NestedMenuItem
-        label={item.title}
-        parentMenuOpen={parentMenuOpen}
-        onClick={handleClose}
-        className="menu-item"
-      >
-        {menuItems}
-      </NestedMenuItem>
+      <LinkComponent link={item.url}>
+        <NestedMenuItem
+          label={item.title}
+          parentMenuOpen={parentMenuOpen}
+          onClick={handleClose}
+          className="menu-item"
+        >
+          {menuItems}
+        </NestedMenuItem>
+      </LinkComponent>
     )
   }
   return (
@@ -38,6 +56,7 @@ const NavMenuItem = ({ item, onClick, parentMenuOpen, handleClose }) => {
 const NavItem = ({ item }) => {
   // TODO: Dropdown menu
   const text = item.title
+  const link = item.url
 
   if (item.children) {
     const [anchorEl, setAnchorEl] = React.useState(null)
@@ -87,35 +106,19 @@ const NavItem = ({ item }) => {
     )
   }
 
-  const link = item.url
   const isButton = item.isButton
-  const isExternal = item.url?.indexOf('www') != -1
 
-  const LinkComponent = ({ className }) => {
-    if (isExternal) {
-      return (
-        <a href={link} className={className} rel="noreferrer noopene">
-          {text}
-        </a>
-      )
-    }
-    return (
-      <Link to={link} className={className} rel="">
-        {text}
-      </Link>
-    )
-  }
 
   if (isButton) {
     return (
       <Grid item>
-        <LinkComponent className={'nav-button'} />
+        <LinkComponent link={link} className={'nav-button'} >{text}</LinkComponent>
       </Grid>
     )
   }
   // const link = '/en/page/vaktetaten'
   // TODO: Check if internal elemet
-  return <LinkComponent className="menu-item" />
+  return <LinkComponent link={link}  className="menu-item" >{text}</LinkComponent>
 }
 
 export default function NavBar({ isRightNav }) {

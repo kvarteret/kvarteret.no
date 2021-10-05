@@ -57,28 +57,17 @@ const NewsSection = () => {
             tagline
             title
           }
-          destination {
-            collection
-            item {
-              ... on DirectusCMS_link {
-                url
-              }
-              ... on DirectusCMS_page {
-                slug
-                status
-              }
-            }
-          }
         }
       }
     }
   `)
-  const newsItems = data.directus.news
+  const newsItems = data.directus.news && data.directus.news
     .filter((x) => isValidStatus(x.status))
     .map((x) => {
       const translation = getTranslation(x.translations)
-      const destination = x.destination
-      const url = getCarouselLink(destination[0])
+      // const destination = x.destination
+      // const url = getCarouselLink(destination[0])
+      const url = "";
       return (
         <Grid item xs={12} key={x.id}>
           <NewsCard
