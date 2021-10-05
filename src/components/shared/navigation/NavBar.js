@@ -75,7 +75,7 @@ const NavItem = ({ item }) => {
         handleClose={handleClose}
         parentMenuOpen={!!anchorEl}
         item={child}
-        key={TextEvent + id}
+        key={id}
       ></NavMenuItem>
     ))
     return (
@@ -108,17 +108,22 @@ const NavItem = ({ item }) => {
 
   const isButton = item.isButton
 
-
   if (isButton) {
     return (
       <Grid item>
-        <LinkComponent link={link} className={'nav-button'} >{text}</LinkComponent>
+        <LinkComponent link={link} className={'nav-button'}>
+          {text}
+        </LinkComponent>
       </Grid>
     )
   }
   // const link = '/en/page/vaktetaten'
   // TODO: Check if internal elemet
-  return <LinkComponent link={link}  className="menu-item" >{text}</LinkComponent>
+  return (
+    <LinkComponent link={link} className="menu-item">
+      {text}
+    </LinkComponent>
+  )
 }
 
 export default function NavBar({ isRightNav }) {
