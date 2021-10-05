@@ -29,7 +29,7 @@ const sanitizeData = (data) => {
   const roomEvents = []
   data.directus.events.forEach((event) => {
     if (!isValidStatus(event.status)) return
-    const translation = getTranslation(event.page.translations)
+    const translation = getTranslation(event.translations)
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
@@ -70,14 +70,11 @@ const TodaySection = () => {
               floor
             }
           }
-
-          page {
-            translations {
-              languages_code {
-                url_code
-              }
-              title
+          translations {
+            languages_code {
+              url_code
             }
+            title
           }
         }
       }

@@ -52,15 +52,15 @@ const EventSection = () => {
               name
             }
           }
+          translations {
+            languages_code {
+              url_code
+            }
+            title
+            description
+          }
           page {
             slug
-            translations {
-              languages_code {
-                url_code
-              }
-              title
-              description
-            }
           }
         }
       }
@@ -75,7 +75,7 @@ const EventSection = () => {
     .splice(0, 8)
     .map((x) => {
       const start = moment(x.event_start).format('DD. MMM')
-      const translation = getTranslation(x.page.translations)
+      const translation = getTranslation(x.translations)
       let primaryRoom = null
       if (x.event_room.length > 0) {
         primaryRoom = x.event_room[0].room_id.name
@@ -88,7 +88,7 @@ const EventSection = () => {
             date={start}
             title={translation.title}
             text={translation.description}
-            url={getTranslatedUrl('events/' + x.page.slug)}
+            url={x.page && getTranslatedUrl('events/' + x.page.slug)}
             ticketUrl={x.ticket_url}
             room={primaryRoom}
           />
