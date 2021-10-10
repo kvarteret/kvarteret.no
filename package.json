@@ -1,0 +1,17 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "scripts": {
+    "bootstrap": "yarn install && lerna bootstrap",
+    "start": "lerna run start --parallel",
+    "start:blifrivillig": "lerna run --scope blifrivillig --stream dev",
+    "build:blifrivillig": "node -r ./dotenv.config.js lerna run --scope blifrivillig --stream build",
+    "run:build:blifrivillig": "lerna run start --scope blifrivillig"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}
