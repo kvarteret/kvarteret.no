@@ -1,0 +1,115 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: var(--light-color);
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: hidden;
+
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #F54B4B; 
+  --light-color: white;
+  --text-color: black;
+}
+
+.lightTheme {
+  --light-color: black;
+}
+
+h1 {
+  font-size: 2.375rem;
+  word-break: break-word;
+  font-family: Hegval Display;
+  font-weight: bold;
+  line-height: 1.167;
+  margin: 0;
+  color: var(--text-color)
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-family: Hegval Display;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--text-color)
+}
+
+h3 {
+  font-size: 1.3125rem;
+  font-family: Hegval Display;
+  font-weight: 500;
+  line-height: 1.167;
+  margin: 0;
+  color: var(--text-color)
+}
+
+h5 {
+  font-size: 1.1964285714285714rem;
+  font-family: Hegval Display;
+  font-weight: 400;
+  line-height: 1.334;
+  margin: 0;
+  color: var(--text-color)
+}
+
+@media (min-width: 600px) {
+  h1 {
+    font-size: 2.9991rem;
+  }
+  h2 {
+    font-size: 2.0833rem;
+  }
+  h3 {
+    font-size: 1.4996rem;
+  }
+  h5 {
+    font-size: 1.3118rem;
+  }
+}
+
+@media (min-width: 960px) {
+  h1 {
+    font-size: 3.4276rem;
+  }
+  h2 {
+    font-size: 2.2917rem;
+  }
+  h3 {
+    font-size: 1.4996rem;
+  }
+  h5 {
+    font-size: 1.3118rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 3.856rem;
+  }
+  h2 {
+    font-size: 2.5rem;
+  }
+  h3 {
+    font-size: 1.7138rem;
+  }
+  h5 {
+    font-size: 1.3118rem;
+  }
+}

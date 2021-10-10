@@ -8,10 +8,11 @@
     "bootstrap": "yarn install && lerna bootstrap",
     "start": "lerna run start --parallel",
     "start:blifrivillig": "lerna run --scope blifrivillig --stream dev",
-    "build:blifrivillig": "node -r ./dotenv.config.js lerna run --scope blifrivillig --stream build",
-    "run:build:blifrivillig": "lerna run start --scope blifrivillig"
+    "build:blifrivillig": "lerna run --scope blifrivillig --stream build",
+    "run:build:blifrivillig": "lerna run --scope blifrivillig --stream start"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "apps/*"
   ]
 }

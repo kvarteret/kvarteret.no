@@ -6,6 +6,12 @@ module.exports = withPlugins([withTM(), withImages], {
     // custom webpack config
     return config;
   },
-  images: {},
+  images: {
+    domains: ['cms.kvarteret.no'],
+  },
   reactStrictMode: true,
+  i18n: {
+    locales: ['no', 'en'],
+    defaultLocale: 'no'
+  }
 });
