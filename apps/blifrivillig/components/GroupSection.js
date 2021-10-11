@@ -5,36 +5,20 @@ import {
     CardContent,
     Container,
     Grid,
-    Typography,
   } from '@material-ui/core'
-  import { Link } from 'gatsby'
   import React, { useState } from 'react'
-  import { GatsbyImage, getImage } from 'gatsby-plugin-image'
-  import ExternalContent from '../mainSection/externalContent'
+  import ExternalContent from './externalContent'
+  import Link from 'next/link'
+  import Image from 'next/image'
   
-  import { graphql, useStaticQuery } from 'gatsby'
-  import { getTranslation } from '../../helpers/languageHelper'
-  
-  const Query = graphql`
-    query BlifrivilligTranslations {
-      directus {
-        blifrivillig_translations {
-          group_description
-          group_title
-          languages_code {
-            url_code
-          }
-        }
-      }
-    }
-  `
+  import style from '../styles/GroupSection.module.css';
+import BlurImage from './BlurImage'
   
   const GroupCard = ({ image, title, description, link }) => {
     const [shadow, setShadow] = useState(false)
-  
-    const imageElem = getImage(image)
+    // const imageElem = getImage(image)
     return (
-      <Link to={link} style={{ height: '100%' }}>
+      <Link href={link} style={{ height: '100%' }}>
         <Card
           onMouseOver={() => setShadow(true)}
           onMouseOut={() => setShadow(false)}
@@ -42,29 +26,28 @@ import {
           style={{ height: '100%' }}
         >
           <CardActionArea style={{ height: '100%' }}>
-            <GatsbyImage
-              image={imageElem}
-              title={title}
-              alt={title}
-              style={{
-                width: '100%',
-                height: 160,
-                top: 0,
-                objectFit: 'cover',
-              }}
-            />
+            <div className={style.imageContainer}>
+              <BlurImage
+                  imageId={image.id}
+                  title={title}
+                  alt={title}
+                  layout="fill"
+                  />
+            </div>
             <CardContent style={{ height: '100%', fontSize: 14 }}>
-              <Typography
+              <h3 className={style.title}>
+                {title}
+              </h3>
+              {/* <Typography
                 variant="h3"
                 component="h3"
                 color="primary"
                 style={{ textAlign: 'center' }}
               >
-                {title}
-              </Typography>
-              <Typography>
+              </Typography> */}
+              <p>
                 <ExternalContent data={description} />
-              </Typography>
+              </p>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -72,30 +55,33 @@ import {
     )
   }
   
-  const sanitizeData = (data) => {
-    return getTranslation(data.directus.blifrivillig_translations)
-  }
-  
-  const GroupSection = ({ groups }) => {
-    const groupElems = groups?.map((item, key) => (
-      <Grid key={key} item xs={12} sm={6} md={4}>
-        <GroupCard {...item} />
-      </Grid>
-    ))
-  
-    const data = sanitizeData(useStaticQuery(Query))
-  
+  const sanitizeGroup = group => ({
+    image: group.blifrivillig_image,
+    title: group.blifrivillig_group_translations.at(0).title,
+    description: group.blifrivillig_group_translations.at(0).description,
+    link: group.blifrivillig_group_translations.at(0).link || "",
+  })
+  const GroupSection = ({ groups, translation }) => {
+    const groupElems = groups?.map((item, key) => {
+      return (
+        <Grid key={key} item xs={12} sm={6} md={4}>
+          <GroupCard {...sanitizeGroup(item)} />
+        </Grid>
+      )
+    })
+    
+    const data = translation;
     return (
       <Container fixed>
         <Box my={4}>
           <Grid container direction="column" spacing={4}>
             <Grid item>
-              <Typography variant="h1" component="h1" color="primary">
+              <h1 className={style.groupTitle}>
                 {data.group_title}
-              </Typography>
+              </h1>
               <p style={{ marginTop: 10 }}>
                 <ExternalContent data={data.group_description} />
-              </Typography>
+              </p>
             </Grid>
             <Grid
               item

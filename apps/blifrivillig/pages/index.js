@@ -1,13 +1,25 @@
-import { Grid } from '@material-ui/core'
+import { Box, Container, Grid } from '@material-ui/core'
 
 import { ApolloClient, createHttpLink, InMemoryCache, gql } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import TopSection from '../components/TopSection'
 import Section from '../components/Section'
+import GroupSection from '../components/GroupSection';
+import FAQSection from '../components/FAQSection';
 
 import {getTranslationsData, TranslationContext } from '../components/TranslatedField'
 
 import styles from '../styles/Index.module.css'
+import SignupSection from '../components/SignupSection';
+
+const sanitizeData = ({data}) => {
+  const translation = data.blifrivillig.translations.at(0);
+  return {
+    faq: translation.faq,
+    formData: translation.signup_form,
+    ...data
+  }
+};
 
 export async function getStaticProps(context) {
 
@@ -32,7 +44,7 @@ export async function getStaticProps(context) {
     cache: new InMemoryCache()
   });
 
-  const { data } = await client.query({
+  const data = sanitizeData(await client.query({
     variables: {lang: context.locale},
     query: gql`
       query BliFrivilligQuery($lang: String) {
@@ -68,6 +80,8 @@ export async function getStaticProps(context) {
             }
           }
           translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            group_title
+            group_description
             signup_form
             faq {
               title
@@ -78,10 +92,9 @@ export async function getStaticProps(context) {
         }
       }
     `
-  });
+  }));
 
   const translations = await getTranslationsData(client, context.locale);
-
   return {
     props: {
       data,
@@ -91,7 +104,7 @@ export async function getStaticProps(context) {
   }
 }
 
-const TopSectionItems = ({data}) => data.blifrivillig.top_section.map((item, key) => {
+const topSectionItems = (data) => data.blifrivillig.top_section.map((item, key) => {
   const translation = item.translations[0];
   return   <Grid item key={key} className={key % 2 == 1 ? styles.redSection : ''}>
   <Section
@@ -103,7 +116,7 @@ const TopSectionItems = ({data}) => data.blifrivillig.top_section.map((item, key
 </Grid>
 })
 
-const BottomSectionItems = ({data}) => data.blifrivillig.bottom_section.map((item, key) => {
+const bottomSectionItems = (data) => data.blifrivillig.bottom_section.map((item, key) => {
   const translation = item.translations[0];
   return (
     <Grid item key={key} className={key % 2 == 0 ? styles.redSection : ''}>
@@ -120,19 +133,18 @@ const BottomSectionItems = ({data}) => data.blifrivillig.bottom_section.map((ite
 
 
 export default function Home({data, translations}) {
-  console.log("DATA", data)
   return (
       <TranslationContext.Provider value={translations}>
         <Grid container direction="column">
           <Grid item style={{ position: 'relative' }}>
             <TopSection videoUrl={data.video} />
           </Grid>
-          <TopSectionItems data={data}/>
-          {/* <Grid item style={{ backgroundColor: '#F6F6F6' }}>
-            <GroupSection groups={data.groups} />
-          </Grid> */}
-          <BottomSectionItems data={data} />
-          {/* <Grid item>
+          {topSectionItems(data)}
+          <Grid item style={{ backgroundColor: '#F6F6F6' }}>
+            <GroupSection translation={data.blifrivillig.translations.at(0)} groups={data.blifrivillig.groups} />
+          </Grid>
+          {bottomSectionItems(data)}
+          <Grid item>
             <Box my={8}>
               <Container fixed>
                 <Grid container direction="row" spacing={4} justify="center">
@@ -145,7 +157,7 @@ export default function Home({data, translations}) {
                 </Grid>
               </Container>
             </Box>
-          </Grid> */}
+          </Grid>
         </Grid>
       </TranslationContext.Provider>
   )

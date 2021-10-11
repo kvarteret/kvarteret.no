@@ -10,6 +10,8 @@ body {
 
 body {
   overflow-y: hidden;
+  font-size: 14.8571px;
+  line-height: 22.2857px;
 
 }
 
@@ -67,6 +69,10 @@ h5 {
   line-height: 1.334;
   margin: 0;
   color: var(--text-color)
+}
+
+.primary {
+  color: var(--primary-color);
 }
 
 @media (min-width: 600px) {

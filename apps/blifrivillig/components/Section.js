@@ -4,6 +4,7 @@ import ExternalContent from './externalContent'
 import Image from 'next/image'
 
 import styles from '../styles/Section.module.css'
+import BlurImage from './BlurImage'
 
 const Section = ({ swap, title, image, text, titleColor }) => {
   const direction = swap ? 'row-reverse' : 'row'
@@ -13,14 +14,13 @@ const Section = ({ swap, title, image, text, titleColor }) => {
         <Grid container direction={direction} spacing={8} alignItems="center">
           <Grid item xs={12} md={6}>
             <div className={styles.imageContainer}>
-                <Image
-                src={`https://cms.kvarteret.no/assets/${image.id}`}
+                <BlurImage
+                imageId={image.id}
                 title={title}
                 alt={title}
-                heigt={333}
                 layout="fill"
                 />
-                </div>
+              </div>
           </Grid>
           <Grid item xs={12} md={6} container direction="column">
             <Grid item>

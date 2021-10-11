@@ -19,7 +19,7 @@ function scrollTo(elem) {
 
 
 export default function TopSection({ videoUrl }) {
-    console.log("BLA", styles);
+    ("BLA", styles);
   return (
     <div>
       <div className={styles.video}>
