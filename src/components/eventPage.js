@@ -11,7 +11,6 @@ import {
 import DAKCarousel from './shared/dakCarousel'
 import TopGalleryCarouselItem from './shared/TopGalleryCarouselItem'
 import ExternalContent from './mainSection/externalContent'
-import { withStyles } from '@material-ui/styles'
 import { Snippets } from './shared/snippets'
 
 const OverviewItem = ({ label, value }) => {
@@ -63,7 +62,7 @@ const Snippet = ({ item }) => (
 const customCarouselComponent = (props) => (
   <TopGalleryCarouselItem
     {...props}
-    styleImgText={{ bottom: 51, left: 'max(32px, calc(50% - 610px))' }}
+    styleImgText={{ color: 'white', bottom: 51, left: 'max(32px, calc(50% - 610px))' }}
   />
 )
 

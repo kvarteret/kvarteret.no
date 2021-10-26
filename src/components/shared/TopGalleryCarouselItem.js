@@ -23,10 +23,8 @@ const useStyles = makeStyles((theme) => ({
     transform: 'translateZ(0)',
     left: '2%',
     color: 'white',
+    WebkitTextStroke: '1.5px black',
     fontSize: 25,
-    borderRadius: '25%',
-    backgroundColor: 'rgba(0,0,0,0.25)',
-    boxShadow: '0 0 50px 50px rgba(0,0,0,0.25)',
     '@media (min-width:600px)': {
       fontSize: 50,
     },
@@ -34,10 +32,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: 80,
     },
   },
-  imgTextDark: {
-    backgroundColor: 'rgba(255,255,255,0.25)',
-    boxShadow: '0 0 50px 50px rgba(255,255,255,0.25)',
-  },
+
   carousel: {
     position: 'relative'
   },
