@@ -1,13 +1,14 @@
 import React from 'react'
+import { Typography } from '@material-ui/core'
 import ExternalContent from './externalContent'
 import TranslatedField from './TranslatedField'
 
 const SignupSection = ({ snippet }) => {
   return (
     <div id="signup">
-        <h1 className="primary">
-            <TranslatedField tKey="blifrivillig-signup-here" />
-        </h1>
+      <Typography variant="h1" component="h1" color="primary" align="center">
+        <TranslatedField tKey="blifrivillig-signup-here" />
+      </Typography>
       <ExternalContent data={snippet} />
     </div>
   )

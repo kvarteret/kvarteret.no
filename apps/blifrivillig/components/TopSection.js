@@ -19,7 +19,6 @@ function scrollTo(elem) {
 
 
 export default function TopSection({ videoUrl }) {
-    ("BLA", styles);
   return (
     <div>
       <div className={styles.video}>
@@ -43,7 +42,7 @@ export default function TopSection({ videoUrl }) {
           spacing={4}
           direction="column"
           alignItems="center"
-          justify="center"
+          justifyContent="center"
           style={{
             minHeight: '85vh',
             color: 'white',
@@ -51,14 +50,14 @@ export default function TopSection({ videoUrl }) {
           }}
         >
           <Grid item xs={12} lg={9}>
-            <h1>
+            <Typography variant="h1">
                 <TranslatedField tKey="blifrivillig-title"/>
-            </h1>
+            </Typography>
           </Grid>
           <Grid item xs={12} lg={9}>
-            <h3>
+            <Typography variant="h3">
                 <TranslatedField tKey="blifrivillig-description"/>
-            </h3>
+            </Typography>
           </Grid>
           <Grid
             item
@@ -74,18 +73,18 @@ export default function TopSection({ videoUrl }) {
               fullWidth
               classes={{root: styles.button}}
             >
-              <h2>
+              <Typography variant="h2">
                 <TranslatedField tKey="blifrivillig-call-to-action"/>
-              </h2>
+              </Typography>
             </Button>
           </Grid>
         </Grid>
       </div>
 
       <div className={styles.bottomContainer}>
-        <h5>
+        <Typography variant="h5">
             <TranslatedField tKey="blifrivillig-learn-more"/>
-        </h5>
+        </Typography>
       </div>
     </div>
   )

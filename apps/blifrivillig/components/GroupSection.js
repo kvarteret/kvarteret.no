@@ -4,6 +4,7 @@ import {
     CardActionArea,
     CardContent,
     Container,
+    Typography,
     Grid,
   } from '@material-ui/core'
   import React, { useState } from 'react'
@@ -35,19 +36,17 @@ import BlurImage from './BlurImage'
                   />
             </div>
             <CardContent style={{ height: '100%', fontSize: 14 }}>
-              <h3 className={style.title}>
-                {title}
-              </h3>
-              {/* <Typography
+              <Typography
                 variant="h3"
                 component="h3"
                 color="primary"
                 style={{ textAlign: 'center' }}
               >
-              </Typography> */}
-              <p>
+                {title}
+              </Typography>
+              <Typography>
                 <ExternalContent data={description} />
-              </p>
+              </Typography>
             </CardContent>
           </CardActionArea>
         </Card>
@@ -76,18 +75,18 @@ import BlurImage from './BlurImage'
         <Box my={4}>
           <Grid container direction="column" spacing={4}>
             <Grid item>
-              <h1 className={style.groupTitle}>
+              <Typography variant="h1" component="h1" color="primary">
                 {data.group_title}
-              </h1>
-              <p style={{ marginTop: 10 }}>
+              </Typography>
+              <Typography style={{ marginTop: 10 }}>
                 <ExternalContent data={data.group_description} />
-              </p>
+              </Typography>
             </Grid>
             <Grid
               item
               container
               spacing={4}
-              justify="flex-start"
+              justifyContent="flex-start"
               alignItems="stretch"
             >
               {groupElems}

@@ -18,18 +18,21 @@ const Section = ({ swap, title, image, text, titleColor }) => {
                 imageId={image.id}
                 title={title}
                 alt={title}
+                objectFit="cover"
                 layout="fill"
                 />
-              </div>
+            </div>
           </Grid>
           <Grid item xs={12} md={6} container direction="column">
             <Grid item>
-                <h1 className={styles.title} styles={{color: titleColor}}>
-                    {title}
-                </h1>
+              <Typography variant="h1" component="h1" color={titleColor}>
+                {title}
+              </Typography>
             </Grid>
             <Grid item>
+              <Typography>
                 <ExternalContent data={text} />
+              </Typography>
             </Grid>
           </Grid>
         </Grid>

@@ -1,15 +1,17 @@
 import React from 'react'
 import TranslatedField from './TranslatedField'
 import ExternalContent from './ExternalContent'
-import Grid from './Grid'
+import { Box, Container, Grid, Typography } from '@material-ui/core'
 
 export const FAQuestion = ({ title, text }) => {
   return (
     <div>
-        <h3 className="primary">
+      <Typography variant="h3" component="h3" color="primary">
             {title}
-        </h3>
+      </Typography>
+      <Typography>
         <ExternalContent data={text} />
+      </Typography>
     </div>
   )
 }
@@ -24,9 +26,9 @@ const FAQSection = ({ faq }) => {
   return (
     <Grid container direction="column" spacing={4}>
       <Grid item>
-        <h1 className="primary">
+        <Typography variant="h1" component="h1" color="primary">
             <TranslatedField tKey="blifrivillig-faq" />
-        </h1>
+        </Typography>
       </Grid>
       {faqQuestions}
     </Grid>
