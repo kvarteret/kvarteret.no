@@ -1,0 +1,9 @@
+:root {
+  --primary-color: #F54B4B; 
+  --light-color: white;
+  --text-color: black;
+}
+
+.lightTheme {
+  --light-color: black;
+}

@@ -9,7 +9,10 @@
     "start": "lerna run start --parallel",
     "start:blifrivillig": "lerna run --scope blifrivillig --stream dev",
     "build:blifrivillig": "lerna run --scope blifrivillig --stream build",
-    "run:build:blifrivillig": "lerna run --scope blifrivillig --stream start"
+    "run:build:blifrivillig": "lerna run --scope blifrivillig --stream start",
+    "start:kvarteret": "lerna run --scope kvarteret --stream dev",
+    "build:kvarteret": "lerna run --scope kvarteret --stream build",
+    "run:build:kvarteret": "lerna run --scope kvarteret --stream start"
   },
   "workspaces": [
     "packages/*",
