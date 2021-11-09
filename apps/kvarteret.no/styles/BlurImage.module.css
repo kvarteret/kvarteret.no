@@ -1,9 +1,0 @@
-.loading {
-    opacity: 1;
-    transition: opacity 0.5s ease-in-out;
-}
-
-.loadingComplete {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-}
