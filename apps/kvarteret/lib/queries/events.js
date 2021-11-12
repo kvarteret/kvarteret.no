@@ -18,6 +18,9 @@ export async function queryIndexEvents(lang, filterDate) {
               name
             }
           }
+          page {
+            slug
+          }
           translations(
             filter: { languages_code: { url_code: { _eq: $lang } } }
           ) {

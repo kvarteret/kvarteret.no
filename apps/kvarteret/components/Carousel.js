@@ -4,6 +4,7 @@ import {useState} from "react";
 
 const CarouselItem = ({ item, index, selectedIndex }) => {
   const texts = item.translations[0];
+  const visible = index == selectedIndex;
   return (
     <div className="carousel-item">
       <div className="image-container">
@@ -18,7 +19,7 @@ const CarouselItem = ({ item, index, selectedIndex }) => {
       <div className="content-wrapper">
         <div className="content-container">
             <div className="content">
-            {texts?.title}</div>
+            {texts?.title}aøwsdjalksjdlkasjdlkajsdlkjasdolkjaslkdjaslkdjalksjdlkasjd</div>
 
             </div>
       </div>
@@ -32,6 +33,7 @@ const CarouselItem = ({ item, index, selectedIndex }) => {
             height: 600px;
             width: 100%;
             transition: left 500ms;
+            display: ${visible ? "block" : "none"};
           }
 
           .content-wrapper {
@@ -57,6 +59,18 @@ const CarouselItem = ({ item, index, selectedIndex }) => {
               word-wrap: normal;
               text-overflow: ellipsis;
           }
+            @media(max-width: 992px) {
+              .content {
+                max-width: 600px;
+                font-size: 60px;
+              }
+            }
+            @media(max-width: 768px) {
+              .content {
+                max-width: 550px;
+                font-size: 50px;
+              }
+            }
 
           .image-container {
             position: absolute;
@@ -98,13 +112,24 @@ const Carousel = ({ carouselItems }) => {
                 width: 100%;
                 justify-content: center;
                 align-items: center;
-                z-index: 10000000;
+                z-index: 1000;
                 color: white;
                 gap: 20px;
             }
             .space {
                 width: 1000px;
             }
+            @media(max-width: 992px) {
+              .space {
+                max-width: 600px;
+              }
+            }
+            @media(max-width: 768px) {
+              .space {
+                max-width: 550px;
+              }
+            }
+
 
             .selector {
                 cursor: pointer;

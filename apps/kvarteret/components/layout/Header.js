@@ -1,17 +1,18 @@
 import { BlurImage } from "dak-components";
 import Navigation from "./Navigation";
+import Link from 'next/link'
 
 const Header = ({ data }) => (
   <div className="container">
     <div className="main-logo">
-      <BlurImage layout="fill" image={data.hoved_logo}></BlurImage>
+      <Link href={"/"}><BlurImage layout="fill" image={data.hoved_logo}></BlurImage></Link>
     </div>
     <div className="hamburger"></div>
     <div className="nav left-nav">
       <Navigation navItems={data.navigation.left} />
     </div>
     <div className="logo">
-      <BlurImage layout="fill" image={data.logo}></BlurImage>
+    <Link href={"/"}><BlurImage layout="fill" image={data.logo}></BlurImage></Link>
     </div>
     <div className="nav right-nav">
       <Navigation isRight navItems={data.navigation.right} />
@@ -29,6 +30,7 @@ const Header = ({ data }) => (
         width: 120px;
         height: 80px;
         position: relative;
+        cursor: pointer;
       }
 
       .logo {
@@ -37,6 +39,7 @@ const Header = ({ data }) => (
         margin: 10px;
         position: relative;
         border-radius: 200px;
+        cursor: pointer;
       }
 
       .block {

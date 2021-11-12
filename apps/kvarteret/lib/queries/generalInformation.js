@@ -1,4 +1,5 @@
 import { gql } from "@apollo/client";
+import moment from "moment";
 import cmsClient from "../cmsClient";
 
 export default async function queryGeneralInformation(lang) {
@@ -62,5 +63,14 @@ export async function queryOpeningHours() {
     `,
   });
 
-  return data.data.opening_time;
+  
+  const formatTime = (x) => moment(x, "HH:mm:ss").format("HH:mm");
+  const result = JSON.parse(JSON.stringify(data.data.opening_time));
+
+  result.forEach(x=>x.opening_time_day?.forEach(y => {
+    y.opening_time = formatTime(y.opening_time);
+    y.closing_time = formatTime(y.closing_time);
+  }))
+
+  return result;
 }

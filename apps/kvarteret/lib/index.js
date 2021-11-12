@@ -5,8 +5,8 @@ import queryGeneralInformation, { queryOpeningHours } from "./queries/generalInf
 const fetchIndexData = async (lang) => {
     const generalInformation = await queryGeneralInformation(lang);
     const events = await queryIndexEvents(lang, new Date()); // Filter on current time
-    const openingTime = await queryOpeningHours();
-    const result = {events, openingTime};
+    const openingHours = await queryOpeningHours();
+    const result = {events, openingHours};
     result.carouselItems = generalInformation.general_information.carousel_items;
 
     return result;

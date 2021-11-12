@@ -2,10 +2,11 @@ import Footer from "./Footer";
 import Header from "./Header";
 
 const Layout = ({ children, data }) => {
-  if (!data) return <> children </>;
+  if (!data) return <> {children} </>;
   return (
     <div className="container">
-      <div className="header"><Header data={data}/></div>
+      <div className="header">
+        <Header data={data}/></div>
       <div className="content">
         {children}
       </div>
@@ -30,9 +31,6 @@ const Layout = ({ children, data }) => {
             z-index: 1100;
           }
           
-          .footer {
-              background-color: red;
-          }
         `}
       </style>
     </div>

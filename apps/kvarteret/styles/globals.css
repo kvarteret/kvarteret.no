@@ -18,3 +18,7 @@ a {
 :root {
   --primary-color: #f54b4b;
 }
+
+h1 {
+  color: var(--primary-color);
+}
