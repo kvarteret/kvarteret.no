@@ -36,7 +36,9 @@ export async function queryPageBySlug(lang, slug) {
             }
           }
           gallery {
-            id
+            directus_files_id {
+              id
+            }
           }
         }
       }

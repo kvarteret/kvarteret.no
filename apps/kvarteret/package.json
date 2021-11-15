@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "next build",
+    "build": "next build && next-sitemap",
     "start": "next start",
     "lint": "next lint"
   },
@@ -18,12 +18,17 @@
     "next": "^12.0.3",
     "next-compose-plugins": "^2.2.1",
     "next-images": "^1.8.2",
+    "next-seo": "^4.28.1",
     "next-transpile-modules": "^9.0.0",
+    "node-vibrant": "^3.1.5",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-palette": "^1.0.2",
+    "swiper": "^7.2.0"
   },
   "devDependencies": {
     "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2"
+    "eslint-config-next": "11.1.2",
+    "next-sitemap": "^1.6.203"
   }
 }

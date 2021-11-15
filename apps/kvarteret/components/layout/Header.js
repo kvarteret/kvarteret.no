@@ -7,7 +7,7 @@ const Header = ({ data }) => (
     <div className="main-logo">
       <Link href={"/"}><BlurImage layout="fill" image={data.hoved_logo}></BlurImage></Link>
     </div>
-    <div className="hamburger"></div>
+    <div className="block hamburger"></div>
     <div className="nav left-nav">
       <Navigation navItems={data.navigation.left} />
     </div>

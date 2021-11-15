@@ -4,11 +4,14 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+
+  overscroll-behavior-y: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  color: var(--primary-color);
 }
 
 * {
@@ -17,8 +20,41 @@ a {
 
 :root {
   --primary-color: #f54b4b;
+  --primary-color-light: #f57878;
+  --swiper-theme-color: white !important;
+  --swiper-navigation-size: 32px !important;
 }
 
 h1 {
   color: var(--primary-color);
+}
+
+.swiper-button-next {
+  right: max(calc((100% - 1300px) / 2 - 30px), 40px) !important;
+  
+}
+
+.swiper-button-prev {
+  left: max(calc((100% - 1300px) / 2 - 30px), 40px) !important;
+  padding: 10px;
+}
+
+.swiper-button-prev:after, .swiper-button-next:after {
+
+  font-family: "Kvarteret Icons" !important;
+  color: var(--primary-color);
+  font-size: 24px !important;
+  background-color: white;
+  border-radius: 200px;
+}
+
+.swiper-button-prev:after {
+  content: '\e801' !important;
+}
+.swiper-button-next:after {
+  content: '\e800' !important;
+
+}
+.swiper-button-prev:hover:after, .swiper-button-next:hover:after {
+  color: var(--primary-color-light);
 }
