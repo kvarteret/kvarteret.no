@@ -17,7 +17,7 @@ export async function queryTextsByIds(lang, textIds) {
   });
 
   const textObj = data?.data?.texts?.reduce((acc, text) => {
-    acc[text.text_id] = text.translations?.at(0).text;
+    acc[text.text_id] = text.translations[0].text;
     return acc;
   }, {}) || {}
 

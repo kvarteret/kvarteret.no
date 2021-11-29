@@ -45,5 +45,5 @@ export async function queryPageBySlug(lang, slug) {
     `,
   });
 
-  return data?.data?.page?.at(0);
+  return data?.data?.page[0];
 }
