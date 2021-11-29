@@ -17,6 +17,7 @@ const constructTree = (id, navigationItems, depth = 0) => {
 }
 
 const getNavigation = async (lang) => {
+    if(process.env.NO_PATH) return {left: [], right: []}
     const generalInformation = await queryGeneralInformation(lang);
     const data = await queryNavigationData(lang);
     const navigationItems = data.navigation_item;

@@ -37,4 +37,4 @@ const Layout = ({ children, data }) => {
   );
 };
 
-export default Layout;
+export {Layout};

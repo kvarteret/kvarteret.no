@@ -11,6 +11,8 @@ import {getTranslationsData, TranslationContext } from '../components/Translated
 
 import styles from '../styles/Index.module.css'
 import SignupSection from '../components/SignupSection';
+import fetchLayoutData from '../../kvarteret/lib/layout';
+import { queryTextsByIds } from '../../kvarteret/lib/queries/text';
 
 const sanitizeData = ({data}) => {
   const translation = data.blifrivillig.translations.at(0);
@@ -95,8 +97,17 @@ export async function getStaticProps(context) {
   }));
 
   const translations = await getTranslationsData(client, context.locale);
+
+  const layout = await fetchLayoutData(context.locale);
+
+  const texts = await queryTextsByIds(context.locale, ["blifrivillig-meta-title", "blifrivillig-meta-description"]);
+
+  const metadata = {title: texts["blifrivillig-meta-title"], description: texts["blifrivillig-meta-description"]}
+
   return {
     props: {
+      layout,
+      metadata,
       data,
       translations
     },

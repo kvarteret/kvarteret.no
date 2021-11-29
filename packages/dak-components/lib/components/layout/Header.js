@@ -1,6 +1,49 @@
-import { BlurImage } from "dak-components";
+import { BlurImage } from "../BlurImage";
 import Navigation from "./Navigation";
 import Link from 'next/link'
+import {useRouter} from "next/router";
+
+import {Divider} from "../Divider"
+
+const LanguageItem = ({locale, text}) => {
+  const router = useRouter();
+  const sameLang = router.locale === locale;
+  
+  return <Link href={router.asPath} locale={locale}>
+    <a>
+      {text}
+      <style jsx>
+        {`
+          a {
+            color: ${sameLang ? "var(--primary-color)" : "var(--light-color)"};    
+            font-weight: ${sameLang ? "600" : "400"};
+            text-decoration: none;    
+            font-size: 12px;
+          }
+        `}
+      </style>
+    </a>
+  </Link>
+}
+
+const LanguageSelector = () => {
+
+  return <div>
+    <LanguageItem locale="no" text="NO" />
+    <Divider color="white" />
+    <LanguageItem locale="en" text="EN" />
+
+    <style jsx>
+      {`
+      div {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+      }
+      `}
+    </style>
+  </div>
+}
 
 const Header = ({ data }) => (
   <div className="container">
@@ -17,7 +60,9 @@ const Header = ({ data }) => (
     <div className="nav right-nav">
       <Navigation isRight navItems={data.navigation.right} />
     </div>
-    <div className="block"></div>
+    <div className="block language">
+      <LanguageSelector/>
+    </div>
 
     <style jsx>{`
       .container {
@@ -43,12 +88,19 @@ const Header = ({ data }) => (
       }
 
       .block {
-        width: 80px;
+        width: 120px;
         height: 80px;
       }
 
       .hamburger {
         display: none;
+      }
+
+      .language {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-left: 1px solid rgba(0,0,0,0.12);
       }
 
       .nav {

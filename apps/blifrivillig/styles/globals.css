@@ -7,3 +7,11 @@
 .lightTheme {
   --light-color: black;
 }
+
+.clickup-embed {
+  border: none !important;
+}
+
+html, body {
+  overflow-x: hidden;
+}

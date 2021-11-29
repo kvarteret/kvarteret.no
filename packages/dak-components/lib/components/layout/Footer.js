@@ -4,6 +4,7 @@ import OpeningHours from "../OpeningHours";
 import Title from "../Title";
 
 const OpeningHoursSection = ({ openingHours }) => {
+  if(openingHours?.length <= 0) return <></>
   return (
     <div className="container">
       <Title underlined color="white" underlineColor="#707070">
@@ -125,7 +126,6 @@ const Address = ({}) => (
 );
 
 const Footer = ({ data }) => {
-  console.log("DATTA!", data);
   return (
     <div className="container">
       <div className="content">

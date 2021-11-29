@@ -10,6 +10,7 @@ module.exports = withPlugins([withTM(), withImages], {
     domains: ['cms.kvarteret.no'],
   },
   reactStrictMode: true,
+  swcMinify: true,
   i18n: {
     locales: ['no', 'en'],
     defaultLocale: 'no'

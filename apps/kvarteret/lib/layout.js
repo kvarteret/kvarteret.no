@@ -4,7 +4,11 @@ import queryGeneralInformation, { queryOpeningHours } from "./queries/generalInf
 const fetchLayoutData = async (lang) => {
     const generalData = await queryGeneralInformation(lang);
     const navigation = await getNavigation(lang);
-    const openingHours = await queryOpeningHours();
+    let openingHours = await queryOpeningHours();
+    
+    if(process.env.NO_PATH) {
+        openingHours = []
+    }
     return {
         hoved_logo: generalData.general_information.hoved_logo,
         logo: generalData.general_information.logo,
