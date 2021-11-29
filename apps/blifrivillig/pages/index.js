@@ -15,7 +15,7 @@ import fetchLayoutData from '../../kvarteret/lib/layout';
 import { queryTextsByIds } from '../../kvarteret/lib/queries/text';
 
 const sanitizeData = ({data}) => {
-  const translation = data.blifrivillig.translations.at(0);
+  const translation = data.blifrivillig.translations[0];
   return {
     faq: translation.faq,
     formData: translation.signup_form,
@@ -152,7 +152,7 @@ export default function Home({data, translations}) {
           </Grid>
           {topSectionItems(data)}
           <Grid item style={{ backgroundColor: '#F6F6F6' }}>
-            <GroupSection translation={data.blifrivillig.translations.at(0)} groups={data.blifrivillig.groups} />
+            <GroupSection translation={data.blifrivillig.translations[0]} groups={data.blifrivillig.groups} />
           </Grid>
           {bottomSectionItems(data)}
           <Grid item>
