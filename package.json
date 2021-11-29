@@ -1,11 +1,9 @@
 {
   "name": "root",
   "private": true,
-  "devDependencies": {
-    "lerna": "^3.22.1"
-  },
   "scripts": {
     "bootstrap": "yarn install && lerna bootstrap",
+    "bootstrap-frozen": "yarn install --frozen-lockfile && lerna bootstrap",
     "start": "lerna run start --parallel",
     "start:blifrivillig": "lerna run --scope blifrivillig --stream dev",
     "build:blifrivillig": "lerna run --scope blifrivillig --stream build",
@@ -17,5 +15,9 @@
   "workspaces": [
     "packages/*",
     "apps/*"
-  ]
+  ],
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "next": "^12.0.4"
+  }
 }
