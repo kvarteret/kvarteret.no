@@ -56,9 +56,9 @@ import BlurImage from './BlurImage'
   
   const sanitizeGroup = group => ({
     image: group.blifrivillig_image,
-    title: group.blifrivillig_group_translations.at(0).title,
-    description: group.blifrivillig_group_translations.at(0).description,
-    link: group.blifrivillig_group_translations.at(0).link || "",
+    title: group.blifrivillig_group_translations[0].title,
+    description: group.blifrivillig_group_translations[0].description,
+    link: group.blifrivillig_group_translations[0].link || "",
   })
   const GroupSection = ({ groups, translation }) => {
     const groupElems = groups?.map((item, key) => {

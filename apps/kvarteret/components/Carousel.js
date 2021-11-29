@@ -48,7 +48,7 @@ const CarouselItem = ({ item }) => {
           layout="fill"
         />
         <div className="content">
-          <h1>{item.translations?.at(0)?.title}</h1>
+          <h1>{item.translations[0]?.title}</h1>
         </div>
       </div>
       <style jsx>

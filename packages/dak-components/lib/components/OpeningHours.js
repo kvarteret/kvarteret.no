@@ -30,10 +30,10 @@ const OpeningHoursTimes = ({item}) => <div className="container">
 
 const OpeningHours = ({openingHours, light}) => <div className={"container" + (light ? " light" : "")}>
     <div className="list left">
-        {openingHours?.filter(filterTodayPred)?.at(0)?.opening_time_day.map((x, i) => <OpeningHoursRoomName key={i} item={x} />)}
+        {openingHours?.filter(filterTodayPred)[0]?.opening_time_day.map((x, i) => <OpeningHoursRoomName key={i} item={x} />)}
     </div>
     <div className="list">
-        {openingHours?.filter(filterTodayPred)?.at(0)?.opening_time_day.map((x, i) => <OpeningHoursTimes key={i} item={x} />)}
+        {openingHours?.filter(filterTodayPred)[0]?.opening_time_day.map((x, i) => <OpeningHoursTimes key={i} item={x} />)}
     </div>
     
     <style jsx>
