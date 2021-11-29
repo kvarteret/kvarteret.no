@@ -1,6 +1,6 @@
 import React from 'react'
 import { Typography } from '@material-ui/core'
-import ExternalContent from './externalContent'
+import ExternalContent from './ExternalContent'
 import TranslatedField from './TranslatedField'
 
 const SignupSection = ({ snippet }) => {

@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from '@material-ui/core'
 import React from 'react'
-import ExternalContent from './externalContent'
+import ExternalContent from './ExternalContent'
 import Image from 'next/image'
 
 import styles from '../styles/Section.module.css'

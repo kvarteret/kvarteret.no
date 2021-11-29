@@ -8,7 +8,7 @@ import {
     Grid,
   } from '@material-ui/core'
   import React, { useState } from 'react'
-  import ExternalContent from './externalContent'
+  import ExternalContent from './ExternalContent'
   import Link from 'next/link'
   import Image from 'next/image'
   
