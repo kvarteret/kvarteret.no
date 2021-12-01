@@ -98,14 +98,14 @@ export async function getStaticProps(context) {
 
   const layout = await fetchLayoutData(context.locale);
 
-  // const texts = await queryTextsByIds(context.locale, ["blifrivillig-meta-title", "blifrivillig-meta-description"]);
+  const texts = await queryTextsByIds(context.locale, ["blifrivillig-meta-title", "blifrivillig-meta-description"]);
 
-  // const metadata = {title: texts["blifrivillig-meta-title"], description: texts["blifrivillig-meta-description"]}
+  const metadata = {title: texts["blifrivillig-meta-title"], description: texts["blifrivillig-meta-description"]}
 
   return {
     props: {
       layout,
-      // metadata,
+      metadata,
       data,
       translations
     },
