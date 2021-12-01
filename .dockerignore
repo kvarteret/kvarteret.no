@@ -10,6 +10,8 @@
 
 # Exception to dot files
 
+!**/.next
+
 # Yarn
 !.yarnrc.yml
 !.yarn/plugins
