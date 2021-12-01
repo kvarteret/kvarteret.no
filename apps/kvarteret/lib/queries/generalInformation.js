@@ -22,18 +22,8 @@ export default async function queryGeneralInformation(lang) {
           }
           social_media {
             url
-            status
             icon {
               id
-            }
-          }
-
-          carousel_items {
-            image {
-              id
-            }
-            translations {
-              title
             }
           }
         }
@@ -63,14 +53,15 @@ export async function queryOpeningHours() {
     `,
   });
 
-  
   const formatTime = (x) => moment(x, "HH:mm:ss").format("HH:mm");
   const result = JSON.parse(JSON.stringify(data.data.opening_time));
 
-  result.forEach(x=>x.opening_time_day?.forEach(y => {
-    y.opening_time = formatTime(y.opening_time);
-    y.closing_time = formatTime(y.closing_time);
-  }))
+  result.forEach((x) =>
+    x.opening_time_day?.forEach((y) => {
+      y.opening_time = formatTime(y.opening_time);
+      y.closing_time = formatTime(y.closing_time);
+    })
+  );
 
   return result;
 }

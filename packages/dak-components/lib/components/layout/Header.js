@@ -69,6 +69,7 @@ const Header = ({ data }) => (
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        gap: 10px;
       }
 
       .main-logo {

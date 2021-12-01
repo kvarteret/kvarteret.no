@@ -49,50 +49,48 @@ export async function getStaticProps(context) {
   const data = sanitizeData(await client.query({
     variables: {lang: context.locale},
     query: gql`
-      query BliFrivilligQuery($lang: String) {
-        blifrivillig {
-          background_video
-          top_section {
-            image {
-              id
-            }
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              description
-            }
-          }
-          groups {
-            status
-            blifrivillig_image {
-              id
-            }
-            blifrivillig_group_translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              link
-              description
-            }
-          }
-          bottom_section {
-            image {
-              id
-            }
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              description
-            }
+
+    query BliFrivilligQuery($lang: String) {
+      blifrivillig {
+        top_section {
+          image {
+            id
           }
           translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-            group_title
-            group_description
-            signup_form
-            faq {
-              title
-              text
-              status
-            }
+            title
+            description
+          }
+        }
+        groups {
+          status
+          blifrivillig_image {
+            id
+          }
+          translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            title
+            description
+          }
+        }
+        bottom_section {
+          image {
+            id
+          }
+          translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            title
+            description
+          }
+        }
+        translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+          group_title
+          group_description
+          signup_form
+          faq {
+            title
+            text
           }
         }
       }
+    }
     `
   }));
 
@@ -100,14 +98,14 @@ export async function getStaticProps(context) {
 
   const layout = await fetchLayoutData(context.locale);
 
-  const texts = await queryTextsByIds(context.locale, ["blifrivillig-meta-title", "blifrivillig-meta-description"]);
+  // const texts = await queryTextsByIds(context.locale, ["blifrivillig-meta-title", "blifrivillig-meta-description"]);
 
-  const metadata = {title: texts["blifrivillig-meta-title"], description: texts["blifrivillig-meta-description"]}
+  // const metadata = {title: texts["blifrivillig-meta-title"], description: texts["blifrivillig-meta-description"]}
 
   return {
     props: {
       layout,
-      metadata,
+      // metadata,
       data,
       translations
     },

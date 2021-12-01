@@ -1,9 +1,9 @@
 import Link from 'next/link'
 
 const NavigationItem = ({ navItem }) => {
-  if (navItem.translations.length == 0) return <></>;
+  if (navItem.navigation_item.translations.length == 0) return <></>;
 
-  const text = navItem.translations[0].name;
+  const text = navItem.navigation_item.translations[0].name;
   const isButton = navItem.is_button ? " button" : "";
 
   const url = navItem.page?.slug ?? navItem.link?.url ?? "";

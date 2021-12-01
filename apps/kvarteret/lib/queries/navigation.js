@@ -6,28 +6,38 @@ export default async function queryNavigationData(lang) {
     await cmsClient.query({
       variables: { lang },
       query: gql`
-        query NavigationData($lang: String) {
+
+      query NavigationData($lang: String) {
+        navigation {
+          id
+          is_button
           navigation_item {
-            id
-            is_button
-            type
-            translations(
-              filter: { languages_code: { url_code: { _eq: $lang } } }
-            ) {
+            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
               name
             }
+            type
+            url
             page {
-              id
               slug
             }
-            link {
-              url
+          }
+          muti_menu_dropdown {
+            navigation_items {
+            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+              name
             }
-            children {
-              id
+            type
+            url
+            page {
+              slug
+            }
+            }
+            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+              title
             }
           }
         }
+      }
       `,
     }
   );
