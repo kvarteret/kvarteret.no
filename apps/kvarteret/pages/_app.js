@@ -1,7 +1,7 @@
-import Layout from "../components/layout/Layout";
 import "../styles/globals.css";
 import '../public/fonts/fonts.css'
 import Script from 'next/script'
+import { Layout } from "dak-components";
 
 function MyApp({ Component, pageProps }) {
   return (

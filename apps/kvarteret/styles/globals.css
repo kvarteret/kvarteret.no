@@ -23,6 +23,7 @@ a {
   --primary-color-light: #f57878;
   --swiper-theme-color: white !important;
   --swiper-navigation-size: 32px !important;
+  --light-color: white;
 }
 
 h1 {
@@ -44,6 +45,8 @@ h1 {
   font-family: "Kvarteret Icons" !important;
   color: var(--primary-color);
   font-size: 24px !important;
+  width: 23px;
+  height: 23px;
   background-color: white;
   border-radius: 200px;
 }
@@ -53,7 +56,6 @@ h1 {
 }
 .swiper-button-next:after {
   content: '\e800' !important;
-
 }
 .swiper-button-prev:hover:after, .swiper-button-next:hover:after {
   color: var(--primary-color-light);

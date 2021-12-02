@@ -1,7 +1,7 @@
 import { BlurImage } from "dak-components";
 import Link from "../Link";
-import OpeningHours from "../OpeningHours";
-import Title from "../Title";
+import {OpeningHours} from "../OpeningHours";
+import {Title} from "../Title";
 
 const OpeningHoursSection = ({ openingHours }) => {
   if(openingHours?.length <= 0) return <></>

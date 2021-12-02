@@ -36,4 +36,4 @@ const Title = ({children, underlined, big, color, underlineColor}) => <div class
 </style>
 </div>
 
-export default Title;
+export {Title};

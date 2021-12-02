@@ -21,27 +21,28 @@ export async function queryPageBySlug(lang, slug) {
   const data = await cmsClient.query({
     variables: { lang, slug },
     query: gql`
+
     query PageDataBySlug($lang: String, $slug: String) {
-        page(filter: {slug: {_eq: $slug}}) {
-          id
-          status
-          slug
-          translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+      page(filter: {slug: {_eq: $slug}}) {
+        id
+        status
+        slug
+        translations(filter: {languages_id: {url_code: {_eq: $lang}}}) {
+          title
+          description
+          content
+          snippets {
+            code
             title
-            description
-            content
-            snippets {
-              code
-              title
-            }
           }
-          gallery {
-            directus_files_id {
-              id
-            }
+        }
+        gallery {
+          directus_files_id {
+            id
           }
         }
       }
+    }
     `,
   });
 

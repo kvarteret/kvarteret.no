@@ -60,4 +60,4 @@ const OpeningHours = ({openingHours, light}) => <div className={"container" + (l
     </style>
 </div>
 
-export default OpeningHours;
+export {OpeningHours};

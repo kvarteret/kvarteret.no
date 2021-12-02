@@ -1,10 +1,9 @@
 import { BlurImage } from "dak-components";
 import Carousel from "../components/Carousel";
-import OpeningHours from "../components/OpeningHours";
-import Title from "../components/Title";
 import fetchIndexData from "../lib";
 import fetchLayoutData from "../lib/layout";
 import Link from "next/link";
+import {OpeningHours, Title} from "dak-components";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
@@ -151,7 +150,6 @@ export default function Index({ data }) {
         </div>
         <div className="opening-hours">
           <Title underlined>Åpningstider</Title>
-          <OpeningHours openingHours={data.openingHours} />
         </div>
         <div className="events">
           <Title underlined big>

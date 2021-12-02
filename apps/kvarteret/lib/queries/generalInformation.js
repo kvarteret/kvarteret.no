@@ -34,6 +34,32 @@ export default async function queryGeneralInformation(lang) {
   return data.data;
 }
 
+export async function queryCarouselItems(lang) {
+  const data = await cmsClient.query({
+    variables: { lang },
+    query: gql`
+      query queryCarouselItems($lang: String) {
+        main_carousel {
+          header {
+            id
+          }
+          page {
+            slug
+          }
+          translations(
+            filter: { languages_code: { url_code: { _eq: $lang } } }
+          ) {
+            title
+            description
+          }
+        }
+      }
+    `,
+  });
+
+  return data.data.main_carousel;
+}
+
 export async function queryOpeningHours() {
   const data = await cmsClient.query({
     query: gql`

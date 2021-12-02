@@ -38,6 +38,8 @@ const LanguageSelector = () => {
       div {
         display: flex;
         flex-direction: row;
+        justify-content: center;
+        align-items: center;
         gap: 5px;
       }
       `}
@@ -70,6 +72,7 @@ const Header = ({ data }) => (
         flex-direction: row;
         justify-content: space-between;
         gap: 10px;
+        flex:1;
       }
 
       .main-logo {
@@ -108,7 +111,7 @@ const Header = ({ data }) => (
         flex: 1;
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 992px) {
         .hamburger {
           display: block;
         }
