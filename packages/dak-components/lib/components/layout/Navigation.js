@@ -23,6 +23,7 @@ const NavigationItem = ({ navItem }) => {
                 font-weight: 400;
                 cursor: pointer;
                 user-select: none;
+                font-size: 16px;
             }
 
             .button {

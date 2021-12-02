@@ -5,6 +5,7 @@
     "bootstrap": "yarn install && lerna bootstrap",
     "bootstrap-frozen": "yarn install --frozen-lockfile && lerna bootstrap",
     "start": "lerna run start --parallel",
+    "dev": "lerna run --parallel --stream dev",
     "start:blifrivillig": "lerna run --scope blifrivillig --stream dev",
     "build:blifrivillig": "lerna run --scope blifrivillig --stream build",
     "run:build:blifrivillig": "lerna run --scope blifrivillig --stream start",
