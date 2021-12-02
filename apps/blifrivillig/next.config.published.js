@@ -12,6 +12,11 @@ module.exports = withPlugins([withImages], {
   swcMinify: true,
   i18n: {
     locales: ['no', 'en'],
-    defaultLocale: 'no'
+    defaultLocale: 'no',
+    localeDetection: false,
+    domains: [{
+      domain: "kvarteret.no",
+      defaultLocale: "no"
+    }]
   }
 });

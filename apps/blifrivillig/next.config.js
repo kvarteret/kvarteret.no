@@ -10,9 +10,15 @@ module.exports = withPlugins([withTM(), withImages], {
     domains: ['cms.kvarteret.no'],
   },
   reactStrictMode: true,
-  swcMinify: true,
   i18n: {
     locales: ['no', 'en'],
-    defaultLocale: 'no'
-  }
+    defaultLocale: 'no',
+    localeDetection: false,
+    domains: [{
+      domain: "kvarteret.no",
+      defaultLocale: "no"
+    }]
+  },
+  // Experimental features
+  swcMinify: true
 });
