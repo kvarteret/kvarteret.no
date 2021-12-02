@@ -65,22 +65,22 @@ export default function Page({data}) {
     return <div className="container">
       <NextSeo
       titleTemplate="%s | Kvarteret.no"
-        title={data?.translations?.at(0)?.title}
+        title={data?.translations[0]?.title}
         defaultTitle="Kvarteret.no"
-        description={data?.translations?.at(0)?.description}
+        description={data?.translations[0]?.description}
       
       />
       <div className="carousel">
         {/* <BlurImage image={data.gallery.at(0)?.directus_files_id} width="200" height="50"/> */}
       </div>
       <div className="content">
-        <div dangerouslySetInnerHTML={{__html: data?.translations?.at(0)?.content}}></div>
+        <div dangerouslySetInnerHTML={{__html: data?.translations[0]?.content}}></div>
 
       </div>
 
       <div className="snippets">
 
-        <Snippet snippet={data.translations?.at(0)?.snippets?.at(0)} />
+        <Snippet snippet={data.translations[0]?.snippets[0]} />
       </div>
 
       <style jsx>
