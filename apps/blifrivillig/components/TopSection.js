@@ -3,6 +3,8 @@ import React, { useEffect } from 'react'
 
 import TranslatedField from './TranslatedField'
 import styles from "../styles/TopSection.module.css"
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 function scrollTo(elem) {
   const element = document.querySelector(elem)
@@ -19,6 +21,8 @@ function scrollTo(elem) {
 
 
 export default function TopSection({ videoUrl }) {
+  const router = useRouter();
+  const isNo = router.locale === "no";
   return (
     <div>
       <div className={styles.video}>
@@ -78,6 +82,14 @@ export default function TopSection({ videoUrl }) {
               </Typography>
             </Button>
           </Grid>
+          <Grid item xs={12} lg={9}>
+            
+          <Typography variant="h6">
+            <Link href={router.asPath} locale={isNo ? "en" : "no"}>
+               <a className="light"> <TranslatedField tKey="blifrivillig-or-in"/></a>
+                </Link>
+            </Typography>
+            </Grid>
         </Grid>
       </div>
 
