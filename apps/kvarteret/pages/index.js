@@ -1,9 +1,9 @@
 import { BlurImage } from "dak-components";
-import Carousel from "../components/Carousel";
 import fetchIndexData from "../lib";
 import fetchLayoutData from "../lib/layout";
 import Link from "next/link";
-import {OpeningHours, Title} from "dak-components";
+import {Title} from "dak-components";
+import { Carousel } from "../components/Carousel";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
@@ -19,7 +19,7 @@ export async function getStaticProps(context) {
 }
 
 const EventCard = ({ event }) => {
-  const translation = event.translations?.at(0);
+  const translation = event.translations[0];
 
   // Ugly, i don't like this, TODO: Fix
   const hasLink = event?.page?.slug;

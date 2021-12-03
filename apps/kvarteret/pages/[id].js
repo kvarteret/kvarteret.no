@@ -1,8 +1,8 @@
 import { BlurImage } from "dak-components";
-import Carousel from "dak-components/lib/components/Carousel";
 import fetchLayoutData from "../lib/layout";
 import queryAllPageSlugs, { queryPageBySlug } from "../lib/queries/page";
 import { NextSeo } from 'next-seo';
+import { Carousel } from "../components/Carousel";
 
 export async function getStaticPaths() {
     const slugs = await queryAllPageSlugs();
