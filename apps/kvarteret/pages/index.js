@@ -12,21 +12,19 @@ export async function getStaticProps(context) {
   return {
     props: {
       layout: layout,
-      data: indexData
+      data: indexData,
     },
     revalidate: 1,
   };
 }
 
 const EventCard = ({ event }) => {
-  const translation = event.translations[0];
-
   // Ugly, i don't like this, TODO: Fix
-  const hasLink = event?.page?.slug;
+  const hasLink = event?.url;
   const LinkWrapper = hasLink ? Link : ({ children }) => <>{children}</>;
 
   return (
-    <LinkWrapper href={event?.page?.slug ?? "/"}>
+    <LinkWrapper href={event?.url ?? "/"}>
       <div className={"container" + (hasLink ? " link" : "")}>
         <div className="image">
           <BlurImage
@@ -34,19 +32,25 @@ const EventCard = ({ event }) => {
             fadeIn
             objectFit="cover"
             layout="fill"
-            image={event.top_image}
+            image={event.image}
           />
         </div>
         <div className="content">
-          <div className="tags">{event.event_start} | TEGLVERKET | DEBATT</div>
-          <h1 className="title">{translation?.title}</h1>
-          <div className="description">{translation?.description}</div>
+          <div className="tags">{event.tags.join("|")}</div>
+          <h1 className="title">{event.title}</h1>
+          <div className="description">{event.description}</div>
         </div>
 
         <style jsx global>
           {`
             .event-image {
               border-radius: 5px;
+              transition: 200ms;
+            }
+
+            .link:hover .event-image {
+              border-bottom-left-radius: 0;
+              border-bottom-right-radius: 0;
             }
           `}
         </style>
@@ -63,10 +67,10 @@ const EventCard = ({ event }) => {
 
             .link {
               cursor: pointer;
+              transition: 200ms;
             }
             .link:hover {
-              background-color: #efefef;
-              box-shadow: 0px 0px 8px 0px #d1d1d1;
+              box-shadow: 0px 0px 32px 0px #d1d1d1;
             }
 
             .image {
@@ -77,7 +81,7 @@ const EventCard = ({ event }) => {
             }
 
             .content {
-              margin: 2.5px;
+              margin: 7px;
             }
             .tags {
               font-size: 12px;
@@ -87,10 +91,7 @@ const EventCard = ({ event }) => {
 
             .title {
               margin-top: 3px;
-              font-size: max(
-                16px,
-                calc(26px - ${translation?.title.length / 5}px)
-              );
+              font-size: max(16px, calc(26px - ${event?.title.length / 5}px));
               margin-bottom: 1px;
             }
 
@@ -141,6 +142,52 @@ const EventList = ({ events }) => {
   );
 };
 
+const TodayItem = ({ event }) => {
+  return (
+    <div className="container">
+      <div className="time">
+        {event.startTime} - {event.endTime}
+      </div>
+      <div className="room">{event.room}</div>
+      <div className="title">{event.title}</div>
+
+      <style jsx>
+        {`
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+          }
+        .time {
+          width: 125px;
+        }
+
+        .room {
+          width: 200px;
+        }
+
+        .title {
+          flex: 1;
+        }
+
+        
+
+        @media (max-width: 768px) {
+            .time,
+            .room {
+              width: 50%;
+            }
+            .room {
+              display: flex;
+              justify-content: flex-end;
+            }
+          }
+        `}
+      </style>
+    </div>
+  );
+};
+
 export default function Index({ data }) {
   return (
     <div className="container">
@@ -149,6 +196,9 @@ export default function Index({ data }) {
       <div className="content">
         <div className="happening-today">
           <Title underlined>Dette skjer i dag</Title>
+          {data.eventsToday.map((x, i) => (
+            <TodayItem key={i} event={x} />
+          ))}
         </div>
         <div className="opening-hours">
           <Title underlined>Åpningstider</Title>
@@ -165,6 +215,7 @@ export default function Index({ data }) {
         {`
           .container {
           }
+
 
           .content {
             max-width: 1300px;

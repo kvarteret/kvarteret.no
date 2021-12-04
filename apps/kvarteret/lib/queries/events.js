@@ -1,7 +1,5 @@
 import { gql } from "@apollo/client";
-import { format, formatDistance, formatRelative, parse } from "date-fns";
 import cmsClient from "../cmsClient";
-import {nb, en} from "date-fns/locale";
 
 const getBiggest = (a, b) => {
   if(a > b) return a;
@@ -29,9 +27,7 @@ const spreadRecurringEvents = (events) => {
     const eStart = new Date(event.event_start + "Z");
     const start = getBiggest(new Date(), eStart);
     replaceTime(start, eStart);
-    console.log("START", eStart);
     const end = new Date(event.event_end + "Z");
-    console.log("END", end);
 
     for(let d = start; d <= end; d.setDate(d.getDate() + 1)) {
       const nD = new Date(d);
@@ -81,6 +77,7 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
         room {
           room_id {
             name
+            floor
           }
         }
         page {
@@ -137,6 +134,7 @@ export async function queryIndexEvents(lang, filterDate) {
         room {
           room_id {
             name
+            floor
           }
         }
         page {
@@ -157,25 +155,5 @@ export async function queryIndexEvents(lang, filterDate) {
   const regularEvents = data.data.events;
 
   const events = [...regularEvents, ...recurring].sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 7);
-
-  
-  const getRelativeDate = (date, lang) => {
-    const locale = lang === "no" ? nb : en;
-    const relativeString = formatRelative(date, new Date(), {locale, weekStartsOn: 1});
-    try {
-      console.log("RELATIVE", relativeString);
-      const dateFormat = lang === "no" ? "d.MM.yyyy" : "MM/d/yyyy";
-      const test = parse(relativeString, dateFormat, new Date(), {locale, weekStartsOn: 1});
-      console.log("TEST", test, dateFormat);
-      const parseFormat = lang === "no" ? "dd. MMM yyyy" : "dd. MMM. yyyy";
-      const formattedRelativeString = format(test, parseFormat, {locale, weekStartsOn: 1});
-      console.log("FORMATTED", formattedRelativeString);
-      return formattedRelativeString;
-    } catch(e) {
-      console.log("E", e, relativeString);
-    }
-    return relativeString;
-  }
-
-  return events.map(x=> ({...x, event_start: getRelativeDate(new Date(x.event_start), lang)}));
+  return events;
 }

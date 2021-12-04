@@ -77,6 +77,7 @@ const CarouselItem = ({ item }) => {
             text-align: center;
             display: flex;
             justify-content: center;
+            vertical-align: middle;
             align-items: center;
             width: 100%;
             flex-direction: column;
@@ -85,9 +86,7 @@ const CarouselItem = ({ item }) => {
           h1, h2 {
             color: ${vibrancy?.Vibrant.getTitleTextColor() ?? "white"};
    text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"};
-            font-size: 60px;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+            font-size: max(40px, calc(60px - ${item.translations[0]?.title.length / 2.0}px));
             max-width: 1200px;
             width: calc(100% - 200px);
             overflow-x: hidden;
@@ -97,6 +96,19 @@ const CarouselItem = ({ item }) => {
           h2 {
             font-size: 24px;
             white-space: pre-wrap;
+          }
+          
+            @media (max-width: 768px) {
+              h1 {
+                font-size: 24px;
+                text-overflow: initial;
+                overflow-x: initial;
+                overflow-wrap: break-word;
+              }
+              h2 {
+                font-size: 14px;
+                width: 230px;
+              }
           }
         `}
       </style>
