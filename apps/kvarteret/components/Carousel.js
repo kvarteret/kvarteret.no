@@ -40,8 +40,8 @@ const CarouselItem = ({ item }) => {
           layout="fill"
         />
         <div className="content">
-          <h1>{item.translations[0]?.title}</h1>
-          <h2>{item.translations[0]?.description}</h2>
+          <div className="title">{item.translations[0]?.title}</div>
+          <div className="description">{item.translations[0]?.description}</div>
         </div>
       </div>
       <style jsx>
@@ -83,29 +83,29 @@ const CarouselItem = ({ item }) => {
             flex-direction: column;
             cursor: default;
           }
-          h1, h2 {
+          .title, .description {
             color: ${vibrancy?.Vibrant.getTitleTextColor() ?? "white"};
-   text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"};
             font-size: max(40px, calc(60px - ${item.translations[0]?.title.length / 2.0}px));
+            text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"};
             max-width: 1200px;
             width: calc(100% - 200px);
             overflow-x: hidden;
             margin: 8px 0;
           }
 
-          h2 {
+          .description {
             font-size: 24px;
             white-space: pre-wrap;
           }
           
             @media (max-width: 768px) {
-              h1 {
+              .title {
                 font-size: max(24px, calc(40px - ${item.translations[0]?.title.length / 2.0}px));
                 text-overflow: initial;
                 overflow-x: initial;
                 overflow-wrap: break-word;
               }
-              h2 {
+              .description {
                 font-size: 16px;
                 width: 230px;
               }

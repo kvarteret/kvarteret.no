@@ -36,7 +36,7 @@ const EventCard = ({ event }) => {
           />
         </div>
         <div className="content">
-          <div className="tags">{event.tags.join("|")}</div>
+          <div className="tags">{event.tags.join(" | ")}</div>
           <h1 className="title">{event.title}</h1>
           <div className="description">{event.description}</div>
         </div>
