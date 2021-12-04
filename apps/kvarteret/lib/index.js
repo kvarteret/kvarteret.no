@@ -23,7 +23,7 @@ const fetchIndexData = async (lang) => {
     const events = upcomingEvents.map(x=> {
 
       const tags = [
-        getRelativeDate(new Date(x.event_start)),
+        getRelativeDate(new Date(x.event_start), lang),
         x.room[0]?.room_id?.name
       ].filter(x=>x);
 
