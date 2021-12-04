@@ -100,13 +100,13 @@ const CarouselItem = ({ item }) => {
           
             @media (max-width: 768px) {
               h1 {
-                font-size: 24px;
+                font-size: max(24px, calc(40px - ${item.translations[0]?.title.length / 2.0}px));
                 text-overflow: initial;
                 overflow-x: initial;
                 overflow-wrap: break-word;
               }
               h2 {
-                font-size: 14px;
+                font-size: 16px;
                 width: 230px;
               }
           }
