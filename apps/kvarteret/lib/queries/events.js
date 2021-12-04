@@ -24,10 +24,10 @@ const replaceTime = (date, time) => {
 
 const spreadRecurringEvents = (events) => {
   return events.reduce((acc, event) => {
-    const eStart = new Date(event.event_start + "Z");
+    const eStart = new Date(event.event_start);
     const start = getBiggest(new Date(), eStart);
     replaceTime(start, eStart);
-    const end = new Date(event.event_end + "Z");
+    const end = new Date(event.event_end);
 
     for(let d = start; d <= end; d.setDate(d.getDate() + 1)) {
       const nD = new Date(d);
@@ -154,6 +154,6 @@ export async function queryIndexEvents(lang, filterDate) {
   const recurring = await queryRecurringEventsFiltered(lang, filterDate);
   const regularEvents = data.data.events;
 
-  const events = [...regularEvents, ...recurring].sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 7);
+  const events = [...regularEvents, ...recurring].sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 6);
   return events;
 }

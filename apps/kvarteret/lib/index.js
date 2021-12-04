@@ -18,7 +18,7 @@ const getRelativeDate = (date, lang) => {
   }
 
 const fetchIndexData = async (lang) => {
-    const upcomingEvents = await queryIndexEvents(lang, format(new Date(), "yyyy-MM-dd|HH:MM").replace("|", "T")); 
+    const upcomingEvents = await queryIndexEvents(lang, new Date()); 
 
     const events = upcomingEvents.map(x=> {
 
