@@ -21,15 +21,7 @@ const CarouselItem = ({ item }) => {
   useEffect(() => {
     const test = async () => {
       if(!Vibrant) return;
-      console.log(`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5`)
       Vibrant.from(`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5`).quality(1).getPalette().then( palette => {
-        console.log("TEST", palette)
-
-        for(let color in palette) {
-          console.log("COLOR", color);
-          console.log("TEXT", palette[color].getTitleTextColor())
-          console.log("BODY", palette[color].getBodyTextColor())
-        }
         setVibrancy(palette);
       });
     }
@@ -64,6 +56,17 @@ const CarouselItem = ({ item }) => {
             position: relative;
             width: 100vw;
           }
+            .image-container:after {
+              content: "\A";
+              position: absolute;
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              background: rgba(0, 0, 0, 0.2);
+              transition: all 1s;
+              -webkit-transition: all 1s;
+            }
 
           .content {
             left:50%;
@@ -77,6 +80,7 @@ const CarouselItem = ({ item }) => {
             align-items: center;
             width: 100%;
             flex-direction: column;
+            cursor: default;
           }
           h1, h2 {
             color: ${vibrancy?.Vibrant.getTitleTextColor() ?? "white"};
@@ -101,6 +105,7 @@ const CarouselItem = ({ item }) => {
 };
 
 const Carousel = ({ carouselItems, component }) => {
+  console.log("CAROUSEL", carouselItems);
   return (
     <div className="carousel">
       <Swiper

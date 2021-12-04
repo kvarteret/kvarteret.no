@@ -6,7 +6,20 @@ export async function queryIndexEvents(lang, filterDate) {
     variables: { lang, filterDate },
     query: gql`
     query IndexEventsFiltered($lang: String, $filterDate: String) {
-      events(limit: 6, filter: { event_end: { _gte: $filterDate } }) {
+      events(limit: 6, filter: { 
+        _or: [
+          {
+            event_start: {
+              _gte: $filterDate
+            }
+          },
+          {
+            event_end: {
+              _gte: $filterDate
+            }
+          }
+        ]
+        }) {
         event_end
         event_start
         top_image {
@@ -23,7 +36,8 @@ export async function queryIndexEvents(lang, filterDate) {
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {
-          id
+          title
+          description
         }
       }
     }

@@ -1,8 +1,8 @@
-import { BlurImage } from "dak-components";
+import { BlurImage, OpeningHours } from "dak-components";
 import fetchIndexData from "../lib";
 import fetchLayoutData from "../lib/layout";
 import Link from "next/link";
-import {Title} from "dak-components";
+import { Title } from "dak-components";
 import { Carousel } from "../components/Carousel";
 
 export async function getStaticProps(context) {
@@ -14,7 +14,7 @@ export async function getStaticProps(context) {
       layout: layout,
       data: indexData,
     },
-    revalidate: 60,
+    revalidate: 1,
   };
 }
 
@@ -23,7 +23,7 @@ const EventCard = ({ event }) => {
 
   // Ugly, i don't like this, TODO: Fix
   const hasLink = event?.page?.slug;
-  const LinkWrapper = hasLink ? Link : ({children}) => <>{children}</>;
+  const LinkWrapper = hasLink ? Link : ({ children }) => <>{children}</>;
 
   return (
     <LinkWrapper href={event?.page?.slug ?? "/"}>
@@ -47,8 +47,6 @@ const EventCard = ({ event }) => {
           {`
             .event-image {
               border-radius: 5px;
-              border-bottom-left-radius: 0;
-              border-bottom-right-radius: 0;
             }
           `}
         </style>
@@ -60,10 +58,9 @@ const EventCard = ({ event }) => {
               padding: 0px;
               margin: 10px;
               border-radius: 5px;
-              user-select: none;
               cursor: unset;
             }
-            
+
             .link {
               cursor: pointer;
             }
@@ -80,7 +77,7 @@ const EventCard = ({ event }) => {
             }
 
             .content {
-              margin: 7px;
+              margin: 2.5px;
             }
             .tags {
               font-size: 12px;
@@ -89,7 +86,10 @@ const EventCard = ({ event }) => {
 
             .title {
               margin-top: 3px;
-              font-size: 26px;
+              font-size: max(
+                16px,
+                calc(26px - ${translation?.title.length / 5}px)
+              );
               margin-bottom: 1px;
             }
 
@@ -120,7 +120,9 @@ const EventList = ({ events }) => {
   return (
     <div className="container">
       <div className="content">
-        {events.map((x, i) => <EventCard key={i} event={x} /> )}
+        {events.map((x, i) => (
+          <EventCard key={i} event={x} />
+        ))}
       </div>
       <style jsx>{`
         .container {
@@ -150,6 +152,7 @@ export default function Index({ data }) {
         </div>
         <div className="opening-hours">
           <Title underlined>Åpningstider</Title>
+          <OpeningHours openingHours={data.openingHours} />
         </div>
         <div className="events">
           <Title underlined big>
