@@ -105,7 +105,6 @@ const CarouselItem = ({ item }) => {
 };
 
 const Carousel = ({ carouselItems, component }) => {
-  console.log("CAROUSEL", carouselItems);
   return (
     <div className="carousel">
       <Swiper

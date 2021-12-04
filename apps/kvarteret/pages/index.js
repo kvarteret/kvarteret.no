@@ -12,7 +12,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       layout: layout,
-      data: indexData,
+      data: indexData
     },
     revalidate: 1,
   };
@@ -38,7 +38,7 @@ const EventCard = ({ event }) => {
           />
         </div>
         <div className="content">
-          <div className="tags">3. NOVEMBER | TEGLVERKET | DEBATT</div>
+          <div className="tags">{event.event_start} | TEGLVERKET | DEBATT</div>
           <h1 className="title">{translation?.title}</h1>
           <div className="description">{translation?.description}</div>
         </div>
@@ -82,6 +82,7 @@ const EventCard = ({ event }) => {
             .tags {
               font-size: 12px;
               font-weight: 300;
+              text-transform: uppercase;
             }
 
             .title {
@@ -141,7 +142,6 @@ const EventList = ({ events }) => {
 };
 
 export default function Index({ data }) {
-  console.log("DATA", data);
   return (
     <div className="container">
       <Carousel carouselItems={data.carouselItems} />
