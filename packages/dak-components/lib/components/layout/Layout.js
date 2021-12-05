@@ -15,7 +15,7 @@ const Layout = ({ children, data }) => {
 
   return (
     <div className="container">
-      <div className="header" >
+      <div className="header" onMouseLeave={removeOpenMenus}>
         <div className="header-bar">
           <Header data={data} removeOpenMenus={removeOpenMenus}/>
         </div>
