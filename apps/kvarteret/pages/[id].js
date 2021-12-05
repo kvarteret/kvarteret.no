@@ -54,7 +54,7 @@ const CarouselComponent = ({item}) => {
       {`
       .container {
         width: 100%;
-        height: 25vw;
+        height: 350px;
         min-height: 350px;
       }
       `}
@@ -91,6 +91,8 @@ export default function Page({data}) {
           display: grid;
           grid-template-rows: auto auto auto;
           grid-template-columns: auto;
+          max-width: 1300px;
+          margin: auto;
         }
 
         .carousel {
@@ -102,7 +104,6 @@ export default function Page({data}) {
         }
 
         .content, .snippets {
-          padding: 20px;
         }
 
         @media only screen and (min-width: 768px) {

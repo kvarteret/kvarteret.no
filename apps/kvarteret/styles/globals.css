@@ -47,8 +47,7 @@ h1 {
   font-size: 24px !important;
   width: 23px;
   height: 23px;
-  background-color: white;
-  border-radius: 200px;
+  background: radial-gradient(white 0%, white 60%, transparent 70%);
 }
 
 .swiper-button-prev:after {

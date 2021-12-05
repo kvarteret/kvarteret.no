@@ -1,5 +1,6 @@
 import "../styles/globals.css";
 import '../public/fonts/fonts.css'
+import '../public/fonts/kvartereticons.css'
 import Script from 'next/script'
 import { Layout } from "dak-components";
 

@@ -1,26 +1,17 @@
 @font-face {
-  font-family: 'kvartereticons';
-  src: url('../font/kvartereticons.eot?92915998');
-  src: url('../font/kvartereticons.eot?92915998#iefix') format('embedded-opentype'),
-       url('../font/kvartereticons.woff2?92915998') format('woff2'),
-       url('../font/kvartereticons.woff?92915998') format('woff'),
-       url('../font/kvartereticons.ttf?92915998') format('truetype'),
-       url('../font/kvartereticons.svg?92915998#kvartereticons') format('svg');
+  font-family: 'Kvarteret Icons';
+  src: url('./kvartereticons.eot?15522821');
+  src: url('./kvartereticons.eot?15522821#iefix') format('embedded-opentype'),
+       url('./kvartereticons.woff2?15522821') format('woff2'),
+       url('./kvartereticons.woff?15522821') format('woff'),
+       url('./kvartereticons.ttf?15522821') format('truetype'),
+       url('./kvartereticons.svg?15522821#kvartereticons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
-/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
-/*
-@media screen and (-webkit-min-device-pixel-ratio:0) {
-  @font-face {
-    font-family: 'kvartereticons';
-    src: url('../font/kvartereticons.svg?92915998#kvartereticons') format('svg');
-  }
-}
-*/
-[class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "kvartereticons";
+
+[class^="dak-"]:before, [class*=" dak-"]:before {
+  font-family: 'Kvarteret Icons';
   font-style: normal;
   font-weight: normal;
   speak: never;
@@ -54,5 +45,11 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.icon-right-circle:before { content: '\e800'; } /* '' */
-.icon-left-circle:before { content: '\e801'; } /* '' */
+.dak-right-circle:before { content: '\e800'; } /* '' */
+.dak-left-circle:before { content: '\e801'; } /* '' */
+.dak-clock:before { content: '\e802'; } /* '' */
+.dak-group:before { content: '\e803'; } /* '' */
+.dak-ticket:before { content: '\e804'; } /* '' */
+.dak-alert:before { content: '\e805'; } /* '' */
+.dak-facebook:before { content: '\e806'; } /* '' */
+.dak-location:before { content: '\f031'; } /* '' */

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
+
 export function BlurImage(props) {
   const imageId = props.imageId || props.image?.id;
   if(!imageId) return <></>;
@@ -10,19 +11,26 @@ export function BlurImage(props) {
   delete data.imageId;
   delete data.image;
   delete data.fadeIn;
+  
+  const customLoader = ({src, width, quality}) => {
+      return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${quality || 75}`
+  }
+  // <div className={loading && fadeIn ? "loading" : "loading-complete"}>
+  //   <Image
+  //     src={`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5&transforms=[["blur",%205]]`}
+  //     loader={customLoader}
+  //     {...data}
+  //   />
+  // </div>
+
   return (
     <>
       <Image
-        src={`https://cms.kvarteret.no/assets/${imageId}`}
+        src={imageId}
+        loader={customLoader}
         onLoadingComplete={() => setLoading(false)}
         {...data}
       />
-      <div className={loading && fadeIn ? "loading" : "loading-complete"}>
-        <Image
-          src={`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5&transforms=[["blur",%205]]`}
-          {...data}
-        />
-      </div>
       <style jsx>
         {`
           .loading {

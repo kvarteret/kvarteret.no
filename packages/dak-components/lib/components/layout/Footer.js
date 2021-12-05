@@ -30,6 +30,7 @@ const SocialMediaItem = ({ item }) => (
         image={item.icon}
         width="60"
         height="60"
+        priority
       />
     </a>
     <style jsx global>

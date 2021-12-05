@@ -22,17 +22,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Kvarteret Icons';
-  src: url('./kvartereticons.eot?92915998#iefix') format('embedded-opentype'),
-       url('./kvartereticons.woff2?92915998') format('woff2'),
-       url('./kvartereticons.woff?92915998') format('woff'),
-       url('./kvartereticons.ttf?92915998') format('truetype'),
-       url('./kvartereticons.svg?92915998#kvartereticons') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
 * {
   font-family: 'Hegval Display', sans-serif;
 }
