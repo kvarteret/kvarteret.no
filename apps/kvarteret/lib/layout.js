@@ -4,6 +4,7 @@ import queryGeneralInformation, { queryOpeningHours } from "./queries/generalInf
 const fetchLayoutData = async (lang) => {
     const generalData = await queryGeneralInformation(lang);
     const navigation = await getNavigation(lang);
+    console.log("NAVIGATION", JSON.stringify(navigation));
     let openingHours = await queryOpeningHours();
     
     if(process.env.NO_PATH) {

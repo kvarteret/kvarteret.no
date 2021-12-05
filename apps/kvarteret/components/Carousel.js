@@ -66,8 +66,9 @@ const CarouselItem = ({ item }) => {
               background: rgba(0, 0, 0, 0.2);
               transition: all 1s;
               -webkit-transition: all 1s;
+              width    : 100%;
+              height: 600px;
             }
-
           .content {
             left:50%;
             top: 50%;

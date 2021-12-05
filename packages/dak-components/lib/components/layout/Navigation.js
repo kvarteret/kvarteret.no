@@ -1,55 +1,72 @@
-import Link from 'next/link'
+import Link from "next/link";
+import {useState} from "react";
 
-const NavigationItem = ({ navItem }) => {
-  if (navItem.navigation_item.translations.length == 0) return <></>;
+const NavigationItem = ({ navItem, removeOpenMenus }) => {
+  if (!navItem.title) return <></>;
 
-  const text = navItem.navigation_item.translations[0].name;
   const isButton = navItem.is_button ? " button" : "";
 
-  const url = navItem.page?.slug ?? navItem.link?.url ?? "";
+  const url = navItem.url;
 
-//   if(!url) return <></>;
+  const [timer, setTimer] = useState();
+
+  const mouseClick = () => {
+    removeOpenMenus();
+    document.getElementById(navItem.title)?.style.display = "flex";
+  }
+
+  const mouseOver = () => {
+    setTimer(setTimeout(() => {
+      mouseClick();
+    }, 300))
+  };
+
+  const mouseLeave = () => {
+    clearTimeout(timer);
+    setTimer(null);
+  }
+
+  //   if(!url) return <></>;
 
   return (
-      <Link href={url}>
-        <div className={"container" + isButton}>
-        {text}
+    <Link href={url}>
+      <div className={"container" + isButton} onMouseOver={mouseOver} onClick={mouseClick} onMouseLeave={mouseLeave}>
+        {navItem.title}
 
         <style jsx>
-            {`
+          {`
             .container {
-                padding: 8px 30px;
-                color: white;
-                font-weight: 400;
-                cursor: pointer;
-                user-select: none;
-                font-size: 16px;
+              padding: 8px 30px;
+              color: white;
+              font-weight: 400;
+              cursor: pointer;
+              user-select: none;
+              font-size: 16px;
             }
 
             .button {
-                background-color: var(--primary-color);
-                user-select: none;
+              background-color: var(--primary-color);
+              user-select: none;
             }
 
             .button:hover {
-                background-color: #f85b5b;
+              background-color: #f85b5b;
             }
             .button:active {
-                background-color: #f23b3b;
+              background-color: #f23b3b;
             }
-
-            `}
+          `}
         </style>
-        </div>
+      </div>
     </Link>
   );
 };
 
-const Navigation = ({ navItems, isRight }) => {
+const Navigation = ({ navItems, isRight, removeOpenMenus }) => {
   return (
     <div className="container">
       {navItems.map((x, index) => (
-        <NavigationItem key={index} navItem={x} isRight />
+        <NavigationItem key={index} navItem={x} removeOpenMenus={removeOpenMenus} />
       ))}
       <style jsx>
         {`
