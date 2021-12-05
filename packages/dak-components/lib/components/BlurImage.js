@@ -15,13 +15,6 @@ export function BlurImage(props) {
   const customLoader = ({src, width, quality}) => {
       return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${quality || 75}`
   }
-  // <div className={loading && fadeIn ? "loading" : "loading-complete"}>
-  //   <Image
-  //     src={`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5&transforms=[["blur",%205]]`}
-  //     loader={customLoader}
-  //     {...data}
-  //   />
-  // </div>
 
   return (
     <>
@@ -31,6 +24,13 @@ export function BlurImage(props) {
         onLoadingComplete={() => setLoading(false)}
         {...data}
       />
+      <div className={loading && fadeIn ? "loading" : "loading-complete"}>
+        <Image
+          src={`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5&transforms=[["blur",%205]]`}
+          {...data}
+          priority
+        />
+      </div>
       <style jsx>
         {`
           .loading {
