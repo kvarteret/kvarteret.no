@@ -1,7 +1,15 @@
+import { Link } from "@material-ui/core";
+
 const MenuGroup = ({group}) => {
     return <div className="container">
         <div className="title">{group.title}</div>
-        {group.groups.map((x, i) => <div className="item" key={i}>{x.title}</div>)}
+        {group.groups.map((x, i) =>
+        <div key={i}> 
+            <Link href={x.url}>
+                <a className="item">{x.title}</a>
+            </Link>
+            </div>
+        )}
         <style jsx>
             {`
             .container {
@@ -20,6 +28,7 @@ const MenuGroup = ({group}) => {
             }
             .item {
                 font-size: 14px;
+                color: white;
                 font-weight: 200;
             }
             `}
