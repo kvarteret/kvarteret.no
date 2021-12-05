@@ -1,19 +1,33 @@
 import React, { useState } from "react";
 import Image from "next/image";
 
-
 export function BlurImage(props) {
   const imageId = props.imageId || props.image?.id;
-  if(!imageId) return <></>;
+  if (!imageId) return <></>;
   const [loading, setLoading] = useState(true);
   const data = { ...props };
   const fadeIn = props.fadeIn;
   delete data.imageId;
   delete data.image;
   delete data.fadeIn;
-  
-  const customLoader = ({src, width, quality}) => {
-      return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${quality || 75}`
+
+  const customLoader = ({ src, width, quality }) => {
+    return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${
+      quality || 75
+    }`;
+  };
+
+  if (props.noLoad) {
+    return (
+      <>
+        <Image
+          src={imageId}
+          loader={customLoader}
+          onLoadingComplete={() => setLoading(false)}
+          {...data}
+        />
+      </>
+    );
   }
 
   return (

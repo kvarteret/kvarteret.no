@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://kvarteret.no
+
+# Sitemaps
+Sitemap: https://kvarteret.no/sitemap.xml

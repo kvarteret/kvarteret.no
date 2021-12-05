@@ -58,7 +58,7 @@ const Header = ({ data, removeOpenMenus }) => {
     <div className="container">
       <div className="main-logo">
         <Link href={"/"}>
-          <BlurImage layout="fill" image={data.hoved_logo} priority></BlurImage>
+          <BlurImage layout="fill" image={data.hoved_logo} priority noLoad></BlurImage>
         </Link>
       </div>
       <div className="block hamburger"></div>
@@ -67,7 +67,7 @@ const Header = ({ data, removeOpenMenus }) => {
       </div>
       <div className="logo">
         <Link href={"/"}>
-          <BlurImage layout="fill" image={data.logo} priority></BlurImage>
+          <BlurImage layout="fill" image={data.logo} priority noLoad></BlurImage>
         </Link>
       </div>
       <div className="nav right-nav">

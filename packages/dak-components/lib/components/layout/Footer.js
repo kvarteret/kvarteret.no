@@ -31,6 +31,7 @@ const SocialMediaItem = ({ item }) => (
         width="60"
         height="60"
         priority
+        noLoad
       />
     </a>
     <style jsx global>
