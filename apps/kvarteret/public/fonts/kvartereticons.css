@@ -1,17 +1,26 @@
 @font-face {
-  font-family: 'Kvarteret Icons';
-  src: url('./kvartereticons.eot?15522821');
-  src: url('./kvartereticons.eot?15522821#iefix') format('embedded-opentype'),
-       url('./kvartereticons.woff2?15522821') format('woff2'),
-       url('./kvartereticons.woff?15522821') format('woff'),
-       url('./kvartereticons.ttf?15522821') format('truetype'),
-       url('./kvartereticons.svg?15522821#kvartereticons') format('svg');
+  font-family: 'kvartereticons';
+  src: url('./kvartereticons.eot?65205838');
+  src: url('./kvartereticons.eot?65205838#iefix') format('embedded-opentype'),
+       url('./kvartereticons.woff2?65205838') format('woff2'),
+       url('./kvartereticons.woff?65205838') format('woff'),
+       url('./kvartereticons.ttf?65205838') format('truetype'),
+       url('./kvartereticons.svg?65205838#kvartereticons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: 'kvartereticons';
+    src: url('../font/kvartereticons.svg?65205838#kvartereticons') format('svg');
+  }
+}
+*/
 [class^="dak-"]:before, [class*=" dak-"]:before {
-  font-family: 'Kvarteret Icons';
+  font-family: "kvartereticons";
   font-style: normal;
   font-weight: normal;
   speak: never;
@@ -52,4 +61,15 @@
 .dak-ticket:before { content: '\e804'; } /* '' */
 .dak-alert:before { content: '\e805'; } /* '' */
 .dak-facebook:before { content: '\e806'; } /* '' */
+.dak-price:before { content: '\e807'; } /* '' */
+.dak-calendar:before { content: '\e808'; } /* '' */
+.dak-mail:before { content: '\e809'; } /* '' */
+.dak-heart:before { content: '\e80a'; } /* '' */
+.dak-users:before { content: '\e80b'; } /* '' */
+.dak-video:before { content: '\e80c'; } /* '' */
+.dak-info-circled:before { content: '\e80d'; } /* '' */
+.dak-help-circled:before { content: '\e80e'; } /* '' */
+.dak-link:before { content: '\e80f'; } /* '' */
+.dak-attach:before { content: '\e810'; } /* '' */
 .dak-location:before { content: '\f031'; } /* '' */
+.dak-spotify:before { content: '\f327'; } /* '' */

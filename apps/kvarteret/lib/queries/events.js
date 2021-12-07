@@ -1,6 +1,63 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
 
+export default async function queryAllEventSlugs() {
+  const { data } = await cmsClient.query({
+    query: gql`
+      query QueryAllEventSlugs {
+        events {
+          id
+          status
+          slug
+        }
+      }
+    `,
+  });
+
+  return data.events.filter( x=> x.status === "published");
+}
+
+export async function queryEventBySlug(lang, slug) {
+  const { data } = await cmsClient.query({
+    variables: { slug, lang },
+    query: gql`
+      query QueryEventById($slug: String, $lang: String) {
+        events(filter: {slug: {_eq: $slug}}) {
+          status
+          id
+          event_end
+          event_start
+          top_image {
+            id
+          }
+          room {
+            room_id {
+              name
+              floor
+            }
+          }
+          slug
+          translations(
+            filter: { languages_code: { url_code: { _eq: $lang } } }
+          ) {
+            title
+            description
+            content
+            practical_information
+            snippets {
+              title
+              code
+            }
+          }
+        }
+      }
+    `,
+  });
+  return data.events[0];
+}
+
+
+
 const getBiggest = (a, b) => {
   if(a > b) return a;
   if(a < b) return b;
@@ -80,15 +137,14 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
             floor
           }
         }
-        page {
-          slug
-        }
+        slug
         weekly_recurring
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {
           title
           description
+          content
         }
       }
     }
@@ -137,14 +193,13 @@ export async function queryIndexEvents(lang, filterDate) {
             floor
           }
         }
-        page {
-          slug
-        }
+        slug
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {
           title
           description
+          content
         }
       }
     }

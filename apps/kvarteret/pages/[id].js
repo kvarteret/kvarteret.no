@@ -3,6 +3,7 @@ import fetchLayoutData from "../lib/layout";
 import queryAllPageSlugs, { queryPageBySlug } from "../lib/queries/page";
 import { NextSeo } from 'next-seo';
 import { Carousel } from "../components/Carousel";
+import Snippet from "../components/Snippet";
 
 export async function getStaticPaths() {
     const slugs = await queryAllPageSlugs();
@@ -25,7 +26,7 @@ export async function getStaticProps({locale, params}) {
       return {
         props: {},
         notFound: true,
-        revalidate: 60,
+        revalidate: 1,
       }
     }
     return {
@@ -33,14 +34,9 @@ export async function getStaticProps({locale, params}) {
         layout: layout,
         data: page,
       },
-      revalidate: 60,
+      revalidate: 1,
     };
 }
-
-const Snippet = ({snippet}) => snippet && <div>
-  <h1>{snippet.title}</h1>
-  <div dangerouslySetInnerHTML={{__html: snippet.code}} />
-</div> || <></>
 
 const CarouselComponent = ({item}) => {
   return <div className="container">

@@ -19,15 +19,15 @@ const Layout = ({ children, data }) => {
         <div className="header-bar">
           <Header data={data} removeOpenMenus={removeOpenMenus}/>
         </div>
-        {data.navigation.left.map(x=> {
+        {data.navigation.left.map((x, i)=> {
           if(x.multiMenu.length == 0) return <></>
 
-          return <MultiMenu menuData={x} />
+          return <MultiMenu key={i} menuData={x} />
         })}
-        {data.navigation.right.map(x=> {
+        {data.navigation.right.map((x, i) => {
           if(x.multiMenu.length == 0) return <></>
 
-          return <MultiMenu menuData={x} />
+          return <MultiMenu key={i} menuData={x} />
         })}
       </div>
       <div className="content">
