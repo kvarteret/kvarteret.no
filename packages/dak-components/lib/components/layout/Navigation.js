@@ -6,7 +6,7 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
 
   const isButton = navItem.is_button ? " button" : "";
 
-  const url = navItem.url;
+  const url = navItem.url || "#";
 
   const [timer, setTimer] = useState();
 
@@ -30,34 +30,36 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
 
   return (
     <Link href={url}>
-      <div className={"container" + isButton} onMouseOver={mouseOver} onClick={mouseClick} onMouseLeave={mouseLeave}>
-        {navItem.title}
+      <a>   
+        <div className={"container" + isButton} onMouseOver={mouseOver} onClick={mouseClick} onMouseLeave={mouseLeave}>
+          {navItem.title}
 
-        <style jsx>
-          {`
-            .container {
-              padding: 8px 30px;
-              color: white;
-              font-weight: 400;
-              cursor: pointer;
-              user-select: none;
-              font-size: 16px;
-            }
+          <style jsx>
+            {`
+              .container {
+                padding: 8px 30px;
+                color: white;
+                font-weight: 400;
+                cursor: pointer;
+                user-select: none;
+                font-size: 16px;
+              }
 
-            .button {
-              background-color: var(--primary-color);
-              user-select: none;
-            }
+              .button {
+                background-color: var(--primary-color);
+                user-select: none;
+              }
 
-            .button:hover {
-              background-color: #f85b5b;
-            }
-            .button:active {
-              background-color: #f23b3b;
-            }
-          `}
-        </style>
-      </div>
+              .button:hover {
+                background-color: #f85b5b;
+              }
+              .button:active {
+                background-color: #f23b3b;
+              }
+            `}
+          </style>
+        </div>
+      </a>
     </Link>
   );
 };

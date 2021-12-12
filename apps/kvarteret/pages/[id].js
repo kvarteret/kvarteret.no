@@ -8,7 +8,7 @@ import Snippet from "../components/Snippet";
 export async function getStaticPaths() {
     const slugs = await queryAllPageSlugs();
 
-    const paths = slugs.map(x=> ({params: {id: x.slug}}));
+    const paths = slugs.map(x=> ({params: {id: x.metadata?.slug}}));
 
     return {
         paths,

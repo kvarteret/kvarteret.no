@@ -32,7 +32,7 @@ const fetchIndexData = async (lang) => {
         description: x.translations[0].description,
         tags,
         image: x.top_image,
-        url: `events/${x.slug || null}`
+        url: `events/${x.metadata?.slug || null}`
     }
     });
 

@@ -8,7 +8,9 @@ export default async function queryAllEventSlugs() {
         events {
           id
           status
-          slug
+          metadata {
+            slug
+          }
         }
       }
     `,
@@ -21,36 +23,36 @@ export async function queryEventBySlug(lang, slug) {
   const { data } = await cmsClient.query({
     variables: { slug, lang },
     query: gql`
-      query QueryEventById($slug: String, $lang: String) {
-        events(filter: {slug: {_eq: $slug}}) {
-          status
+
+    query QueryEventById($slug: String, $lang: String) {
+      events(filter: {metadata: {slug: {_eq: $slug}}}) {
+        status
+        id
+        event_end
+        event_start
+        top_image {
           id
-          event_end
-          event_start
-          top_image {
-            id
+        }
+        room {
+          room_id {
+            name
+            floor
           }
-          room {
-            room_id {
-              name
-              floor
-            }
-          }
-          slug
-          translations(
-            filter: { languages_code: { url_code: { _eq: $lang } } }
-          ) {
+        }
+        translations(
+          filter: { languages_code: { url_code: { _eq: $lang } } }
+        ) {
+          title
+          description
+          content
+          practical_information
+          snippets {
             title
-            description
-            content
-            practical_information
-            snippets {
-              title
-              code
-            }
+            code
           }
         }
       }
+    }
     `,
   });
   return data.events[0];
@@ -137,7 +139,9 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
             floor
           }
         }
-        slug
+        metadata {
+          slug
+        }
         weekly_recurring
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
@@ -193,7 +197,9 @@ export async function queryIndexEvents(lang, filterDate) {
             floor
           }
         }
-        slug
+        metadata {
+          slug
+        }
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {

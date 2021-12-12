@@ -8,7 +8,9 @@ export default async function queryAllPageSlugs() {
         page {
           status
           id
-          slug
+          metadata {
+            slug
+          }
         }
       }
     `,
@@ -21,15 +23,18 @@ export async function queryPageBySlug(lang, slug) {
   const data = await cmsClient.query({
     variables: { lang, slug },
     query: gql`
-
     query PageDataBySlug($lang: String, $slug: String) {
-      page(filter: {slug: {_eq: $slug}}) {
+      page(filter: {metadata: {slug: {_eq: $slug}}}) {
         id
         status
-        slug
+        metadata {
+          slug
+          translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            title
+            description
+          }
+        }
         translations(filter: {languages_id: {url_code: {_eq: $lang}}}) {
-          title
-          description
           content
           snippets {
             code

@@ -7,8 +7,8 @@ import queryAllEventSlugs, { queryEventBySlug } from "../../lib/queries/events";
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
   const paths = slugs
-    .filter((x) => x.slug)
-    .map((x) => ({ params: { id: x.slug } }));
+    .filter((x) => x.metadata?.slug)
+    .map((x) => ({ params: { id: x.metadata?.slug } }));
 
   return {
     paths,
@@ -185,13 +185,8 @@ export default function Page({ data }) {
             margin-bottom: 30px;
           }
 
-          .top-image,
-          .intro,
-          .practical-info,
-          .content,
-          .snippets {
+          .top-image {
             width: 100%;
-            margin-top: 20px;
           }
 
           @media only screen and (min-width: 800px) {

@@ -38,22 +38,26 @@ export async function queryCarouselItems(lang) {
   const data = await cmsClient.query({
     variables: { lang },
     query: gql`
-      query queryCarouselItems($lang: String) {
-        main_carousel {
-          header {
-            id
-          }
+    query queryCarouselItems($lang: String) {
+      main_carousel {
+        header {
+          id
+        }
+        navigation {
+          type
           page {
             slug
           }
-          translations(
-            filter: { languages_code: { url_code: { _eq: $lang } } }
-          ) {
-            title
-            description
-          }
+          url
+        }
+        translations(
+          filter: { languages_code: { url_code: { _eq: $lang } } }
+        ) {
+          title
+          description
         }
       }
+    }
     `,
   });
 
