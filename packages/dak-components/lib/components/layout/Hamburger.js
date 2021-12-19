@@ -63,27 +63,13 @@ const Hamburger = ({ navigation }) => {
 	const items = [...navigation.left, ...navigation.right];
 	if(items.length === 0) return <></>
 	return (
-		<Menu width={400}>
-			<div className="content">
+		<Menu width={400} className="content">
 				{items.map((x, i) => (
                     <div key={i} className="container">
 					    <HamburgerGroup navigationItem={x} />
                     </div>
 				))}
-			</div>
 
-			<style jsx>
-				{`
-					.content {
-						height: 100%;
-						width: 100%;
-                        gap: 15px;
-						display: flex !important;
-						justify-content: center;
-						flex-direction: column;
-					}
-				`}
-			</style>
 
 			<style jsx global>
 				{`
@@ -132,7 +118,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 */
 					.bm-menu-wrap {
 						position: fixed !important;
-						height: 100vh !important;
                         width: 100vw !important;
 						max-width: 400px !important;
 						transition: all 0.25s ease 0s !important;
@@ -154,11 +139,21 @@ Note: Beware of modifying this element as it can break the animations - you shou
 					.bm-item-list {
 						color: #b8b7ad;
 						padding: 0.8em;
+						height: 100%;
+						width: 100%;
+                        gap: 15px;
+						display: flex !important;
+						justify-content: center;
+						flex-direction: column;
 					}
 
 					/* Individual item */
 					.bm-item {
 						display: inline-block;
+					}
+
+					.bm-item:focus-visible {
+						outline: none !important;
 					}
 
 					/* Styling of overlay */
