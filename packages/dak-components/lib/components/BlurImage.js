@@ -10,6 +10,7 @@ export function BlurImage(props) {
   delete data.imageId;
   delete data.image;
   delete data.fadeIn;
+  delete data.noLoad;
 
   const customLoader = ({ src, width, quality }) => {
     return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${

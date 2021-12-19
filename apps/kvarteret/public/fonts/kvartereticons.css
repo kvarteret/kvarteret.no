@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'kvartereticons';
+  font-family: "Kvarteret Icons" ;
   src: url('./kvartereticons.eot?65205838');
   src: url('./kvartereticons.eot?65205838#iefix') format('embedded-opentype'),
        url('./kvartereticons.woff2?65205838') format('woff2'),
@@ -20,7 +20,7 @@
 }
 */
 [class^="dak-"]:before, [class*=" dak-"]:before {
-  font-family: "kvartereticons";
+  font-family: "Kvarteret Icons" ;
   font-style: normal;
   font-weight: normal;
   speak: never;
