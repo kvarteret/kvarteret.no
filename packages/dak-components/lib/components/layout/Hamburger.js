@@ -61,6 +61,7 @@ const HamburgerGroup = ({ navigationItem }) => {
 
 const Hamburger = ({ navigation }) => {
 	const items = [...navigation.left, ...navigation.right];
+	if(items.length === 0) return <></>
 	return (
 		<Menu width={400}>
 			<div className="content">
