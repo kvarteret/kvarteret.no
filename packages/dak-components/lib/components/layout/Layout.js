@@ -1,4 +1,5 @@
 import Footer from "./Footer";
+import { Hamburger } from "./Hamburger";
 import Header from "./Header";
 import { MultiMenu } from "./MultiMenu";
 
@@ -15,6 +16,7 @@ const Layout = ({ children, data }) => {
 
   return (
     <div className="container">
+    <Hamburger navigation={data.navigation}/>
       <div className="header" onMouseLeave={removeOpenMenus}>
         <div className="header-bar">
           <Header data={data} removeOpenMenus={removeOpenMenus}/>
@@ -47,14 +49,14 @@ const Layout = ({ children, data }) => {
           .header {
             width: 100%;
             position: fixed;
-            z-index: 1100;
+            z-index: 900;
           }
 
           .header-bar {
             height: 80px;
             width: 100%;
-            background-color: rgba(0,0,0,0.6);
-            box-shadow: 0 4px 4px rgb(0 0 0 / 40%);
+            background-color: rgba(0,0,0 ,0.7);
+            box-shadow: 0 4px 4px rgb(0,0,0 / 40%);
             backdrop-filter: blur(4px);
             
           }

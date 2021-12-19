@@ -4,7 +4,7 @@ import {useState} from "react";
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;
 
-  const isButton = navItem.is_button ? " button" : "";
+  const isButton = navItem.isButton ? " button" : "";
 
   const url = navItem.url || "#";
 
