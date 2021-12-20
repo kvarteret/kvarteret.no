@@ -12,7 +12,7 @@ const TodayItem = ({ event }) => {
           .container {
               display: flex;
               flex-wrap: wrap;
-              margin-bottom: 5px;
+              margin-top: 10px;
             }
           .time {
             width: 125px;
