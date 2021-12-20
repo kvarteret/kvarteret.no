@@ -1,7 +1,9 @@
 import Footer from "./Footer";
 import { Hamburger } from "./Hamburger";
+import { HamburgerMenu } from "./HamburgerMenu";
 import Header from "./Header";
 import { MultiMenu } from "./MultiMenu";
+import { SideMenu } from "./SideMenu";
 
 const Layout = ({ children, data }) => {
   if (!data) return <> {children} </>;
@@ -16,7 +18,8 @@ const Layout = ({ children, data }) => {
 
   return (
     <div className="container">
-    <Hamburger navigation={data.navigation}/>
+      <HamburgerMenu logo={data.logo} navigation={data.navigation} >
+    {/* <Hamburger navigation={data.navigation} logo={data.logo}/> */}
       <div className="header" onMouseLeave={removeOpenMenus}>
         <div className="header-bar">
           <Header data={data} removeOpenMenus={removeOpenMenus}/>
@@ -36,7 +39,7 @@ const Layout = ({ children, data }) => {
         {children}
       </div>
       <div className="footer"><Footer data={data} /></div>
-
+        </HamburgerMenu>
       <style jsx>
         {`
           .container {

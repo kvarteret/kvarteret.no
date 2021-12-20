@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Divider } from "../Divider";
+import { HamburgerMenuContext } from "./HamburgerMenu";
+import React, {useContext} from 'react';
 
 const LanguageItem = ({ locale, text }) => {
   const router = useRouter();
@@ -53,6 +55,7 @@ const LanguageSelector = () => {
 };
 
 const Header = ({ data, removeOpenMenus }) => {
+  const {open} = useContext(HamburgerMenuContext);
 
   return (
     <div className="container">
@@ -62,8 +65,7 @@ const Header = ({ data, removeOpenMenus }) => {
         </Link>
       </div>
       <div className="block hamburger">
-        <div className="hamburger-wrapper">
-        </div>
+          <div onClick={() => open()}>=</div>
       </div>
       <div className="nav left-nav">
         <Navigation navItems={data.navigation.left} removeOpenMenus={removeOpenMenus} />
@@ -131,6 +133,9 @@ const Header = ({ data, removeOpenMenus }) => {
             justify-content: center;
             align-items: center;
             border-right: 1px solid rgba(0, 0, 0, 0.12);
+            color: white;
+            font-size: 60px;
+            margin-top: -10px;
           }
 
           .hamburger-wrapper {

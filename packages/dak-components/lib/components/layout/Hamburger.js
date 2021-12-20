@@ -1,78 +1,67 @@
 import { slide as Menu } from "react-burger-menu";
+import { BlurImage, Link } from "..";
 
-const HamburgerItem = ({navigationItem} ) => {
-    return <div className="container">
-        <div className="title">{navigationItem.title}</div>
-        <div className="chevron dak-right-circle"></div>
-        <style jsx>
-            {`
-                .container {
-                    font-size: 18px;
-                    display: flex;
-                    justify-content: space-between;
-                }
 
-                .title {
-                }
-
-                .chevron {
-                    font-weight: 800;
-                    font-size: 20px;
-                }
-
-                .container:hover {
-                    color: var(--primary-color);
-                    cursor: pointer;
-                }
-            `}
-        </style>
-    </div>
-}
-
-const HamburgerGroup = ({ navigationItem }) => {
-    const isMulti = navigationItem.multiMenu?.length > 0;
-	return <div className="container">
-        <div className="group-title">
-            {navigationItem.title}
-        </div>
-        {isMulti &&
-            navigationItem.multiMenu.map((x, i) => <div key={i}><HamburgerItem navigationItem={x} /></div>)
-        }
-        <style jsx>
-            {`
-            .container {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-            }
-            .group-title {
-                font-weight: 700;
-                font-size: 30px;
-            }
-
-            .group-title:hover {
-                color: ${!isMulti ? "var(--primary-color)" : "inherit"};
-                cursor: pointer;
-            }
-            `}
-        </style>
-        </div>;
-};
-
-const Hamburger = ({ navigation }) => {
+const Hamburger = ({ navigation, logo }) => {
 	const items = [...navigation.left, ...navigation.right];
 	if(items.length === 0) return <></>
 	return (
 		<Menu width={400} className="content">
-				{items.map((x, i) => (
-                    <div key={i} className="container">
-					    <HamburgerGroup navigationItem={x} />
-                    </div>
-				))}
+			<div className="bm-logo">
+				<Link href={"/"}>
+					<BlurImage layout="fill" image={logo} priority noLoad></BlurImage>
+				</Link>
+			</div>
+			<div className="scroller selected">
+				<div className="left">
+					<div className="bm-content">
 
+						{items.map((x, i) => (
+							<div key={i} className="bm-container">
+								<HamburgerGroup navigationItem={x} />
+							</div>
+						))}
+					</div>
+				</div>
+				<div className="right">
+					<div className="bm-content">
+						<div>Hello world</div>
+					</div>
+				</div>
+			</div>
+			
+			<style jsx>
+				{`
+					.left, .right {
+						width: calc(50% - 40px);
+					}
+					.scroller {
+						display: flex !important;
+						flex-direction: row;
+						gap: 80px;
+						width: calc(200% + 80px);
+						transition: all 0.25s ease 0s !important;
+					}
+				.selected {
+					transform: translate(calc(-50% - 40px), 0);
+
+				}
+				`}
+			</style>
 
 			<style jsx global>
 				{`
+				.bm-logo {
+					position: relative;
+					left: calc(50% - 30px);
+					top: -60px;
+					width: 60px;
+					height: 60px;
+				}
+				.bm-content {
+						transition: all 0.25s ease 0s !important;
+				}
+
 					/* Position and sizing of burger button */
 					.bm-burger-button {
 						position: fixed;
@@ -143,7 +132,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 						width: 100%;
                         gap: 15px;
 						display: flex !important;
-						justify-content: center;
 						flex-direction: column;
 					}
 
@@ -159,7 +147,6 @@ Note: Beware of modifying this element as it can break the animations - you shou
 					/* Styling of overlay */
 					.bm-overlay {
 						background: rgba(0, 0, 0, 0.7) !important;
-						
 						backdrop-filter: blur(4px);
 					}
 
