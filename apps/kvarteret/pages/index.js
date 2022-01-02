@@ -58,7 +58,7 @@ export default function Index({ data }) {
 
 
           .content {
-            max-width: 1300px;
+            max-width: 1080px;
             margin: auto;
             display: flex;
             justify-content: space-between;

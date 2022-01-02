@@ -177,6 +177,12 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 						height: 60px;
 						cursor: pointer;
 					}
+					
+					@media only screen and (min-width: 992px) {
+						.wrapper {
+							display: none;
+						}
+					}
 				`}
 			</style>
 		</div>

@@ -5,7 +5,7 @@ const MenuGroup = ({group}) => {
         <div className="title">{group.title}</div>
         {group.groups.map((x, i) =>
         <div key={i}> 
-            <Link href={x.url}>
+            <Link href={`/${x.url || "#"}`}>
                 <a className="item">{x.title}</a>
             </Link>
             </div>

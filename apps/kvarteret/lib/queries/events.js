@@ -114,11 +114,6 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
       events(limit: 6, sort: "event_start", filter: { 
         _and: [
           {
-            event_start: {
-              _lte: $filterDate
-            }
-          },
-          {
             event_end: {
               _gte: $filterDate
             }

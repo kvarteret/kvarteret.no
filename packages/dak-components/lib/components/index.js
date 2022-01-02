@@ -6,3 +6,4 @@ export * from "./OpeningHours";
 export * from "./Title";
 export * from "./Link";
 export * from "./ExternalContent"
+export * from "./Cards";

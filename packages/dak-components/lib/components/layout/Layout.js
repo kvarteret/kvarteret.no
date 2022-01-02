@@ -49,6 +49,7 @@ const Layout = ({ children, data }) => {
             justify-content: space-between;
           }
 
+
           .header {
             width: 100%;
             position: fixed;
