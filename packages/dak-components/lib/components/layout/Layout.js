@@ -47,6 +47,7 @@ const Layout = ({ children, data }) => {
             flex-direction: column;
             min-height: 100vh;
             justify-content: space-between;
+            overflow-x: hidden;
           }
 
 

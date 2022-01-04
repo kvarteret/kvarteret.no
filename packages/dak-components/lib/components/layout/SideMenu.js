@@ -6,16 +6,14 @@ const callFunction = (func) => {
 	func();
 };
 
-const SideMenu = ({ open, children, onClose, logo }) => {
+const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 	const [width, setWidth] = useState(400);
 	const [isClosing, setClosing] = useState(true);
 
 	const startClosing = () => {
 		if (isClosing) return;
 		setClosing(true);
-		console.log("Start closing");
 		setTimeout(() => {
-			console.log("Closing");
 			callFunction(onClose);
 		}, 250);
 	};
@@ -29,7 +27,7 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 	const [dragging, setDragging] = useState(false);
 	const [startX, setStartX] = useState(0);
 
-	const getTouchX = (event) => event?.targetTouches[0]?.pageX;
+	const getTouchX = (event) => event?.targetTouches[0]?.screenX;
 
 	const onDragStart = (e) => {
 		setDragging(true);
@@ -44,7 +42,7 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 
 	const onDragEnd = (e) => {
 		setDragging(false);
-		if (width / 400.0 < 0.3) {
+		if (width / 400.0 < 0.5) {
 			startClosing();
 		}
 		setWidth(400);
@@ -65,15 +63,17 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 					className={`container ${open ? "open" : ""} ${isClosing ? "closing" : ""}`}
 				>
 					<div className="top-bar">
-						<div className="close" onClick={() => startClosing()}>
+						{!goBackCallback?.goBack && <div className="close" onClick={() => startClosing()}>
 							<div></div>
 							<div></div>
-						</div>
+						</div>}
+                        {goBackCallback?.goBack && <div className="back" onClick={() => callFunction(goBackCallback.goBack)}>
+                            {"<"}
+                            </div>
+                            }
 						<div className="logo">
 							<Link href={"/"}>
-								<a>
 									<BlurImage layout="fill" image={logo} priority noLoad></BlurImage>
-								</a>
 							</Link>
 						</div>
 						<div className="spacing"></div>
@@ -95,18 +95,26 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 					.container,
 					.backdrop {
 						display: none;
+						transition: all 0.25s ease 0s !important;
 					}
+
+                    .backdrop {
+                        opacity: 0;
+                        transition: opacity 0.25s ease-in-out;
+                    }
 
 					.backdrop-open {
 						display: block;
 						position: fixed;
 						left: 0;
 						right: 0;
+                        opacity: 1;
 						top: 0;
 						bottom: 0;
 						z-index: 1000;
 						background: rgba(0, 0, 0, 0.7);
 						backdrop-filter: blur(4px);
+                        transition: opacity 0.25s ease-in-out;
 					}
 
 					.open {
@@ -116,15 +124,15 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 						left: 0;
 						top: 0;
 						bottom: 0;
-						width: 400px;
+                        width: 100%;
+						max-width: 400px;
+                        -webkit-transform: translate3d(0, 0, 0);
                         transform: translate(-${400 - width}px, 0);
 						background: rgba(40, 40, 53, 0.95);
 						display: flex;
 						flex-direction: column;
 						padding: 40px;
-						transition: all 0.25s ease 0s !important;
-                        overflow: hidden;
-                        gap: 60px;
+                        overflow-x: hidden;
 					}
 
 					.closing {
@@ -136,6 +144,7 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 						flex-direction: row;
 						justify-content: space-between;
 						align-items: center;
+						margin-bottom: 30px;
 					}
 
 					.spacing,
@@ -146,6 +155,7 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 
 					.close {
 						font-size: 30px;
+                        overflow: hidden;
 						color: white;
 						cursor: pointer;
 						position: relative;
@@ -183,6 +193,11 @@ const SideMenu = ({ open, children, onClose, logo }) => {
 							display: none;
 						}
 					}
+
+                    .back {
+                        color: white;
+                        font-size: 40px;
+                    }
 				`}
 			</style>
 		</div>

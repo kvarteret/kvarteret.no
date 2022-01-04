@@ -24,6 +24,7 @@ const LanguageItem = ({ locale, text }) => {
               font-weight: ${sameLang ? "600" : "400"};
               text-decoration: none;
               font-size: 12px;
+              margin: 0 5px;
             }
           `}
         </style>
@@ -46,7 +47,6 @@ const LanguageSelector = () => {
             flex-direction: row;
             justify-content: center;
             align-items: center;
-            gap: 5px;
           }
         `}
       </style>
