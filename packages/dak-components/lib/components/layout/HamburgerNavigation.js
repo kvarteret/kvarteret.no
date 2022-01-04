@@ -1,12 +1,20 @@
-import React, {useState} from 'react';
-
+import React, {useState, useContext} from 'react';
+import Link from "next/link";
+import { SideMenuContext } from './SideMenu';
 const HamburgerLine = ({title, size, link, onClick}) => (
-	<div className={`container ${link ? "link" : ""}`} onClick={onClick && (() => onClick())}>
-		<div className={`title`}>{title}</div>
-		{link && <div className="chevron dak-right-circle"></div>}
+	<Link href={link || "#"}>
+			<a>
 
+			<div className={`container ${link ? "link" : ""}`} onClick={onClick && (() => onClick())}>
+			<div className={`title`}>{title}</div>
+			{link && <div className="chevron dak-right-circle"></div>}
+	</div>
 		<style jsx>
 				{`
+				a {
+					color: white;
+					cursor: default;
+				}
 					.container {
 						font-size: ${size}px;
 						display: flex;
@@ -31,17 +39,19 @@ const HamburgerLine = ({title, size, link, onClick}) => (
 					}
 				`}
 			</style>
-	</div>
+			</a>
+		</Link>
 )
 
 const HamburgerItem = ({ navigationItem }) => {
+	const {close} = useContext(SideMenuContext);
 	return (
 		<div className="container">
 			<div className="title">
 				<HamburgerLine title={navigationItem.title} size={14} noChevron />
 			</div>
 
-			{navigationItem.groups.map((x, i) => (<HamburgerLine title={x.title} key={i} size={18} link={true} />))}
+			{navigationItem.groups.map((x, i) => (<HamburgerLine title={x.title} key={i} size={18} link={x.url} onClick={() => close()} />))}
 			<style jsx>
 				{`
 				.title {
@@ -58,7 +68,7 @@ const HamburgerGroup = ({ navigationItem, setMultiData }) => {
 	
 	return (
 		<div className="container">
-				<HamburgerLine title={navigationItem.title} size={26} link={true} onClick={() => isMulti && setMultiData(navigationItem.multiMenu)} />
+				<HamburgerLine title={navigationItem.title} size={26} link={isMulti && "#"} onClick={() => isMulti && setMultiData(navigationItem.multiMenu)} />
 
 			<style jsx>
 				{`
@@ -106,7 +116,6 @@ const HamburgerNavigation = ({navigation, setBackCallback}) => {
 		setData(data);
 		setBackCallback({
 			goBack: () => {
-				console.log("CALLBACK");
 				setSelected(null);
 				setBackCallback({});
 				setData(null)

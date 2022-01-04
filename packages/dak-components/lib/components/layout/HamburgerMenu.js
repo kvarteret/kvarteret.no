@@ -4,7 +4,6 @@ import { HamburgerNavigation } from "./HamburgerNavigation";
 
 const HamburgerMenuContext = React.createContext()
 
-
 const HamburgerMenu = ({logo, navigation, children}) => {
 
 	const items = [...navigation.left, ...navigation.right];
@@ -24,7 +23,7 @@ const HamburgerMenu = ({logo, navigation, children}) => {
 
     return <div>
         <SideMenu open={isOpen} logo={logo} goBackCallback={backCallback} onClose={() => setOpen(false)} >
-            <HamburgerNavigation navigation={navigation} setBackCallback={setBackCallback} />
+            <HamburgerNavigation navigation={navigation} setBackCallback={setBackCallback} close={() => setOpen(false)} />
         </SideMenu>
 
         <HamburgerMenuContext.Provider value={context}>

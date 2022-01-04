@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { BlurImage, Link } from "..";
 
+const SideMenuContext = React.createContext();
+
 const callFunction = (func) => {
 	if (!func || typeof func !== "function") return;
 	func();
@@ -49,6 +51,7 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 	};
 
 	return (
+		<SideMenuContext.Provider value={{close: () => startClosing()}}>
 		<div className="wrapper">
 			<div
 				onClick={() => startClosing()}
@@ -201,7 +204,8 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 				`}
 			</style>
 		</div>
+		</SideMenuContext.Provider>
 	);
 };
 
-export { SideMenu };
+export { SideMenu, SideMenuContext };
