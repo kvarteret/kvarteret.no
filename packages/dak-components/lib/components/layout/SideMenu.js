@@ -66,12 +66,9 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 					className={`container ${open ? "open" : ""} ${isClosing ? "closing" : ""}`}
 				>
 					<div className="top-bar">
-						{!goBackCallback?.goBack && <div className="close" onClick={() => startClosing()}>
-							<div></div>
-							<div></div>
+						{!goBackCallback?.goBack && <div className="dak-cancel close" onClick={() => startClosing()}>
 						</div>}
-                        {goBackCallback?.goBack && <div className="back" onClick={() => callFunction(goBackCallback.goBack)}>
-                            {"<"}
+                        {goBackCallback?.goBack && <div className="dak-left-open back" onClick={() => callFunction(goBackCallback.goBack)}>
                             </div>
                             }
 						<div className="logo">
@@ -150,38 +147,21 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 						margin-bottom: 30px;
 					}
 
-					.spacing,
-					.close {
+					.spacing {
 						width: 30px;
 						height: 30px;
 					}
 
 					.close {
-						font-size: 30px;
-                        overflow: hidden;
+                        font-size: 40px;
 						color: white;
 						cursor: pointer;
 						position: relative;
 						background-color: rgba(0, 0, 0, 0.01);
 					}
 
-					.close > div:before {
-						content: " ";
-						position: relative;
-						display: block;
-						width: 3px;
-						height: 30px;
-						transform: translate(13.5px, 0) rotate(45deg);
-						background-color: white;
-					}
-
-					.close:hover > div:before {
-						background-color: var(--primary-color);
-					}
-
-					.close > div:last-child:before {
-						top: -30px;
-						transform: translate(13.5px, 0) rotate(-45deg);
+					.close:hover {
+						color: var(--primary-color);
 					}
 
 					.logo {
@@ -200,6 +180,7 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
                     .back {
                         color: white;
                         font-size: 40px;
+						cursor:pointer;
                     }
 				`}
 			</style>

@@ -64,8 +64,8 @@ const Header = ({ data, removeOpenMenus }) => {
           <BlurImage layout="fill" image={data.hoved_logo} priority noLoad></BlurImage>
         </Link>
       </div>
-      <div className="block hamburger">
-          <div onClick={() => open()}>=</div>
+      <div className="block hamburger" onClick={() => open()}>
+          <div className="dak-menu"></div>
       </div>
       <div className="nav left-nav">
         <Navigation navItems={data.navigation.left} removeOpenMenus={removeOpenMenus} />
@@ -134,8 +134,8 @@ const Header = ({ data, removeOpenMenus }) => {
             align-items: center;
             border-right: 1px solid rgba(0, 0, 0, 0.12);
             color: white;
-            font-size: 60px;
-            margin-top: -10px;
+            font-size: 40px;
+            cursor:pointer;
           }
 
           .hamburger-wrapper {
