@@ -66,6 +66,7 @@ export async function getStaticProps(context) {
           blifrivillig_image {
             id
           }
+          blifrivillig_url
           translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
             title
             description

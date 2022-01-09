@@ -19,7 +19,6 @@ const Layout = ({ children, data }) => {
   return (
     <div className="container">
       <HamburgerMenu logo={data.logo} navigation={data.navigation} >
-    {/* <Hamburger navigation={data.navigation} logo={data.logo}/> */}
       <div className="header" onMouseLeave={removeOpenMenus}>
         <div className="header-bar">
           <Header data={data} removeOpenMenus={removeOpenMenus}/>

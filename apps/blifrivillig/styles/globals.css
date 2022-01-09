@@ -24,3 +24,7 @@ a.light:hover {
   text-decoration: underline;
 
 }
+
+.group-link {
+  text-decoration: none;
+}
