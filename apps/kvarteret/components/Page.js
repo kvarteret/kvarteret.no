@@ -60,6 +60,7 @@ const ComponentLookup = ({ type, data }) => {
 };
 
 const LookupList = ({ items }) => {
+  if(!items?.length) return <div></div>
   return items?.map((x, i) => (
     <div key={i} className={x.collection}>
       <ComponentLookup type={x.collection} data={x.item} />
@@ -67,10 +68,9 @@ const LookupList = ({ items }) => {
   ));
 };
 
-const Page = ({ data, test }) => (
+const Page = ({ data }) => (
   <div className="container">
     <LookupList items={data?.sections} />
-    {JSON.stringify(test)}
     <style jsx>
       {`
         .container {
@@ -78,6 +78,7 @@ const Page = ({ data, test }) => (
           margin: auto;
           padding: 0 40px;
           margin-top: 100px;
+          margin-bottom: 40px;
         }
       `}
     </style>

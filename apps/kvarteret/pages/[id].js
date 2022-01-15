@@ -36,7 +36,6 @@ export async function getStaticProps({locale, params, preview, previewData}) {
       props: {
         layout: layout,
         data: page,
-        test: previewData || {}
       },
       revalidate: 1,
     };

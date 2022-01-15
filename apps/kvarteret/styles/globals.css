@@ -66,3 +66,9 @@ h1, h2, h3, h4, h5, h6 {
 .swiper-button-prev:hover:after, .swiper-button-next:hover:after {
   color: var(--primary-color-light);
 }
+
+hr {
+  display: block; height: 1px;
+    border: 0; border-top: 2px solid #ddd;
+    margin: 1.5em 0; padding: 0;
+}
