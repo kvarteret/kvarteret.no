@@ -5,7 +5,7 @@ const EventCard = ({ event }) => {
     // Ugly, i don't like this, TODO: Fix
     const hasLink = event?.url;
     const LinkWrapper = hasLink ? link : ({ children }) => <>{children}</>;
-  
+
     return (
       <LinkWrapper href={event?.url ?? "/"}>
         <div className={"container" + (hasLink ? " link" : "")}>

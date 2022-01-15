@@ -32,9 +32,10 @@ export default function TopSection({ videoUrl }) {
           height="85vh"
           muted
           autoPlay
+          preload="none"
           loop
           playsInline
-          poster="https://cms.kvarteret.no/assets/5df422aa-a791-4bad-adde-65c29b618865"
+          poster="/video/poster.png"
         >
           <source src="/video/reklamefilm.mp4" type="video/mp4" />
         </video>

@@ -1,44 +1,42 @@
 import Footer from "./Footer";
-import { Hamburger } from "./Hamburger";
 import { HamburgerMenu } from "./HamburgerMenu";
 import Header from "./Header";
 import { MultiMenu } from "./MultiMenu";
-import { SideMenu } from "./SideMenu";
 
 const Layout = ({ children, data }) => {
   if (!data) return <> {children} </>;
 
   const removeOpenMenus = () => {
-    const ids = [...data.navigation.left.map(x=>x.title), ...data.navigation.right.map(x=>x.title)];
+    const ids = [...data.navigation.left.map(x => x.title), ...data.navigation.right.map(x => x.title)];
 
-    for(const id of ids) {
+    for (const id of ids) {
       document.getElementById(id)?.style.display = "none";
     }
   }
 
   return (
-    <div className="container">
-      <HamburgerMenu logo={data.logo} navigation={data.navigation} >
-      <div className="header" onMouseLeave={removeOpenMenus}>
-        <div className="header-bar">
-          <Header data={data} removeOpenMenus={removeOpenMenus}/>
+    <HamburgerMenu logo={data.logo} navigation={data.navigation} >
+      <div className="container">
+        <div className="header" onMouseLeave={removeOpenMenus}>
+          <div className="header-bar">
+            <Header data={data} removeOpenMenus={removeOpenMenus} />
+          </div>
+          {data.navigation.left.map((x, i) => {
+            if (x.multiMenu.length == 0) return <></>
+
+            return <MultiMenu key={i} menuData={x} />
+          })}
+          {data.navigation.right.map((x, i) => {
+            if (x.multiMenu.length == 0) return <></>
+
+            return <MultiMenu key={i} menuData={x} />
+          })}
         </div>
-        {data.navigation.left.map((x, i)=> {
-          if(x.multiMenu.length == 0) return <></>
-
-          return <MultiMenu key={i} menuData={x} />
-        })}
-        {data.navigation.right.map((x, i) => {
-          if(x.multiMenu.length == 0) return <></>
-
-          return <MultiMenu key={i} menuData={x} />
-        })}
+        <div className="content">
+          {children}
+        </div>
+        <div className="footer"><Footer data={data} /></div>
       </div>
-      <div className="content">
-        {children}
-      </div>
-      <div className="footer"><Footer data={data} /></div>
-        </HamburgerMenu>
       <style jsx>
         {`
           .container {
@@ -47,6 +45,10 @@ const Layout = ({ children, data }) => {
             min-height: 100vh;
             justify-content: space-between;
             overflow-x: hidden;
+          }
+
+          .content {
+            flex:1;
           }
 
 
@@ -60,15 +62,15 @@ const Layout = ({ children, data }) => {
             height: 80px;
             width: 100%;
             background-color: rgba(0,0,0 ,0.7);
-            box-shadow: 0 4px 4px rgb(0,0,0 / 40%);
+            box-shadow: 0 4px 4px rgb(0 0 0 / 40%);
             backdrop-filter: blur(4px);
             
           }
           
         `}
       </style>
-    </div>
+    </HamburgerMenu>
   );
 };
 
-export {Layout};
+export { Layout };

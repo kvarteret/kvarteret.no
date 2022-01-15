@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
+import appendBase64Image from "../utils/appendBase64Image";
 
 export default async function queryAllEventSlugs() {
   const { data } = await cmsClient.query({
@@ -32,6 +33,8 @@ export async function queryEventBySlug(lang, slug) {
         event_start
         top_image {
           id
+          __typename
+          type
         }
         room {
           room_id {
@@ -55,7 +58,7 @@ export async function queryEventBySlug(lang, slug) {
     }
     `,
   });
-  return data.events[0];
+  return await appendBase64Image(data.events[0]);
 }
 
 
@@ -127,6 +130,8 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
         event_start
         top_image {
           id
+          __typename
+          type
         }
         room {
           room_id {
@@ -185,6 +190,8 @@ export async function queryIndexEvents(lang, filterDate) {
         event_start
         top_image {
           id
+          __typename
+          type
         }
         room {
           room_id {

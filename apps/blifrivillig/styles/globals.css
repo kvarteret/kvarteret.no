@@ -28,3 +28,14 @@ a.light:hover {
 .group-link {
   text-decoration: none;
 }
+
+img {
+  transition: 0.2s;
+}
+
+p {
+  font-size: 0.9285714285714286rem;
+  font-family: Hegval Display;
+  font-weight: 400;
+  line-height: 1.5;
+}

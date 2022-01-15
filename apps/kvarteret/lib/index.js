@@ -2,6 +2,7 @@ import { queryIndexEvents } from "./queries/events";
 import { queryCarouselItems, queryOpeningHours } from "./queries/generalInformation"
 import { areIntervalsOverlapping, format, formatRelative, parse } from "date-fns";
 import {nb, en} from "date-fns/locale";
+import appendBase64Image from "./utils/appendBase64Image";
 
 const getRelativeDate = (date, lang) => {
     const locale = lang === "no" ? nb : en;
@@ -18,7 +19,7 @@ const getRelativeDate = (date, lang) => {
   }
 
 const fetchIndexData = async (lang) => {
-    const upcomingEvents = await queryIndexEvents(lang, new Date()); 
+    const upcomingEvents = await appendBase64Image(await queryIndexEvents(lang, new Date())); 
 
     const events = upcomingEvents.map(x=> {
 
@@ -38,7 +39,7 @@ const fetchIndexData = async (lang) => {
 
     // TODO: Get events for today properly by querying them such that if the event is overlapping the current date it shows. 
     // Is tricky due to recurring events and must be handled correctly
-    const eventsToday = upcomingEvents.filter(x=> new Date(x.event_start).getDate() === new Date().getDate() || new Date(x.event_end).getDate() === new Date().getDate()).reduce((acc, event) => {
+    const eventsToday = upcomingEvents.filter(x=> new Date(x.event_start) <= new Date() && new Date(x.event_end) >= new Date()).reduce((acc, event) => {
       const rooms = event.room;
       if(rooms.length == 0) {
         acc.push({
@@ -59,9 +60,9 @@ const fetchIndexData = async (lang) => {
       }
       return acc;
     }, []);
-    
+
     const openingHours = await queryOpeningHours();
-    const carouselItems = await queryCarouselItems(lang);
+    const carouselItems = await appendBase64Image(await queryCarouselItems(lang));
     const result = {events, eventsToday, openingHours, carouselItems};
 
     return result;

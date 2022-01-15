@@ -6,12 +6,12 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
 
   const isButton = navItem.isButton ? " button" : "";
 
-  const url = navItem.url || "#";
+  let url = navItem.url || "#";
 
   const [timer, setTimer] = useState();
 
   const mouseClick = () => {
-    removeOpenMenus();
+    // removeOpenMenus();
     document.getElementById(navItem.title)?.style.display = "flex";
   }
 
@@ -26,10 +26,14 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
     setTimer(null);
   }
 
+  if(!url.startsWith("http") && !url.startsWith("#")) {
+    url = "/" + url;
+  }
+
   //   if(!url) return <></>;
 
   return (
-    <Link href={`/${url}`}>
+    <Link href={`${url}`}>
       <a>   
         <div className={"container" + isButton} onMouseOver={mouseOver} onClick={mouseClick} onMouseLeave={mouseLeave}>
           {navItem.title}
@@ -44,11 +48,19 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
                 user-select: none;
                 font-size: 16px;
               }
+              .container:hover {
+                color: var(--primary);
+              }
+              
+              .button:hover {
+                color: white;
+              }
 
               .button {
                 background-color: var(--primary-color);
                 user-select: none;
               }
+
 
               .button:hover {
                 background-color: #f85b5b;

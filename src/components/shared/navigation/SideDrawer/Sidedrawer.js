@@ -89,7 +89,7 @@ export default function sideDrawer() {
         container
         direction="row"
         alignItems="center"
-        justify="space-between"
+        justifyContent="space-between"
         className={classes.ImageContainer}
       >
         <Grid

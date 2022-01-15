@@ -1,5 +1,6 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
+import appendBase64Image from "../utils/appendBase64Image";
 
 export default async function queryAllPageSlugs() {
   const { data } = await cmsClient.query({
@@ -44,6 +45,8 @@ export async function queryPageBySlug(lang, slug) {
                 gallery {
                   directus_files_id {
                     id
+                    __typename
+                    type
                   }
                 }
               }
@@ -52,6 +55,8 @@ export async function queryPageBySlug(lang, slug) {
                 cards {
                   image {
                     id
+                    __typename
+                    type
                   }
                   title
                   text
@@ -70,6 +75,11 @@ export async function queryPageBySlug(lang, slug) {
                     ... on gallery_section {
                       gallery {
                         id
+                        directus_files_id {
+                          id
+                          __typename
+                          type
+                        }
                       }
                     }
                     ... on snippet_section {
@@ -80,6 +90,8 @@ export async function queryPageBySlug(lang, slug) {
                       cards {
                         image {
                           id
+                          __typename
+                          type
                         }
                         title
                         text
@@ -97,6 +109,8 @@ export async function queryPageBySlug(lang, slug) {
                       gallery {
                         directus_files_id {
                           id
+                          __typename
+                          type
                         }
                       }
                     }
@@ -108,6 +122,8 @@ export async function queryPageBySlug(lang, slug) {
                       cards {
                         image {
                           id
+                          __typename
+                          type
                         }
                         title
                         text
@@ -126,5 +142,5 @@ export async function queryPageBySlug(lang, slug) {
     `,
   });
 
-  return data?.data?.page[0];
+  return await appendBase64Image(data?.data?.page[0]);
 }

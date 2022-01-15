@@ -10,13 +10,14 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
+    "@emotion/cache": "latest",
+    "@emotion/react": "latest",
+    "@emotion/server": "latest",
+    "@emotion/styled": "latest",
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.2",
-    "@emotion/cache": "latest",
-    "@emotion/react": "latest",
-    "@emotion/styled": "latest",
-    "@emotion/server": "latest",
+    "@plaiceholder/next": "^2.2.0",
     "dak-components": "0.0.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.6.1",
@@ -25,8 +26,10 @@
     "next-images": "^1.8.2",
     "next-seo": "^4.28.1",
     "next-transpile-modules": "^9.0.0",
+    "plaiceholder": "^2.2.0",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "sharp": "^0.29.3"
   },
   "devDependencies": {
     "eslint": "8.0.0",

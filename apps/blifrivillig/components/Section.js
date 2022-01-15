@@ -16,6 +16,7 @@ const Section = ({ swap, title, image, text, titleColor }) => {
             <div className={styles.imageContainer}>
                 <BlurImage
                 imageId={image.id}
+                base64={image.base64}
                 title={title}
                 alt={title}
                 objectFit="cover"
@@ -30,9 +31,9 @@ const Section = ({ swap, title, image, text, titleColor }) => {
               </Typography>
             </Grid>
             <Grid item>
-              <Typography>
+              <div>
                 <ExternalContent data={text} />
-              </Typography>
+              </div>
             </Grid>
           </Grid>
         </Grid>

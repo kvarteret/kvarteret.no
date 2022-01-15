@@ -25,8 +25,6 @@ const Card = ({ card }) => {
         {`
           .cards-image {
             border-radius: 5px;
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
             transition: 200ms;
           }
         `}
@@ -38,15 +36,13 @@ const Card = ({ card }) => {
             transition: 100ms;
             border-radius: 5px;
             cursor: unset;
-            box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
-              0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
           }
           h3 {
             margin: 1px 0;
             margin-bottom: -10px;
           }
           .text-content {
-            padding: 16px;
+            margin: 7px;
           }
           .image {
             height: 217px;

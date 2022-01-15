@@ -61,7 +61,9 @@ const Header = ({ data, removeOpenMenus }) => {
     <div className="container">
       <div className="main-logo">
         <Link href={"/"}>
-          <BlurImage layout="fill" image={data.hoved_logo} priority noLoad></BlurImage>
+          <a>
+            <BlurImage layout="fill" image={data.hoved_logo} priority noLoad></BlurImage>
+          </a>
         </Link>
       </div>
       <div className="block hamburger" onClick={() => open()}>
@@ -72,7 +74,9 @@ const Header = ({ data, removeOpenMenus }) => {
       </div>
       <div className="logo">
         <Link href={"/"}>
-          <BlurImage layout="fill" image={data.logo} priority noLoad></BlurImage>
+          <a>
+            <BlurImage layout="fill" image={data.logo} priority noLoad></BlurImage>
+          </a>
         </Link>
       </div>
       <div className="nav right-nav">
@@ -95,6 +99,16 @@ const Header = ({ data, removeOpenMenus }) => {
           width: 120px;
           height: 80px;
           position: relative;
+          cursor: pointer;
+        }
+
+        
+        .main-logo:hover, .logo:hover {
+          filter: brightness(1.2);
+          cursor: pointer;
+        }
+        .main-logo:active, .logo:active {
+          filter: brightness(0.8);
           cursor: pointer;
         }
 

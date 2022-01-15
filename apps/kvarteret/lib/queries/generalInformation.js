@@ -16,14 +16,20 @@ export default async function queryGeneralInformation(lang) {
           }
           hoved_logo {
             id
+            __typename
+            type
           }
           logo {
             id
+            __typename
+            type
           }
           social_media {
             url
             icon {
               id
+              __typename
+              type
             }
           }
         }
@@ -42,6 +48,8 @@ export async function queryCarouselItems(lang) {
       main_carousel {
         header {
           id
+          __typename
+          type
         }
         navigation {
           type

@@ -176,7 +176,7 @@ export default function Page({ data }) {
             margin-bottom: 60px;
             padding: 20px;
             width: 100%;
-            max-width: 1300px;
+            max-width: 1080px;
           }
 
           .top-image {

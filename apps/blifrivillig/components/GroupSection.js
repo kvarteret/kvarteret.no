@@ -31,6 +31,7 @@ const GroupCard = ({ image, title, description, link }) => {
             <div className={style.imageContainer}>
               <BlurImage
                 imageId={image.id}
+                base64={image.base64}
                 title={title}
                 alt={title}
                 layout="fill"
@@ -45,9 +46,7 @@ const GroupCard = ({ image, title, description, link }) => {
               >
                 {title}
               </Typography>
-              <Typography>
-                <ExternalContent data={description} />
-              </Typography>
+              <ExternalContent data={description} />
             </CardContent>
           </CardActionArea>
         </Card>
@@ -82,9 +81,9 @@ const GroupSection = ({ groups, translation }) => {
             <Typography variant="h1" component="h1" color="primary">
               {data.group_title}
             </Typography>
-            <Typography style={{ marginTop: 10 }}>
+            <div style={{ marginTop: 10 }}>
               <ExternalContent data={data.group_description} />
-            </Typography>
+            </div>
           </Grid>
           <Grid
             item

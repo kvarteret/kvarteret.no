@@ -34,13 +34,13 @@ const SocialMediaItem = ({ item }) => (
         noLoad
       />
     </a>
-    <style jsx global>
+    <style jsx>
       {`
-        .someImage:hover {
+        .container:hover {
           filter: brightness(1.4);
           cursor: pointer;
         }
-        .someImage:active {
+        .container:active {
           filter: brightness(0.8);
           cursor: pointer;
         }
@@ -146,6 +146,9 @@ const Footer = ({ data }) => {
       </div>
       <style jsx>
         {`
+        .image-container {
+          position: relative;
+        }
           .container {
             min-height: 356px;
             background-color: #2d2d2d;
@@ -159,7 +162,7 @@ const Footer = ({ data }) => {
             background-color: #272727;
             background-size: cover;
             background-blend-mode: color-dodge;
-            background-position-x: center;
+            background-position: center;
           }
 
           .content {

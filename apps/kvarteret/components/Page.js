@@ -67,9 +67,10 @@ const LookupList = ({ items }) => {
   ));
 };
 
-const Page = ({ data }) => (
+const Page = ({ data, test }) => (
   <div className="container">
     <LookupList items={data?.sections} />
+    {JSON.stringify(test)}
     <style jsx>
       {`
         .container {

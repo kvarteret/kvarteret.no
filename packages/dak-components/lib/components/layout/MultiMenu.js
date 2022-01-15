@@ -20,16 +20,23 @@ const MenuGroup = ({group}) => {
 
             }
 
+            .item:hover {
+              color: var(--primary-color);
+            }
+
             .title {
                 margin-top: 13px;
                 margin-bottom: 5px;
                 font-size: 18px;
                 font-weight: 500;
+                width: 100%;
             }
             .item {
                 font-size: 14px;
                 color: white;
                 font-weight: 200;
+                display: block;
+                padding: 2px 0;
             }
             `}
         </style>
@@ -55,8 +62,8 @@ const MultiMenu = ({menuData}) => {
           }
 
           .menu {
-            background-color: rgba(20, 20, 26 ,0.8);
-            box-shadow: 0 4px 4px rgb(40, 40, 53 / 40%);
+            background-color: rgba(0,0,0 ,0.7);
+            box-shadow: 0 4px 4px rgb(0,0,0 / 40%);
             backdrop-filter: blur(4px);
             display: flex;
             padding: 20px;
