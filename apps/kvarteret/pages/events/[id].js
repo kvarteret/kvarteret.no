@@ -1,8 +1,9 @@
 import { BlurImage, ExternalContent } from "dak-components";
 import { format } from "date-fns";
 import Snippet from "../../components/Snippet";
-import fetchLayoutData from "../../lib/layout";
-import queryAllEventSlugs, { queryEventBySlug } from "../../lib/queries/events";
+import fetchLayoutData from "dak-components/lib/cms/layout";
+import queryAllEventSlugs, { queryEventBySlug } from "dak-components/lib/cms/queries/events";
+import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -16,10 +17,10 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ locale, params }) {
+export async function getStaticProps({ locale, params, preview }) {
   const layout = await fetchLayoutData(locale);
   const data = await queryEventBySlug(locale, params.id);
-  if (!data) {
+  if (!data || !isResourceAvailable(data.status, preview)) {
     return {
       props: { layout: layout },
       notFound: true,

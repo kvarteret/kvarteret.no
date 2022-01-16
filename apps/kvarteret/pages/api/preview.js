@@ -23,10 +23,11 @@ function runMiddleware(req, res, fn) {
 export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
     // ...
-    const {data} = req.query;
+    const {data, path} = req.query;
     
     console.log("SETTING PREVIEW DATA TO", data);
-    res.setPreviewData(JSON.parse(data));
-    res.redirect("/vaktetaten");
+    res.setPreviewData(JSON.parse(data || "{}"));
+    console.log("SLUG", path);
+    res.redirect(path);
     // ...
   }

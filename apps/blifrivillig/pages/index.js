@@ -20,8 +20,8 @@ import {
 
 import styles from "../styles/Index.module.css";
 import SignupSection from "../components/SignupSection";
-import fetchLayoutData from "../../kvarteret/lib/layout";
-import { queryTextsByIds } from "../../kvarteret/lib/queries/text";
+import fetchLayoutData from "dak-components/lib/cms/layout";
+import { queryTextsByIds } from "dak-components/lib/cms/queries/text";
 
 const sanitizeData = ({ data }) => {
   const translation = data.blifrivillig.translations[0];

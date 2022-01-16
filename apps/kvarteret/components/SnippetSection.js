@@ -1,7 +1,7 @@
 import Snippet from "./Snippet"
 
-const SnippetSection = ({code}) => {
-    return <Snippet snippet={{title: "OFFENTLIGE FILER", code}} />
+const SnippetSection = ({title, code}) => {
+    return <Snippet snippet={{title, code}} />
 }
 
 export default SnippetSection;

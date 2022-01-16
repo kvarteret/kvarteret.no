@@ -35,6 +35,7 @@ const EventCard = ({ event }) => {
                 .link:hover .event-image {
                   border-bottom-left-radius: 0;
                   border-bottom-right-radius: 0;
+                  transform: scale(1.02);
                 }
               `}
             </style>
@@ -44,11 +45,11 @@ const EventCard = ({ event }) => {
                   width: 100%;
                   transition: 100ms;
                   padding: 0px;
-                  margin: 20px;
+                  margin: 10px;
                   border-radius: 5px;
                   cursor: unset;
                 }
-                
+
                 a {
                   display: block;
                   color: inherit;
@@ -96,7 +97,7 @@ const EventCard = ({ event }) => {
     
                 @media only screen and (min-width: 992px) {
                   .container {
-                    width: calc(50% - 40px);
+                    width: calc(50% - 20px);
                   }
                 }
               `}

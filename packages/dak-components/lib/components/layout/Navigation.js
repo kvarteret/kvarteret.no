@@ -11,7 +11,7 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
   const [timer, setTimer] = useState();
 
   const mouseClick = () => {
-    // removeOpenMenus();
+    removeOpenMenus();
     document.getElementById(navItem.title)?.style.display = "flex";
   }
 

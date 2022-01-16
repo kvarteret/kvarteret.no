@@ -63,6 +63,7 @@ export async function queryPageBySlug(lang, slug) {
                 }
               }
               ... on snippet_section {
+                title
                 code
               }
               ... on split_section {
@@ -115,6 +116,7 @@ export async function queryPageBySlug(lang, slug) {
                       }
                     }
                     ... on snippet_section {
+                      title
                       code
                     }
                     ... on card_section {

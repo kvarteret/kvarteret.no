@@ -7,9 +7,12 @@ import { Divider } from "../Divider";
 import { HamburgerMenuContext } from "./HamburgerMenu";
 import React, {useContext} from 'react';
 
+import Flags from 'country-flag-icons/react/3x2'
+
 const LanguageItem = ({ locale, text }) => {
   const router = useRouter();
   const sameLang = router.locale === locale;
+
 
   return (
     <Link href={router.asPath} locale={locale}>
@@ -34,11 +37,15 @@ const LanguageItem = ({ locale, text }) => {
 };
 
 const LanguageSelector = () => {
+  const router = useRouter();
+  const Flag = router.locale === "no" ? Flags.GB : Flags.NO;
+  const title = router.locale === "no" ? "English" : "Norsk";
+  const locale = router.locale === "no" ? "en" : "no";
   return (
     <div>
-      <LanguageItem locale="no" text="NO" />
-      <Divider color="white" />
-      <LanguageItem locale="en" text="EN" />
+    <Link href={router.asPath} locale={locale}>
+      <Flag title={title} style={{width: "32px"}} />
+      </Link>
 
       <style jsx>
         {`
@@ -47,6 +54,11 @@ const LanguageSelector = () => {
             flex-direction: row;
             justify-content: center;
             align-items: center;
+            cursor: pointer;
+          }
+
+          div:hover {
+            filter: brightness(120%)
           }
         `}
       </style>

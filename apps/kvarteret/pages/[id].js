@@ -1,8 +1,5 @@
-import { BlurImage } from "dak-components";
-import fetchLayoutData from "../lib/layout";
-import queryAllPageSlugs, { queryPageBySlug } from "../lib/queries/page";
-import { NextSeo } from 'next-seo';
-import Snippet from "../components/Snippet";
+import fetchLayoutData from "dak-components/lib/cms/layout";
+import queryAllPageSlugs, { queryPageBySlug } from "dak-components/lib/cms/queries/page";
 import Page from "../components/Page";
 
 export async function getStaticPaths() {

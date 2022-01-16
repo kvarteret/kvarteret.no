@@ -1,4 +1,4 @@
-import fetchLayoutData from "../../lib/layout";
+import fetchLayoutData from "dak-components/lib/cms/layout";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);

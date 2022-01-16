@@ -6,6 +6,12 @@ module.exports = withPlugins([withTM(), withImages], {
     disableStaticImages: true,
     domains: ['cms.kvarteret.no'],
   },
+  rewrites: async () => [
+    {
+      source: "/api/files/:id",
+      destination: "https://cms.kvarteret.no/assets/:id"
+    }
+  ],
   reactStrictMode: true,
   i18n: {
     locales: ['no', 'en'],

@@ -1,6 +1,6 @@
 import {  ExternalContent, OpeningHours } from "dak-components";
-import fetchIndexData from "../lib";
-import fetchLayoutData from "../lib/layout";
+import fetchIndexData from "dak-components/lib/cms/index";
+import fetchLayoutData from "dak-components/lib/cms/layout";
 import { Title } from "dak-components";
 import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
@@ -43,7 +43,7 @@ export default function Index({ data }) {
           {data.eventsToday.map((x, i) => (
             <TodayItem key={i} event={x} />
           ))}
-          {data.eventsToday.length <= 0 && <div>Ser ikke ut som det skjer noe mer i dag! Sjekk gjerne igjen i morgen for flere eventer.</div>}
+          {data.eventsToday.length <= 0 && <div className="nothing-happening">Ser ikke ut som det skjer noe mer i dag! Sjekk gjerne igjen i morgen for flere eventer.</div>}
         </div>
         <div className="opening-hours">
           <Title underlined>Åpningstider</Title>
@@ -62,6 +62,10 @@ export default function Index({ data }) {
       <style jsx>
         {`
           .container {
+          }
+
+          .nothing-happening {
+            margin-top: 10px;
           }
 
           .more-events {
