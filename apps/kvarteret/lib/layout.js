@@ -12,6 +12,7 @@ const fetchLayoutData = async (lang) => {
         openingHours = []
     }
     return {
+        scripts: generalData.general_information.scripts ?? [],
         hoved_logo: generalData.general_information.hoved_logo,
         logo: generalData.general_information.logo,
         socialMedia: generalData.general_information.social_media,

@@ -167,7 +167,7 @@ const Footer = ({ data }) => {
 
           .content {
             flex: 1;
-            max-width: 1300px;
+            max-width: 1080px;
             padding: 20px;
             padding-top: 90px;
             display: flex;

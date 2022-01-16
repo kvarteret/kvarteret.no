@@ -1,4 +1,4 @@
-import { OpeningHours } from "dak-components";
+import {  ExternalContent, OpeningHours } from "dak-components";
 import fetchIndexData from "../lib";
 import fetchLayoutData from "../lib/layout";
 import { Title } from "dak-components";
@@ -6,6 +6,7 @@ import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
 import { TodayItem } from "../components/TodayItem";
 import { NextSeo } from "next-seo";
+import Link from 'next/link'
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
@@ -32,8 +33,11 @@ export default function Index({ data }) {
       
       />
       <Carousel carouselItems={data.carouselItems} />
-
+      <div className="today">
+            <ExternalContent html={data.todayText} />
+        </div>
       <div className="content">
+
         <div className="happening-today">
           <Title underlined>Dette skjer i dag</Title>
           {data.eventsToday.map((x, i) => (
@@ -49,6 +53,9 @@ export default function Index({ data }) {
             Hva skjer fremover?
           </Title>
           <EventList events={data.events} />
+          <Link href="events">
+            <a className="more-events">Se flere arrangementer</a>
+          </Link>
         </div>
       </div>
       <style jsx>
@@ -56,15 +63,38 @@ export default function Index({ data }) {
           .container {
           }
 
+          .more-events {
+            margin: auto;
+            width: 300px;
+            height: 60px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+          }
+
+          .more-events:hover {
+            opacity: 0.7;
+          }
+
+          .today {
+            max-width: 1080px;
+            width: 100%;
+            margin: auto;
+            padding: 20px;
+          }
 
           .content {
             max-width: 1080px;
+            width: 100%;
             margin: auto;
             display: flex;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 20px;
-            margin: auto;
             padding: 20px;
           }
 

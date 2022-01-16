@@ -31,6 +31,7 @@ import { getPlaiceholder } from "plaiceholder";
   };
 
   const appendBase64Image = async data => {
+    if(!data) return data;
       const deepCopy = JSON.parse(JSON.stringify(data));
       await Promise.all(appendBase64ImageRecursive(deepCopy));
       return deepCopy;

@@ -36,6 +36,11 @@ export async function queryEventBySlug(lang, slug) {
           __typename
           type
         }
+        event_header {
+          id
+          __typename
+          type
+        }
         room {
           room_id {
             name
@@ -128,6 +133,7 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
         }) {
         event_end
         event_start
+        is_recurring
         top_image {
           id
           __typename
@@ -188,6 +194,7 @@ export async function queryIndexEvents(lang, filterDate) {
         }) {
         event_end
         event_start
+        is_recurring
         top_image {
           id
           __typename

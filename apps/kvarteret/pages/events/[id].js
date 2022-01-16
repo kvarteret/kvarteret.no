@@ -27,12 +27,14 @@ export async function getStaticProps({ locale, params }) {
     };
   }
 
+  const rooms = data.room.map(x=>x.room_id.name).join(", ");
+
 
   return {
     props: {
       layout: layout,
       data: {
-        top_image: data.top_image,
+        event_header: data.event_header,
         title: data.translations[0].title,
         description: data.translations[0].description,
         content: data.translations[0].content,
@@ -46,7 +48,7 @@ export async function getStaticProps({ locale, params }) {
           {
             icon: "dak-location",
             title: "Sted",
-            text: "Teglverket"
+            text: rooms
           },
           {
             icon: "dak-group",
@@ -62,6 +64,14 @@ export async function getStaticProps({ locale, params }) {
 }
 
 const PracticalInformationLine = ({ icon, title, text }) => {
+  if(typeof window !== "undefined") {
+    const urlParams = new URLSearchParams(window.location.search);
+    const myParam = urlParams.get('startDate');
+    if(title === "Tidspunkt" && myParam) {
+      const time = text.split("kl.")[1];
+      text = `${format(new Date(myParam), "dd. MMMM yyyy")} ${time}`
+    }
+  }
   return (
     <div className="container">
       <div className="icon-container">
@@ -124,20 +134,17 @@ export default function Page({ data }) {
           fadeIn
           objectFit="cover"
           layout="fill"
-          image={data.top_image}
+          image={data.event_header}
         />
       </div>
       <div className="content-container">
         <div className="left-content">
-          <div className="intro">
-            <h1>{data.title}</h1>
-            <b>{data.description}</b>
-          </div>
           <div className="practical-info mobile">
             <h2>Praktisk informasjon</h2>
             {data?.practicalInformation?.map((x, i) => <PracticalInformationLine {...x} key={i} />)}
           </div>
           <div className="content">
+            <h1>{data.title}</h1>
             <ExternalContent html={data.content} />
           </div>
           <div className="snippets mobile">
@@ -179,10 +186,14 @@ export default function Page({ data }) {
             max-width: 1080px;
           }
 
+          .practical-info.mobile {
+            margin-bottom: 20px;
+          }
+
           .top-image {
+            margin-top:80px;
             position: relative;
-            height: 400px;
-            margin-bottom: 30px;
+            height: 200px;
           }
 
           .top-image {
@@ -190,6 +201,11 @@ export default function Page({ data }) {
           }
 
           @media only screen and (min-width: 800px) {
+            .top-image {
+              position: relative;
+              height: 400px;
+              margin-top:0px;
+            }
             .mobile {
               display: none;
             }

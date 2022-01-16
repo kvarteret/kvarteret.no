@@ -19,6 +19,7 @@ export default async function queryGeneralInformation(lang) {
             __typename
             type
           }
+          scripts
           logo {
             id
             __typename
@@ -70,6 +71,19 @@ export async function queryCarouselItems(lang) {
   });
 
   return data.data.main_carousel;
+}
+
+export async function queryTodayText() {
+  const data = await cmsClient.query({
+    query: gql`
+    query QueryTodayText {
+      general_information {
+        today_at_kvarteret
+      }
+    }
+    `,
+  });
+  return data?.data?.general_information?.today_at_kvarteret ?? "";
 }
 
 export async function queryOpeningHours() {

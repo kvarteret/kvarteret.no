@@ -1,5 +1,5 @@
 import { queryIndexEvents } from "./queries/events";
-import { queryCarouselItems, queryOpeningHours } from "./queries/generalInformation"
+import { queryCarouselItems, queryOpeningHours, queryTodayText } from "./queries/generalInformation"
 import { areIntervalsOverlapping, format, formatRelative, parse } from "date-fns";
 import {nb, en} from "date-fns/locale";
 import appendBase64Image from "./utils/appendBase64Image";
@@ -29,11 +29,13 @@ const fetchIndexData = async (lang) => {
       ].filter(x=>x);
 
       return {
-        title: x.translations[0].title,
-        description: x.translations[0].description,
+        title: x.translations[0]?.title ?? "",
+        description: x.translations[0]?.description ?? "",
         tags,
         image: x.top_image,
-        url: `events/${x.metadata?.slug || null}`
+        url: `events/${x.metadata?.slug || null}`,
+        recurring: x.is_recurring,
+        startDate: x.event_start
     }
     });
 
@@ -62,8 +64,9 @@ const fetchIndexData = async (lang) => {
     }, []);
 
     const openingHours = await queryOpeningHours();
+    const todayText = await queryTodayText();
     const carouselItems = await appendBase64Image(await queryCarouselItems(lang));
-    const result = {events, eventsToday, openingHours, carouselItems};
+    const result = {events, eventsToday, openingHours, carouselItems, todayText};
 
     return result;
 }
