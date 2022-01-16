@@ -1,4 +1,4 @@
-import { BlurImage } from "dak-components";
+import { BlurImage, Link } from "dak-components";
 // import Swiper core and required modules
 import { Navigation, Pagination, A11y } from "swiper";
 
@@ -29,21 +29,25 @@ const CarouselItem = ({ item }) => {
     test();
   },[setVibrancy])
 
+  const link = (item?.navigation?.type === "page" ? item?.navigation?.page?.slug : item?.navigation?.url) ?? ""
+
   return (
     <div className="container">
-      <div className="image-container">
-        <BlurImage
-          className="carousel-image"
-          fadeIn
-          image={item.header}
-          objectFit="cover"
-          layout="fill"
-        />
-        <div className="content">
-          <div className="title">{item.translations[0]?.title}</div>
-          <div className="description">{item.translations[0]?.description}</div>
-        </div>
-      </div>
+      <Link href={link}>
+          <div className="image-container">
+            <BlurImage
+              className="carousel-image"
+              fadeIn
+              image={item.header}
+              objectFit="cover"
+              layout="fill"
+            />
+            <div className="content">
+              <div className="title">{item.translations[0]?.title}</div>
+              <div className="description">{item.translations[0]?.description}</div>
+            </div>
+          </div>
+      </Link>
       <style jsx>
         {`
         .container {

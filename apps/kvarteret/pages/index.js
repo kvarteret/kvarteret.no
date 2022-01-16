@@ -43,6 +43,7 @@ export default function Index({ data }) {
           {data.eventsToday.map((x, i) => (
             <TodayItem key={i} event={x} />
           ))}
+          {data.eventsToday.length <= 0 && <div>Ser ikke ut som det skjer noe mer i dag! Sjekk gjerne igjen i morgen for flere eventer.</div>}
         </div>
         <div className="opening-hours">
           <Title underlined>Åpningstider</Title>
