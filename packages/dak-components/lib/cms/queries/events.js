@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
 import appendBase64Image from "../utils/appendBase64Image";
+import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 
 export default async function queryAllEventSlugs() {
   const { data } = await cmsClient.query({
@@ -131,6 +132,7 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
         }
         ]
         }) {
+          status
         event_end
         event_start
         is_recurring
@@ -192,6 +194,7 @@ export async function queryIndexEvents(lang, filterDate) {
         }
         ]
         }) {
+          status
         event_end
         event_start
         is_recurring
@@ -214,7 +217,6 @@ export async function queryIndexEvents(lang, filterDate) {
         ) {
           title
           description
-          content
         }
       }
     }
@@ -224,6 +226,6 @@ export async function queryIndexEvents(lang, filterDate) {
   const recurring = await queryRecurringEventsFiltered(lang, filterDate);
   const regularEvents = data.data.events;
 
-  const events = [...regularEvents, ...recurring].sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 6);
+  const events = [...regularEvents, ...recurring].filter(x=>isResourceAvailable(x.status, false));
   return events;
 }

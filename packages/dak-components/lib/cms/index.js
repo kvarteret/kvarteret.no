@@ -1,74 +1,122 @@
 import { queryIndexEvents } from "./queries/events";
 import { queryCarouselItems, queryOpeningHours, queryTodayText } from "./queries/generalInformation"
 import { areIntervalsOverlapping, format, formatRelative, parse } from "date-fns";
-import {nb, en} from "date-fns/locale";
+import { nb, en } from "date-fns/locale";
 import appendBase64Image from "./utils/appendBase64Image";
+import axios from 'axios';
+import slugify from "slugify";
+
+const externalMapping = (event) => {
+  return {
+      event_start: event.startTime,
+      event_end: event.endTime,
+      is_recurring: false,
+      top_image: {
+          __typename: "studentBergen",
+          id: event.image?.path
+      },
+      room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
+      metadata: {
+          slug: slugify(event.name)
+      },
+      weekly_recurring: [],
+      translations: [
+          {
+              title: event.name,
+              description: event.intro
+          }
+      ]
+  }
+}
+
+const getUpcomingEventsFromStudentBergen = async () => {
+  const response = await axios.get("http://localhost:3001/api/external/events");
+  const mapped = response.data.map(externalMapping).filter(x => new Date(x.event_end || x.start_date) >= new Date());
+  return mapped;
+}
 
 const getRelativeDate = (date, lang) => {
-    const locale = lang === "no" ? nb : en;
-    const relativeString = formatRelative(date, new Date(), {locale, weekStartsOn: 1});
-    try {
-      const dateFormat = lang === "no" ? "d.MM.yyyy" : "MM/d/yyyy";
-      const test = parse(relativeString, dateFormat, new Date(), {locale, weekStartsOn: 1});
-      const parseFormat = lang === "no" ? "dd. MMM yyyy" : "dd. MMM. yyyy";
-      const formattedRelativeString = format(test, parseFormat, {locale, weekStartsOn: 1});
-      return formattedRelativeString;
-    } catch(e) {
-    }
-    return relativeString;
+  const locale = lang === "no" ? nb : en;
+  const relativeString = formatRelative(date, new Date(), { locale, weekStartsOn: 1 });
+  try {
+    const dateFormat = lang === "no" ? "d.MM.yyyy" : "MM/d/yyyy";
+    const test = parse(relativeString, dateFormat, new Date(), { locale, weekStartsOn: 1 });
+    const parseFormat = lang === "no" ? "dd. MMM yyyy" : "dd. MMM. yyyy";
+    const formattedRelativeString = format(test, parseFormat, { locale, weekStartsOn: 1 });
+    return formattedRelativeString;
+  } catch (e) {
   }
+  return relativeString;
+}
 
 const fetchIndexData = async (lang) => {
-    const upcomingEvents = await appendBase64Image(await queryIndexEvents(lang, new Date())); 
+  const upcomingEventsCms = await queryIndexEvents(lang, new Date());
+  const upcomingEventsBergen = await getUpcomingEventsFromStudentBergen();
+  
+  const upcomingEvents = await appendBase64Image(upcomingEventsCms.concat(upcomingEventsBergen).sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 6))
+  console.log("DATA", upcomingEvents);
 
-    const events = upcomingEvents.map(x=> {
+  const events = upcomingEvents.map(x => {
 
-      const tags = [
-        getRelativeDate(new Date(x.event_start), lang),
-        x.room[0]?.room_id?.name
-      ].filter(x=>x);
+    const getTimeText = () => {
+      // Not yet happened
+      if(new Date(x.event_start) > new Date()) {
+        return getRelativeDate(new Date(x.event_start), lang);
+      }
 
-      return {
-        title: x.translations[0]?.title ?? "",
-        description: x.translations[0]?.description ?? "",
-        tags,
-        image: x.top_image,
-        url: `events/${x.metadata?.slug || null}`,
-        recurring: x.is_recurring,
-        startDate: x.event_start
+      //Happening now
+      if(new Date() < new Date(x.event_end)) {
+        if(lang == "no") return `Varer til ${getRelativeDate(new Date(x.event_end), lang)}`;
+        if(lang == "en") return `Lasts until ${getRelativeDate(new Date(x.event_end), lang)}`;
+      }
     }
-    });
 
-    // TODO: Get events for today properly by querying them such that if the event is overlapping the current date it shows. 
-    // Is tricky due to recurring events and must be handled correctly
-    const eventsToday = upcomingEvents.filter(x=> new Date(x.event_start) <= new Date() && new Date(x.event_end) >= new Date()).reduce((acc, event) => {
-      const rooms = event.room;
-      if(rooms.length == 0) {
-        acc.push({
-          startTime: format(new Date(event.event_start), "HH:mm"),
-          endTime: format(new Date(event.event_end), "HH:mm"),
-          title: event.translations[0].title,
-        })
-        return acc;
-      }
+    const tags = [
+      getTimeText(),
+      x.room[0]?.room_id?.name
+    ].filter(x => x);
 
-      for(const room of rooms) {
-        acc.push({
-          startTime: format(new Date(event.event_start), "HH:mm"),
-          endTime: format(new Date(event.event_end), "HH:mm"),
-          room: `${room.room_id.name} (${room.room_id.floor}. etg)`,
-          title: event.translations[0].title,
-        })
-      }
+    return {
+      title: x.translations[0]?.title ?? "",
+      description: x.translations[0]?.description ?? "",
+      tags,
+      image: x.top_image,
+      url: `events/${x.metadata?.slug || null}`,
+      recurring: x.is_recurring,
+      startDate: x.event_start
+    }
+  });
+
+  // TODO: Get events for today properly by querying them such that if the event is overlapping the current date it shows. 
+  // Is tricky due to recurring events and must be handled correctly
+  const eventsToday = upcomingEvents.filter(x => new Date(x.event_start) <= new Date() && new Date(x.event_end) >= new Date()).reduce((acc, event) => {
+    const rooms = event.room;
+    if (rooms.length == 0) {
+      acc.push({
+        startTime: format(new Date(event.event_start), "HH:mm"),
+        endTime: format(new Date(event.event_end), "HH:mm"),
+        title: event.translations[0].title,
+      })
       return acc;
-    }, []);
+    }
 
-    const openingHours = await queryOpeningHours();
-    const todayText = await queryTodayText();
-    const carouselItems = await appendBase64Image(await queryCarouselItems(lang));
-    const result = {events, eventsToday, openingHours, carouselItems, todayText};
+    for (const room of rooms) {
+      acc.push({
+        startTime: format(new Date(event.event_start), "HH:mm"),
+        endTime: format(new Date(event.event_end), "HH:mm"),
+        room: `${room.room_id.name} (${room.room_id.floor}. etg)`,
+        title: event.translations[0].title,
+      })
+    }
+    return acc;
+  }, []);
 
-    return result;
+  const openingHours = await queryOpeningHours();
+  const todayText = await queryTodayText();
+  const carouselItems = await appendBase64Image(await queryCarouselItems(lang));
+  const result = { events, eventsToday, openingHours, carouselItems, todayText };
+
+  return result;
 }
 
 export default fetchIndexData;

@@ -5,17 +5,22 @@ export function BlurImage(props) {
   const imageId = props.imageId || props.image?.id;
   const base64 = props.base64 || props.image?.base64;
   if (!imageId && !base64) return <></>;
-  const [loading, setLoading] = useState(true);
+  const origin = props.image?.__typename;
   const data = { ...props };
-  const fadeIn = props.fadeIn;
   delete data.imageId;
   delete data.image;
   delete data.fadeIn;
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
-    return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${
-      quality || 75
-    }`;
+    if(origin === "studentBergen") {
+      return `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${src}`
+    }
+
+    if(origin === "directus_files") {
+      return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${
+        quality || 75
+      }`;
+    }
   };
 
     return (
@@ -23,7 +28,6 @@ export function BlurImage(props) {
         <Image
           src={imageId}
           loader={customLoader}
-          onLoadingComplete={() => setLoading(false)}
           className="blur-image"
           blurDataURL={base64}
           placeholder={base64 ? "blur" : "empty"}

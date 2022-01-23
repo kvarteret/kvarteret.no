@@ -14,6 +14,17 @@ import { getPlaiceholder } from "plaiceholder";
         data.base64 = base64;
       })())
     }
+
+    if(data["__typename"] === "studentBergen" ) {
+      
+      promises.push((async () => {
+        const { base64, img } = await getPlaiceholder(
+          `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${data.id}`,
+          { size: 12 }
+        );
+        data.base64 = base64;
+      })())
+    }
   
     for (const key in data) {
       if (Array.isArray(data[key])) {
