@@ -1,4 +1,19 @@
-const filterTodayPred = (x) => x=>openingHours.day == new Date().toLocaleString("en-us", {weekday: "long"});
+import {getDay} from 'date-fns';
+
+// Maps name to day id in date-fns https://date-fns.org/v2.28.0/docs/getDay
+const dayMapping = {
+    søndag: 0,
+    mandag: 1,
+    tirsdag: 2,
+    onsdag: 3,
+    torsdag: 4,
+    fredag: 5,
+    lørdag: 6
+}
+
+const filterTodayPred = x=>{
+    return dayMapping[x.day] == getDay(new Date());
+};
 
 
 const OpeningHoursRoomName = ({item}) => (<div className="container">
@@ -30,10 +45,10 @@ const OpeningHoursTimes = ({item}) => <div className="container">
 
 const OpeningHours = ({openingHours, light}) => <div className={"container" + (light ? " light" : "")}>
     <div className="list left">
-        {openingHours?.filter(filterTodayPred)[0]?.opening_time_day.map((x, i) => <OpeningHoursRoomName key={i} item={x} />)}
+        {openingHours?.find(filterTodayPred)?.opening_time_day.map((x, i) => <OpeningHoursRoomName key={i} item={x} />)}
     </div>
     <div className="list">
-        {openingHours?.filter(filterTodayPred)[0]?.opening_time_day.map((x, i) => <OpeningHoursTimes key={i} item={x} />)}
+        {openingHours?.find(filterTodayPred)?.opening_time_day.map((x, i) => <OpeningHoursTimes key={i} item={x} />)}
     </div>
     
     <style jsx>

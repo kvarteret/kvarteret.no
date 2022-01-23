@@ -1,9 +1,11 @@
 import { BlurImage, ExternalContent } from "dak-components";
-import { format } from "date-fns";
+import { format, isSameDay } from "date-fns";
 import Snippet from "../../components/Snippet";
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import queryAllEventSlugs, { queryEventBySlug } from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
+import axios from "axios";
+import { nb, en } from "date-fns/locale";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -17,9 +19,20 @@ export async function getStaticPaths() {
   };
 }
 
+const getStudentBergenEvents = async (slug) => {
+  const request = await axios.get(`http://localhost:3001/api/external/events/${slug}`);
+  return request.data;
+}
+
 export async function getStaticProps({ locale, params, preview }) {
   const layout = await fetchLayoutData(locale);
-  const data = await queryEventBySlug(locale, params.id);
+  let data = await queryEventBySlug(locale, params.id);
+  const fnsLocale = locale === "no" ? nb : en;
+
+  if (!data || !isResourceAvailable(data.status, preview)) {
+    data = await getStudentBergenEvents(params.id);
+  }
+  
   if (!data || !isResourceAvailable(data.status, preview)) {
     return {
       props: { layout: layout },
@@ -30,6 +43,15 @@ export async function getStaticProps({ locale, params, preview }) {
 
   const rooms = data.room.map(x=>x.room_id.name).join(", ");
 
+  const formatDate = () => {
+    const start = new Date(data.event_start);
+    const end = new Date(data.event_end);
+    if(isSameDay(start, end)) {
+      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})} - ${format(end, "HH:mm", {locale: fnsLocale})}`;
+    }
+
+    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})} - ${format(end, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})}`;
+  }
 
   return {
     props: {
@@ -44,7 +66,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-clock",
             title: "Tidspunkt",
-            text: `${format(new Date(data.event_start), "dd. MMMM yyyy")} kl. ${format(new Date(data.event_start), "HH:mm")} - ${format(new Date(data.event_end), "HH:mm")}`
+            text: formatDate()
           },
           {
             icon: "dak-location",
@@ -54,7 +76,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-group",
             title: "Arrangør",
-            text: "Bergen Realistforening"
+            text: data.organizer?.name || ""
           },
           ...(data.translations[0].practical_information || [])
         ]

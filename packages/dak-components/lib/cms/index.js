@@ -4,10 +4,10 @@ import { areIntervalsOverlapping, format, formatRelative, parse } from "date-fns
 import { nb, en } from "date-fns/locale";
 import appendBase64Image from "./utils/appendBase64Image";
 import axios from 'axios';
-import slugify from "slugify";
 
 const externalMapping = (event) => {
   return {
+    status: "published",
       event_start: event.startTime,
       event_end: event.endTime,
       is_recurring: false,
@@ -15,15 +15,22 @@ const externalMapping = (event) => {
           __typename: "studentBergen",
           id: event.image?.path
       },
+      event_header: {
+          __typename: "studentBergen",
+          id: event.image?.path
+      },
       room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
       metadata: {
-          slug: slugify(event.name)
+          slug: event.slug
       },
       weekly_recurring: [],
       translations: [
           {
               title: event.name,
-              description: event.intro
+              description: event.intro,
+              content: event.article,
+              practical_information: [],
+              snippets: []
           }
       ]
   }
@@ -54,7 +61,6 @@ const fetchIndexData = async (lang) => {
   const upcomingEventsBergen = await getUpcomingEventsFromStudentBergen();
   
   const upcomingEvents = await appendBase64Image(upcomingEventsCms.concat(upcomingEventsBergen).sort((a, b) => new Date(a.event_start) - new Date(b.event_start)).slice(0, 6))
-  console.log("DATA", upcomingEvents);
 
   const events = upcomingEvents.map(x => {
 
