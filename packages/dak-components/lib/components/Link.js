@@ -1,9 +1,9 @@
 import NextLink from "next/link";
 
-const Link = ({ href, children, locale }) => {
+const Link = ({ href, target, rel, children, locale }) => {
   if (!href) return <>{children}</>;
   return (
-      <NextLink href={href} locale={locale}><a>{children}</a></NextLink>
+      <NextLink href={href} target={target} rel={rel} locale={locale}><a>{children}</a></NextLink>
   );
 };
 

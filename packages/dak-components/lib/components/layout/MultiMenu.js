@@ -1,14 +1,19 @@
-import {Link} from "../Link";
+import Link from "next/link";
 
 const MenuGroup = ({group}) => {
     return <div className="container">
         <div className="title">{group.title}</div>
-        {group.groups.map((x, i) =>
-        <div key={i}> 
+        {group.groups.map((x, i) => {
+            let additionalParams = {}
+            if(x.url?.startsWith("http")) {
+              additionalParams = { target: "_blank", rel: "noopener noreferrer"};
+            }
+        return <div key={i}> 
             <Link href={x.url}>
-                <a className="item">{x.title}</a>
+                <a className="item" {...additionalParams}>{x.title}</a>
             </Link>
             </div>
+        }
         )}
         <style jsx>
             {`
