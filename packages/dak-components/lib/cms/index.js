@@ -6,40 +6,9 @@ import appendBase64Image from "./utils/appendBase64Image";
 import axios from 'axios';
 import { getEvents } from "../studentBergen";
 
-const externalMapping = (event) => {
-  return {
-    status: "published",
-      event_start: event.startTime,
-      event_end: event.endTime,
-      is_recurring: false,
-      top_image: {
-          __typename: "studentBergen",
-          id: event.image?.path
-      },
-      event_header: {
-          __typename: "studentBergen",
-          id: event.image?.path
-      },
-      room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
-      metadata: {
-          slug: event.slug
-      },
-      weekly_recurring: [],
-      translations: [
-          {
-              title: event.name,
-              description: event.intro,
-              content: event.article,
-              practical_information: [],
-              snippets: []
-          }
-      ]
-  }
-}
-
 const getUpcomingEventsFromStudentBergen = async () => {
   const response = await getEvents();
-  const mapped = response.map(externalMapping).filter(x => new Date(x.event_end || x.start_date) >= new Date());
+  const mapped = response.filter(x => new Date(x.event_end || x.start_date) >= new Date());
   return mapped;
 }
 

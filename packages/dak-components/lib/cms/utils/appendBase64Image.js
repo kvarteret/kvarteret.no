@@ -7,6 +7,7 @@ import { getPlaiceholder } from "plaiceholder";
   
     if(data["__typename"] === "directus_files" && (data?.type?.startsWith("image") || false)) {
       promises.push((async () => {
+        if(!data.id) return;
         const { base64, img } = await getPlaiceholder(
           `https://cms.kvarteret.no/assets/${data.id}?width=12&height=12`,
           { size: 12 }
@@ -18,6 +19,7 @@ import { getPlaiceholder } from "plaiceholder";
     if(data["__typename"] === "studentBergen" ) {
       
       promises.push((async () => {
+        if(!data.id) return;
         const { base64, img } = await getPlaiceholder(
           `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${data.id}`,
           { size: 12 }

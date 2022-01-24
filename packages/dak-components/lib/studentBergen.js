@@ -38,7 +38,20 @@ const getEvents = async () => {
 
         return {...x, slug};
     });
-    return withSlug;
+    return withSlug.map(externalMapping);
+}
+
+const getImage = (id) => {
+    if(!id) {
+        return {
+            __typename: "directus_files",
+            id: "55664499-2abb-4a88-8f92-d46339584061"
+        }
+    }
+    return {
+        __typename: "studentBergen",
+        id
+    }
 }
 
 const externalMapping = (event) => {
@@ -47,14 +60,8 @@ const externalMapping = (event) => {
         event_start: event.startTime,
         event_end: event.endTime,
         is_recurring: false,
-        top_image: {
-            __typename: "studentBergen",
-            id: event.image?.path
-        },
-        event_header: {
-            __typename: "studentBergen",
-            id: event.image?.path
-        },
+        top_image: getImage(event.image?.path),
+        event_header: getImage(event.image?.path),
         room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
         metadata: {
             slug: event.slug
