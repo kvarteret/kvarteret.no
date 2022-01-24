@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-<url><loc>https://kvarteret.no/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/en/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/en/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/events/mikromandag/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/events/apen-oving-med-mar/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/events/studenttorg-paa-kvarteret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/vare-barer/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/skibas/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/skjenkegruppen/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/vaktetaten/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/meny/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/om-kvarteret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
-<url><loc>https://kvarteret.no/no/kvarterstyret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-23T16:07:44.584Z</lastmod></url>
+<url><loc>https://kvarteret.no/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/en/events/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/en/</loc><changefreq>daily</changefreq><priority>1</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/vare-barer/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/skibas/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/skjenkegruppen/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/vaktetaten/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/meny/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/om-kvarteret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/kvarterstyret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/events/mikromandag/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/events/apen-oving-med-mar/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
+<url><loc>https://kvarteret.no/no/events/studenttorg-paa-kvarteret/</loc><changefreq>weekly</changefreq><priority>0.7</priority><lastmod>2022-01-24T20:49:52.455Z</lastmod></url>
 </urlset>

@@ -15,8 +15,8 @@ import Vibrant from "node-vibrant";
 
 const CarouselItem = ({ item }) => {
   
-  const imageId = item.header.id;
   // const { data, loading, error } = usePalette(`https://cms.kvarteret.no/assets/${imageId}`)
+  const imageId = item.header.id;
   const [vibrancy, setVibrancy] = useState();
   useEffect(() => {
     const test = async () => {
@@ -27,7 +27,7 @@ const CarouselItem = ({ item }) => {
     }
 
     test();
-  },[setVibrancy])
+  },[setVibrancy, imageId])
 
   const link = (item?.navigation?.type === "page" ? item?.navigation?.page?.slug : item?.navigation?.url) ?? ""
 

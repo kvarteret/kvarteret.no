@@ -118,3 +118,8 @@ dist
 .pnp.*
 
 .vercel
+
+.turbo
+build/**
+dist/**
+.next/**
