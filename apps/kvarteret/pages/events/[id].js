@@ -6,6 +6,7 @@ import queryAllEventSlugs, { queryEventBySlug } from "dak-components/lib/cms/que
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 import axios from "axios";
 import { nb, en } from "date-fns/locale";
+import { getEventBySlug } from "dak-components/lib/studentBergen";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -20,8 +21,7 @@ export async function getStaticPaths() {
 }
 
 const getStudentBergenEvents = async (slug) => {
-  const request = await axios.get(`http://localhost:3001/api/external/events/${slug}`);
-  return request.data;
+  return await getEventBySlug(slug);
 }
 
 export async function getStaticProps({ locale, params, preview }) {

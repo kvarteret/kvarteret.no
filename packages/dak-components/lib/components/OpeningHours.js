@@ -28,7 +28,7 @@ const OpeningHoursRoomName = ({item}) => (<div className="container">
 </div>)
 
 const OpeningHoursTimes = ({item}) => <div className="container">
-    {!item.is_open && <div>CLOSED</div>}
+    {!item.is_open && <div>Stengt</div>}
     {item.is_open && 
         <div>{item.opening_time} - {item.closing_time}</div>
     }

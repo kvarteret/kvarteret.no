@@ -1,4 +1,4 @@
-import Link from "next/link";
+import {Link} from "../Link";
 import {useState} from "react";
 
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
@@ -27,13 +27,13 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
   }
 
   if(!url.startsWith("http") && !url.startsWith("#")) {
-    url = "/" + url;
+    // url = "/" + url;
   }
 
   //   if(!url) return <></>;
 
   return (
-    <Link href={`${url}`}>
+    <Link href={url}>
       <a>   
         <div className={"container" + isButton} onMouseOver={mouseOver} onClick={mouseClick} onMouseLeave={mouseLeave}>
           {navItem.title}

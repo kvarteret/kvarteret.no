@@ -12,7 +12,7 @@ const sanitizeMultiMenu = (item) => {
 
 const sanitizeNavigationItem = (item) => ({
     title: item?.translations[0]?.name,
-    url: (item?.type === "page" ? item?.page?.slug : item?.url) ?? "",
+    url: (item?.type === "page" ? "/" + (item?.page?.slug || "#") : item?.url) ?? "",
 })
 
 const sanitizeTree = (id, navigationItems, depth = 0) => {

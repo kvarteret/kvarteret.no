@@ -4,6 +4,7 @@ import { areIntervalsOverlapping, format, formatRelative, parse } from "date-fns
 import { nb, en } from "date-fns/locale";
 import appendBase64Image from "./utils/appendBase64Image";
 import axios from 'axios';
+import { getEvents } from "../studentBergen";
 
 const externalMapping = (event) => {
   return {
@@ -37,8 +38,8 @@ const externalMapping = (event) => {
 }
 
 const getUpcomingEventsFromStudentBergen = async () => {
-  const response = await axios.get("http://localhost:3001/api/external/events");
-  const mapped = response.data.map(externalMapping).filter(x => new Date(x.event_end || x.start_date) >= new Date());
+  const response = await getEvents();
+  const mapped = response.map(externalMapping).filter(x => new Date(x.event_end || x.start_date) >= new Date());
   return mapped;
 }
 

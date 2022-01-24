@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 import cache from 'memory-cache';
-import slugify from 'slugify';
+import slugify from "slugify";
 import sanitizeHtml from 'sanitize-html';
 
 const cachedGet = async (url, headers) => {
@@ -18,6 +18,29 @@ const cachedGet = async (url, headers) => {
     cache.put(url, data, cacheTime);
     return data;
 }
+
+const getEvents = async () => {
+    // TODO: Place as env variable
+    const studentBergenData = await cachedGet("https://studentbergen.netflex.dev/api/student_org/11028/events?cohosting=true", {
+        Authorization: "Bearer 059af681a5606a521cc1475e8f81a3c04c70ac40dbae02f52895e0112a6bba73"
+    });
+
+    const usedSlugs = {};
+
+    const withSlug = studentBergenData.map(x=> {
+        let slug = slugify(x.name, {strict: true, lower: true});
+        usedSlugs[slug] = (usedSlugs[slug] || 0) + 1;
+
+        if(usedSlugs[slug] > 1) {
+            slug = slug + "-" + (usedSlugs[slug] - 1).toString();
+        }
+
+
+        return {...x, slug};
+    });
+    return withSlug;
+}
+
 const externalMapping = (event) => {
     return {
       status: "published",
@@ -53,8 +76,7 @@ const externalMapping = (event) => {
   }
 
 // TODO:
-export default async function handler(req, res) {
-    const { slug } = req.query
+const getEventBySlug = async (slug) => {
     // TODO: Place as env variable
     const studentBergenData = await cachedGet("https://studentbergen.netflex.dev/api/student_org/11028/events?cohosting=true", {
         Authorization: "Bearer 059af681a5606a521cc1475e8f81a3c04c70ac40dbae02f52895e0112a6bba73"
@@ -75,5 +97,8 @@ export default async function handler(req, res) {
     });
     const event = withSlug.filter(x=>x.slug === slug).reduce((a, b) => (new Date(a.event_start) > new Date(b.event_start) ? a : b));
 
-    res.status(200).json(externalMapping(event));
+    return externalMapping(event);
 }
+
+
+export {getEvents, getEventBySlug};

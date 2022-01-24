@@ -8,6 +8,7 @@ export default async function queryGeneralInformation(lang) {
     query: gql`
       query GeneralInformation {
         general_information {
+          id
           left_navigation {
             id
           }
@@ -78,6 +79,7 @@ export async function queryTodayText() {
     query: gql`
     query QueryTodayText {
       general_information {
+        id
         today_at_kvarteret
       }
     }
