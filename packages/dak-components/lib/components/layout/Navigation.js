@@ -12,7 +12,9 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
 
   const mouseClick = () => {
     removeOpenMenus();
-    document.getElementById(navItem.title)?.style.display = "flex";
+    const item = document.getElementById(navItem.title);
+    if(!item) return;
+    item.style.display = "flex";
   }
 
   const mouseOver = () => {

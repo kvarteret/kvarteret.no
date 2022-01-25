@@ -8,7 +8,7 @@ module.exports = withPlugins([withTM(), withImages], {
   },
   rewrites: async () => [
     {
-      source: "/api/files/:id",
+      source: "/files/:id",
       destination: "https://cms.kvarteret.no/assets/:id"
     }
   ],

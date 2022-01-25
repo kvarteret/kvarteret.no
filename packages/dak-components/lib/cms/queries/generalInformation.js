@@ -48,12 +48,14 @@ export async function queryCarouselItems(lang) {
     query: gql`
     query queryCarouselItems($lang: String) {
       main_carousel {
+        id
         header {
           id
           __typename
           type
         }
         navigation {
+          id
           type
           page {
             slug
@@ -63,6 +65,7 @@ export async function queryCarouselItems(lang) {
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {
+          id
           title
           description
         }
@@ -93,8 +96,10 @@ export async function queryOpeningHours() {
     query: gql`
       query QueryOpeningHours {
         opening_time {
+          id
           day
           opening_time_day {
+            id
             is_open
             opening_time
             closing_time

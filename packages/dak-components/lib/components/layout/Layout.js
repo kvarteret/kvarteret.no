@@ -10,7 +10,9 @@ const Layout = ({ children, data }) => {
     const ids = [...data.navigation.left.map(x => x.title), ...data.navigation.right.map(x => x.title)];
 
     for (const id of ids) {
-      document.getElementById(id)?.style.display = "none";
+      const item = document.getElementById(id);
+      if(!item) continue;
+      item.style.display = "none";
     }
   }
 
