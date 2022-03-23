@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import Axios from "axios";
-import "./App.module.css";
+// import fetchIndexData from "dak-components/lib/cms/index";
 import {
   getEventsAtFloor,
   generateEventCards,
@@ -9,6 +8,15 @@ import {
 import { returnDummyData } from "./dummyData";
 import FloorContainer from "./FloorContainer";
 import Header from "./Header";
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      locale: context.locale,
+    },
+    revalidate: 1,
+  };
+}
 
 class App extends Component {
   constructor() {
@@ -40,16 +48,19 @@ class App extends Component {
     }
   }
 
-  fetchAndSetEventData() {
-    Axios.get("https://kvarteret.no/info/fetchxml.php")
-      .then((res) => {
-        this.setState({ eventData: "" }, () => {
-          this.setState({ eventData: filterPastEvents(res.data) });
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  async fetchAndSetEventData() {
+    console.debug("Fetching events");
+    // const indexData = await fetchIndexData(this.props.locale);
+    // this.setState({ eventData: filterPastEvents(indexData.events) });
+    // Axios.get("https://kvarteret.no/info/fetchxml.php")
+    //   .then((res) => {
+    //     this.setState({ eventData: "" }, () => {
+    //       this.setState({ eventData: filterPastEvents(res.data) });
+    //     });
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
   }
 
   componentWillUnmount() {
@@ -94,6 +105,42 @@ class App extends Component {
             </div>
           </div>
         )}
+
+        <style jsx>{`
+          #title {
+            padding-top: 45px;
+            height: 275px;
+            position: absolute;
+            left: 100px;
+            color: #fddbdb;
+            text-align: left;
+            font-weight: 100;
+            font-size: 6em;
+            width: 400px;
+          }
+
+          #MainContainer {
+            width: 100%;
+            height: 100vh;
+
+            background-color: #282835;
+            font-family: "Hegval Display", sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            justify-content: center;
+          }
+
+          #Floors {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            flex-grow: 1;
+            justify-content: space-around;
+          }
+        `}</style>
       </div>
     );
   }
