@@ -60,7 +60,7 @@ const Floor = ({ name, events }) => {
       <div className="name">{name}</div>
       <div className="content">
         
-      {events.length > 0 ? events.map((event, index) => {
+      {events.map((event, index) => {
         const start = new Date(event?.start)
         let tid = format(new Date(start), "HH:mm")
         if(start < new Date()) {
@@ -72,7 +72,7 @@ const Floor = ({ name, events }) => {
           event={event?.name}
           tid={tid}
         />)
-      }) : (<Event event="Ingen arrangementer i dag"/>)}
+      })}
       </div>
       <style jsx>
         {`
