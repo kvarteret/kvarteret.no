@@ -21,6 +21,56 @@ export default async function queryAllEventSlugs() {
   return data.events.filter( x=> x.status === "published");
 }
 
+export async function queryAllEvents() {
+  const { data } = await cmsClient.query({
+    variables: {lang: "no"},
+    query: gql`
+
+    query QueryAllEvents($lang: String) {
+      events {
+        status
+        id
+        event_end
+        event_start
+        metadata {
+          slug
+        }
+        top_image {
+          id
+          __typename
+          type
+        }
+        event_header {
+          id
+          __typename
+          type
+        }
+        room {
+          room_id {
+            name
+            floor
+          }
+        }
+        translations(
+          filter: { languages_code: { url_code: { _eq: $lang } } }
+        ) {
+          title
+          description
+          content
+          practical_information
+          snippets {
+            title
+            code
+          }
+        }
+      }
+    }
+    `,
+  });
+
+  return data.events.filter(x=>isResourceAvailable(x.status, false));
+}
+
 export async function queryEventBySlug(lang, slug) {
   const { data } = await cmsClient.query({
     variables: { slug, lang },
