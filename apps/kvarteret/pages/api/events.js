@@ -2,6 +2,7 @@ import {queryAllEvents} from "dak-components/lib/cms/queries/events";
 import { getEvents } from "dak-components/lib/studentBergen";
 import cache from "memory-cache";
 import Fuse from 'fuse.js'
+import { getEventsAfter } from "dak-components/lib/cms/events";
 
 const allEvents = async () => {
     const studentBergen = await getEvents();
@@ -39,8 +40,8 @@ export default async function handler(req, res) {
     // ...
     const { search } = req.query;
     console.log("SEARCH", search);
-    const events = await allEvents();
-    const mapped = events.filter(x => new Date(x.event_end || x.start_date) >= new Date());
+    const events = await getEventsAfter("no", new Date());
+    const mapped = events;
     
     const options = {
         isCaseSensitive: false,

@@ -84,6 +84,7 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 			<style jsx>
 				{`
                     .wrapper {
+						display: ${open ? "block" : "none"};
                         position: absolute;
                         left: 0;
                         top: 0;
