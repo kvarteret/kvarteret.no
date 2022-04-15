@@ -32,11 +32,14 @@ const HamburgerMenu = ({ logo, navigation, children }) => {
         goBackCallback={backCallback}
         onClose={() => setOpen(false)}
       >
+        {({startClosing}) => (
+
         <HamburgerNavigation
-          navigation={navigation}
-          setBackCallback={setBackCallback}
-          close={() => setOpen(false)}
-        />
+        navigation={navigation}
+        setBackCallback={setBackCallback}
+        close={() => startClosing(false)}
+      />
+        )}
       </SideMenu>
 
       <HamburgerMenuContext.Provider value={context}>

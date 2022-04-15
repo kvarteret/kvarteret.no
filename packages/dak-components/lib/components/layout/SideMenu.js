@@ -78,7 +78,9 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 						</div>
 						<div className="spacing"></div>
 					</div>
-					{children}
+					{children({
+						startClosing
+					})}
 				</div>
 			</div>
 			<style jsx>
@@ -172,7 +174,7 @@ const SideMenu = ({ open, children, goBackCallback, onClose, logo }) => {
 						cursor: pointer;
 					}
 					
-					@media only screen and (min-width: 992px) {
+					@media only screen and (min-width: 1280px) {
 						.wrapper {
 							display: none;
 						}

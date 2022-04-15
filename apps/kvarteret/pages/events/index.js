@@ -179,9 +179,9 @@ const EventSearch = () => {
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            margin: 20px;
         }
           .container {
-            margin: 20px;
             margin-top: 100px;
             max-width: 1080px;
             width: 100%;
