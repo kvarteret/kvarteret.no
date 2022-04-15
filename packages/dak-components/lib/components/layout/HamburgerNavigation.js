@@ -1,13 +1,13 @@
 import React, {useState, useContext} from 'react';
 import Link from "next/link";
 import { SideMenuContext } from './SideMenu';
-const HamburgerLine = ({title, size, link, onClick}) => (
+const HamburgerLine = ({title, isTitle, size, link, onClick}) => (
 	<Link href={link || "#"}>
 			<a>
 
-			<div className={`container ${link ? "link" : ""}`} onClick={onClick && (() => onClick())}>
+			<div className={`container ${!isTitle ? "link" : ""}`} onClick={onClick && (() => onClick())}>
 			<div className={`title`}>{title}</div>
-			{link && <div className="chevron dak-right-circle"></div>}
+			{!isTitle && <div className="chevron dak-right-circle"></div>}
 	</div>
 		<style jsx>
 				{`
@@ -48,7 +48,7 @@ const HamburgerItem = ({ navigationItem }) => {
 	return (
 		<div className="container">
 			<div className="title">
-				<HamburgerLine title={navigationItem.title} size={14} noChevron />
+				<HamburgerLine isTitle title={navigationItem.title} size={14} noChevron />
 			</div>
 
 			{navigationItem.groups.map((x, i) => (<HamburgerLine title={x.title} key={i} size={18} link={x.url} onClick={() => close()} />))}
@@ -63,12 +63,19 @@ const HamburgerItem = ({ navigationItem }) => {
 	);
 };
 
-const HamburgerGroup = ({ navigationItem, setMultiData }) => {
+const HamburgerGroup = ({ navigationItem, setMultiData, close }) => {
 	const isMulti = navigationItem.multiMenu?.length > 0;
-	
 	return (
 		<div className="container">
-				<HamburgerLine title={navigationItem.title} size={26} link={isMulti && "#"} onClick={() => isMulti && setMultiData(navigationItem.multiMenu)} />
+				<HamburgerLine title={navigationItem.title} size={26} link={!isMulti && navigationItem?.url} onClick={() => {
+					if(isMulti) {
+						setMultiData(navigationItem.multiMenu)
+					} else {
+
+						close();
+					}
+
+				}} />
 
 			<style jsx>
 				{`
@@ -105,7 +112,7 @@ const HamburgerGroup = ({ navigationItem, setMultiData }) => {
 	);
 };
 
-const HamburgerNavigation = ({navigation, setBackCallback}) => {
+const HamburgerNavigation = ({navigation, setBackCallback, close}) => {
 	const items = [...navigation.left, ...navigation.right];
 
 	const [isSelected, setSelected] = useState(false);
@@ -129,7 +136,7 @@ const HamburgerNavigation = ({navigation, setBackCallback}) => {
 					<div className="content">
 						{items.map((x, i) => (
 							<div key={i} className="container">
-								<HamburgerGroup navigationItem={x} setMultiData={setMultiData} />
+								<HamburgerGroup close={close} navigationItem={x} setMultiData={setMultiData} />
 							</div>
 						))}
 					</div>

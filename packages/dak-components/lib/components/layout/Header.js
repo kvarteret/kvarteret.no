@@ -153,7 +153,7 @@ const Header = ({ data, removeOpenMenus }) => {
           flex: 1;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1280px) {
           .hamburger {
             display: flex;
             justify-content: center;
