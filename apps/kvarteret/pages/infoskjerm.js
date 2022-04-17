@@ -1,7 +1,9 @@
+import { getEvents } from "dak-components/lib/crescat";
 import { format } from "date-fns";
 import Image from "next/image";
 import { returnDummyData } from "../components/infoskjerm/dummyData";
 import {
+  filterPastEvents,
   getEventsAtFloor,
 } from "../components/infoskjerm/utils";
 import logo from '../public/static/Kvarteret_logo_rosa.png'
@@ -9,8 +11,9 @@ import logo from '../public/static/Kvarteret_logo_rosa.png'
 // Contains imported React code from infoskjerm github repo
 
 export async function getStaticProps(context) {
-  // const crescatData = filterPastEvents(await getEvents());
-  const crescatData = returnDummyData();
+  const crescatData = filterPastEvents(await getEvents());
+  console.log("CSCT", crescatData)
+  // const crescatData = returnDummyData();
   let floorData = [];
   for (let i = 3; i >= 1; --i) {
     floorData.push({
@@ -19,7 +22,6 @@ export async function getStaticProps(context) {
     });
   }
 
-  console.log("floorData", JSON.stringify(floorData), crescatData);
   return {
     props: {
       eventData: floorData,
