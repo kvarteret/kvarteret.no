@@ -34,11 +34,12 @@ const Custom404 = () => {
             }
   
             .content {
-              position: absolute;
+              position: relative;
               left: 0;
               right: 0;
               top: 0;
               bottom: 0;
+              height:100vh;
               backdrop-filter: blur(2px);
               display: flex;
               justify-content: center;
