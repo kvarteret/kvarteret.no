@@ -12,34 +12,37 @@ export function BlurImage(props) {
   delete data.fadeIn;
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
-    if(origin === "studentBergen") {
-      return `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${src}`
+    if (origin === "studentBergen") {
+      return `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${src}`;
     }
 
-    if(origin === "directus_files") {
+    if (origin === "directus_files") {
+      if (props.transformKey) {
+        return `https://cms.kvarteret.no/assets/${src}?key=${props.transformKey}`;
+      }
       return `https://cms.kvarteret.no/assets/${src}?width=${width}&quality=${
         quality || 75
       }`;
     }
   };
 
-    return (
-      <>
-        <Image
-          src={imageId}
-          loader={customLoader}
-          className="blur-image"
-          blurDataURL={base64}
-          placeholder={base64 ? "blur" : "empty"}
-          {...data}
-        />
-        <style jsx global>
-          {`
+  return (
+    <>
+      <Image
+        src={imageId}
+        loader={customLoader}
+        className="blur-image"
+        blurDataURL={base64}
+        placeholder={base64 ? "blur" : "empty"}
+        {...data}
+      />
+      <style jsx global>
+        {`
           .blur-image {
             transition: 0.3s;
           }
-          `}
-        </style>
-      </>
-    );
+        `}
+      </style>
+    </>
+  );
 }

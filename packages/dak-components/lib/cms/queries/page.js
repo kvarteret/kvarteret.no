@@ -47,6 +47,8 @@ export async function queryPageBySlug(lang, slug) {
                     id
                     __typename
                     type
+                    width
+                    height
                   }
                 }
               }
@@ -66,6 +68,11 @@ export async function queryPageBySlug(lang, slug) {
                 title
                 code
               }
+              ... on property_section {
+                id
+                properties
+                style
+              }
               ... on split_section {
                 left {
                   collection
@@ -80,11 +87,19 @@ export async function queryPageBySlug(lang, slug) {
                           id
                           __typename
                           type
+                          width
+                          height
                         }
                       }
                     }
                     ... on snippet_section {
+                      title
                       code
+                    }
+                    ... on property_section {
+                      id
+                      properties
+                      style
                     }
                     ... on card_section {
                       title
@@ -112,12 +127,19 @@ export async function queryPageBySlug(lang, slug) {
                           id
                           __typename
                           type
+                          width
+                          height
                         }
                       }
                     }
                     ... on snippet_section {
                       title
                       code
+                    }
+                    ... on property_section {
+                      id
+                      properties
+                      style
                     }
                     ... on card_section {
                       title

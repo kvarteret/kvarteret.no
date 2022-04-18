@@ -1,5 +1,6 @@
 import CardSection from "./CardSection";
 import GallerySection from "./GallerySection";
+import PropertySection from "./PropertySection";
 import SnippetSection from "./SnippetSection";
 import TextSection from "./TextSection";
 
@@ -54,6 +55,9 @@ const ComponentLookup = ({ type, data }) => {
       return <SnippetSection {...data} />;
     case "card_section":
       return <CardSection {...data} />;
+      case "property_section":
+        return <PropertySection {...data} />;
+      
     default:
       return <div>TODO: Missing section types</div>;
   }
