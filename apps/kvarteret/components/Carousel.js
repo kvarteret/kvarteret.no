@@ -1,6 +1,6 @@
 import { BlurImage, Link } from "dak-components";
 // import Swiper core and required modules
-import { Navigation, Pagination, A11y } from "swiper";
+import { Navigation, Pagination, Autoplay, A11y } from "swiper";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -9,6 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/autoplay";
 
 import { useEffect, useState } from "react";
 import Vibrant from "node-vibrant";
@@ -29,7 +30,7 @@ const CarouselItem = ({ item }) => {
     test();
   },[setVibrancy, imageId])
 
-  const link = (item?.navigation?.type === "page" ? item?.navigation?.page?.slug : item?.navigation?.url) ?? ""
+  const link = (item?.navigation?.type === "page" ? item?.navigation?.page_2?.slug : item?.navigation?.url) ?? ""
 
   return (
     <div className="container">
@@ -126,10 +127,16 @@ const Carousel = ({ carouselItems, component }) => {
     <div className="carousel">
       <Swiper
         // install Swiper modules
-        modules={[Navigation, Pagination, A11y]}
+        modules={[Navigation, Pagination, Autoplay, A11y]}
         slidesPerView={1}
         navigation
+        speed={750}
         loop={true}
+        autoplay={{
+          delay: 5000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true
+        }}
         pagination={{ clickable: true }}
       >
         {carouselItems.map((x, i) => (
@@ -144,6 +151,7 @@ const Carousel = ({ carouselItems, component }) => {
         {`
           .carousel {
             width: 100%;
+            min-height: 80px;
           }
         `}
       </style>

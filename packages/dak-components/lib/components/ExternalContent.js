@@ -7,6 +7,10 @@ const ExternalContent = ({ html }) => (
           font-weight: unset !important; 
         }
 
+        .external-content h1 {
+          font-size: 40px;
+        }
+
         .external-content * {
           max-width: 100%;
         }

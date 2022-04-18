@@ -141,7 +141,7 @@ const Footer = ({ data }) => {
         </div>
       </div>
       <div className="copyright">
-        Copyright © 2021 Studentkulturhuset i Bergen AS (org. nr. 973 199 986
+        Copyright © {new Date().getFullYear()} Studentkulturhuset i Bergen AS (org. nr. 973 199 986
         MVA) - ❤️ fra IT-gruppen
       </div>
       <style jsx>

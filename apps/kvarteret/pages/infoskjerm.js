@@ -12,7 +12,6 @@ import logo from '../public/static/Kvarteret_logo_rosa.png'
 
 export async function getStaticProps(context) {
   const crescatData = filterPastEvents(await getEvents());
-  console.log("CSCT", crescatData)
   // const crescatData = returnDummyData();
   let floorData = [];
   for (let i = 3; i >= 1; --i) {
@@ -31,15 +30,57 @@ export async function getStaticProps(context) {
 }
 
 const Event = ({ arrangoer, sted, event, tid }) => (
-  <div className="container">
-    <div>{event}</div>
-    <div>{sted}</div>
+  <>
+    {sted && <div className="room">{sted}</div>}
+    <div className="title">{event}</div>
     <div className="time">{tid}</div>
     <style jsx>
       {`
-        .container {
+
+        .title {
+          grid-column: ${!sted ? "1/3" : "2"};
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .time {
+        }
+      `}
+    </style>
+  </>
+);
+
+const Floor = ({ name, events }) => {
+  console.log("TEST", events)
+  return (
+    <div className="container">
+      <div className="name">{name}</div>
+      <div className="content">
+        <div className="eventGrid">
+
+        {events.map((event, index) => {
+        const start = new Date(event?.start)
+        let tid = format(new Date(start), "HH:mm")
+        if(start < new Date()) {
+          tid = "PÅGÅR"
+        }
+        return (<Event
+          key={index}
+          sted={event?.room}
+          event={event?.name}
+          tid={tid}
+        />)
+      })}
+        </div>
+      </div>
+      <style jsx>
+        {`
+          .container {
+          }
+        .eventGrid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
+          gap: 15px;
+          grid-template-columns: 150px 1fr 70px;
           color: #FDDBDB;
           font-size: 18px;
           font-weight: 100;
@@ -48,39 +89,6 @@ const Event = ({ arrangoer, sted, event, tid }) => (
 
 
         }
-        .time {
-          text-align: right;
-        }
-      `}
-    </style>
-  </div>
-);
-
-const Floor = ({ name, events }) => {
-  return (
-    <div className="container">
-      <div className="name">{name}</div>
-      <div className="content">
-        
-      {events.map((event, index) => {
-        const start = new Date(event?.start)
-        let tid = format(new Date(start), "HH:mm")
-        if(start < new Date()) {
-          tid = "PÅGÅR"
-        }
-        return (<Event
-          key={index}
-          sted={event?.sted}
-          event={event?.name}
-          tid={tid}
-        />)
-      })}
-      </div>
-      <style jsx>
-        {`
-          .container {
-            margin-bottom: 30px;
-          }
           .content {
             margin-top: 30px;
             display:flex;
@@ -121,11 +129,19 @@ const InfoSkjerm = ({ eventData }) => {
           <Floor key={index} name={`${floor}. Etasje`} events={events} />
         ))}
       </div>
+      <style jsx global>
+        {`
+        body {
+
+          background-color: #282835;
+        }
+        
+        `}
+        </style>
 
       <style jsx>
         {`
           .container {
-            background-color: #282835;
             width: 100vw;
             height: 100vh;
             display: flex;

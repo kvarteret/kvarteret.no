@@ -10,9 +10,7 @@ export default async function queryAllEventSlugs() {
         events {
           id
           status
-          metadata {
-            slug
-          }
+          slug
         }
       }
     `,
@@ -32,9 +30,7 @@ export async function queryAllEvents() {
         id
         event_end
         event_start
-        metadata {
-          slug
-        }
+        slug
         top_image {
           id
           __typename
@@ -77,7 +73,7 @@ export async function queryEventBySlug(lang, slug) {
     query: gql`
 
     query QueryEventById($slug: String, $lang: String) {
-      events(filter: {metadata: {slug: {_eq: $slug}}}) {
+      events(filter: {slug: {_eq: $slug}}) {
         status
         id
         event_end
@@ -197,9 +193,7 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
             floor
           }
         }
-        metadata {
-          slug
-        }
+        slug
         weekly_recurring
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
@@ -259,9 +253,7 @@ export async function queryIndexEvents(lang, filterDate) {
             floor
           }
         }
-        metadata {
-          slug
-        }
+        slug
         translations(
           filter: { languages_code: { url_code: { _eq: $lang } } }
         ) {

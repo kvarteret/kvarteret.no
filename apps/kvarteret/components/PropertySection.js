@@ -64,6 +64,11 @@ const DarkList = ({ properties }) => {
               font-weight: 500;
           }
 
+          .value {
+            word-break: break-word;
+          }
+          
+
             .container {
               font-weight: 100;
               font-size: 16px;
@@ -72,6 +77,8 @@ const DarkList = ({ properties }) => {
                 color: white;
               background-color: #313131;
               display: grid;
+              max-width: 100%;
+              overflow: hidden;
               grid-template-columns: fit-content(50px) 1fr;
               padding: 20px;
               gap: 10px;

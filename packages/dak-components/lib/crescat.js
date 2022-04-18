@@ -23,7 +23,7 @@ const getEvents = async () => {
         Authorization: "Bearer Xp0BQMgYIiXwR1nW5qGR3lzsbg0IspMiHgxRMMhiwHpKaHSEqmUvVpRXBLBrER2cbcsXd6I7Va5jOu5u"
     });
 
-    return crescatData;
+    return crescatData.filter(x=>x.fields.some(x=>x.id === 70879));
 }
 
 export {getEvents};

@@ -57,7 +57,7 @@ export async function queryCarouselItems(lang) {
         navigation {
           id
           type
-          page {
+          page_2 {
             slug
           }
           url

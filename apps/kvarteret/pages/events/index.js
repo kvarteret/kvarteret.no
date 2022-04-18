@@ -117,7 +117,7 @@ const EventCard = ({ event }) => {
   return (
     <div>
       <HorizontalCard
-        url={`/events/${event?.metadata?.slug}`}
+        url={`/events/${event?.slug}`}
         image={event.top_image}
         altImage={title}
         title={title}

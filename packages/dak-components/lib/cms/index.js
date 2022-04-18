@@ -58,7 +58,7 @@ const fetchIndexData = async (lang) => {
       description: x.translations[0]?.description ?? "",
       tags,
       image: x.top_image,
-      url: `events/${x.metadata?.slug || null}`,
+      url: `events/${x.slug || null}`,
       recurring: x.is_recurring,
       startDate: x.event_start
     }

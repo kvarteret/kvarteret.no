@@ -1,10 +1,17 @@
-import { Cards } from "dak-components"
+import { Cards, Avatars } from "dak-components"
 
-const CardSection = ({title, cards}) => {
+
+const CardSection = ({layout, title, cards}) => {
+    let Component = Cards;
+    let cardsPrRow = 2
+    if(layout === "AVATAR") {
+        Component = Avatars;
+        cardsPrRow = 4
+    }
     return <div>
         {title && <h2>{title}</h2>}
 
-        <Cards cards={cards} cardsPrRow={2} />
+        <Component cards={cards} cardsPrRow={cardsPrRow} />
     </div>
 }
 

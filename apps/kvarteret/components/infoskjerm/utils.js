@@ -74,7 +74,7 @@ export function getCurrentEvents(events) {
       let roomNr = getFloorNumber(room.name, inFloor);
       if (roomNr == inFloor) {
         eventsAtFloor.push({
-          place: room.name,
+          room: room.name,
           name: event.name,
           start: room.start,
           end: room.end

@@ -63,11 +63,9 @@ const externalMapping = (event) => {
         top_image: getImage(event.image?.path),
         event_header: getImage(event.image?.path),
         room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
-        metadata: {
-            slug: event.slug
-        },
+        slug: event.slug,
         organizer: {
-            name: event.eventBy.name
+            name: event.eventBy?.name
         },
         weekly_recurring: [],
         translations: [
@@ -102,8 +100,11 @@ const getEventBySlug = async (slug) => {
 
         return {...x, slug};
     });
-    const event = withSlug.filter(x=>x.slug === slug).reduce((a, b) => (new Date(a.event_start) > new Date(b.event_start) ? a : b));
+    const event = withSlug.filter(x=>x.slug === slug).sort((a, b) => (new Date(a.event_start) > new Date(b.event_start) ? a : b))[0];
 
+    if(!event) {
+        throw Error(`event not found: ${slug}`)
+    }
     return externalMapping(event);
 }
 

@@ -7,5 +7,6 @@ export * from "./Title";
 export * from "./Link";
 export * from "./ExternalContent"
 export * from "./Cards";
+export * from "./Avatars";
 
 export * from "./404"

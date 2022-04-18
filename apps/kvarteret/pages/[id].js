@@ -4,8 +4,7 @@ import Page from "../components/Page";
 
 export async function getStaticPaths() {
     const slugs = await queryAllPageSlugs();
-
-    const paths = slugs.map(x=> ({params: {id: x.metadata?.slug}}));
+    const paths = slugs.map(x=> ({params: {id: x.slug}}));
 
     return {
         paths,
@@ -16,7 +15,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({locale, params, preview, previewData}) {
-    const layout = await fetchLayoutData(locale);
+  const layout = await fetchLayoutData(locale);
     let page = await queryPageBySlug(locale, params.id);
     
     if(!page) {

@@ -2,7 +2,9 @@ import { BlurImage, ExternalContent } from "dak-components";
 import { format, isSameDay } from "date-fns";
 import Snippet from "../../components/Snippet";
 import fetchLayoutData from "dak-components/lib/cms/layout";
-import queryAllEventSlugs, { queryEventBySlug } from "dak-components/lib/cms/queries/events";
+import queryAllEventSlugs, {
+  queryEventBySlug,
+} from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 import axios from "axios";
 import { nb, en } from "date-fns/locale";
@@ -11,8 +13,8 @@ import { getEventBySlug } from "dak-components/lib/studentBergen";
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
   const paths = slugs
-    .filter((x) => x.metadata?.slug)
-    .map((x) => ({ params: { id: x.metadata?.slug } }));
+    .filter((x) => x.slug)
+    .map((x) => ({ params: { id: x.slug } }));
 
   return {
     paths,
@@ -22,7 +24,7 @@ export async function getStaticPaths() {
 
 const getStudentBergenEvents = async (slug) => {
   return await getEventBySlug(slug);
-}
+};
 
 export async function getStaticProps({ locale, params, preview }) {
   const layout = await fetchLayoutData(locale);
@@ -30,9 +32,17 @@ export async function getStaticProps({ locale, params, preview }) {
   const fnsLocale = locale === "no" ? nb : en;
 
   if (!data || !isResourceAvailable(data.status, preview)) {
-    data = await getStudentBergenEvents(params.id);
+    try {
+      data = await getStudentBergenEvents(params.id);
+    } catch (e) {
+      return {
+        props: { layout: layout },
+        notFound: true,
+        revalidate: 1,
+      };
+    }
   }
-  
+
   if (!data || !isResourceAvailable(data.status, preview)) {
     return {
       props: { layout: layout },
@@ -41,17 +51,21 @@ export async function getStaticProps({ locale, params, preview }) {
     };
   }
 
-  const rooms = data.room.map(x=>x.room_id.name).join(", ");
+  const rooms = data.room.map((x) => x.room_id.name).join(", ");
 
   const formatDate = () => {
     const start = new Date(data.event_start);
     const end = new Date(data.event_end);
-    if(isSameDay(start, end)) {
-      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})} - ${format(end, "HH:mm", {locale: fnsLocale})}`;
+    if (isSameDay(start, end)) {
+      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
+        locale: fnsLocale,
+      })} - ${format(end, "HH:mm", { locale: fnsLocale })}`;
     }
 
-    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})} - ${format(end, "dd. MMMM yyyy 'kl.' HH:mm", {locale: fnsLocale})}`;
-  }
+    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
+      locale: fnsLocale,
+    })} - ${format(end, "dd. MMMM yyyy 'kl.' HH:mm", { locale: fnsLocale })}`;
+  };
 
   return {
     props: {
@@ -66,20 +80,20 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-clock",
             title: "Tidspunkt",
-            text: formatDate()
+            text: formatDate(),
           },
           {
             icon: "dak-location",
             title: "Sted",
-            text: rooms
+            text: rooms,
           },
           {
             icon: "dak-group",
             title: "Arrangør",
-            text: data.organizer?.name || ""
+            text: data.organizer?.name || "",
           },
-          ...(data.translations[0].practical_information || [])
-        ]
+          ...(data.translations[0].practical_information || []),
+        ],
       },
     },
     revalidate: 1,
@@ -87,19 +101,18 @@ export async function getStaticProps({ locale, params, preview }) {
 }
 
 const PracticalInformationLine = ({ icon, title, text }) => {
-  if(typeof window !== "undefined") {
+  if (typeof window !== "undefined") {
     const urlParams = new URLSearchParams(window.location.search);
-    const myParam = urlParams.get('startDate');
-    if(title === "Tidspunkt" && myParam) {
+    const myParam = urlParams.get("startDate");
+    if (title === "Tidspunkt" && myParam) {
       const time = text.split("kl.")[1];
-      text = `${format(new Date(myParam), "dd. MMMM yyyy")} ${time}`
+      text = `${format(new Date(myParam), "dd. MMMM yyyy")} ${time}`;
     }
   }
   return (
     <div className="container">
       <div className="icon-container">
-      <div className={`icon ${icon ? icon : ""}`} />
-
+        <div className={`icon ${icon ? icon : ""}`} />
       </div>
       <div className="text-container">
         <div className="title">{title}</div>
@@ -148,8 +161,6 @@ const PracticalInformationLine = ({ icon, title, text }) => {
 };
 
 export default function Page({ data }) {
-
-
   return (
     <div className="container">
       <div className="top-image">
@@ -164,23 +175,31 @@ export default function Page({ data }) {
         <div className="left-content">
           <div className="practical-info mobile">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.map((x, i) => <PracticalInformationLine {...x} key={i} />)}
+            {data?.practicalInformation?.map((x, i) => (
+              <PracticalInformationLine {...x} key={i} />
+            ))}
           </div>
           <div className="content">
             <h1>{data.title}</h1>
             <ExternalContent html={data.content} />
           </div>
           <div className="snippets mobile">
-            {data.snippets?.map((x, i) => <Snippet key={i} snippet={x}/>)}
+            {data.snippets?.map((x, i) => (
+              <Snippet key={i} snippet={x} />
+            ))}
           </div>
         </div>
         <div className="right-content desktop">
           <div className="practical-info">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.map((x, i) => <PracticalInformationLine {...x} key={i} />)}
+            {data?.practicalInformation?.map((x, i) => (
+              <PracticalInformationLine {...x} key={i} />
+            ))}
           </div>
           <div className="snippets">
-            {data.snippets?.map((x, i) => <Snippet key={i} snippet={x}/>)}
+            {data.snippets?.map((x, i) => (
+              <Snippet key={i} snippet={x} />
+            ))}
           </div>
         </div>
       </div>
@@ -214,7 +233,7 @@ export default function Page({ data }) {
           }
 
           .top-image {
-            margin-top:80px;
+            margin-top: 80px;
             position: relative;
             height: 200px;
           }
@@ -227,7 +246,7 @@ export default function Page({ data }) {
             .top-image {
               position: relative;
               height: 400px;
-              margin-top:0px;
+              margin-top: 0px;
             }
             .mobile {
               display: none;

@@ -17,7 +17,7 @@ export default async function queryNavigationData(lang) {
             }
             type
             url
-            page {
+            page_2 {
               slug
             }
           }
@@ -28,7 +28,7 @@ export default async function queryNavigationData(lang) {
             }
             type
             url
-            page {
+            page_2 {
               slug
             }
             }

@@ -9,9 +9,7 @@ export default async function queryAllPageSlugs() {
         page {
           status
           id
-          metadata {
-            slug
-          }
+          slug
         }
       }
     `,
@@ -24,15 +22,13 @@ export async function queryPageBySlug(lang, slug) {
   const data = await cmsClient.query({
     variables: { lang, slug },
     query: gql`query PageDataBySlug($lang: String, $slug: String) {
-      page(filter: { metadata: { slug: { _eq: $slug } } }) {
+      page(filter: { slug: { _eq: $slug } }) {
         id
         status
-        metadata {
-          slug
-          translations(filter: { languages_code: { url_code: { _eq: $lang } } }) {
-            title
-            description
-          }
+        slug
+        page_data(filter: { languages_code: { url_code: { _eq: $lang } } }) {
+          title
+          description
         }
         translations(filter: { languages_id: { url_code: { _eq: $lang } } }) {
           sections {
@@ -53,6 +49,7 @@ export async function queryPageBySlug(lang, slug) {
                 }
               }
               ... on card_section {
+                layout
                 title
                 cards {
                   image {
@@ -102,6 +99,7 @@ export async function queryPageBySlug(lang, slug) {
                       style
                     }
                     ... on card_section {
+                      layout
                       title
                       cards {
                         image {
@@ -142,6 +140,7 @@ export async function queryPageBySlug(lang, slug) {
                       style
                     }
                     ... on card_section {
+                      layout
                       title
                       cards {
                         image {

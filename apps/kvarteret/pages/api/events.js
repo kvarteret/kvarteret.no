@@ -9,15 +9,15 @@ const allEvents = async () => {
     const cmsEvents = await queryAllEvents();
 
     const eventItems = cmsEvents;
-    const mappedSlugs = eventItems.filter(x=>x.metadata?.slug).reduce((acc, x) => {
-        acc[x.metadata.slug] = true;
+    const mappedSlugs = eventItems.filter(x=>x.slug).reduce((acc, x) => {
+        acc[x.slug] = true;
         return acc;
     }, {});
 
     // Merge the event sources. No longer necessary when studentBergen events in cms
     for(const event of studentBergen) {
-        if(mappedSlugs[event.metadata.slug]) continue;
-        mappedSlugs[event.metadata.slug] = true;
+        if(mappedSlugs[event.slug]) continue;
+        mappedSlugs[event.slug] = true;
         eventItems.push(event);
     }
 
