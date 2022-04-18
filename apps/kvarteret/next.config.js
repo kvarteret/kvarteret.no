@@ -4,23 +4,26 @@ const withImages = require("next-images");
 module.exports = withPlugins([withTM(), withImages], {
   images: {
     disableStaticImages: true,
-    domains: ['cms.kvarteret.no'],
+    domains: ["cms.kvarteret.no"],
   },
   rewrites: async () => [
     {
       source: "/files/:id",
-      destination: "https://cms.kvarteret.no/assets/:id"
-    }
+      destination: "https://cms.kvarteret.no/assets/:id",
+    },
   ],
+  experimental: { images: { layoutRaw: true } },
   reactStrictMode: true,
   i18n: {
-    locales: ['no', 'en'],
-    defaultLocale: 'no',
+    locales: ["no", "en"],
+    defaultLocale: "no",
     localeDetection: false,
-    domains: [{
-      domain: "kvarteret.no",
-      defaultLocale: "no"
-    }]
+    domains: [
+      {
+        domain: "kvarteret.no",
+        defaultLocale: "no",
+      },
+    ],
   },
-  trailingSlash: true
+  trailingSlash: true,
 });

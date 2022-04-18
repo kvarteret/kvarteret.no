@@ -25,7 +25,6 @@ const Hamburger = ({ navigation, logo }) => {
 				</div>
 				<div className="right">
 					<div className="bm-content">
-						<div>Hello world</div>
 					</div>
 				</div>
 			</div>

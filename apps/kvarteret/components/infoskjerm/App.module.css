@@ -1,0 +1,56 @@
+/* Universal */
+/* h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 2em;
+} */
+@font-face {
+  font-family: "Hegval Display";
+  font-weight: bold;
+  src: url("https://kvarteret.no/wp-content/uploads/dak-font/The%20Northern%20Block%20Ltd%20-%20Hegval%20Display%20Regular.otf")
+    format("opentype");
+}
+
+#title {
+  padding-top: 45px;
+  height: 275px;
+  position: absolute;
+  left: 100px;
+  color: #fddbdb;
+  text-align: left;
+  font-weight: 100;
+  font-size: 6em;
+  width: 400px;
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+  background-color: #282835;
+  font-family: "Hegval Display", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#MainContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#Floors {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-grow: 1;
+  justify-content: space-around;
+}

@@ -39,7 +39,7 @@ const Layout = ({ children, data }) => {
         </div>
         <div className="footer"><Footer data={data} /></div>
       </div>
-      <style jsx>
+      <style key="styling" jsx>
         {`
           .container {
             display: flex;
