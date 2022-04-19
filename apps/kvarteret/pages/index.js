@@ -31,14 +31,17 @@ export default function Index({ data }) {
         description={"Studentenes kulturhus i Bergen"}
       />
       <Carousel carouselItems={data.carouselItems} />
-      <div className="today">
-        <ExternalContent html={data.todayText} />
-      </div>
       <div className="content">
+        <div className="today">
+          <ExternalContent html={data.todayText} />
+        </div>
         <div className="happening-today">
           <Title underlined>Dette skjer i dag</Title>
           <div className="happening-today-content">
-            <TodayItem bold event={{time: "Tid", room: "Rom", title: "Event"}}/>
+            <TodayItem
+              bold
+              event={{ time: "Tid", room: "Rom", title: "Event" }}
+            />
             {data.eventsToday.map((x, i) => (
               <TodayItem key={i} event={x} />
             ))}
@@ -121,6 +124,8 @@ export default function Index({ data }) {
             flex-wrap: wrap;
             gap: 20px;
             padding: 20px;
+            background-color: white;
+            margin: auto;
           }
 
           .happening-today {

@@ -26,12 +26,12 @@ const Layout = ({ children, data }) => {
           {data.navigation.left.map((x, i) => {
             if (x.multiMenu.length == 0) return <></>
 
-            return <MultiMenu key={i} menuData={x} />
+            return <MultiMenu key={i} menuData={x} removeOpenMenus={removeOpenMenus} />
           })}
           {data.navigation.right.map((x, i) => {
             if (x.multiMenu.length == 0) return <></>
 
-            return <MultiMenu key={i} menuData={x} />
+            return <MultiMenu key={i} menuData={x} removeOpenMenus={removeOpenMenus} />
           })}
         </div>
         <div className="content">

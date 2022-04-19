@@ -7,6 +7,7 @@ body {
 
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
+
 }
 
 a {
@@ -29,12 +30,11 @@ a {
 
 h1 {
   font-size: 50px;
-  margin: 0;
-  margin-bottom: 10px;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--primary-color);
+  margin: 10px 0;
 }
 
 .swiper-button-next {
