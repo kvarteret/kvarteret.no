@@ -1,7 +1,6 @@
 import { BlurImage, ExternalContent } from ".";
 
 const Avatar = ({ card }) => {
-  console.log(card.image)
   return (
     <div className="avatar">
         {card?.image &&

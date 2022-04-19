@@ -51,7 +51,6 @@ const Event = ({ arrangoer, sted, event, tid }) => (
 );
 
 const Floor = ({ name, events }) => {
-  console.log("TEST", events)
   return (
     <div className="container">
       <div className="name">{name}</div>

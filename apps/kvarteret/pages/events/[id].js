@@ -92,6 +92,16 @@ export async function getStaticProps({ locale, params, preview }) {
             title: "Arrangør",
             text: data.organizer?.name || "",
           },
+          {
+            icon: "dak-info-circled",
+            title: "Kategorier",
+            text: data.categories.map(x=>x.name).join(", ") || "",
+          },
+          {
+            icon: "dak-price",
+            title: "Pris",
+            text: data.price || "",
+          },
           ...(data.translations[0].practical_information || []),
         ],
       },
@@ -105,7 +115,7 @@ const PracticalInformationLine = ({ icon, title, text }) => {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get("startDate");
     if (title === "Tidspunkt" && myParam) {
-      const time = text.split("kl.")[1];
+      const time = text.split("-")[0].split("kl.")[1];
       text = `${format(new Date(myParam), "dd. MMMM yyyy")} ${time}`;
     }
   }
@@ -175,7 +185,7 @@ export default function Page({ data }) {
         <div className="left-content">
           <div className="practical-info mobile">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.map((x, i) => (
+            {data?.practicalInformation?.filter(x=>x.text).map((x, i) => (
               <PracticalInformationLine {...x} key={i} />
             ))}
           </div>
@@ -192,7 +202,7 @@ export default function Page({ data }) {
         <div className="right-content desktop">
           <div className="practical-info">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.map((x, i) => (
+            {data?.practicalInformation?.filter(x=>x.text).map((x, i) => (
               <PracticalInformationLine {...x} key={i} />
             ))}
           </div>

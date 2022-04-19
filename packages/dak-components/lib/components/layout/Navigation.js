@@ -4,9 +4,13 @@ import {useState} from "react";
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;
 
+  const isMulti = navItem.multiMenu.length > 0;
   const isButton = navItem.isButton ? " button" : "";
 
   let url = navItem.url || "#";
+  if(isMulti) {
+    url = "#"
+  }
 
   const [timer, setTimer] = useState();
 

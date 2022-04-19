@@ -111,7 +111,6 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
 };
 
 const EventCard = ({ event }) => {
-  console.log("EVENT", event);
   const title = event.translations[0].title;
   const description = event.translations[0].description;
   return (

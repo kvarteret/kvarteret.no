@@ -153,7 +153,7 @@ const spreadRecurringEvents = (events) => {
       if(realStart > realEnd) {
         realEnd.setDate(realEnd.getDate() + 1);
       }
-      
+
       acc.push({...event, event_start: realStart.toISOString(), event_end: realEnd.toISOString()});      
     }
 

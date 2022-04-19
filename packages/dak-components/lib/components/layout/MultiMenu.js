@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-const MenuGroup = ({ group }) => {
+const MenuGroup = ({ group, removeOpenMenus }) => {
   return (
     <div className="container">
       <div className="title">{group.title}</div>
@@ -12,7 +12,7 @@ const MenuGroup = ({ group }) => {
         return (
           <div key={i}>
             <Link href={x.url}>
-              <a className="item" {...additionalParams}>
+              <a className="item" onClick={removeOpenMenus} {...additionalParams}>
                 {x.title}
               </a>
             </Link>
@@ -63,7 +63,7 @@ const MultiMenu = ({ menuData, removeOpenMenus }) => {
       <div className="menu" onClick={(e) => e.stopPropagation()}>
         <div className="main-group">{menuData.title}</div>
         {menuData.multiMenu.map((x, i) => (
-          <MenuGroup group={x} key={i + "group"} />
+          <MenuGroup group={x} removeOpenMenus={removeOpenMenus} key={i + "group"} />
         ))}
       </div>
 

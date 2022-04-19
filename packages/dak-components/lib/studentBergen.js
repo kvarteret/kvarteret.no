@@ -60,7 +60,11 @@ const externalMapping = (event) => {
         event_start: event.startTime,
         event_end: event.endTime,
         is_recurring: false,
+        price: event.price,
+        ticketsUrl: event.ticketsUrl,
+        facebook: event.facebookUrl,
         top_image: getImage(event.image?.path),
+        categories: [event.category, ...event.subCategories],
         event_header: getImage(event.image?.path),
         room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
         slug: event.slug,
