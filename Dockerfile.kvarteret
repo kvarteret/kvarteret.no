@@ -1,7 +1,14 @@
 # Install dependencies only when needed
-FROM node:14-alpine 
+FROM node:14-alpine AS Sourcer
 WORKDIR /app
 COPY . .
+
+RUN yarn global add turbo
+RUN yarn prune:kvarteret
+
+FROM node:14-alpine AS Builder
+WORKDIR /app
+COPY --from=Sourcer /app/out .
 
 RUN yarn install --silent --frozen-lockfile
 
