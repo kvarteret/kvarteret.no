@@ -14,6 +14,19 @@ RUN yarn install --silent --frozen-lockfile
 
 RUN yarn build
 
+
+FROM node:14-alpine AS Runner
+WORKDIR /app
+
+COPY --from=Builder /app/package.json /app/yarn.lock ./
+COPY --from=Builder /app/node_modules ./node_modules
+COPY --from=Builder /app/apps/kvarteret/package.json ./apps/kvarteret/package.json
+COPY --from=Builder /app/apps/kvarteret/public ./apps/kvarteret/public
+COPY --from=Builder /app/apps/kvarteret/.next ./apps/kvarteret/.next
+COPY --from=Builder /app/apps/kvarteret/next.config.js ./apps/kvarteret/next.config.js
+COPY --from=Builder /app/apps/kvarteret/next-sitemap.js ./apps/kvarteret/next-sitemap.js
+COPY --from=Builder /app/packages ./packages
+
 ENV NODE_ENV production
 
 EXPOSE 3001
