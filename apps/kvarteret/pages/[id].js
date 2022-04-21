@@ -33,7 +33,7 @@ export async function getStaticProps({locale, params, preview, previewData}) {
         layout: layout,
         data: page,
       },
-      revalidate: 1,
+      revalidate: 60 * 1, // Hvert minutt TODO: Invalidate så slipper vi dette! 
     };
 }
 

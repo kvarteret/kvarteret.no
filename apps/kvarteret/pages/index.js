@@ -17,7 +17,7 @@ export async function getStaticProps(context) {
       layout: layout,
       data: indexData,
     },
-    revalidate: 1,
+    revalidate: 60 * 30, // Hver halvtime
   };
 }
 

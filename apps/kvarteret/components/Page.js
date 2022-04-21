@@ -1,6 +1,8 @@
+import CallToActionSection from "./CallToActionSection";
 import CardSection from "./CardSection";
 import GallerySection from "./GallerySection";
 import PropertySection from "./PropertySection";
+import RoomSection from "./RoomsSection";
 import SnippetSection from "./SnippetSection";
 import TextSection from "./TextSection";
 
@@ -55,16 +57,20 @@ const ComponentLookup = ({ type, data }) => {
       return <SnippetSection {...data} />;
     case "card_section":
       return <CardSection {...data} />;
-      case "property_section":
-        return <PropertySection {...data} />;
-      
+    case "property_section":
+      return <PropertySection {...data} />;
+    case "call_to_action_section":
+      return <CallToActionSection {...data} />;
+    case "rooms_section":
+      return <RoomSection {...data}/>
+
     default:
       return <div>TODO: Missing section types</div>;
   }
 };
 
 const LookupList = ({ items }) => {
-  if(!items?.length) return <div></div>
+  if (!items?.length) return <div></div>;
   return items?.map((x, i) => (
     <div key={i} className={x.collection}>
       <ComponentLookup type={x.collection} data={x.item} />

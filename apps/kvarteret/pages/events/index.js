@@ -10,7 +10,7 @@ export async function getStaticProps(context) {
     props: {
       layout: layout,
     },
-    revalidate: 1,
+    revalidate: 60*30,
   };
 }
 

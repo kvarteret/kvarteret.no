@@ -7,11 +7,18 @@ const CardSection = ({layout, title, cards}) => {
     if(layout === "AVATAR") {
         Component = Avatars;
         cardsPrRow = 4
+    }   
+    console.log("LA", layout)
+
+    let fillMode = "cover";
+    if(layout === "CARDS_CONTAIN") { 
+        fillMode="contain"
     }
+
     return <div>
         {title && <h2>{title}</h2>}
 
-        <Component cards={cards} cardsPrRow={cardsPrRow} />
+        <Component fillMode={fillMode} cards={cards} cardsPrRow={cardsPrRow} />
     </div>
 }
 

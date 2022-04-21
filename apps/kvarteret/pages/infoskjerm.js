@@ -25,7 +25,7 @@ export async function getStaticProps(context) {
     props: {
       eventData: floorData,
     },
-    revalidate: 60,
+    revalidate: 60 * 30, // Hver halvtime
   };
 }
 

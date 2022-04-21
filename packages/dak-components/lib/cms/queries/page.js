@@ -21,7 +21,8 @@ export default async function queryAllPageSlugs() {
 export async function queryPageBySlug(lang, slug) {
   const data = await cmsClient.query({
     variables: { lang, slug },
-    query: gql`query PageDataBySlug($lang: String, $slug: String) {
+    query: gql`
+    query PageDataBySlug($lang: String, $slug: String) {
       page(filter: { slug: { _eq: $slug } }) {
         id
         status
@@ -34,6 +35,34 @@ export async function queryPageBySlug(lang, slug) {
           sections {
             collection
             item {
+              ... on call_to_action_section {
+                url
+                text
+              }
+              ... on rooms_section {
+                room {
+                  room_id {
+                    floor
+                    name
+                    gallery {
+                      directus_files_id {
+                        id
+                        __typename
+                        type
+                        width
+                        height
+                      }
+                    }
+                    room_translations(filter: { languages_code: { url_code: { _eq: $lang } } }) {
+                      description
+                      tags
+                    }
+                    page {
+                      slug
+                    }
+                  }
+                }
+              }
               ... on text_section {
                 text
               }
@@ -74,6 +103,34 @@ export async function queryPageBySlug(lang, slug) {
                 left {
                   collection
                   item {
+              ... on call_to_action_section {
+                url
+                text
+              }
+              ... on rooms_section {
+                room {
+                  room_id {
+                    floor
+                    name
+                    gallery {
+                      directus_files_id {
+                        id
+                        __typename
+                        type
+                        width
+                        height
+                      }
+                    }
+                    room_translations(filter: { languages_code: { url_code: { _eq: $lang } } }) {
+                      description
+                      tags
+                    }
+                    page {
+                      slug
+                    }
+                  }
+                }
+              }
                     ... on text_section {
                       text
                     }
@@ -116,6 +173,34 @@ export async function queryPageBySlug(lang, slug) {
                 right {
                   collection
                   item {
+              ... on call_to_action_section {
+                url
+                text
+              }
+              ... on rooms_section {
+                room {
+                  room_id {
+                    floor
+                    name
+                    gallery {
+                      directus_files_id {
+                        id
+                        __typename
+                        type
+                        width
+                        height
+                      }
+                    }
+                    room_translations(filter: { languages_code: { url_code: { _eq: $lang } } }) {
+                      description
+                      tags
+                    }
+                    page {
+                      slug
+                    }
+                  }
+                }
+              }
                     ... on text_section {
                       text
                     }
@@ -160,8 +245,6 @@ export async function queryPageBySlug(lang, slug) {
         }
       }
     }
-    
-    
     `,
   });
 

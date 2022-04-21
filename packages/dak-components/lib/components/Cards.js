@@ -1,6 +1,6 @@
 import { BlurImage, ExternalContent } from ".";
 
-const Card = ({ card }) => {
+const Card = ({ card, fillMode }) => {
   return (
     <div className="card">
         {card?.image &&
@@ -8,7 +8,7 @@ const Card = ({ card }) => {
         <BlurImage
           className="cards-image"
           fadeIn
-          objectFit="cover"
+          objectFit={fillMode || "cover"}
           layout="fill"
           image={card?.image}
         />
@@ -56,11 +56,11 @@ const Card = ({ card }) => {
   );
 };
 
-const Cards = ({ cards, cardsPrRow }) => {
+const Cards = ({ fillMode, cards, cardsPrRow }) => {
   return (
     <div className="cards">
       {cards?.map((card, i) => (
-        <Card card={card} key={i} />
+        <Card fillMode={fillMode} card={card} key={i} />
       ))}
       <style jsx>
         {`

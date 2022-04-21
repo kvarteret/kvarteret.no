@@ -34,7 +34,13 @@ h1 {
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--primary-color);
-  margin: 10px 0;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+p {
+  margin-block-start: 8px;
+  margin-block-end: 8px;
 }
 
 .swiper-button-next {

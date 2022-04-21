@@ -106,7 +106,7 @@ export async function getStaticProps({ locale, params, preview }) {
         ],
       },
     },
-    revalidate: 1,
+    revalidate: 30, // 30. sekund // TODO: Invalidate så slipper vi dette
   };
 }
 
