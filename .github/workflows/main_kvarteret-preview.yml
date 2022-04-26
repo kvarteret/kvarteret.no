@@ -3,11 +3,7 @@
 
 name: Build and deploy container app to Azure Web App - kvarteret-preview
 
-on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+on: workflow_dispatch
 
 jobs:
   build:

@@ -95,7 +95,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-info-circled",
             title: "Kategorier",
-            text: data.categories.map(x=>x.name).join(", ") || "",
+            text: data.categories?.map(x=>x.name)?.join(", ") || "",
           },
           {
             icon: "dak-price",
