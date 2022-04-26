@@ -2,12 +2,14 @@ import fetchLayoutData from "dak-components/lib/cms/layout";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BlurImage } from "dak-components";
+import TranslatedField, { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
 
   return {
     props: {
+      translations: await getTranslationsData(context.locale, ["events", "search"]),
       layout: layout,
     },
     revalidate: 60*30,
@@ -152,17 +154,16 @@ const EventSearch = () => {
 
     <div className="container">
       <div>
-        <h2>Søk</h2>
+        <h2><TranslatedField tKey="search"/></h2>
         <div>
           <input
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Søk etter eventer"
           />
           <button onClick={() => doSearch()}>Søk</button>
         </div>
       </div>
       <div>
-        <h1>Eventer</h1>
+        <h1><TranslatedField tKey="events"/></h1>
         {events.map((x, i) => (
           <div key={i}>
             <EventCard event={x} />

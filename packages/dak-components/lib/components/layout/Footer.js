@@ -1,13 +1,14 @@
 import { BlurImage } from "dak-components";
 import {OpeningHours} from "../OpeningHours";
 import {Title} from "../Title";
+import TranslatedField from "../TranslatedField";
 
 const OpeningHoursSection = ({ openingHours }) => {
   if(openingHours?.length <= 0) return <></>
   return (
     <div className="container">
       <Title underlined color="white" underlineColor="#707070">
-        Åpningstider
+        <TranslatedField tKey="footer-opening-hours" />
       </Title>
       <OpeningHours light openingHours={openingHours} />
 
@@ -85,12 +86,12 @@ const Address = ({}) => (
     </Title>
     <div className="container">
       <div className="section">
-        <div className="title">Besøksaddresse</div>
+        <div className="title"><TranslatedField tKey="visiting-address" /></div>
         <div className="text">Olav kyrres gate 49</div>
         <div className="text">5015 Bergen</div>
       </div>
       <div className="section">
-        <div className="title">Postaddresse</div>
+        <div className="title"><TranslatedField tKey="postal-address" /></div>
         <div className="text">Postboks 1822 Håkonsgaten</div>
         <div className="text">5866 Bergen</div>
       </div>

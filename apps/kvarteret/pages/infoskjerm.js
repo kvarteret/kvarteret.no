@@ -1,3 +1,4 @@
+import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 import { getEvents } from "dak-components/lib/crescat";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -23,6 +24,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      translations: await getTranslationsData(context.locale, []),
       eventData: floorData,
     },
     revalidate: 60 * 30, // Hver halvtime

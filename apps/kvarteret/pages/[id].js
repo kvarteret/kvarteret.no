@@ -1,5 +1,6 @@
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import queryAllPageSlugs, { queryPageBySlug } from "dak-components/lib/cms/queries/page";
+import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 import Page from "../components/Page";
 
 export async function getStaticPaths() {
@@ -30,6 +31,7 @@ export async function getStaticProps({locale, params, preview, previewData}) {
 
     return {
       props: {
+        translations: await getTranslationsData(locale, []),
         layout: layout,
         data: page,
       },

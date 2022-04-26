@@ -9,6 +9,7 @@ import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 import axios from "axios";
 import { nb, en } from "date-fns/locale";
 import { getEventBySlug } from "dak-components/lib/studentBergen";
+import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -36,7 +37,8 @@ export async function getStaticProps({ locale, params, preview }) {
       data = await getStudentBergenEvents(params.id);
     } catch (e) {
       return {
-        props: { layout: layout },
+        props: {
+        },
         notFound: true,
         revalidate: 1,
       };
@@ -45,7 +47,10 @@ export async function getStaticProps({ locale, params, preview }) {
 
   if (!data || !isResourceAvailable(data.status, preview)) {
     return {
-      props: { layout: layout },
+      props: {
+        layout: layout,
+        translations: await getTranslationsData(locale, []),
+      },
       notFound: true,
       revalidate: 1,
     };

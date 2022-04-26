@@ -44,7 +44,6 @@ const EventCard = ({ event }) => {
                   width: 100%;
                   transition: 100ms;
                   padding: 0px;
-                  margin: 10px;
                   border-radius: 5px;
                   cursor: unset;
                 }
@@ -90,15 +89,10 @@ const EventCard = ({ event }) => {
     
                 @media only screen and (min-width: 768px) {
                   .container {
-                    width: calc(50% - 20px);
+                    width: calc(50% - 10px);
                   }
                 }
     
-                @media only screen and (min-width: 992px) {
-                  .container {
-                    width: calc(50% - 20px);
-                  }
-                }
               `}
             </style>
         </a>

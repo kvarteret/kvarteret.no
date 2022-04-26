@@ -6,6 +6,10 @@ import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
 import { TodayItem } from "../components/TodayItem";
 import { NextSeo } from "next-seo";
+import TranslatedField, {
+  getTranslationsData,
+  useTranslation,
+} from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
@@ -13,6 +17,15 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      translations: await getTranslationsData(context.locale, [
+        "index-happening-today",
+        "time",
+        "room",
+        "event",
+        "index-nothing-happening-today",
+        "index-coming-events",
+        "index-see-more-events",
+      ]),
       layout: layout,
       data: indexData,
     },
@@ -35,11 +48,15 @@ export default function Index({ data }) {
           <ExternalContent html={data.todayText} />
         </div>
         <div className="happening-today">
-          <Title underlined>Dette skjer i dag</Title>
+          <Title underlined><TranslatedField tKey="index-happening-today" /></Title>
           <div className="happening-today-content">
             <TodayItem
               bold
-              event={{ time: "Tid", room: "Rom", title: "Event" }}
+              event={{
+                time: useTranslation("time"),
+                room: useTranslation("room"),
+                title: useTranslation("event"),
+              }}
             />
             {data.eventsToday.map((x, i) => (
               <TodayItem key={i} event={x} />
@@ -47,22 +64,23 @@ export default function Index({ data }) {
           </div>
           {data.eventsToday.length <= 0 && (
             <div className="nothing-happening">
-              Ser ikke ut som det skjer noe mer i dag! Sjekk gjerne igjen i
-              morgen for flere eventer.
+              <TranslatedField tKey="index-nothing-happening-today" />
             </div>
           )}
         </div>
         <div className="opening-hours">
-          <Title underlined>Åpningstider</Title>
+          <Title underlined>
+            <TranslatedField tKey="footer-opening-hours" />
+          </Title>
           <OpeningHours openingHours={data.openingHours} />
         </div>
         <div className="events">
           <Title underlined big>
-            Hva skjer fremover?
+          <TranslatedField tKey="index-coming-events" />
           </Title>
           <EventList events={data.events} />
           <Link href="events">
-            <a className="more-events">Se flere arrangementer</a>
+            <a className="more-events"><TranslatedField tKey="index-see-more-events" /></a>
           </Link>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import {getDay} from 'date-fns';
+import TranslatedField from './TranslatedField';
 
 // Maps name to day id in date-fns https://date-fns.org/v2.28.0/docs/getDay
 const dayMapping = {
@@ -28,7 +29,7 @@ const OpeningHoursRoomName = ({item}) => (<div className="container">
 </div>)
 
 const OpeningHoursTimes = ({item}) => <div className="container">
-    {!item.is_open && <div>Stengt</div>}
+    {!item.is_open && <div><TranslatedField tKey="closed"/> </div>}
     {item.is_open && 
         <div>{item.opening_time} - {item.closing_time}</div>
     }

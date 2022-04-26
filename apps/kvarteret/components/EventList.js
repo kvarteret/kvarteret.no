@@ -16,6 +16,7 @@ const EventList = ({ events }) => {
             width: 100%;
             min-height: 200px;
             display: flex;
+            gap: 20px;
             flex-wrap: wrap;
             flex-direction: row;
           }

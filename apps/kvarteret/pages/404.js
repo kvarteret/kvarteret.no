@@ -1,11 +1,13 @@
 import { Custom404 } from "dak-components";
 import fetchLayoutData from "dak-components/lib/cms/layout";
+import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticProps(context) {
     const layout = await fetchLayoutData(context.locale);
   
     return {
       props: {
+        translations: await getTranslationsData(context.locale, []),
         layout: layout,
       },
       revalidate: 60 * 60 * 4, // Hver 4. time
