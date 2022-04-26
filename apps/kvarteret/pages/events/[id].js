@@ -49,7 +49,6 @@ export async function getStaticProps({ locale, params, preview }) {
     return {
       props: {
         layout: layout,
-        translations: await getTranslationsData(locale, []),
       },
       notFound: true,
       revalidate: 1,
@@ -77,6 +76,7 @@ export async function getStaticProps({ locale, params, preview }) {
   return {
     props: {
       layout: layout,
+      translations: await getTranslationsData(locale, []),
       data: {
         event_header: data.event_header,
         title: data.translations[0].title,

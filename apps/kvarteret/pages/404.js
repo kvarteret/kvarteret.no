@@ -7,7 +7,7 @@ export async function getStaticProps(context) {
   
     return {
       props: {
-        translations: await getTranslationsData(context.locale, []),
+        translations: await getTranslationsData(context.locale, ["go-back", "404-title", "404-subtitle", "404-text"]),
         layout: layout,
       },
       revalidate: 60 * 60 * 4, // Hver 4. time
