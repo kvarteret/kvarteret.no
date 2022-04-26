@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy container app to Azure Web App - kvarteret-preview
+name: Build and deploy kvarteret.no
 
 on: workflow_dispatch
 
@@ -15,18 +15,17 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
 
-    - name: Log in to registry
+    - name: Login to Docker Hub
       uses: docker/login-action@v1
       with:
-        registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_54ebe534dcb74efb8b1e170fc0fd0202 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_11ab6195d1aa40af8beb366e2b437c0f }}
+        username: ${{ secrets.DOCKER_HUB_USERNAME }}
+        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_54ebe534dcb74efb8b1e170fc0fd0202 }}/dakit/kvarteretno:${{ github.sha }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kvarteretno:latest
         file: ./Dockerfile.kvarteret
 
   deploy:
@@ -44,4 +43,4 @@ jobs:
         app-name: 'kvarteret-preview'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_6603541d977f42308d6936ad67cee284 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_54ebe534dcb74efb8b1e170fc0fd0202 }}/dakit/kvarteretno:${{ github.sha }}'
+        images: '${{ secrets.DOCKER_HUB_USERNAME }}/kvarteretno:latest'
