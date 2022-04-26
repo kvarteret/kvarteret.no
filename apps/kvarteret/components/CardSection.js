@@ -8,7 +8,6 @@ const CardSection = ({layout, title, cards}) => {
         Component = Avatars;
         cardsPrRow = 4
     }   
-    console.log("LA", layout)
 
     let fillMode = "cover";
     if(layout === "CARDS_CONTAIN") { 

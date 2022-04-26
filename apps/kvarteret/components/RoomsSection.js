@@ -3,7 +3,7 @@ import Link from "next/link";
 import GallerySection from "./GallerySection";
 
 const Room = ({ name, floor, gallery, page, room_translations }) => {
-  const translation = room_translations?.at(0);
+  const translation = room_translations[0];
   const tags = translation?.tags || [];
   const description = translation?.description;
   return (
@@ -117,7 +117,6 @@ const Room = ({ name, floor, gallery, page, room_translations }) => {
 };
 
 const RoomSection = ({ room }) => {
-  console.log("DATAAA", room);
   return (
     <div>
       <h2>Rom</h2>
