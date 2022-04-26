@@ -1,10 +1,9 @@
-import { BlurImage } from "dak-components";
-import link from "next/link";
+import { BlurImage, Link } from "dak-components";
 
 const EventCard = ({ event }) => {
     // Ugly, i don't like this, TODO: Fix
     const hasLink = event?.url;
-    const LinkWrapper = hasLink ? link : ({ children }) => <>{children}</>;
+    const LinkWrapper = hasLink ? Link : ({ children }) => <>{children}</>;
     const startDate = new Date(event.startDate)
     const url = `${event?.url ?? "/"}${ event.recurring ? `?startDate=${startDate.toISOString().substring(0, 10)}` : ""}`
     return (

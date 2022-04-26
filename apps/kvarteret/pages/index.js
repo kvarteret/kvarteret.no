@@ -1,4 +1,4 @@
-import { ExternalContent, OpeningHours } from "dak-components";
+import { ExternalContent, Link, OpeningHours } from "dak-components";
 import fetchIndexData from "dak-components/lib/cms/index";
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import { Title } from "dak-components";
@@ -6,7 +6,6 @@ import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
 import { TodayItem } from "../components/TodayItem";
 import { NextSeo } from "next-seo";
-import Link from "next/link";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);

@@ -1,5 +1,4 @@
-import { ExternalContent } from "dak-components";
-import Link from "next/link";
+import { ExternalContent, Link } from "dak-components";
 import GallerySection from "./GallerySection";
 
 const Room = ({ name, floor, gallery, page, room_translations }) => {

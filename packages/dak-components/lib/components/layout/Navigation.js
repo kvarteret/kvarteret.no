@@ -1,5 +1,5 @@
-import Link from "next/link";
 import {useState} from "react";
+import { Link } from "../Link";
 
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;

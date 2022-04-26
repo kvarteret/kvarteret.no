@@ -3,8 +3,8 @@ import React, { useEffect } from 'react'
 
 import TranslatedField from './TranslatedField'
 import styles from "../styles/TopSection.module.css"
-import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Link } from 'dak-components'
 
 function scrollTo(elem) {
   const element = document.querySelector(elem)

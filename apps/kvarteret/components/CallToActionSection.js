@@ -1,9 +1,9 @@
-import Link from "next/link";
+import { Link } from "dak-components";
 
 const CallToActionSection = ({ text, url, size, fontSize }) => {
   return (
     <div className="container">
-      <Link href={url}>
+      <Link href={url} >
         <a className="button">{text}</a>
       </Link>
     <style jsx global>
@@ -27,7 +27,9 @@ const CallToActionSection = ({ text, url, size, fontSize }) => {
             width: 100%;
             height: ${size || "80px"};
             display: flex;
-            border: 3px solid var(--primary-color);
+            border: 4px solid var(--primary-color);
+            border-left: 2px solid var(--primary-color);
+            border-right: 2px solid var(--primary-color);
             border-radius: 4px;
             justify-content: center;
             align-items: center;

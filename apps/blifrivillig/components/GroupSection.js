@@ -9,11 +9,11 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import ExternalContent from "./ExternalContent";
-import Link from "next/link";
 import Image from "next/image";
 
 import style from "../styles/GroupSection.module.css";
 import BlurImage from "./BlurImage";
+import { Link } from "dak-components";
 
 const GroupCard = ({ image, title, description, link }) => {
   const [shadow, setShadow] = useState(false);

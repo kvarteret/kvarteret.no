@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import Link from "next/link";
+import { Link } from '../Link';
 import { SideMenuContext } from './SideMenu';
 const HamburgerLine = ({title, isTitle, size, link, onClick}) => (
 	<Link href={link || "#"}>

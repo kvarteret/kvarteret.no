@@ -1,6 +1,5 @@
 import { BlurImage } from "../BlurImage";
 import Navigation from "./Navigation";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { Divider } from "../Divider";
@@ -8,6 +7,7 @@ import { HamburgerMenuContext } from "./HamburgerMenu";
 import React, {useContext} from 'react';
 
 import Flags from 'country-flag-icons/react/3x2'
+import { Link } from "../Link";
 
 const LanguageItem = ({ locale, text }) => {
   const router = useRouter();
