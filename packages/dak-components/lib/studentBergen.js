@@ -92,7 +92,7 @@ const getEventBySlug = async (slug) => {
     });
 
     const usedSlugs = {};
-
+    
     const withSlug = studentBergenData.map(x=> {
         let slug = slugify(x.name, {strict: true, lower: true});
         usedSlugs[slug] = (usedSlugs[slug] || 0) + 1;
@@ -105,7 +105,6 @@ const getEventBySlug = async (slug) => {
         return {...x, slug};
     });
     const event = withSlug.filter(x=>x.slug === slug).sort((a, b) => (new Date(a.event_start) > new Date(b.event_start) ? a : b))[0];
-
     if(!event) {
         throw Error(`event not found: ${slug}`)
     }

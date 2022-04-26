@@ -57,14 +57,16 @@ export async function getStaticProps({ locale, params, preview }) {
     const start = new Date(data.event_start);
     const end = new Date(data.event_end);
     if (isSameDay(start, end)) {
-      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
-        locale: fnsLocale,
-      })} - ${format(end, "HH:mm", { locale: fnsLocale })}`;
+      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm")} - ${format(
+        end,
+        "HH:mm"
+      )}`;
     }
 
-    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
-      locale: fnsLocale,
-    })} - ${format(end, "dd. MMMM yyyy 'kl.' HH:mm", { locale: fnsLocale })}`;
+    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm")} - ${format(
+      end,
+      "dd. MMMM yyyy 'kl.' HH:mm"
+    )}`;
   };
 
   return {
@@ -95,7 +97,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-info-circled",
             title: "Kategorier",
-            text: data.categories?.map(x=>x.name)?.join(", ") || "",
+            text: data.categories?.map((x) => x.name)?.join(", ") || "",
           },
           {
             icon: "dak-price",
@@ -185,9 +187,11 @@ export default function Page({ data }) {
         <div className="left-content">
           <div className="practical-info mobile">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.filter(x=>x.text).map((x, i) => (
-              <PracticalInformationLine {...x} key={i} />
-            ))}
+            {data?.practicalInformation
+              ?.filter((x) => x.text)
+              .map((x, i) => (
+                <PracticalInformationLine {...x} key={i} />
+              ))}
           </div>
           <div className="content">
             <h1>{data.title}</h1>
@@ -202,9 +206,11 @@ export default function Page({ data }) {
         <div className="right-content desktop">
           <div className="practical-info">
             <h2>Praktisk informasjon</h2>
-            {data?.practicalInformation?.filter(x=>x.text).map((x, i) => (
-              <PracticalInformationLine {...x} key={i} />
-            ))}
+            {data?.practicalInformation
+              ?.filter((x) => x.text)
+              .map((x, i) => (
+                <PracticalInformationLine {...x} key={i} />
+              ))}
           </div>
           <div className="snippets">
             {data.snippets?.map((x, i) => (
