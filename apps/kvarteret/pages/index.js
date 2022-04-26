@@ -112,7 +112,7 @@ export default function Index({ data }) {
             max-width: 1080px;
             width: 100%;
             margin: auto;
-            padding: 20px;
+            padding: 20px 0;
           }
 
           .content {
