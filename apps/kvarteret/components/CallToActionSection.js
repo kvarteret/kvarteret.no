@@ -3,7 +3,7 @@ import Link from "next/link";
 const CallToActionSection = ({ text, url, size, fontSize }) => {
   return (
     <div className="container">
-      <Link href={url} passHref>
+      <Link href={url}>
         <a className="button">{text}</a>
       </Link>
     <style jsx global>
