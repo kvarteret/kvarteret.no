@@ -1,5 +1,4 @@
 import axios from 'axios'
-
 import cache from 'memory-cache';
 import slugify from "slugify";
 import sanitizeHtml from 'sanitize-html';
@@ -22,7 +21,7 @@ const cachedGet = async (url, headers) => {
 const getEvents = async () => {
     // TODO: Place as env variable
     const studentBergenData = await cachedGet("https://studentbergen.netflex.dev/api/student_org/11028/events?cohosting=true", {
-        Authorization: "Bearer 059af681a5606a521cc1475e8f81a3c04c70ac40dbae02f52895e0112a6bba73"
+        Authorization: `Bearer ${process.env.STUDENTBERGEN_TOKEN}`
     });
 
     const usedSlugs = {};

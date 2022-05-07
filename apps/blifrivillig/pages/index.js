@@ -70,7 +70,7 @@ export async function getStaticProps(context) {
 
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
-    const token = "ThisIsTestToken";
+    const token = process.env.CMS_TOKEN;
     // return the headers to the context so httpLink can read them
     return {
       headers: {

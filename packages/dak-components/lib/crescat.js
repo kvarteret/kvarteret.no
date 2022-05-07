@@ -20,7 +20,7 @@ const cachedGet = async (url, headers) => {
 const getEvents = async () => {
     // TODO: Place as env variable
     const crescatData = await cachedGet("https://app.crescat.io/external/v1/calendar", {
-        Authorization: "Bearer Xp0BQMgYIiXwR1nW5qGR3lzsbg0IspMiHgxRMMhiwHpKaHSEqmUvVpRXBLBrER2cbcsXd6I7Va5jOu5u"
+        Authorization: `Bearer ${process.env.CRESCAT_TOKEN}`
     });
 
     return crescatData.filter(x=>x.fields.some(x=>x.id === 70879));

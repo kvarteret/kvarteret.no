@@ -42,7 +42,7 @@ async function upstash({
 
 const getAllRedirects = async () => {
   const {data: redirects} = await upstash({
-    token: "ThisIsTestToken",
+    token: process.env.CMS_TOKEN,
     url: 'https://cms.kvarteret.no/items/redirects',
   })
   redirectCache.set("redirects", {time: new Date(), redirects: redirects});
