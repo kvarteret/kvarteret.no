@@ -12,7 +12,13 @@ COPY --from=Sourcer /app/out .
 
 RUN yarn install --silent --frozen-lockfile
 
-RUN yarn build
+RUN 
+  cat /run/secrets/github_token
+
+RUN --mount=type=secret,id=CMS_TOKEN \
+  --mount=type=secret,id=STUDENTBERGEN_TOKEN \
+  --mount=type=secret,id=CRESCAT_TOKEN \
+  yarn build
 
 
 FROM node:14-alpine AS Runner

@@ -27,6 +27,10 @@ jobs:
         push: true
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/kvarteretno:latest
         file: ./Dockerfile.kvarteret
+        secrets: |
+          "CMS_TOKEN=${{ secrets.CMS_TOKEN }}"
+          "STUDENTBERGEN_TOKEN=${{ secrets.STUDENTBERGEN_TOKEN }}"
+          "CRESCAT_TOKEN=${{ secrets.CRESCAT_TOKEN }}"
 
   deploy:
     runs-on: ubuntu-latest
