@@ -12,9 +12,6 @@ COPY --from=Sourcer /app/out .
 
 RUN yarn install --silent --frozen-lockfile
 
-RUN 
-  cat /run/secrets/github_token
-
 RUN --mount=type=secret,id=CMS_TOKEN \
   --mount=type=secret,id=STUDENTBERGEN_TOKEN \
   --mount=type=secret,id=CRESCAT_TOKEN \
