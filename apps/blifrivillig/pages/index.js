@@ -5,7 +5,9 @@ import {
   createHttpLink,
   InMemoryCache,
   gql,
+  from,
 } from "@apollo/client";
+import { onError } from "@apollo/client/link/error";
 import { getPlaiceholder } from "plaiceholder";
 import { setContext } from "@apollo/client/link/context";
 import TopSection from "../components/TopSection";
@@ -79,9 +81,19 @@ export async function getStaticProps(context) {
       },
     };
   });
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.forEach(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+        ),
+      );
+  
+    if (networkError) console.log(`[Network error]: ${networkError}`);
+  });
 
   const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: from([errorLink, authLink.concat(httpLink)]),
     cache: new InMemoryCache(),
   });
 
