@@ -11,8 +11,6 @@ export async function getStaticPaths() {
         paths,
         fallback: "blocking"
     }
-
-
 }
 
 export async function getStaticProps({locale, params, preview, previewData}) {
@@ -35,7 +33,7 @@ export async function getStaticProps({locale, params, preview, previewData}) {
         layout: layout,
         data: page,
       },
-      revalidate: 60 * 1, // Hvert minutt TODO: Invalidate så slipper vi dette! 
+      revalidate: 60 * 60, // Hver time
     };
 }
 
