@@ -1,37 +1,51 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy blifrivillig
+name: Build and deploy container app to Azure Web App - blifrivillig
 
-on: workflow_dispatch
-
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Push Docker image to Docker Hub
-    runs-on: ubuntu-latest
+    runs-on: 'ubuntu-latest'
+
     steps:
-      - name: Check Out Repo
-        uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        with:
-          username: ${{ secrets.DOCKER_HUB_USERNAME }}
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
 
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
+    - name: Log in to registry
+      uses: docker/login-action@v1
+      with:
+        registry: https://index.docker.io/v1/
+        username: ${{ secrets.AzureAppService_ContainerUsername_affd6b8ab20e46fba43dcbdbad081eb4 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_e0e3805b155345af89b9b2cdc72bbd5d }}
 
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          context: ./
-          file: ./Dockerfile.blifrivillig
-          push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest
+    - name: Build and push container image to registry
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_affd6b8ab20e46fba43dcbdbad081eb4 }}/dakit/blifrivillig:${{ github.sha }}
+        file: ./Dockerfile
 
-      - name: Image digest
-        run: echo ${{ steps.docker_build.outputs.digest }}
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+    - name: Deploy to Azure Web App
+      id: deploy-to-webapp
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'blifrivillig'
+        slot-name: 'production'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f2c884ae3d8e4c42bedb2db948f8847c }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_affd6b8ab20e46fba43dcbdbad081eb4 }}/dakit/blifrivillig:${{ github.sha }}'
