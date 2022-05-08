@@ -13,6 +13,7 @@ COPY --from=Sourcer /app/out .
 RUN yarn install --silent --frozen-lockfile
 
 # Blergh, i hate this...
+
 RUN --mount=type=secret,id=CMS_TOKEN \
   --mount=type=secret,id=STUDENTBERGEN_TOKEN \
   --mount=type=secret,id=CRESCAT_TOKEN \
@@ -20,6 +21,8 @@ RUN --mount=type=secret,id=CMS_TOKEN \
   export STUDENTBERGEN_TOKEN=$(cat /run/secrets/STUDENTBERGEN_TOKEN) && \
   export CRESCAT_TOKEN=$(cat /run/secrets/CRESCAT_TOKEN) && \
   yarn build
+
+RUN yarn postbuild
 
 
 FROM node:14-alpine AS Runner
