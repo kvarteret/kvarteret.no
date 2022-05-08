@@ -5,6 +5,7 @@
     "dev": "turbo run dev --parallel --no-cache",
     "test": "turbo run test",
     "build": "turbo run build",
+    "postbuild": "turbo run postbuild",
     "prune:blifrivillig": "turbo prune --scope=blifrivillig",
     "build:blifrivillig": "turbo run build --scope=blifrivillig",
     "start:blifrivillig": "turbo run start --scope=blifrivillig",

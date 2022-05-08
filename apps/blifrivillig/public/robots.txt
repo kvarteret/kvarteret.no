@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://blifrivillig.no
+
+# Sitemaps
+Sitemap: https://blifrivillig.no/sitemap.xml
