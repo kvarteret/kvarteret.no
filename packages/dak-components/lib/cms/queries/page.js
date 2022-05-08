@@ -18,6 +18,21 @@ export default async function queryAllPageSlugs() {
   return data.page;
 }
 
+export async function queryPageSlugById(pageId) {
+  const { data } = await cmsClient.query({
+    variables: { pageId },
+    query: gql`
+    query Page_slug_by_id($pageId: ID!) {
+      page_by_id(id: $pageId) {
+        slug
+      }
+    }
+    `,
+  });
+
+  return data?.page_by_id?.slug;
+}
+
 export async function queryPageBySlug(lang, slug) {
   const data = await cmsClient.query({
     variables: { lang, slug },
