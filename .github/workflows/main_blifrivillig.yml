@@ -25,7 +25,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:${{ github.sha }}
+        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest
         file: ./Dockerfile.blifrivillig
         secrets: |
           CMS_TOKEN=${{ secrets.CMS_TOKEN }}
