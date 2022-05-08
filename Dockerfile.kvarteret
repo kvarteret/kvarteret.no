@@ -20,9 +20,7 @@ RUN --mount=type=secret,id=CMS_TOKEN \
   export CMS_TOKEN=$(cat /run/secrets/CMS_TOKEN) && \
   export STUDENTBERGEN_TOKEN=$(cat /run/secrets/STUDENTBERGEN_TOKEN) && \
   export CRESCAT_TOKEN=$(cat /run/secrets/CRESCAT_TOKEN) && \
-  yarn build
-
-RUN yarn postbuild
+  yarn postbuild
 
 
 FROM node:14-alpine AS Runner
