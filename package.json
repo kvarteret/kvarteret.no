@@ -6,6 +6,8 @@
     "test": "turbo run test",
     "build": "turbo run build",
     "prune:blifrivillig": "turbo prune --scope=blifrivillig",
+    "build:blifrivillig": "turbo run build --scope=blifrivillig",
+    "start:blifrivillig": "turbo run start --scope=blifrivillig",
     "prune:kvarteret": "turbo prune --scope=kvarteret",
     "build:kvarteret": "turbo run build --scope=kvarteret",
     "start:kvarteret": "turbo run start --scope=kvarteret",

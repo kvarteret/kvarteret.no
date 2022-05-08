@@ -19,6 +19,7 @@
     "@material-ui/styles": "^4.11.2",
     "@plaiceholder/next": "^2.2.0",
     "dak-components": "0.0.0",
+    "date-fns": "^2.27.0",
     "dotenv": "^10.0.0",
     "graphql": "^15.6.1",
     "next": "^12.1",
