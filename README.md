@@ -24,7 +24,28 @@ This installs yarn globally
 npm i -g yarn
 ```
 
-3. Run the localhost server
+3. Add secret token in each app-folder
+
+(you get sometoken from someone in the E-service)
+from root-folder:
+```sh
+cd apps/kvarteret.no
+
+## create a file called ".env.local" with:
+## CMS_TOKEN=sometoken
+## save the file
+```
+
+and:
+```sh
+cd apps/blifrivillig.no
+
+## create a file called ".env.local" with:
+## CMS_TOKEN=sometoken
+## save the file
+```
+
+4. Run the localhost server
 
 Be in the root-folder of the repo and run:
 
@@ -40,7 +61,7 @@ npm run dev
 yarn dev
 ```
 
-4. (Optional)
+5. (Optional)
 
 You might get an error from just the above command. if so, this might help:
 
