@@ -31,7 +31,7 @@ const Card = ({ card, fillMode }) => {
       </style>
       <style jsx>
         {`
-          .card {
+          .card {        
             width: 100%;
             transition: 100ms;
             border-radius: 5px;
@@ -52,7 +52,7 @@ const Card = ({ card, fillMode }) => {
           }
         `}
       </style>
-    </div>
+    </div>           
   );
 };
 
@@ -69,7 +69,7 @@ const Cards = ({ fillMode, cards, cardsPrRow }) => {
             gap: 20px;
             grid-template-columns: repeat(
               auto-fill,
-              minmax(${1080 / ((cardsPrRow || 3) + 1)}px, 1fr)
+              minmax(${870 / ((cardsPrRow || 3) + 1)}px, 1fr)
             );
           }
         `}
