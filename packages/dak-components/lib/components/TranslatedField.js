@@ -19,7 +19,7 @@ const getTranslationsData = async (lang, fields) => {
         `
       });
 
-      const allFields = [...fields, "footer-opening-hours", "closed", "postal-address", "visiting-address"]
+      const allFields = [...fields, "footer-opening-hours", "footer-opening-hours-description", "closed", "postal-address", "visiting-address"]
     const translations = data.texts.filter(x=>allFields.includes(x.text_id)).reduce((acc, it) => {
         acc[it.text_id] = it.translations[0].text
         return acc
