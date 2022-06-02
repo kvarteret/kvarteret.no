@@ -73,6 +73,9 @@ export default function Index({ data }) {
             <TranslatedField tKey="footer-opening-hours" />
           </Title>
           <OpeningHours openingHours={data.openingHours} />
+          <Link href="vare-barer">
+            <a className="vare-barer"><TranslatedField tKey="footer-opening-hours-description" /></a>
+          </Link>
         </div>
         <div className="events">
           <Title underlined big>
