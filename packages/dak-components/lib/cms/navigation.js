@@ -11,7 +11,7 @@ const sanitizeMultiMenu = (item) => {
 }
 
 const sanitizeNavigationItem = (item) => ({
-    title: item?.translations[0]?.name,
+    title: item?.translations[0]?.name ?? null,
     url: (item?.type === "page" ? "/" + (item?.page_2?.slug || "#") : item?.url) ?? "",
 })
 
