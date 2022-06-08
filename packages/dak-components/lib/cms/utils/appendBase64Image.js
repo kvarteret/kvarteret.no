@@ -20,11 +20,16 @@ import { getPlaiceholder } from "plaiceholder";
       
       promises.push((async () => {
         if(!data.id) return;
-        const { base64, img } = await getPlaiceholder(
-          `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${data.id}`,
-          { size: 6 }
-        );
-        data.base64 = base64;
+        try{
+          const { base64, img } = await getPlaiceholder(
+            `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${data.id}`,
+            { size: 6 }
+          );       
+          data.base64 = base64;
+        } 
+        catch(err){
+          console.error("Failed to download image from cloudfront! Kafaen har skjedd no??? - Error");
+        }
       })())
     }
   
