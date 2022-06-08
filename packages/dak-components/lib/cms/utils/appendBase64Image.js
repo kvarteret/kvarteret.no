@@ -28,7 +28,7 @@ import { getPlaiceholder } from "plaiceholder";
           data.base64 = base64;
         } 
         catch(err){
-          console.log("Kafaen har skjedd no??? - Error");
+          console.log("Failed to download image from cloudfront! Kafaen har skjedd no??? - Error");
         }
       })())
     }
