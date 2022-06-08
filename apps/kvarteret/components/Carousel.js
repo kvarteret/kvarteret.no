@@ -90,7 +90,7 @@ const CarouselItem = ({ item }) => {
             cursor: default;
           }
           .title, .description {
-            color: ${vibrancy?.Vibrant.getTitleTextColor() ?? "white"};
+            color: white;
             font-size: max(40px, calc(60px - ${item.translations[0]?.title.length / 2.0}px));
             text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"};
             max-width: 1200px;
