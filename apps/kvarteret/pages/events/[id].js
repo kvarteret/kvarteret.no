@@ -107,11 +107,13 @@ export async function getStaticProps({ locale, params, preview }) {
           ...(data.ticket_url && data.ticket_url != '' ? [{
             icon: "dak-ticket",
             title: "Billett",
+            text: "Billett link",
             url: data.ticket_url,
           }] : []),
           ...(data.facebook_url && data.facebook_url != '' ? [{
             icon: "dak-facebook",
             title: "Facebook",
+            text: "Facebook link",
             url: data.facebook_url,
           }] : []),
           {
@@ -143,7 +145,7 @@ const PracticalInformationLine = ({ icon, title, text, url }) => {
       </div>
       <div className="text-container">
         <div className="title">{title}</div>
-        {url ? <a href={url} className="text">{title}</a> : (<div className="text">{text}</div>)}
+        {url ? <a href={url} className="text">{text}</a> : (<div className="text">{text}</div>)}
       </div>
       <style jsx>
         {`
