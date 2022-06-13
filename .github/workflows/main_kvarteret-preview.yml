@@ -3,7 +3,10 @@
 
 name: Build and deploy kvarteret.no
 
-on: workflow_dispatch
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -35,6 +38,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build
+    if: github.ref == 'refs/heads/main'
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
