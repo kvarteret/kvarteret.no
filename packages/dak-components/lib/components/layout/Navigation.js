@@ -41,8 +41,8 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
 
   return (
     <div className="wrapper">
-      <Link href={url}>
-        <a key={url} {...additionalParams}>
+      <Link href={url} {...additionalParams}>
+        <a key={url}>
           <div
             className={"container" + isButton}
             onMouseOver={mouseOver}
