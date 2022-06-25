@@ -8,11 +8,16 @@ import { getPlaiceholder } from "plaiceholder";
     if(data["__typename"] === "directus_files" && (data?.type?.startsWith("image") || false)) {
       promises.push((async () => {
         if(!data.id) return;
+        try{
         const { base64, img } = await getPlaiceholder(
           `https://cms.kvarteret.no/assets/${data.id}?width=12&height=12`,
           { size: 6 }
         );
         data.base64 = base64;
+        }
+        catch(err){
+          console.error("Failed to download image from Directus CMS! Kafaen har skjedd no??? - Error");
+        }
       })())
     }
 
