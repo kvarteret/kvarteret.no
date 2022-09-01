@@ -34,28 +34,33 @@ const sanitizeData = ({ data }) => {
   };
 };
 
-
 export async function getStaticProps(context) {
   const appendBase64Image = (data) => {
-    if(typeof data !== "object") return [];
-  
+    if (typeof data !== "object") return [];
+
     const promises = [];
-  
-    if(data["__typename"] === "directus_files" && (data?.type?.startsWith("image") || false)) {
-      promises.push((async () => {
-        try{
-          const { base64, img } = await getPlaiceholder(
-            `https://cms.kvarteret.no/assets/${data.id}?width=20&height=20`,
-            { size: 20 }
-          );
-          data.base64 = base64;
-        }
-        catch(err){
-          console.error("Failed to download image from Directus CMS! Kafaen har skjedd no??? - Error");
-        }
-      })())
+
+    if (
+      data["__typename"] === "directus_files" &&
+      (data?.type?.startsWith("image") || false)
+    ) {
+      promises.push(
+        (async () => {
+          try {
+            const { base64, img } = await getPlaiceholder(
+              `https://cms.kvarteret.no/assets/${data.id}?width=20&height=20`,
+              { size: 20 }
+            );
+            data.base64 = base64;
+          } catch (err) {
+            console.error(
+              "Failed to download image from Directus CMS! Kafaen har skjedd no??? - Error"
+            );
+          }
+        })()
+      );
     }
-  
+
     for (const key in data) {
       if (Array.isArray(data[key])) {
         for (const item of data[key]) {
@@ -63,8 +68,8 @@ export async function getStaticProps(context) {
         }
         continue;
       }
-  
-      if(typeof data[key] === "object") {
+
+      if (typeof data[key] === "object") {
         promises.push(...appendBase64Image(data[key]));
       }
     }
@@ -78,6 +83,12 @@ export async function getStaticProps(context) {
   const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     const token = process.env.CMS_TOKEN;
+
+    if (token) {
+      console.log("Token: ", token.slice(0, 5), "...");
+    } else {
+      console.error("Token is empty!!!!");
+    }
     // return the headers to the context so httpLink can read them
     return {
       headers: {
@@ -90,10 +101,10 @@ export async function getStaticProps(context) {
     if (graphQLErrors)
       graphQLErrors.forEach(({ message, locations, path }) =>
         console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-        ),
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+        )
       );
-  
+
     if (networkError) console.log(`[Network error]: ${networkError}`);
   });
 
@@ -106,55 +117,62 @@ export async function getStaticProps(context) {
     await client.query({
       variables: { lang: context.locale },
       query: gql`
-      query BliFrivilligQuery($lang: String) {
-        blifrivillig {
-          top_section {
-            image {
-              id
-              __typename
-              type
+        query BliFrivilligQuery($lang: String) {
+          blifrivillig {
+            top_section {
+              image {
+                id
+                __typename
+                type
+              }
+              translations(
+                filter: { languages_code: { url_code: { _eq: $lang } } }
+              ) {
+                title
+                description
+              }
             }
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              description
+            groups {
+              status
+              blifrivillig_image {
+                id
+                __typename
+                type
+              }
+              blifrivillig_url
+              translations(
+                filter: { languages_code: { url_code: { _eq: $lang } } }
+              ) {
+                title
+                description
+              }
             }
-          }
-          groups {
-            status
-            blifrivillig_image {
-              id
-              __typename
-              type
-              
+            bottom_section {
+              image {
+                id
+                __typename
+                type
+              }
+              translations(
+                filter: { languages_code: { url_code: { _eq: $lang } } }
+              ) {
+                title
+                description
+              }
             }
-            blifrivillig_url
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              description
-            }
-          }
-          bottom_section {
-            image {
-              id
-              __typename
-              type
-            }
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              title
-              description
-            }
-          }
-          translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-            group_title
-            group_description
-            signup_form
-            faq {
-              title
-              text
+            translations(
+              filter: { languages_code: { url_code: { _eq: $lang } } }
+            ) {
+              group_title
+              group_description
+              signup_form
+              faq {
+                title
+                text
+              }
             }
           }
         }
-      }
       `,
     })
   );
@@ -181,7 +199,7 @@ export async function getStaticProps(context) {
       layout,
       metadata,
       data: deepClonedData,
-      translations
+      translations,
     },
     revalidate: 60,
   };
@@ -235,7 +253,12 @@ export default function Home({ data, translations }) {
         <Grid item>
           <Box my={8}>
             <Container fixed>
-              <Grid container direction="row" spacing={4} justifyContent="center">
+              <Grid
+                container
+                direction="row"
+                spacing={4}
+                justifyContent="center"
+              >
                 <Grid item xs={12} md={6}>
                   <FAQSection faq={data.faq} />
                 </Grid>
