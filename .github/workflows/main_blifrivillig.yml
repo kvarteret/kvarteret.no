@@ -27,11 +27,11 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest
           file: ./Dockerfile.blifrivillig
-          secrets: |
-            "CMS_TOKEN=${{ secrets.CMS_TOKEN }}"
-            "STUDENTBERGEN_TOKEN=${{ secrets.STUDENTBERGEN_TOKEN }}"
-            "CRESCAT_TOKEN=${{ secrets.CRESCAT_TOKEN }}"
-            "INVALIDATE_SECRET=${{ secrets.INVALIDATE_SECRET }}"
+          build-args: |
+            CMS_TOKEN=${{ secrets.CMS_TOKEN }}
+            STUDENTBERGEN_TOKEN=${{ secrets.STUDENTBERGEN_TOKEN }}
+            CRESCAT_TOKEN=${{ secrets.CRESCAT_TOKEN }}
+            INVALIDATE_SECRET=${{ secrets.INVALIDATE_SECRET }}
 
   deploy:
     runs-on: ubuntu-latest
