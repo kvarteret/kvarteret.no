@@ -54,7 +54,7 @@ export default function Index({ data }) {
               bold
               event={{
                 time: useTranslation("time"),
-                room: useTranslation("room"),
+                room: useTranslation("room"), 
                 title: useTranslation("event"),
               }}
             />

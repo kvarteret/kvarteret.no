@@ -32,14 +32,16 @@ const getTimeText = (start, end, lang) => {
   if(new Date() < end) {
 
     if(isSameDay(new Date(), end)) {
-      if(lang == "no") return `Varer til ${format(end, "HH:mm")}`;
-      if(lang == "en") return `Lasts until ${format(end, "HH:mm")}`;
+      return `${format(start, "HH:mm")} - ${format(end, "HH:mm")}`;
+    }else{
+      return getRelativeDate(end, lang);
     }
-    if(lang == "no") return `Varer til ${getRelativeDate(end, lang)}`;
-    if(lang == "en") return `Lasts until ${getRelativeDate(end, lang)}`;
   }
 
-  return `${format(start, "HH:mm")} - ${format(end, "HH:mm")}`;
+  if(new Date() >= end){
+    if(lang == "no") return `FERDIG`;
+    if(lang == "no") return `FINISHED`;
+  }
 }
 
 const fetchIndexData = async (lang) => {
