@@ -10,18 +10,19 @@ FROM node:14-alpine AS Builder
 WORKDIR /app
 COPY --from=Sourcer /app/out .
 
-RUN yarn install --silent --frozen-lockfile
-
-# Blergh, i hate this...
-
-RUN --mount=type=secret,id=CMS_TOKEN \
-  --mount=type=secret,id=STUDENTBERGEN_TOKEN \
-  --mount=type=secret,id=CRESCAT_TOKEN \
+# Mount=type=secret is only accessible in the same RUN command
+RUN --mount=type=secret,id=CMS_TOKEN,required=true \
+  --mount=type=secret,id=STUDENTBERGEN_TOKEN,required=true \
+  --mount=type=secret,id=CRESCAT_TOKEN,required=true \
+  --mount=type=secret,id=INVALIDATE_SECRET \
   export CMS_TOKEN=$(cat /run/secrets/CMS_TOKEN) && \
   export STUDENTBERGEN_TOKEN=$(cat /run/secrets/STUDENTBERGEN_TOKEN) && \
   export CRESCAT_TOKEN=$(cat /run/secrets/CRESCAT_TOKEN) && \
-  yarn postbuild
+  export INVALIDATE_SECRET=$(cat /run/secrets/INVALIDATE_SECRET)
 
+RUN yarn install --silent --frozen-lockfile
+
+RUN yarn postbuild
 
 FROM node:14-alpine AS Runner
 WORKDIR /app

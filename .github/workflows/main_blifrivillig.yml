@@ -7,44 +7,45 @@ on: workflow_dispatch
 
 jobs:
   build:
-    runs-on: 'ubuntu-latest'
+    runs-on: "ubuntu-latest"
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
 
-    - name: Login to Docker Hub
-      uses: docker/login-action@v1
-      with:
-        username: ${{ secrets.DOCKER_HUB_USERNAME }}
-        password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
-    - name: Build and push container image to registry
-      uses: docker/build-push-action@v3
-      with:
-        push: true
-        tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest
-        file: ./Dockerfile.blifrivillig
-        secrets: |
-          CMS_TOKEN=${{ secrets.CMS_TOKEN }}
-          STUDENTBERGEN_TOKEN=${{ secrets.STUDENTBERGEN_TOKEN }}
-          CRESCAT_TOKEN=${{ secrets.CRESCAT_TOKEN }}
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest
+          file: ./Dockerfile.blifrivillig
+          secrets: |
+            "CMS_TOKEN=${{ secrets.CMS_TOKEN }}"
+            "STUDENTBERGEN_TOKEN=${{ secrets.STUDENTBERGEN_TOKEN }}"
+            "CRESCAT_TOKEN=${{ secrets.CRESCAT_TOKEN }}"
+            "INVALIDATE_SECRET=${{ secrets.INVALIDATE_SECRET }}"
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'production'
+      name: "production"
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'blifrivillig'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_f2c884ae3d8e4c42bedb2db948f8847c }}
-        images: '${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest'
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: "blifrivillig"
+          slot-name: "production"
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_f2c884ae3d8e4c42bedb2db948f8847c }}
+          images: "${{ secrets.DOCKER_HUB_USERNAME }}/blifrivillig:latest"
