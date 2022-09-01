@@ -43,11 +43,16 @@ export async function getStaticProps(context) {
   
     if(data["__typename"] === "directus_files" && (data?.type?.startsWith("image") || false)) {
       promises.push((async () => {
-        const { base64, img } = await getPlaiceholder(
-          `https://cms.kvarteret.no/assets/${data.id}?width=20&height=20`,
-          { size: 20 }
-        );
-        data.base64 = base64;
+        try{
+          const { base64, img } = await getPlaiceholder(
+            `https://cms.kvarteret.no/assets/${data.id}?width=20&height=20`,
+            { size: 20 }
+          );
+          data.base64 = base64;
+        }
+        catch(err){
+          console.error("Failed to download image from Directus CMS! Kafaen har skjedd no??? - Error");
+        }
       })())
     }
   
