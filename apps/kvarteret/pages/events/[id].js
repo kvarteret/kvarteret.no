@@ -37,8 +37,7 @@ export async function getStaticProps({ locale, params, preview }) {
       data = await getStudentBergenEvents(params.id);
     } catch (e) {
       return {
-        props: {
-        },
+        props: {},
         notFound: true,
         revalidate: 1,
       };
@@ -54,8 +53,6 @@ export async function getStaticProps({ locale, params, preview }) {
       revalidate: 1,
     };
   }
-
-  const rooms = data.room.map((x) => x.room_id.name).join(", ");
 
   const formatDate = () => {
     const start = new Date(data.event_start);
@@ -92,7 +89,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-location",
             title: "Sted",
-            text: rooms,
+            text: data.room?.map((x) => x.room_id?.name).join(", ") || "",
           },
           {
             icon: "dak-group",
@@ -104,18 +101,26 @@ export async function getStaticProps({ locale, params, preview }) {
             title: "Kategorier",
             text: data.categories?.map((x) => x.name)?.join(", ") || "",
           },
-          ...(data.ticket_url && data.ticket_url != '' ? [{
-            icon: "dak-ticket",
-            title: "Billett",
-            text: "Billett link",
-            url: data.ticket_url,
-          }] : []),
-          ...(data.facebook_url && data.facebook_url != '' ? [{
-            icon: "dak-facebook",
-            title: "Facebook",
-            text: "Facebook link",
-            url: data.facebook_url,
-          }] : []),
+          ...(data.ticket_url && data.ticket_url != ""
+            ? [
+                {
+                  icon: "dak-ticket",
+                  title: "Billett",
+                  text: "Billett link",
+                  url: data.ticket_url,
+                },
+              ]
+            : []),
+          ...(data.facebook_url && data.facebook_url != ""
+            ? [
+                {
+                  icon: "dak-facebook",
+                  title: "Facebook",
+                  text: "Facebook link",
+                  url: data.facebook_url,
+                },
+              ]
+            : []),
           {
             icon: "dak-price",
             title: "Pris",
@@ -145,7 +150,13 @@ const PracticalInformationLine = ({ icon, title, text, url }) => {
       </div>
       <div className="text-container">
         <div className="title">{title}</div>
-        {url ? <a href={url} className="text">{text}</a> : (<div className="text">{text}</div>)}
+        {url ? (
+          <a href={url} className="text">
+            {text}
+          </a>
+        ) : (
+          <div className="text">{text}</div>
+        )}
       </div>
       <style jsx>
         {`
