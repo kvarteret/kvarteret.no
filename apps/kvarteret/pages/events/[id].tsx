@@ -3,6 +3,8 @@ import { format, isSameDay } from "date-fns";
 import Snippet from "../../components/Snippet";
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import queryAllEventSlugs, {
+  getCorrectTranslation,
+  Locale,
   queryEventBySlug,
 } from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
@@ -26,7 +28,15 @@ const getStudentBergenEvents = (slug: string) => {
   return getEventBySlug(slug);
 };
 
-export async function getStaticProps({ locale, params, preview }) {
+export async function getStaticProps({
+  locale,
+  params,
+  preview,
+}: {
+  locale: Locale;
+  params: { id: string; [key: string]: any };
+  preview: boolean;
+}) {
   const layout = await fetchLayoutData(locale);
   let data = await queryEventBySlug(locale, params.id);
 
@@ -68,16 +78,24 @@ export async function getStaticProps({ locale, params, preview }) {
     )}`;
   };
 
+  const translationOfEvent = getCorrectTranslation(data.translations, locale);
+  const isMissingTranslationText =
+    translationOfEvent.languages_code.url_code != locale
+      ? locale == "en"
+        ? "Event has not been translated to english yet"
+        : "Event har ikke norsk oversettelse"
+      : null;
   return {
     props: {
       layout: layout,
       translations: await getTranslationsData(locale, []),
+      isMissingTranslationText,
       data: {
         event_header: data.event_header,
-        title: data.translations[0].title,
-        description: data.translations[0].description,
-        content: data.translations[0].content,
-        snippets: data.translations[0].snippets,
+        title: translationOfEvent.title,
+        description: translationOfEvent.description,
+        content: translationOfEvent.content,
+        snippets: translationOfEvent.snippets,
         practicalInformation: [
           {
             icon: "dak-clock",
@@ -128,7 +146,7 @@ export async function getStaticProps({ locale, params, preview }) {
                 },
               ]
             : []),
-          ...(data.translations[0].practical_information || []),
+          ...(translationOfEvent.practical_information || []),
         ],
       },
     },
@@ -214,6 +232,7 @@ const PracticalInformationLine = ({
 
 export default function Page({
   data,
+  isMissingTranslationText,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="container">
@@ -236,6 +255,7 @@ export default function Page({
               ))}
           </div>
           <div className="content">
+            {isMissingTranslationText ? <p>{isMissingTranslationText}</p> : ""}
             <h1>{data.title}</h1>
             <ExternalContent html={data.content} />
           </div>

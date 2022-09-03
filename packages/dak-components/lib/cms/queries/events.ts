@@ -21,9 +21,8 @@ export default async function queryAllEventSlugs() {
 
 export async function queryAllEvents() {
   const { data } = (await cmsClient.query({
-    variables: { lang: "no" },
     query: gql`
-      query QueryAllEvents($lang: String) {
+      query QueryAllEvents() {
         events {
           ${eventGraphQlQueryProps}
         }
@@ -34,14 +33,11 @@ export async function queryAllEvents() {
   return data.events.filter((x) => isResourceAvailable(x.status, false));
 }
 
-export async function queryEventBySlug(
-  lang: "en" | "no" | string,
-  slug: string
-) {
+export async function queryEventBySlug(lang: Locale | string, slug: string) {
   const { data } = (await cmsClient.query({
     variables: { slug, lang },
     query: gql`
-      query QueryEventById($slug: String, $lang: String) {
+      query QueryEventById($slug: String) {
         events(filter: { slug: { _eq: $slug } }) {
           ${eventGraphQlQueryProps}
         }
@@ -106,11 +102,11 @@ const spreadRecurringEvents = (events: Event[]) => {
     .slice(0, 7);
 };
 
-const queryRecurringEventsFiltered = async (lang, filterDate) => {
-  const data = await cmsClient.query({
+const queryRecurringEventsFiltered = async (lang: Locale, filterDate) => {
+  const data = (await cmsClient.query({
     variables: { lang, filterDate },
     query: gql`
-      query RecurringEventsIndexFiltered($lang: String, $filterDate: String) {
+      query RecurringEventsIndexFiltered($filterDate: String) {
         events(
           limit: 6
           sort: "event_start"
@@ -125,7 +121,7 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
         }
       }
     `,
-  });
+  })) as unknown as { data: { events: Event[] } };
 
   let events = data.data.events;
   const realEvents = spreadRecurringEvents(events);
@@ -133,11 +129,11 @@ const queryRecurringEventsFiltered = async (lang, filterDate) => {
   return realEvents;
 };
 
-export async function queryIndexEvents(lang, filterDate) {
-  const data = await cmsClient.query({
+export async function queryIndexEvents(lang: Locale, filterDate) {
+  const data = (await cmsClient.query({
     variables: { lang, filterDate },
     query: gql`
-      query IndexEventsFiltered($lang: String, $filterDate: String) {
+      query IndexEventsFiltered($filterDate: String) {
         events(
           limit: 6
           sort: "event_start"
@@ -157,7 +153,7 @@ export async function queryIndexEvents(lang, filterDate) {
         }
       }
     `,
-  });
+  })) as unknown as { data: { events: Event[] } };
 
   const recurring = await queryRecurringEventsFiltered(lang, filterDate);
   const regularEvents = data.data.events;
@@ -166,6 +162,16 @@ export async function queryIndexEvents(lang, filterDate) {
     isResourceAvailable(x.status, false)
   );
   return events;
+}
+
+export function getCorrectTranslation(
+  translations: Translation[],
+  lang: Locale
+) {
+  return (
+    translations.find((t) => t.languages_code.url_code == lang) ??
+    translations[0]
+  );
 }
 
 const eventGraphQlQueryProps = `
@@ -194,9 +200,7 @@ room {
     floor
   }
 }
-translations(
-  filter: { languages_code: { url_code: { _eq: $lang } } }
-) {
+translations {
   title
   description
   content
@@ -204,6 +208,9 @@ translations(
   snippets {
     title
     code
+  }
+  languages_code {
+    url_code
   }
 }
 `;
@@ -273,6 +280,9 @@ export interface Translation {
   content: string | null;
   practical_information: PracticalInformation[] | null;
   snippets: any[];
+  languages_code: {
+    url_code: Locale;
+  };
 }
 
 export interface PracticalInformation {
@@ -281,3 +291,5 @@ export interface PracticalInformation {
   text: string;
   title: string;
 }
+
+export type Locale = "en" | "no";
