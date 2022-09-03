@@ -8,6 +8,7 @@ import queryAllEventSlugs, {
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 import { getEventBySlug } from "dak-components/lib/studentBergen";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
+import { InferGetStaticPropsType } from "next";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -21,7 +22,7 @@ export async function getStaticPaths() {
   };
 }
 
-const getStudentBergenEvents = (slug) => {
+const getStudentBergenEvents = (slug: string) => {
   return getEventBySlug(slug);
 };
 
@@ -98,6 +99,15 @@ export async function getStaticProps({ locale, params, preview }) {
             title: "Kategorier",
             text: data.categories?.map((x) => x.name)?.join(", ") || "",
           },
+          ...(data.price
+            ? [
+                {
+                  icon: "dak-price",
+                  title: "Pris",
+                  text: data.price.toString() || null,
+                },
+              ]
+            : []),
           ...(data.ticket_url && data.ticket_url != ""
             ? [
                 {
@@ -118,11 +128,6 @@ export async function getStaticProps({ locale, params, preview }) {
                 },
               ]
             : []),
-          {
-            icon: "dak-price",
-            title: "Pris",
-            text: data.price || "",
-          },
           ...(data.translations[0].practical_information || []),
         ],
       },
@@ -131,7 +136,17 @@ export async function getStaticProps({ locale, params, preview }) {
   };
 }
 
-const PracticalInformationLine = ({ icon, title, text, url }) => {
+const PracticalInformationLine = ({
+  icon,
+  title,
+  text,
+  url,
+}: {
+  icon?: string;
+  title: string;
+  text: string;
+  url?: string;
+}) => {
   if (typeof window !== "undefined") {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get("startDate");
@@ -197,7 +212,9 @@ const PracticalInformationLine = ({ icon, title, text, url }) => {
   );
 };
 
-export default function Page({ data }) {
+export default function Page({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="container">
       <div className="top-image">
