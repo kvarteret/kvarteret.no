@@ -42,7 +42,7 @@ const getEvents = async () => {
   return withSlug.map(externalMapping);
 };
 
-const getImage = (id) => {
+const getImage = (id?: string | null) => {
   if (!id) {
     return {
       __typename: "directus_files",

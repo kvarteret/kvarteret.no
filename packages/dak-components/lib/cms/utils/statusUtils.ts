@@ -1,7 +1,7 @@
 import { Status } from "../queries/events";
 
 export default function isResourceAvailable(
-  status: Status,
+  status: Status | string,
   isPreview: boolean
 ) {
   if (isPreview) return true;

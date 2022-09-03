@@ -1,6 +1,7 @@
 {
   "extends": "next/core-web-vitals",
   "rules": {
-    "react/no-unknown-property": "warn"
+    "react/no-unknown-property": "warn",
+    "@next/next/no-document-import-in-page": "warn"
   }
 }

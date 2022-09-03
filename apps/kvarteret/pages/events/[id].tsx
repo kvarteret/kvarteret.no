@@ -80,7 +80,7 @@ export async function getStaticProps({
 
   const translationOfEvent = getCorrectTranslation(data.translations, locale);
   const isMissingTranslationText =
-    translationOfEvent.languages_code.url_code != locale
+    translationOfEvent.languages_code?.url_code != locale
       ? locale == "en"
         ? "Event has not been translated to english yet"
         : "Event har ikke norsk oversettelse"

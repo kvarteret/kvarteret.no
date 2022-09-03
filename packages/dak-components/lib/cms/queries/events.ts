@@ -169,7 +169,7 @@ export function getCorrectTranslation(
   lang: Locale
 ) {
   return (
-    translations.find((t) => t.languages_code.url_code == lang) ??
+    translations.find((t) => t.languages_code?.url_code == lang) ??
     translations[0]
   );
 }
@@ -217,13 +217,13 @@ translations {
 
 export type EventWithSlug = {
   id: string;
-  status: string;
+  status: Status | string;
   slug: string;
 };
 
 export interface Event {
   id: string;
-  status: Status;
+  status: Status | string;
   slug: string;
   event_start: Date | string;
   event_end: Date | string;
@@ -253,10 +253,10 @@ export type Weekday =
 
 export interface Media {
   id: string;
-  __typename: "studentBergen" | "directus_files";
-  type: "image/jpeg" | "image/png";
+  __typename: "studentBergen" | "directus_files" | string;
+  type?: "image/jpeg" | "image/png";
   /**Added in AppendBase64Image */
-  base64: string | undefined;
+  base64?: string;
 }
 
 export interface Room {
@@ -280,7 +280,7 @@ export interface Translation {
   content: string | null;
   practical_information: PracticalInformation[] | null;
   snippets: any[];
-  languages_code: {
+  languages_code?: {
     url_code: Locale;
   };
 }
