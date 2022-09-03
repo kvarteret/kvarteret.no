@@ -57,13 +57,14 @@ const getImage = (id) => {
 
 const externalMapping = (event) => {
   return {
+    id: event.id ?? "",
     status: "published",
     event_start: event.startTime,
     event_end: event.endTime,
     is_recurring: false,
     price: event.price,
-    ticketsUrl: event.ticketsUrl,
-    facebook: event.facebookUrl,
+    ticket_url: event.ticketsUrl,
+    facebook_url: event.facebookUrl,
     top_image: getImage(event.image?.path),
     categories: [event.category, ...event.subCategories],
     event_header: getImage(event.image?.path),
