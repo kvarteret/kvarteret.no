@@ -34,7 +34,6 @@ export default function TopSection({ videoUrl }) {
           autoPlay
           preload="none"
           loop
-          // eslint-disable-next-line react/no-unknown-property
           playsInline
           poster="/video/poster.png"
         >
