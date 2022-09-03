@@ -1,18 +1,18 @@
-import { gql } from '@apollo/client';
-import cmsClient from "../cmsClient";
+import { gql } from "@apollo/client";
+import cmsClient from "../cmsClient.ts";
 
 export default async function queryNavigationData(lang) {
-  const data = 
-    await cmsClient.query({
-      variables: { lang },
-      query: gql`
-
+  const data = await cmsClient.query({
+    variables: { lang },
+    query: gql`
       query NavigationData($lang: String) {
         navigation {
           id
           is_button
           navigation_item {
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            translations(
+              filter: { languages_code: { url_code: { _eq: $lang } } }
+            ) {
               name
             }
             type
@@ -23,24 +23,27 @@ export default async function queryNavigationData(lang) {
           }
           muti_menu_dropdown {
             navigation_items {
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
-              name
+              translations(
+                filter: { languages_code: { url_code: { _eq: $lang } } }
+              ) {
+                name
+              }
+              type
+              url
+              page_2 {
+                slug
+              }
             }
-            type
-            url
-            page_2 {
-              slug
-            }
-            }
-            translations(filter: {languages_code: {url_code: {_eq: $lang}}}) {
+            translations(
+              filter: { languages_code: { url_code: { _eq: $lang } } }
+            ) {
               title
             }
           }
         }
       }
-      `,
-    }
-  );
+    `,
+  });
 
   return data.data;
 }
