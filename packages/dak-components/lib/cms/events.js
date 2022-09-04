@@ -3,7 +3,6 @@ import { queryIndexEvents } from "./queries/events";
 import appendBase64Image from "./utils/appendBase64Image.ts";
 import { nb, en } from "date-fns/locale";
 import {
-  areIntervalsOverlapping,
   format,
   formatRelative,
   parse,

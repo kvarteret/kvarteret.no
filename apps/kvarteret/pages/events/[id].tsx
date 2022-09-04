@@ -44,6 +44,7 @@ export async function getStaticProps({
     try {
       data = await getStudentBergenEvents(params.id);
     } catch (e) {
+      console.error(e);
       return {
         props: {},
         notFound: true,

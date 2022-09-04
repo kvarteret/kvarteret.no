@@ -37,7 +37,6 @@ async function upstash({ url, token, ...init }) {
 }
 
 const getAllRedirects = async () => {
-  console.log(process.env);
   const { data: redirects } = await upstash({
     token: process.env.CMS_TOKEN,
     url: "https://cms.kvarteret.no/items/redirects",

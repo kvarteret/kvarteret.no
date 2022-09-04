@@ -24,7 +24,7 @@
     "memory-cache": "^0.2.0",
     "pure-cache": "1.0.6",
     "plaiceholder": "^2.2.0",
-    "sharp": "^0.29.3",
+    "sharp": "^0.30.7",
     "slugify": "^1.6.5"
   }
 }
