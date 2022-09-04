@@ -8,9 +8,9 @@ export async function middleware(req, ev) {
   }
   return NextResponse.next();
 }
-import NodeCache from "node-cache";
+import PureCache from 'pure-cache';
 import { differenceInMinutes } from "date-fns";
-const redirectCache = new NodeCache();
+const redirectCache = new PureCache();
 
 async function upstash({ url, token, ...init }) {
   const res = await fetch(url, {
@@ -37,11 +37,12 @@ async function upstash({ url, token, ...init }) {
 }
 
 const getAllRedirects = async () => {
+  console.log(process.env);
   const { data: redirects } = await upstash({
     token: process.env.CMS_TOKEN,
     url: "https://cms.kvarteret.no/items/redirects",
   });
-  redirectCache.set("redirects", { time: new Date(), redirects: redirects });
+  redirectCache.put("redirects", { time: new Date(), redirects: redirects });
 
   return redirects;
 };
