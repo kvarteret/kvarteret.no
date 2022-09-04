@@ -2,8 +2,9 @@ import axios from "axios";
 import cache from "memory-cache";
 import slugify from "slugify";
 import sanitizeHtml from "sanitize-html";
+import { Event } from "./cms/queries/events";
 
-const cachedGet = async (url, headers) => {
+const cachedGet = async (url: string, headers) => {
   const cachedResponse = cache.get(url);
   if (cachedResponse) {
     return cachedResponse;
@@ -12,34 +13,40 @@ const cachedGet = async (url, headers) => {
   const cacheTime = 1000 * 60 * 60; //Cached for 1 hour
   const response = await axios.get(url, {
     headers,
+    timeout: 2000,
   });
   const data = response.data;
   cache.put(url, data, cacheTime);
   return data;
 };
 
-const getEvents = async () => {
+const getEvents = async (): Promise<Event[]> => {
   // TODO: Place as env variable
-  const studentBergenData = await cachedGet(
-    "https://studentbergen.netflex.dev/api/student_org/11028/events?cohosting=true",
-    {
-      Authorization: `Bearer ${process.env.STUDENTBERGEN_TOKEN}`,
-    }
-  );
-
-  const usedSlugs = {};
-
-  const withSlug = studentBergenData.map((x) => {
-    let slug = slugify(x.name, { strict: true, lower: true });
-    usedSlugs[slug] = (usedSlugs[slug] || 0) + 1;
-
-    if (usedSlugs[slug] > 1) {
-      slug = slug + "-" + (usedSlugs[slug] - 1).toString();
-    }
-
-    return { ...x, slug };
-  });
-  return withSlug.map(externalMapping);
+  try {
+    const studentBergenData = await cachedGet(
+      "https://studentbergen.netflex.dev/api/student_org/11028/events?cohosting=true",
+      {
+        Authorization: `Bearer ${process.env.STUDENTBERGEN_TOKEN}`,
+      }
+    );
+  
+    const usedSlugs = {};
+  
+    const withSlug = studentBergenData.map((x) => {
+      let slug = slugify(x.name, { strict: true, lower: true });
+      usedSlugs[slug] = (usedSlugs[slug] || 0) + 1;
+  
+      if (usedSlugs[slug] > 1) {
+        slug = slug + "-" + (usedSlugs[slug] - 1).toString();
+      }
+  
+      return { ...x, slug };
+    });
+    return withSlug.map(externalMapping);
+  } catch (error) {
+    console.error("Unable to get events from studentBergen", error);
+    return [];
+  }
 };
 
 const getImage = (id?: string | null) => {
@@ -55,7 +62,7 @@ const getImage = (id?: string | null) => {
   };
 };
 
-const externalMapping = (event) => {
+const externalMapping = (event): Event => {
   return {
     id: event.id ?? "",
     status: "published",
