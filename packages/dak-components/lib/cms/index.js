@@ -16,6 +16,7 @@ import { filterPastEvents } from "../../../../apps/kvarteret/components/infoskje
 import { getEvents } from "../crescat";
 import { nb, en } from "date-fns/locale";
 import { returnDummyData } from "../../../../apps/kvarteret/components/infoskjerm/dummyData";
+import {getCorrectTranslation} from "./queries/events.ts"
 
 const getRelativeDate = (date, lang) => {
   const locale = lang === "no" ? nb : en;
@@ -63,17 +64,18 @@ const fetchIndexData = async (lang) => {
   const eventsAfter = await getEventsAfter(lang, new Date());
   const upcomingEvents = eventsAfter.slice(0, 6);
 
-  const events = upcomingEvents.map((x) => {
-    const tags = [x.duration, x.room[0]?.room_id?.name].filter((x) => x);
+  const events = upcomingEvents.map((event) => {
+    const tags = [event.duration, event.room[0]?.room_id?.name].filter((x) => x);
+    const translationOfEvent = getCorrectTranslation(event.translations, lang);
 
     return {
-      title: x.translations[0]?.title ?? "",
-      description: x.translations[0]?.description ?? "",
+      title: translationOfEvent.title ?? "",
+      description: translationOfEvent.description ?? "",
       tags,
-      image: x.top_image,
-      url: `events/${x.slug || null}`,
-      recurring: x.is_recurring,
-      startDate: x.event_start,
+      image: event.top_image,
+      url: `events/${event.slug || null}`,
+      recurring: event.is_recurring,
+      startDate: event.event_start,
     };
   });
 
