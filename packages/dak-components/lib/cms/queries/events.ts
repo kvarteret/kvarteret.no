@@ -227,8 +227,8 @@ export interface Event {
   slug: string;
   event_start: Date | string;
   event_end: Date | string;
-  ticket_url: null | string;
-  facebook_url: null | string;
+  ticket_url?: null | string;
+  facebook_url?: null | string;
   top_image: Media | null;
   event_header: Media | null;
   room: Room[];
@@ -239,7 +239,7 @@ export interface Event {
     name: string;
   };
   categories?: { name: string }[];
-  price?: string | number;
+  price?: string | null | number;
 }
 
 export type Weekday =
