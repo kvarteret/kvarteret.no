@@ -34,7 +34,7 @@ const appendBase64ImageRecursive = (data: Media | any) => {
         if (!data.id) return;
         try {
           const { base64 } = await getPlaiceholder(
-            `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${data.id}`,
+            `https://d1juzv6t6mkm1f.cloudfront.net/media/rc/${data.id}`,
             { size: 6 }
           );
           data.base64 = base64;
