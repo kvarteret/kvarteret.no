@@ -78,11 +78,9 @@ const externalMapping = (event: StudentBergenEvent): Event => {
     price: event.price,
     ticket_url: event.ticketsUrl,
     facebook_url: event.facebookUrl,
-    // top_image: getImage(event.image?.path),
-    // event_header: getImage(event.image?.path),
-    top_image: getImage(event.eventBy.image?.path), // This is wrong, as we are interested in the picture of the event, not the organizer
-    event_header: getImage(event.eventBy.image?.path), // This is wrong, as we are interested in the picture of the event, not the organizer
-    // categories: [event.category, ...event.subCategories], // Categories is not implemented in the API yet
+    top_image: getImage(event.image?.path),
+    event_header: getImage(event.image?.path),
+    categories: [event.category, ...event.subCategories],
     room: [], // Unsure if it is possible to extract room from studentBergen, it isn't a field there. Might be possible with crescat?
     slug: event.slug ?? event.id.toString(),
     organizer: {
@@ -161,10 +159,13 @@ export interface StudentBergenEvent {
   id: number;
   slug?: string;
   name: string;
+  image: Image;
   startTime: Date;
   endTime: Date;
   eventBy: Organizer;
   eventByExtra: Organizer[];
+  category: Category;
+  subCategories: Category[];
   intro: null | string;
   article: string;
   available_en: boolean;
@@ -175,7 +176,6 @@ export interface StudentBergenEvent {
   price?: null | string;
   ticketsUrl?: null | string;
   facebookUrl?: null | string;
-  categories?: null | string[];
 }
 
 export interface Organizer {
@@ -198,6 +198,12 @@ export interface Organizer {
   instagramUrl: null | string;
   twitterUrl: null | string;
   linkedinUrl: null;
+}
+
+export interface Category {
+  id: number;
+  name: string;
+  name_en: string;
 }
 
 export interface Image {
