@@ -5,6 +5,43 @@ import sanitizeHtml from "sanitize-html";
 import { Event, Translation } from "./cms/queries/events";
 import { format } from "date-fns-tz";
 
+/**
+ * StudentBergen is the main place where events are added to.
+ * This is done to create a single source of truth and reduce workload.
+ * We have gotten an API token that is needed.
+ *
+ * API url:
+ * www.studentbergen.no/api/student_org/11530/events?startTime=>2022-01-01T13:37:00Z&limit=100&cohosting=1
+ * -> Important to keep "www"
+ * -> Kvarteret's orgId is: 11530
+ *
+ * Query params:
+ * startTime -> use "<= | >= | < | >" together with valid ISO8601 date like "2022-09-03"
+ * endTime -> ^^
+ * created -> ^^
+ * updated -> ^^
+ * cohosting -> Fetch all events where Kvarteret is main hoster or cohoster
+ * limit -> number of events to fetch
+ *
+ * API token needs to be sent in Authorization header prefixed by "Bearer"
+ * Example header: { Authorization: "Bearer TOKEN" }
+ *
+ * The images can be fetched from StudentBergen's server by using following link
+ * Where PATH is the path prop defined in Image type.
+ * MODE can be:
+ * l => Landscape -> Shrink to wanted width but keep aspect ratio
+ * p => Portrait -> Shrink to wanted height but keep aspect ratio
+ * rc => Resize crop -> Shrink and crop to wanted size
+ * o => original
+ * https://d1juzv6t6mkm1f.cloudfront.net/media/MODE/1234x1234/PATH
+ */
+
+/**
+ *
+ * @param url
+ * @param headers
+ * @returns
+ */
 const cachedGet = async (url: string, headers) => {
   const cachedResponse = cache.get(url);
   if (cachedResponse) {
