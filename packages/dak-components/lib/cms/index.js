@@ -41,10 +41,11 @@ const getTimeText = (start, end, lang) => {
   }
 
   //Finished event
-  if(new Date() >= end){
+  if(new Date() >= end) {
     if(lang == "no") return `FERDIG`;
     if(lang == "no") return `FINISHED`;
   }
+
 }
 
 const fetchIndexData = async (lang) => {
