@@ -34,8 +34,9 @@ const getTimeText = (start, end, lang) => {
 
     if(isSameDay(new Date(), end)) {
       return `${format(start, "HH:mm")} - ${format(end, "HH:mm")}`;
-    }else{
+    } else {
       return getRelativeDate(end, lang);
+
     }
   }
 
