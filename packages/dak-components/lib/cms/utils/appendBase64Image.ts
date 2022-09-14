@@ -4,7 +4,7 @@ import { Media } from "../queries/events";
 const appendBase64ImageRecursive = (data: Media | any) => {
   if (typeof data !== "object" || !data) return [];
 
-  const promises = [];
+  const promises: Promise<void>[] = [];
 
   if (
     data["__typename"] === "directus_files" &&

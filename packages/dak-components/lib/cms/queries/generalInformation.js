@@ -6,7 +6,7 @@ export default async function queryGeneralInformation(lang) {
   const data = await cmsClient.query({
     variables: { lang },
     query: gql`
-      query GeneralInformation {
+      query GeneralInformation($lang: String) {
         general_information {
           id
           left_navigation {
@@ -32,6 +32,41 @@ export default async function queryGeneralInformation(lang) {
               id
               __typename
               type
+            }
+          }
+        }
+        navigation {
+          id
+          is_button
+          navigation_item {
+            translations(
+              filter: { languages_code: { url_code: { _eq: $lang } } }
+            ) {
+              name
+            }
+            type
+            url
+            page_2 {
+              slug
+            }
+          }
+          muti_menu_dropdown {
+            navigation_items {
+              translations(
+                filter: { languages_code: { url_code: { _eq: $lang } } }
+              ) {
+                name
+              }
+              type
+              url
+              page_2 {
+                slug
+              }
+            }
+            translations(
+              filter: { languages_code: { url_code: { _eq: $lang } } }
+            ) {
+              title
             }
           }
         }
