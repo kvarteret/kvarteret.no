@@ -54,7 +54,7 @@ export default function Index({ data }) {
               bold
               event={{
                 time: useTranslation("time"),
-                room: useTranslation("room"), 
+                room: useTranslation("room"),
                 title: useTranslation("event"),
               }}
             />
@@ -146,10 +146,6 @@ export default function Index({ data }) {
             padding: 20px;
             background-color: white;
             margin: auto;
-          }
-
-          .TodayItem{
-            bakground-color: green;
           }
 
           .happening-today {
