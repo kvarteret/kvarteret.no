@@ -22,6 +22,7 @@ const getRelativeDate = (date, lang) => {
 }
 
 const getTimeText = (start, end, lang) => {
+  
   // Not yet happened
   if(start >= new Date()) {
     if(lang == "no") return `Starter ${format(start, "HH:mm")}`;
@@ -38,6 +39,7 @@ const getTimeText = (start, end, lang) => {
     }
   }
 
+  //Finished event
   if(new Date() >= end){
     if(lang == "no") return `FERDIG`;
     if(lang == "no") return `FINISHED`;

@@ -102,7 +102,7 @@ export default function Index({ data }) {
             .happening-today-content {
               gap: 0;
               display: grid;
-              grid-template-columns: 1fr;
+              /* grid-template-columns: 1fr; */
               grid-template-rows: repeat(auto-fit, 1fr);
             }
           }
@@ -146,6 +146,10 @@ export default function Index({ data }) {
             padding: 20px;
             background-color: white;
             margin: auto;
+          }
+
+          .TodayItem{
+            bakground-color: green;
           }
 
           .happening-today {

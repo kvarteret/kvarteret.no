@@ -34,7 +34,7 @@ const getRelativeDate = (date, lang) => {
 
     //Happening now
     if(new Date() < new Date(x.event_end)) {
-      if(lang == "no") return `hallaien!!`;
+      if(lang == "no") return `Varer til ${getRelativeDate(new Date(x.event_end), lang)}`;
       if(lang == "en") return `Lasts until ${getRelativeDate(new Date(x.event_end), lang)}`;
     }
   }
