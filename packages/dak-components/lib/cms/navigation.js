@@ -1,7 +1,3 @@
-import queryGeneralInformation from "./queries/generalInformation";
-import queryNavigationData from "./queries/navigation";
-
-
 const sanitizeMultiMenu = (item) => {
 
     return {
@@ -29,14 +25,11 @@ const sanitizeTree = (id, navigationItems, depth = 0) => {
     }
 }
 
-const getNavigation = async (lang) => {
+const getNavigation = (generalInformation, navigationItems) => {
     if(process.env.NO_PATH) return {left: [], right: []}
-    const generalInformation = await queryGeneralInformation(lang);
-    const data = await queryNavigationData(lang);
-    const navigationItems = data.navigation;
     return {
-        left: generalInformation.general_information.left_navigation.map(x=>sanitizeTree(x.id, navigationItems)),
-        right: generalInformation.general_information.right_navigation.map(x=>sanitizeTree(x.id, navigationItems))
+        left: generalInformation.left_navigation.map(x=>sanitizeTree(x.id, navigationItems)),
+        right: generalInformation.right_navigation.map(x=>sanitizeTree(x.id, navigationItems))
     }
 }
 

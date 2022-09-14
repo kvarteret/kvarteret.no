@@ -120,7 +120,7 @@ const InfoSkjerm = ({ eventData }) => {
           className="logo"
           src={logo}
           alt="logo"
-          layout="raw"
+          layout="responsive"
           width={185}
           height={185}
         ></Image>

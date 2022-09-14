@@ -8,18 +8,20 @@ module.exports = withPlugins([withTM(), withImages, withPlaiceholder], {
     return config;
   },
   images: {
-    domains: ['cms.kvarteret.no'],
+    domains: ["cms.kvarteret.no"],
   },
   reactStrictMode: true,
   i18n: {
-    locales: ['no', 'en'],
-    defaultLocale: 'no',
+    locales: ["no", "en"],
+    defaultLocale: "no",
     localeDetection: false,
-    domains: [{
-      domain: "kvarteret.no",
-      defaultLocale: "no"
-    }]
+    domains: [
+      {
+        domain: "blifrivillig.no",
+        defaultLocale: "no",
+      },
+    ],
   },
   // Experimental features
-  swcMinify: true
+  swcMinify: true,
 });

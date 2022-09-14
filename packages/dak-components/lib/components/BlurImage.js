@@ -13,7 +13,7 @@ export function BlurImage(props) {
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
     if (origin === "studentBergen") {
-      return `https://d2uipiolnw1m5l.cloudfront.net/media/rc/${src}`;
+      return `https://d1juzv6t6mkm1f.cloudfront.net/media/rc/${src}`;
     }
 
     if (origin === "directus_files") {
@@ -32,8 +32,6 @@ export function BlurImage(props) {
         src={imageId}
         loader={customLoader}
         className="blur-image"
-        blurDataURL={base64}
-        placeholder={base64 ? "blur" : "empty"}
         {...data}
       />
       <style jsx global>

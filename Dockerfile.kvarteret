@@ -1,29 +1,35 @@
 # Install dependencies only when needed
-FROM node:14-alpine AS Sourcer
+FROM node:lts-alpine AS Sourcer
 WORKDIR /app
 COPY . .
 
 RUN yarn global add turbo
 RUN yarn prune:kvarteret
 
-FROM node:14-alpine AS Builder
+FROM node:lts-alpine AS Builder
 WORKDIR /app
 COPY --from=Sourcer /app/out .
 
+# # Mount=type=secret is only accessible in the same RUN command
+# RUN --mount=type=secret,id=CMS_TOKEN,required=true \
+#   --mount=type=secret,id=STUDENTBERGEN_TOKEN,required=true \
+#   --mount=type=secret,id=CRESCAT_TOKEN,required=true \
+#   --mount=type=secret,id=INVALIDATE_SECRET \
+#   export CMS_TOKEN=$(cat /run/secrets/CMS_TOKEN) && \
+#   export STUDENTBERGEN_TOKEN=$(cat /run/secrets/STUDENTBERGEN_TOKEN) && \
+#   export CRESCAT_TOKEN=$(cat /run/secrets/CRESCAT_TOKEN) && \
+#   export INVALIDATE_SECRET=$(cat /run/secrets/INVALIDATE_SECRET)
+
+ARG CMS_TOKEN
+ARG STUDENTBERGEN_TOKEN
+ARG CRESCAT_TOKEN
+ARG INVALIDATE_SECRET
+
 RUN yarn install --silent --frozen-lockfile
 
-# Blergh, i hate this...
+RUN yarn postbuild
 
-RUN --mount=type=secret,id=CMS_TOKEN \
-  --mount=type=secret,id=STUDENTBERGEN_TOKEN \
-  --mount=type=secret,id=CRESCAT_TOKEN \
-  export CMS_TOKEN=$(cat /run/secrets/CMS_TOKEN) && \
-  export STUDENTBERGEN_TOKEN=$(cat /run/secrets/STUDENTBERGEN_TOKEN) && \
-  export CRESCAT_TOKEN=$(cat /run/secrets/CRESCAT_TOKEN) && \
-  yarn postbuild
-
-
-FROM node:14-alpine AS Runner
+FROM node:lts-alpine AS Runner
 WORKDIR /app
 
 COPY --from=Builder /app/package.json /app/yarn.lock ./

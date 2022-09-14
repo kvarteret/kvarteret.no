@@ -1,6 +1,6 @@
 import { BlurImage, ExternalContent } from ".";
 
-const Card = ({ card, fillMode }) => {
+const Card = ({ card }) => {
   return (
     <div className="card">
         {card?.image &&
@@ -8,8 +8,10 @@ const Card = ({ card, fillMode }) => {
         <BlurImage
           className="cards-image"
           fadeIn
-          objectFit={fillMode || "cover"}
-          layout="fill"
+          objectFit="contain"
+          layout="fixed"
+          width={130}
+          height={130}
           image={card?.image}
         />
       </div>
@@ -23,10 +25,9 @@ const Card = ({ card, fillMode }) => {
 
       <style jsx global>
         {`
-          .cards-image {
-            border-radius: 5px;
-            transition: 200ms;
-          }
+        .cards-image {
+          border-radius: 65px;
+        }
         `}
       </style>
       <style jsx>
@@ -37,18 +38,27 @@ const Card = ({ card, fillMode }) => {
             border-radius: 5px;
             cursor: unset;
           }
+          .title {
+            color: black;
+          }
           h3 {
             margin: 1px 0;
             margin-bottom: -10px;
           }
           .text-content {
             margin: 7px;
+            text-align: center;
           }
           .image {
-            height: 217px;
+            height: 130px;
             width: 100%;
+            display: flex;
+            justify-content: center;
             position: relative;
-            margin-bottom: 5px;
+            transition: 500ms;
+          }
+          .image:hover {
+            transform: ${card?.image?.id === "db1ab2cf-6fb8-4be5-bab9-9f615b6dee7d" ? "rotate(360deg);" : "rotate(0deg);"}
           }
         `}
       </style>
@@ -56,11 +66,11 @@ const Card = ({ card, fillMode }) => {
   );
 };
 
-const Cards = ({ fillMode, cards, cardsPrRow }) => {
+const Cards = ({ cards, cardsPrRow }) => {
   return (
     <div className="cards">
       {cards?.map((card, i) => (
-        <Card fillMode={fillMode} card={card} key={i} />
+        <Card card={card} key={i} />
       ))}
       <style jsx>
         {`
@@ -69,7 +79,7 @@ const Cards = ({ fillMode, cards, cardsPrRow }) => {
             gap: 20px;
             grid-template-columns: repeat(
               auto-fill,
-              minmax(${870 / ((cardsPrRow || 3) + 1)}px, 1fr)
+              minmax(${1080 / ((cardsPrRow || 3) + 1)}px, 1fr)
             );
           }
         `}

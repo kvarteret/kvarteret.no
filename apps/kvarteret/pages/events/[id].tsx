@@ -3,13 +3,14 @@ import { format, isSameDay } from "date-fns";
 import Snippet from "../../components/Snippet";
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import queryAllEventSlugs, {
+  getCorrectTranslation,
+  Locale,
   queryEventBySlug,
 } from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
-import axios from "axios";
-import { nb, en } from "date-fns/locale";
 import { getEventBySlug } from "dak-components/lib/studentBergen";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
+import { InferGetStaticPropsType } from "next";
 
 export async function getStaticPaths() {
   const slugs = await queryAllEventSlugs();
@@ -23,22 +24,29 @@ export async function getStaticPaths() {
   };
 }
 
-const getStudentBergenEvents = async (slug) => {
-  return await getEventBySlug(slug);
+const getStudentBergenEvents = (slug: string) => {
+  return getEventBySlug(slug);
 };
 
-export async function getStaticProps({ locale, params, preview }) {
+export async function getStaticProps({
+  locale,
+  params,
+  preview,
+}: {
+  locale: Locale;
+  params: { id: string; [key: string]: any };
+  preview: boolean;
+}) {
   const layout = await fetchLayoutData(locale);
   let data = await queryEventBySlug(locale, params.id);
-  const fnsLocale = locale === "no" ? nb : en;
 
   if (!data || !isResourceAvailable(data.status, preview)) {
     try {
       data = await getStudentBergenEvents(params.id);
     } catch (e) {
+      console.error(e);
       return {
-        props: {
-        },
+        props: {},
         notFound: true,
         revalidate: 1,
       };
@@ -54,8 +62,6 @@ export async function getStaticProps({ locale, params, preview }) {
       revalidate: 1,
     };
   }
-
-  const rooms = data.room.map((x) => x.room_id.name).join(", ");
 
   const formatDate = () => {
     const start = new Date(data.event_start);
@@ -73,16 +79,24 @@ export async function getStaticProps({ locale, params, preview }) {
     )}`;
   };
 
+  const translationOfEvent = getCorrectTranslation(data.translations, locale);
+  const isMissingTranslationText =
+    translationOfEvent.languages_code?.url_code != locale
+      ? locale == "en"
+        ? "Event has not been translated to english yet"
+        : "Event har ikke norsk oversettelse"
+      : null;
   return {
     props: {
       layout: layout,
       translations: await getTranslationsData(locale, []),
+      isMissingTranslationText,
       data: {
         event_header: data.event_header,
-        title: data.translations[0].title,
-        description: data.translations[0].description,
-        content: data.translations[0].content,
-        snippets: data.translations[0].snippets,
+        title: translationOfEvent.title,
+        description: translationOfEvent.description,
+        content: translationOfEvent.content,
+        snippets: translationOfEvent.snippets,
         practicalInformation: [
           {
             icon: "dak-clock",
@@ -92,7 +106,7 @@ export async function getStaticProps({ locale, params, preview }) {
           {
             icon: "dak-location",
             title: "Sted",
-            text: rooms,
+            text: data.room?.map((x) => x.room_id?.name).join(", ") || "",
           },
           {
             icon: "dak-group",
@@ -104,24 +118,36 @@ export async function getStaticProps({ locale, params, preview }) {
             title: "Kategorier",
             text: data.categories?.map((x) => x.name)?.join(", ") || "",
           },
-          ...(data.ticket_url && data.ticket_url != '' ? [{
-            icon: "dak-ticket",
-            title: "Billett",
-            text: "Billett link",
-            url: data.ticket_url,
-          }] : []),
-          ...(data.facebook_url && data.facebook_url != '' ? [{
-            icon: "dak-facebook",
-            title: "Facebook",
-            text: "Facebook link",
-            url: data.facebook_url,
-          }] : []),
-          {
-            icon: "dak-price",
-            title: "Pris",
-            text: data.price || "",
-          },
-          ...(data.translations[0].practical_information || []),
+          ...(data.price
+            ? [
+                {
+                  icon: "dak-price",
+                  title: "Pris",
+                  text: data.price.toString() || null,
+                },
+              ]
+            : []),
+          ...(data.ticket_url && data.ticket_url != ""
+            ? [
+                {
+                  icon: "dak-ticket",
+                  title: "Billett",
+                  text: "Billett link",
+                  url: data.ticket_url,
+                },
+              ]
+            : []),
+          ...(data.facebook_url && data.facebook_url != ""
+            ? [
+                {
+                  icon: "dak-facebook",
+                  title: "Facebook",
+                  text: "Facebook link",
+                  url: data.facebook_url,
+                },
+              ]
+            : []),
+          ...(translationOfEvent.practical_information || []),
         ],
       },
     },
@@ -129,7 +155,17 @@ export async function getStaticProps({ locale, params, preview }) {
   };
 }
 
-const PracticalInformationLine = ({ icon, title, text, url }) => {
+const PracticalInformationLine = ({
+  icon,
+  title,
+  text,
+  url,
+}: {
+  icon?: string;
+  title: string;
+  text: string;
+  url?: string;
+}) => {
   if (typeof window !== "undefined") {
     const urlParams = new URLSearchParams(window.location.search);
     const myParam = urlParams.get("startDate");
@@ -145,7 +181,13 @@ const PracticalInformationLine = ({ icon, title, text, url }) => {
       </div>
       <div className="text-container">
         <div className="title">{title}</div>
-        {url ? <a href={url} className="text">{text}</a> : (<div className="text">{text}</div>)}
+        {url ? (
+          <a href={url} className="text">
+            {text}
+          </a>
+        ) : (
+          <div className="text">{text}</div>
+        )}
       </div>
       <style jsx>
         {`
@@ -189,7 +231,10 @@ const PracticalInformationLine = ({ icon, title, text, url }) => {
   );
 };
 
-export default function Page({ data }) {
+export default function Page({
+  data,
+  isMissingTranslationText,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="container">
       <div className="top-image">
@@ -211,6 +256,7 @@ export default function Page({ data }) {
               ))}
           </div>
           <div className="content">
+            {isMissingTranslationText ? <p>{isMissingTranslationText}</p> : ""}
             <h1>{data.title}</h1>
             <ExternalContent html={data.content} />
           </div>
