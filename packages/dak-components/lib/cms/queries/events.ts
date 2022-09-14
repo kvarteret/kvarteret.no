@@ -138,14 +138,24 @@ export async function queryIndexEvents(lang: Locale, filterDate) {
           limit: 6
           sort: "event_start"
           filter: {
-            _and: [
+            _or: [
               {
-                _or: [
-                  { event_start: { _gte: $filterDate } }
-                  { event_end: { _gte: $filterDate } }
+                _and: [
+                  {
+                    _or: [
+                      { event_start: { _gte: $filterDate } }
+                      { event_end: { _gte: $filterDate } }
+                    ]
+                  }
+                  { is_recurring: { _eq: false } }
                 ]
               }
-              { is_recurring: { _eq: false } }
+              {
+                _and: [
+                  { event_end: { _gte: $filterDate } }
+                  { is_recurring: { _eq: true } }
+                ]
+              }
             ]
           }
         ) {
@@ -155,8 +165,10 @@ export async function queryIndexEvents(lang: Locale, filterDate) {
     `,
   })) as unknown as { data: { events: Event[] } };
 
-  const recurring = await queryRecurringEventsFiltered(lang, filterDate);
-  const regularEvents = data.data.events;
+  const recurring = spreadRecurringEvents(
+    data.data.events.filter((event) => event.is_recurring)
+  );
+  const regularEvents = data.data.events.filter((event) => !event.is_recurring);
 
   const events = [...regularEvents, ...recurring].filter((x) =>
     isResourceAvailable(x.status, false)
