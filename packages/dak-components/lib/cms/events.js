@@ -1,12 +1,7 @@
 import { getEvents } from "../studentBergen";
 import { queryIndexEvents } from "./queries/events";
-import appendBase64Image from "./utils/appendBase64Image.ts";
 import { nb, en } from "date-fns/locale";
-import {
-  format,
-  formatRelative,
-  parse,
-} from "date-fns";
+import { format, formatRelative, parse } from "date-fns";
 
 const getUpcomingEventsFromStudentBergen = async (date) => {
   const response = await getEvents();
@@ -53,14 +48,17 @@ const getTimeText = (x, lang) => {
   }
 };
 const getEventsAfter = async (lang, date) => {
-  const upcomingEventsCms = await queryIndexEvents(lang, date);
-  const upcomingEventsBergen = await getUpcomingEventsFromStudentBergen(date);
+  const upcomingEventsCmsPromise = queryIndexEvents(lang, date);
+  const upcomingEventsBergenPromise = getUpcomingEventsFromStudentBergen(date);
 
-  const upcomingEvents = await appendBase64Image(
-    upcomingEventsCms
-      .concat(upcomingEventsBergen)
-      .sort((a, b) => new Date(a.event_start) - new Date(b.event_start))
-  );
+  const [upcomingEventsCms, upcomingEventsBergen] = await Promise.all([
+    upcomingEventsCmsPromise,
+    upcomingEventsBergenPromise,
+  ]);
+
+  const upcomingEvents = upcomingEventsCms
+    .concat(upcomingEventsBergen)
+    .sort((a, b) => new Date(a.event_start) - new Date(b.event_start));
   return upcomingEvents.map((x) => ({ ...x, duration: getTimeText(x, lang) }));
 };
 

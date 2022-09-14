@@ -32,8 +32,6 @@ export function BlurImage(props) {
         src={imageId}
         loader={customLoader}
         className="blur-image"
-        blurDataURL={base64}
-        placeholder={base64 ? "blur" : "empty"}
         {...data}
       />
       <style jsx global>
