@@ -31,7 +31,7 @@ export default async function handler(req, res) {
   const data = req?.body;
   const collection = data?.collection;
 
-  await res.unstable_revalidate("/");
+  await res.revalidate("/");
   if (collection === "page") {
     const ids = data.keys || [];
 
@@ -40,9 +40,9 @@ export default async function handler(req, res) {
         ids.map(async (id) => {
           const slug = await queryPageSlugById(id);
           const result = await Promise.allSettled([
-            res.unstable_revalidate(`/${slug}/`),
-            res.unstable_revalidate(`/no/${slug}/`),
-            res.unstable_revalidate(`/en/${slug}/`),
+            res.revalidate(`/${slug}/`),
+            res.revalidate(`/no/${slug}/`),
+            res.revalidate(`/en/${slug}/`),
           ]);
           console.info("Invalidated page ", slug);
           return result;
