@@ -19,14 +19,20 @@ export default async function queryAllEventSlugs() {
   return data.events.filter((x) => x.status === "published");
 }
 
-export async function queryAllEvents() {
+export async function queryAllEvents(filterDate = new Date())  {
   const { data } = (await cmsClient.query({
+    variables: { filterDate: filterDate.toISOString() },
     query: gql`
-      query QueryAllEvents() {
-        events {
+      query QueryAllEvents($filterDate: String) {
+        events (
+          sort: "event_start"
+          filter: {
+            event_start: { _gte: $filterDate }
+          }
+        ) {
           ${eventGraphQlQueryProps}
-        }
       }
+    }
     `,
   })) as unknown as { data: { events: Event[] } };
 
@@ -129,7 +135,7 @@ const queryRecurringEventsFiltered = async (lang: Locale, filterDate) => {
   return realEvents;
 };
 
-export async function queryIndexEvents(lang: Locale, filterDate) {
+export async function queryIndexEvents(lang: Locale, filterDate: Date) {
   const data = (await cmsClient.query({
     variables: { lang, filterDate },
     query: gql`

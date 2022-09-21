@@ -1,5 +1,5 @@
 import { getEvents } from "../studentBergen";
-import { queryIndexEvents } from "./queries/events";
+import { queryAllEvents } from "./queries/events";
 import { nb, en } from "date-fns/locale";
 import { format, formatRelative, parse } from "date-fns";
 
@@ -48,7 +48,7 @@ const getTimeText = (x, lang) => {
   }
 };
 const getEventsAfter = async (lang, date) => {
-  const upcomingEventsCmsPromise = queryIndexEvents(lang, date);
+  const upcomingEventsCmsPromise = queryAllEvents(date);
   const upcomingEventsBergenPromise = getUpcomingEventsFromStudentBergen(date);
 
   const [upcomingEventsCms, upcomingEventsBergen] = await Promise.all([
