@@ -47,7 +47,7 @@ export default function Index({ data }) {
         <div className="today">
           <ExternalContent html={data.todayText} />
         </div>
-        <div className="happening-today">
+        {/*         <div className="happening-today">
           <Title underlined><TranslatedField tKey="index-happening-today" /></Title>
           <div className="happening-today-content">
             <TodayItem
@@ -67,7 +67,7 @@ export default function Index({ data }) {
               <TranslatedField tKey="index-nothing-happening-today" />
             </div>
           )}
-        </div>
+        </div> */}
         <div className="opening-hours">
           <Title underlined>
             <TranslatedField tKey="footer-opening-hours" />
@@ -79,7 +79,7 @@ export default function Index({ data }) {
         </div>
         <div className="events">
           <Title underlined big>
-          <TranslatedField tKey="index-coming-events" />
+            <TranslatedField tKey="index-coming-events" />
           </Title>
           <EventList events={data.events} />
           <Link href="events">
@@ -154,7 +154,8 @@ export default function Index({ data }) {
           }
 
           .opening-hours {
-            width: calc(35% - 20px / 2); // 20px / 2 bcs of gap
+            margin: auto;
+            width: 100%; /* calc(35% - 20px / 2); // 20px / 2 bcs of gap */
             min-height: 50px;
           }
 

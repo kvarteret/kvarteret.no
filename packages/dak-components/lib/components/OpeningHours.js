@@ -1,4 +1,4 @@
-import {getDay} from 'date-fns';
+import { getDay } from 'date-fns';
 import TranslatedField from './TranslatedField';
 
 // Maps name to day id in date-fns https://date-fns.org/v2.28.0/docs/getDay
@@ -12,12 +12,12 @@ const dayMapping = {
     lørdag: 6
 }
 
-const filterTodayPred = x=>{
+const filterTodayPred = x => {
     return dayMapping[x.day] == getDay(new Date());
 };
 
 
-const OpeningHoursRoomName = ({item}) => (<div className="container">
+const OpeningHoursRoomName = ({ item }) => (<div className="container">
     {item?.room?.name}
     <style jsx>
         {`
@@ -28,14 +28,14 @@ const OpeningHoursRoomName = ({item}) => (<div className="container">
     </style>
 </div>)
 
-const OpeningHoursTimes = ({item}) => <div className="container">
-    {!item.is_open && <div><TranslatedField tKey="closed"/> </div>}
-    {item.is_open && 
+const OpeningHoursTimes = ({ item }) => <div className="container">
+    {!item.is_open && <div><TranslatedField tKey="closed" /> </div>}
+    {item.is_open &&
         <div>{item.opening_time} - {item.closing_time}</div>
     }
 
     <style jsx>
-    {`
+        {`
     
     .container {
         text-align: right;
@@ -44,14 +44,14 @@ const OpeningHoursTimes = ({item}) => <div className="container">
     </style>
 </div>
 
-const OpeningHours = ({openingHours, light}) => <div className={"container" + (light ? " light" : "")}>
+const OpeningHours = ({ openingHours, light }) => <div className={"container" + (light ? " light" : "")}>
     <div className="list left">
         {openingHours?.find(filterTodayPred)?.opening_time_day.map((x, i) => <OpeningHoursRoomName key={i} item={x} />)}
     </div>
     <div className="list">
         {openingHours?.find(filterTodayPred)?.opening_time_day.map((x, i) => <OpeningHoursTimes key={i} item={x} />)}
     </div>
-    
+
     <style jsx>
         {`
         .container {
@@ -76,4 +76,4 @@ const OpeningHours = ({openingHours, light}) => <div className={"container" + (l
     </style>
 </div>
 
-export {OpeningHours};
+export { OpeningHours };
