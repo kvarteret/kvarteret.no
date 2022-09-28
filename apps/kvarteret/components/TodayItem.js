@@ -1,4 +1,4 @@
-const TodayItem = ({ event, bold }) => {
+const TodayItem = ({ event, bold = false }) => {
   return (
     <>
       <div className="time">{event.time}</div>
@@ -7,9 +7,11 @@ const TodayItem = ({ event, bold }) => {
 
       <style jsx>
         {`
-          .time, .room, .title {
-          font-weight: ${bold ? "700" : "300"};
-          margin: 5px;
+          .time,
+          .room,
+          .title {
+            font-weight: ${bold ? "700" : "300"};
+            margin: 5px;
           }
 
           @media (max-width: 768px) {

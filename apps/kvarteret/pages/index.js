@@ -4,11 +4,10 @@ import fetchLayoutData from "dak-components/lib/cms/layout";
 import { Title } from "dak-components";
 import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
-import { TodayItem } from "../components/TodayItem";
+import HappeningToday from "../components/HappeningToday";
 import { NextSeo } from "next-seo";
 import TranslatedField, {
   getTranslationsData,
-  useTranslation,
 } from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticProps(context) {
@@ -47,43 +46,27 @@ export default function Index({ data }) {
         <div className="today">
           <ExternalContent html={data.todayText} />
         </div>
-        <div className="happening-today">
-          <Title underlined><TranslatedField tKey="index-happening-today" /></Title>
-          <div className="happening-today-content">
-            <TodayItem
-              bold
-              event={{
-                time: useTranslation("time"),
-                room: useTranslation("room"),
-                title: useTranslation("event"),
-              }}
-            />
-            {data.eventsToday.map((x, i) => (
-              <TodayItem key={i} event={x} />
-            ))}
-          </div>
-          {data.eventsToday.length <= 0 && (
-            <div className="nothing-happening">
-              <TranslatedField tKey="index-nothing-happening-today" />
-            </div>
-          )}
-        </div>
+        <HappeningToday events={data.eventsToday} />
         <div className="opening-hours">
           <Title underlined>
             <TranslatedField tKey="footer-opening-hours" />
           </Title>
           <OpeningHours openingHours={data.openingHours} />
           <Link href="vare-barer">
-            <a className="vare-barer"><TranslatedField tKey="footer-opening-hours-description" /></a>
+            <a className="vare-barer">
+              <TranslatedField tKey="footer-opening-hours-description" />
+            </a>
           </Link>
         </div>
         <div className="events">
           <Title underlined big>
-          <TranslatedField tKey="index-coming-events" />
+            <TranslatedField tKey="index-coming-events" />
           </Title>
           <EventList events={data.events} />
           <Link href="events">
-            <a className="more-events"><TranslatedField tKey="index-see-more-events" /></a>
+            <a className="more-events">
+              <TranslatedField tKey="index-see-more-events" />
+            </a>
           </Link>
         </div>
       </div>
