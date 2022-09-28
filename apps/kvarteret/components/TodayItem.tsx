@@ -1,4 +1,7 @@
-const TodayItem = ({ event, bold = false }) => {
+import { Event } from "dak-components/lib/cms/queries/events";
+import { CrescatEvent } from "dak-components/lib/crescat";
+
+const TodayItem = ({ event, bold = false }: { event: { time: String; room: String; title: String; }; bold?: boolean }) => {
   return (
     <>
       <div className="time">{event.time}</div>
@@ -18,6 +21,7 @@ const TodayItem = ({ event, bold = false }) => {
             .title {
               margin-bottom: 10px;
             }
+            
           }
         `}
       </style>
