@@ -9,7 +9,7 @@ const TodayItem = ({ event, bold }) => {
         {`
           .time, .room, .title {
           font-weight: ${bold ? "700" : "300"};
-
+          margin: 5px;
           }
 
           @media (max-width: 768px) {
