@@ -2,17 +2,22 @@ import fetchLayoutData from "dak-components/lib/cms/layout";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BlurImage } from "dak-components";
-import TranslatedField, { getTranslationsData } from "dak-components/lib/components/TranslatedField";
+import TranslatedField, {
+  getTranslationsData,
+} from "dak-components/lib/components/TranslatedField";
 
 export async function getStaticProps(context) {
   const layout = await fetchLayoutData(context.locale);
 
   return {
     props: {
-      translations: await getTranslationsData(context.locale, ["events", "search"]),
+      translations: await getTranslationsData(context.locale, [
+        "events",
+        "search",
+      ]),
       layout: layout,
     },
-    revalidate: 60*30,
+    revalidate: 60 * 30,
   };
 }
 
@@ -34,23 +39,28 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
         <span className="time">{time}</span>
         <p>{description}</p>
       </div>
-      <style jsx global>
+      <style jsx>
         {`
           .search-event-image {
             border-radius: 5px;
-            transition: 200ms;
+            transition: 20ms;
           }
 
-          #searchContainer:hover .search-event-image {
-            transform: scale(1.02);
+          #searchContainer:hover {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            transform: scale(1.001);
+            transition: all 0.1s;
+            box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+              rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
           }
         `}
       </style>
       <style jsx>
         {`
-        a {
-          color: inherit;
-        }
+          a {
+            color: inherit;
+          }
           .container {
             display: flex;
             flex-direction: row;
@@ -59,6 +69,15 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
             gap: 15px;
             cursor: pointer;
           }
+
+          // .container:hover {
+          //   border-bottom-left-radius: 0;
+          //   border-bottom-right-radius: 0;
+          //   transform: scale(1.001);
+          //   transition: all 0.1s;
+          //   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+          //     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+          // }
 
           .image {
             width: 256px;
@@ -74,10 +93,6 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
               width: 100%;
               gap: 0;
               cursor: pointer;
-            }
-
-            .container:hover {
-              box-shadow: 0px 0px 32px 0px #d1d1d1;
             }
 
             .image {
@@ -151,36 +166,36 @@ const EventSearch = () => {
 
   return (
     <div className="wrapper">
-
-    <div className="container">
-      <div>
-        <h2><TranslatedField tKey="search"/></h2>
+      <div className="container">
         <div>
-          <input
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <button onClick={() => doSearch()}>Søk</button>
-        </div>
-      </div>
-      <div>
-        <h1><TranslatedField tKey="events"/></h1>
-        {events.map((x, i) => (
-          <div key={i}>
-            <EventCard event={x} />
+          <h2>
+            <TranslatedField tKey="search" />
+          </h2>
+          <div>
+            <input onChange={(e) => setSearch(e.target.value)} />
+            <button onClick={() => doSearch()}>Søk</button>
           </div>
-        ))}
-    </div>
+        </div>
+        <div>
+          <h1>
+            <TranslatedField tKey="events" />
+          </h1>
+          {events.map((x, i) => (
+            <div key={i}>
+              <EventCard event={x} />
+            </div>
+          ))}
+        </div>
       </div>
       <style jsx>
         {`
-        .wrapper {
-
-          display: flex;
+          .wrapper {
+            display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             margin: 20px;
-        }
+          }
           .container {
             margin-top: 100px;
             max-width: 1080px;
@@ -189,7 +204,6 @@ const EventSearch = () => {
         `}
       </style>
     </div>
-    
   );
 };
 
