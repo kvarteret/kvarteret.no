@@ -22,35 +22,17 @@ const cachedGet = async (url: string, headers: AxiosRequestHeaders) => {
 
 
 const getEvents = async () => {
+  // Fetches json payload from the Crescat booking site
+  const crescatData = (await cachedGet(
+    "https://app.crescat.io/external/v1/calendar",
+    {
+      Authorization: `Bearer ${process.env.CRESCAT_TOKEN}`,
+    }
+  )) as CrescatEvent[];
 
-    // Fetches json payload from the Crescat booking site
-    const crescatData = await cachedGet("https://app.crescat.io/external/v1/calendar", {
-        Authorization: `Bearer ${process.env.CRESCAT_TOKEN}`
-    });
-
-    var rawShowTimes = Array();
-
-    // Cycles through all events in crescatData and retrieves showtimes
-    for (var ievent = 0; ievent < crescatData.length; ievent++) {
-
-        rawShowTimes.push(crescatData[ievent].show_times)
-    };
-
-    // Array to be returned
-    var jsonShowTimes = Array();
-
-    // Retrieves the json-elements from raw showtimes array
-    for (var stIndex = 0; stIndex < rawShowTimes.length; stIndex++) {
-
-        for (var stIndex2 = 0; stIndex2 < rawShowTimes[stIndex].length; stIndex2++) {
-            if (rawShowTimes[stIndex] != []) {
-                jsonShowTimes.push(rawShowTimes[stIndex][stIndex2]);
-            };
-        };
-    };
-
-    return jsonShowTimes;
-
+  const showTimes = crescatData.flatMap(event => event.show_times);
+  return showTimes;
+  
     //return crescatData.filter(x => x.fields.some(x => x.id === 70879));
 }
 
