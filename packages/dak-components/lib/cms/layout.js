@@ -5,9 +5,9 @@ import queryGeneralInformation, {
 import appendBase64Image from "./utils/appendBase64Image.ts";
 
 const fetchLayoutData = async (lang) => {
-  let {general_information: generalData, navigation: navigationItems} = await queryGeneralInformation(lang);
+  let { general_information: generalData, navigation: navigationItems } = await queryGeneralInformation(lang);
   const navigation = getNavigation(generalData, navigationItems);
-  const openingHours = await queryOpeningHours();
+  let openingHours = await queryOpeningHours();
 
   generalData = await appendBase64Image(generalData);
 
