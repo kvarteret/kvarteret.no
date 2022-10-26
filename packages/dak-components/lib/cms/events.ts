@@ -40,10 +40,10 @@ const getTimeText = (x: Event, lang: Locale) => {
   }
 
   //Happening now
-  // Default end time to two hours into future.
+  // Default end time to 5 hours into future.
   const parsedEndDate = x.event_end
     ? new Date(x.event_end)
-    : new Date(new Date(x.event_start).getTime() + 2 * 60 * 60_000);
+    : new Date(new Date(x.event_start).getTime() + 5 * 60 * 60_000);
 
   if (new Date() < parsedEndDate) {
     if (lang == "no")

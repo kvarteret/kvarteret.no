@@ -20,8 +20,8 @@ export default async function queryAllEventSlugs() {
 }
 
 export async function queryAllEvents(filterDate = new Date()) {
-  // Subtract two hours to include events around now
-  filterDate.setHours(filterDate.getHours() - 2);
+  // Subtract 6 hours to include events around today
+  filterDate.setHours(filterDate.getHours() - 6);
   const { data } = (await cmsClient.query({
     variables: { filterDate: filterDate.toISOString() },
     query: gql`
