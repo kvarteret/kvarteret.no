@@ -19,7 +19,9 @@ export default async function queryAllEventSlugs() {
   return data.events.filter((x) => x.status === "published");
 }
 
-export async function queryAllEvents(filterDate = new Date())  {
+export async function queryAllEvents(filterDate = new Date()) {
+  // Subtract two hours to include events around now
+  filterDate.setHours(filterDate.getHours() - 2);
   const { data } = (await cmsClient.query({
     variables: { filterDate: filterDate.toISOString() },
     query: gql`
@@ -244,7 +246,7 @@ export interface Event {
   status: Status | string;
   slug: string;
   event_start: Date | string;
-  event_end: Date | string;
+  event_end?: Date | string;
   ticket_url?: null | string;
   facebook_url?: null | string;
   top_image: Media | null;
