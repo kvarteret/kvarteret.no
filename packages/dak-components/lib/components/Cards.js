@@ -3,19 +3,19 @@ import { BlurImage, ExternalContent } from ".";
 const Card = ({ card }) => {
   return (
     <div className="card">
-        {card?.image &&
-      <div className="image">
-        <BlurImage
-          className="cards-image"
-          fadeIn
-          objectFit="contain"
-          layout="fixed"
-          width={130}
-          height={130}
-          image={card?.image}
-        />
-      </div>
-        }
+      {card?.image && (
+        <div className="image">
+          <BlurImage
+            className="cards-image"
+            fadeIn
+            objectFit="contain"
+            layout="fixed"
+            width={130}
+            height={130}
+            image={card?.image}
+          />
+        </div>
+      )}
       <div className="text-content">
         <h3 className="title">{card?.title}</h3>
         <div className="content">
@@ -25,15 +25,15 @@ const Card = ({ card }) => {
 
       <style jsx global>
         {`
-        .cards-image {
-          border-radius: 65px;
-        }
+          .cards-image {
+            border-radius: 65px;
+          }
         `}
       </style>
       <style jsx>
         {`
-          .card {        
-            width: 100%;
+          .card {
+            flex: 1 1 220px;
             transition: 100ms;
             border-radius: 5px;
             cursor: unset;
@@ -43,7 +43,7 @@ const Card = ({ card }) => {
           }
           h3 {
             margin: 1px 0;
-            margin-bottom: -10px;
+            margin-bottom: 10px;
           }
           .text-content {
             margin: 7px;
@@ -58,11 +58,14 @@ const Card = ({ card }) => {
             transition: 500ms;
           }
           .image:hover {
-            transform: ${card?.image?.id === "db1ab2cf-6fb8-4be5-bab9-9f615b6dee7d" ? "rotate(360deg);" : "rotate(0deg);"}
+            transform: ${card?.image?.id ===
+            "db1ab2cf-6fb8-4be5-bab9-9f615b6dee7d"
+              ? "rotate(360deg);"
+              : "rotate(0deg);"};
           }
         `}
       </style>
-    </div>           
+    </div>
   );
 };
 
@@ -75,11 +78,10 @@ const Cards = ({ cards, cardsPrRow }) => {
       <style jsx>
         {`
           .cards {
-            display: grid;
-            gap: 20px;
-            grid-template-columns: repeat(
-              auto-fill,
-              minmax(${1080 / ((cardsPrRow || 3) + 1)}px, 1fr)
+            padding:20px 0 0 20px;
+            display: flex;
+            flex-wrap: wrap; 
+           gap: 20px;
             );
           }
         `}
