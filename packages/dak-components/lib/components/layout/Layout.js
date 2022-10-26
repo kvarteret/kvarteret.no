@@ -11,28 +11,33 @@ const Layout = ({ children, data }) => {
 
     for (const id of ids) {
       const item = document.getElementById(id);
-      if(!item) continue;
+      if (!item) continue;
       item.style.display = "none";
     }
   }
 
   return (
     <HamburgerMenu logo={data.logo} navigation={data.navigation} >
-      <div key="main-content" className="container">
+      <div id="main-content" className="container">
+
         <div className="header" onMouseLeave={removeOpenMenus}>
+
           <div className="header-bar">
             <Header data={data} removeOpenMenus={removeOpenMenus} />
           </div>
+
           {data.navigation.left.map((x, i) => {
             if (x.multiMenu.length == 0) return <></>
 
             return <MultiMenu key={i} menuData={x} removeOpenMenus={removeOpenMenus} />
           })}
+
           {data.navigation.right.map((x, i) => {
             if (x.multiMenu.length == 0) return <></>
 
             return <MultiMenu key={i} menuData={x} removeOpenMenus={removeOpenMenus} />
           })}
+
         </div>
         <div className="content">
           {children}
