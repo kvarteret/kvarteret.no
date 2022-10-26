@@ -3,10 +3,13 @@ FROM node:lts-alpine AS Sourcer
 WORKDIR /app
 COPY . .
 
+RUN apk add --no-cache libc6-compat
+
 RUN yarn global add turbo
 RUN yarn prune:blifrivillig
 
 FROM node:lts-alpine AS Builder
+
 WORKDIR /app
 COPY --from=Sourcer /app/out .
 
