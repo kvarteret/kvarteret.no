@@ -6,7 +6,7 @@ import {
   Container,
   Typography,
   Grid,
-} from "@material-ui/core";
+} from "@mui/material";
 import React, { useState } from "react";
 import ExternalContent from "./ExternalContent";
 import Image from "next/image";

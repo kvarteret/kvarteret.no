@@ -4,15 +4,14 @@ import { useRouter } from "next/router";
 
 import { Divider } from "../Divider";
 import { HamburgerMenuContext } from "./HamburgerMenu";
-import React, {useContext} from 'react';
+import React, { useContext } from "react";
 
-import Flags from 'country-flag-icons/react/3x2'
+import Flags from "country-flag-icons/react/3x2";
 import { Link } from "../Link";
 
 const LanguageItem = ({ locale, text }) => {
   const router = useRouter();
   const sameLang = router.locale === locale;
-
 
   return (
     <Link href={router.asPath} locale={locale}>
@@ -43,8 +42,8 @@ const LanguageSelector = () => {
   const locale = router.locale === "no" ? "en" : "no";
   return (
     <div>
-    <Link href={router.asPath} locale={locale}>
-      <Flag title={title} style={{width: "32px"}} />
+      <Link href={router.asPath} locale={locale}>
+        <Flag title={title} style={{ width: "32px" }} />
       </Link>
 
       <style jsx>
@@ -58,7 +57,7 @@ const LanguageSelector = () => {
           }
 
           div:hover {
-            filter: brightness(120%)
+            filter: brightness(120%);
           }
         `}
       </style>
@@ -67,32 +66,49 @@ const LanguageSelector = () => {
 };
 
 const Header = ({ data, removeOpenMenus }) => {
-  const {open} = useContext(HamburgerMenuContext);
+  const { open } = useContext(HamburgerMenuContext);
 
   return (
     <div className="container">
       <div className="main-logo">
         <Link href={"/"}>
           <a>
-            <BlurImage layout="fill" image={data.hoved_logo} priority noLoad></BlurImage>
+            <BlurImage
+              layout="fill"
+              image={data.hoved_logo}
+              priority
+              noLoad
+            ></BlurImage>
           </a>
         </Link>
       </div>
       <div className="block hamburger" onClick={() => open()}>
-          <div className="dak-menu"></div>
+        <div className="dak-menu"></div>
       </div>
       <div className="nav left-nav">
-        <Navigation navItems={data.navigation.left} removeOpenMenus={removeOpenMenus} />
+        <Navigation
+          navItems={data.navigation.left}
+          removeOpenMenus={removeOpenMenus}
+        />
       </div>
       <div className="logo">
         <Link href={"/"}>
           <a>
-            <BlurImage layout="fill" image={data.logo} priority noLoad></BlurImage>
+            <BlurImage
+              layout="fill"
+              image={data.logo}
+              priority
+              noLoad
+            ></BlurImage>
           </a>
         </Link>
       </div>
       <div className="nav right-nav">
-        <Navigation isRight navItems={data.navigation.right} removeOpenMenus={removeOpenMenus} />
+        <Navigation
+          isRight
+          navItems={data.navigation.right}
+          removeOpenMenus={removeOpenMenus}
+        />
       </div>
       <div className="block language">
         <LanguageSelector />
@@ -114,12 +130,13 @@ const Header = ({ data, removeOpenMenus }) => {
           cursor: pointer;
         }
 
-        
-        .main-logo:hover, .logo:hover {
+        .main-logo:hover,
+        .logo:hover {
           filter: brightness(1.2);
           cursor: pointer;
         }
-        .main-logo:active, .logo:active {
+        .main-logo:active,
+        .logo:active {
           filter: brightness(0.8);
           cursor: pointer;
         }
@@ -161,7 +178,7 @@ const Header = ({ data, removeOpenMenus }) => {
             border-right: 1px solid rgba(0, 0, 0, 0.12);
             color: white;
             font-size: 40px;
-            cursor:pointer;
+            cursor: pointer;
           }
 
           .hamburger-wrapper {

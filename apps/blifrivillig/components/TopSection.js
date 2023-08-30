@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 
 import TranslatedField from "./TranslatedField";

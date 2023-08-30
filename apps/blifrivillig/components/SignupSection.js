@@ -1,7 +1,7 @@
-import React from 'react'
-import { Typography } from '@material-ui/core'
-import ExternalContent from './ExternalContent'
-import TranslatedField from './TranslatedField'
+import React from "react";
+import { Typography } from "@mui/material";
+import ExternalContent from "./ExternalContent";
+import TranslatedField from "./TranslatedField";
 
 const SignupSection = ({ snippet }) => {
   return (
@@ -11,7 +11,7 @@ const SignupSection = ({ snippet }) => {
       </Typography>
       <ExternalContent data={snippet} />
     </div>
-  )
-}
+  );
+};
 
-export default SignupSection
+export default SignupSection;

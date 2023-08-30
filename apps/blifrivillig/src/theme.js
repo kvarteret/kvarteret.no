@@ -1,13 +1,15 @@
-import { createTheme , responsiveFontSizes } from '@material-ui/core'
+import { createTheme, responsiveFontSizes } from "@mui/material";
 
-let lightTheme = createTheme({
+import { adaptV4Theme } from '@mui/material/styles';
+
+let lightTheme = createTheme(adaptV4Theme({
   typography: {
-    fontFamily: 'Hegval Display',
+    fontFamily: "Hegval Display",
     fontSize: 13,
     h1: {
       fontSize: 60,
-      wordBreak: 'break-word',
-      fontWeight: 'bold',
+      wordBreak: "break-word",
+      fontWeight: "bold",
     },
     h2: {
       fontSize: 40,
@@ -22,56 +24,56 @@ let lightTheme = createTheme({
     },
   },
   palette: {
-    type: 'light',
+    mode: "light",
     primary: {
-      main: '#f54b4b',
+      main: "#f54b4b",
     },
     action: {
-      hover: '#F54B4B;',
+      hover: "#F54B4B;",
     },
     text: {
-      secondary: '#000',
+      secondary: "#000",
     },
   },
-})
-lightTheme = responsiveFontSizes(lightTheme)
+}));
+lightTheme = responsiveFontSizes(lightTheme);
 
-let darkTheme = createTheme({
+let darkTheme = createTheme(adaptV4Theme({
   typography: {
-    fontFamily: 'Hegval Display',
+    fontFamily: "Hegval Display",
     fontSize: 12,
     h1: {
       fontSize: 60,
-      color: '#ffffff',
+      color: "#ffffff",
     },
     h2: {
       fontWeight: 500,
       fontSize: 40,
-      color: '#ffffff',
+      color: "#ffffff",
     },
     h3: {
       fontSize: 26,
       fontWeight: 500,
-      color: '#ffffff',
+      color: "#ffffff",
     },
     h6: {
-      color: '#fff',
-      textTransform: 'uppercase',
+      color: "#fff",
+      textTransform: "uppercase",
       fontSize: 14,
     },
   },
   palette: {
-    type: 'dark',
+    mode: "dark",
     primary: {
-      main: '#fff',
+      main: "#fff",
     },
     action: {
-      hover: '#F54B4B;',
+      hover: "#F54B4B;",
     },
-    divider: '#707070',
-    text: { secondary: '#929292' },
+    divider: "#707070",
+    text: { secondary: "#929292" },
   },
-})
-darkTheme = responsiveFontSizes(darkTheme)
+}));
+darkTheme = responsiveFontSizes(darkTheme);
 
-export default lightTheme
+export default lightTheme;

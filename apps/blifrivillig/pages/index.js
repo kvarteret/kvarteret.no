@@ -1,4 +1,4 @@
-import { Box, Container, Grid } from "@material-ui/core";
+import { Box, Container, Grid } from "@mui/material";
 
 import {
   ApolloClient,
