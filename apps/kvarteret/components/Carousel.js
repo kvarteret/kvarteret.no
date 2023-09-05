@@ -15,40 +15,42 @@ import { useEffect, useState } from "react";
 import Vibrant from "node-vibrant";
 
 const CarouselItem = ({ item }) => {
-  
+
   // const { data, loading, error } = usePalette(`https://cms.kvarteret.no/assets/${imageId}`)
   const imageId = item.header.id;
   const [vibrancy, setVibrancy] = useState();
   useEffect(() => {
     const test = async () => {
-      if(!Vibrant) return;
-      Vibrant.from(`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5`).quality(1).getPalette().then( palette => {
+      if (!Vibrant) return;
+      Vibrant.from(`https://cms.kvarteret.no/assets/${imageId}?width=5&height=5`).quality(1).getPalette().then(palette => {
         setVibrancy(palette);
       });
     }
 
     test();
-  },[setVibrancy, imageId])
+  }, [setVibrancy, imageId])
 
   const link = (item?.navigation?.type === "page" ? item?.navigation?.page_2?.slug : item?.navigation?.url) ?? ""
 
+  console.debug(link);
+
   return (
     <div className="container">
-      <Link href={link}>
-          <div className="image-container">
-            <BlurImage
-              className="carousel-image"
-              fadeIn
-              image={item.header}
-              objectFit="cover"
-              layout="fill"
-            />
-            <div className="content">
-              <div className="title">{item.translations[0]?.title}</div>
-              <div className="description">{item.translations[0]?.description}</div>
-            </div>
+      <a href={link}>
+        <div className="image-container">
+          <BlurImage
+            className="carousel-image"
+            fadeIn
+            image={item.header}
+            objectFit="cover"
+            layout="fill"
+          />
+          <div className="content">
+            <div className="title">{item.translations[0]?.title}</div>
+            <div className="description">{item.translations[0]?.description}</div>
           </div>
-      </Link>
+        </div>
+      </a>
       <style jsx>
         {`
         .container {
@@ -68,10 +70,10 @@ const CarouselItem = ({ item }) => {
               height: 100%;
               top: 0;
               left: 0;
-              background: rgba(0, 0, 0, 0.4);
+              background: rgba(0, 0, 0, 0);
               transition: all 1s;
               -webkit-transition: all 1s;
-              width    : 100%;
+              width : 100%;
               height: 600px;
             }
           .content {
@@ -92,7 +94,7 @@ const CarouselItem = ({ item }) => {
           .title, .description {
             color: white;
             font-size: max(40px, calc(60px - ${(item.translations[0]?.title?.length ?? 0) / 2.0}px));
-            text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"};
+            /* text-shadow: 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}, 0 0 2px ${vibrancy?.Muted?.getHex() ?? "black"}; */
             max-width: 1200px;
             width: calc(100% - 200px);
             overflow-x: hidden;
@@ -141,8 +143,8 @@ const Carousel = ({ carouselItems, component }) => {
       >
         {carouselItems.map((x, i) => (
           <SwiperSlide key={i}>
-            {component && component({item: x})
-            || <CarouselItem item={x} />
+            {component && component({ item: x })
+              || <CarouselItem item={x} />
             }
           </SwiperSlide>
         ))}
@@ -160,4 +162,4 @@ const Carousel = ({ carouselItems, component }) => {
 };
 
 
-export {Carousel};
+export { Carousel };
