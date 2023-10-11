@@ -68,6 +68,7 @@ const Layout = ({ children, data }) => {
 
           .content {
             flex: 1;
+            margin-top: 80px;
           }
 
           .header {

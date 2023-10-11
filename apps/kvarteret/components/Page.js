@@ -62,7 +62,7 @@ const ComponentLookup = ({ type, data }) => {
     case "call_to_action_section":
       return <CallToActionSection {...data} />;
     case "rooms_section":
-      return <RoomSection {...data}/>
+      return <RoomSection {...data} />;
 
     default:
       return <div>TODO: Missing section types</div>;
@@ -87,7 +87,7 @@ const Page = ({ data }) => (
           max-width: 1080px;
           margin: auto;
           padding: 0 40px;
-          margin-top: 100px;
+          margin-top: 20px;
           margin-bottom: 40px;
         }
       `}
