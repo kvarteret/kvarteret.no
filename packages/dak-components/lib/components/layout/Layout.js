@@ -80,7 +80,7 @@ const Layout = ({ children, data }) => {
           .header-bar {
             height: 80px;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 1);
             box-shadow: 0 4px 4px rgb(0 0 0 / 40%);
             backdrop-filter: blur(4px);
           }
