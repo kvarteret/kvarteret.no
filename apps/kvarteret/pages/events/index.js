@@ -197,7 +197,7 @@ const EventSearch = () => {
             margin: 20px;
           }
           .container {
-            margin-top: 100px;
+            margin-top: 20px;
             max-width: 1080px;
             width: 100%;
           }
