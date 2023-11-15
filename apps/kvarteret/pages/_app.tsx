@@ -12,11 +12,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Layout data={pageProps.layout}>
         <Script src="https://unpkg.com/node-vibrant@3.1.5/dist/vibrant.min.js"></Script>
         {pageProps?.layout?.scripts?.map((x, i) => (
-          <div
-            key={i}
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{ __html: x.script }}
-          />
+          <div key={i} dangerouslySetInnerHTML={{ __html: x.script }} />
         ))}
         <Component {...pageProps} />
       </Layout>

@@ -10,7 +10,6 @@ import {
 import logo from "../public/static/Kvarteret_logo_rosa.png";
 
 interface EventProps {
-  arrangoer: string;
   sted: string;
   event: string;
   tid: string;
