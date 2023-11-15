@@ -4,14 +4,23 @@ import fetchLayoutData from "dak-components/lib/cms/layout";
 import { Title } from "dak-components";
 import { Carousel } from "../components/Carousel";
 import { EventList } from "../components/EventList";
-import { TodayItem } from "../components/TodayItem";
 import { NextSeo } from "next-seo";
 import TranslatedField, {
   getTranslationsData,
-  useTranslation,
 } from "dak-components/lib/components/TranslatedField";
+import { GetStaticProps } from "next";
 
-export async function getStaticProps(context) {
+interface IndexProps {
+  data: {
+    carouselItems: any[];
+    todayText: string;
+    eventsToday: any[];
+    openingHours: any[];
+    events: any[];
+  };
+}
+
+export const getStaticProps: GetStaticProps<IndexProps> = async (context) => {
   const layout = await fetchLayoutData(context.locale);
   const indexData = await fetchIndexData(context.locale);
 
@@ -31,9 +40,9 @@ export async function getStaticProps(context) {
     },
     revalidate: 60 * 30, // Hver halvtime
   };
-}
+};
 
-export default function Index({ data }) {
+export default function Index({ data }: IndexProps) {
   return (
     <div className="container">
       {/* TODO: Fetch from cms and make language dependent */}
@@ -74,7 +83,9 @@ export default function Index({ data }) {
           </Title>
           <OpeningHours openingHours={data.openingHours} />
           <Link href="vare-barer">
-            <a className="vare-barer"><TranslatedField tKey="footer-opening-hours-description" /></a>
+            <a className="vare-barer">
+              <TranslatedField tKey="footer-opening-hours-description" />
+            </a>
           </Link>
         </div>
         <div className="events">
@@ -83,7 +94,9 @@ export default function Index({ data }) {
           </Title>
           <EventList events={data.events} />
           <Link href="events">
-            <a className="more-events"><TranslatedField tKey="index-see-more-events" /></a>
+            <a className="more-events">
+              <TranslatedField tKey="index-see-more-events" />
+            </a>
           </Link>
         </div>
       </div>

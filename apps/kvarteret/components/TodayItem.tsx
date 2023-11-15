@@ -1,4 +1,15 @@
-const TodayItem = ({ event, bold }) => {
+import React from "react";
+
+interface Props {
+  event: {
+    time: string;
+    room: string;
+    title: string;
+  };
+  bold: boolean;
+}
+
+const TodayItem: React.FC<Props> = ({ event, bold }) => {
   return (
     <>
       <div className="time">{event.time}</div>
@@ -7,9 +18,10 @@ const TodayItem = ({ event, bold }) => {
 
       <style jsx>
         {`
-          .time, .room, .title {
-          font-weight: ${bold ? "700" : "300"};
-
+          .time,
+          .room,
+          .title {
+            font-weight: ${bold ? "700" : "300"};
           }
 
           @media (max-width: 768px) {

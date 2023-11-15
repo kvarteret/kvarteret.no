@@ -1,27 +1,35 @@
-import fetchLayoutData from "dak-components/lib/cms/layout";
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BlurImage } from "dak-components";
-import TranslatedField, {
-  getTranslationsData,
-} from "dak-components/lib/components/TranslatedField";
+import TranslatedField from "dak-components/lib/components/TranslatedField";
 
-export async function getStaticProps(context) {
-  const layout = await fetchLayoutData(context.locale);
+type Event = {
+  slug: string;
+  top_image: string;
+  duration: string;
+  translations: {
+    title: string;
+    description: string;
+  }[];
+};
 
-  return {
-    props: {
-      translations: await getTranslationsData(context.locale, [
-        "events",
-        "search",
-      ]),
-      layout: layout,
-    },
-    revalidate: 60 * 30,
-  };
-}
+type HorizontalCardProps = {
+  url: string;
+  image: string;
+  altImage: string;
+  title: string;
+  description: string;
+  time: string;
+};
 
-const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
+const HorizontalCard = ({
+  url,
+  image,
+  altImage,
+  title,
+  description,
+  time,
+}: HorizontalCardProps) => {
   return (
     <a href={url} className="container" id="searchContainer">
       <div className="image">
@@ -69,15 +77,6 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
             gap: 15px;
             cursor: pointer;
           }
-
-          // .container:hover {
-          //   border-bottom-left-radius: 0;
-          //   border-bottom-right-radius: 0;
-          //   transform: scale(1.001);
-          //   transition: all 0.1s;
-          //   box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
-          //     rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
-          // }
 
           .image {
             width: 256px;
@@ -127,7 +126,11 @@ const HorizontalCard = ({ url, image, altImage, title, description, time }) => {
   );
 };
 
-const EventCard = ({ event }) => {
+type EventCardProps = {
+  event: Event;
+};
+
+const EventCard = ({ event }: EventCardProps) => {
   const title = event.translations[0].title;
   const description = event.translations[0].description;
   return (
@@ -140,7 +143,6 @@ const EventCard = ({ event }) => {
         time={event.duration}
         description={description}
       />
-      {/* {JSON.stringify(event)} */}
     </div>
   );
 };
@@ -148,11 +150,11 @@ const EventCard = ({ event }) => {
 // Relevant filter: free-text search, room, arrangør, tags
 const EventSearch = () => {
   const [search, setSearch] = useState("");
-  const [events, setEvents] = useState([]);
+  const [events, setEvents] = useState<Event[]>([]);
 
   const doSearch = useCallback(() => {
     const asyncSearch = async () => {
-      const { data } = await axios.get(
+      const { data } = await axios.get<Event[]>(
         `/api/events?search=${encodeURIComponent(search)}`
       );
       setEvents(data);

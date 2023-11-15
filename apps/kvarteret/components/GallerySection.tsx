@@ -1,7 +1,22 @@
+import { FC } from "react";
 import { Carousel } from "./Carousel";
 import { BlurImage } from "dak-components";
 
-const CarouselComponent = ({ item, objectFit, layout, height, width }) => {
+interface CarouselComponentProps {
+  item: string;
+  objectFit?: string;
+  layout?: string;
+  height?: number;
+  width?: number;
+}
+
+const CarouselComponent: FC<CarouselComponentProps> = ({
+  item,
+  objectFit,
+  layout,
+  height,
+  width,
+}) => {
   return (
     <div className="container">
       <BlurImage
@@ -17,12 +32,34 @@ const CarouselComponent = ({ item, objectFit, layout, height, width }) => {
   );
 };
 
-const GallerySection = ({ gallery, objectFit, layout, width, height }) => {
+interface GallerySectionProps {
+  gallery: { directus_files_id: string }[];
+  objectFit?: string;
+  layout?: string;
+  width?: number;
+  height?: number;
+}
+
+const GallerySection: FC<GallerySectionProps> = ({
+  gallery,
+  objectFit,
+  layout,
+  width,
+  height,
+}) => {
   const images = gallery
     ?.filter((x) => x.directus_files_id)
     ?.map((x) => x.directus_files_id);
   if (images.length === 1) {
-    return <CarouselComponent layout={layout} width={width} height={height} objectFit={objectFit} item={images[0]} />;
+    return (
+      <CarouselComponent
+        layout={layout}
+        width={width}
+        height={height}
+        objectFit={objectFit}
+        item={images[0]}
+      />
+    );
   }
 
   return (

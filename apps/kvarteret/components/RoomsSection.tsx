@@ -1,7 +1,15 @@
 import { ExternalContent, Link } from "dak-components";
 import GallerySection from "./GallerySection";
 
-const Room = ({ name, floor, gallery, page, room_translations }) => {
+interface RoomProps {
+  name: string;
+  floor: string;
+  gallery: any;
+  page: any;
+  room_translations: any[];
+}
+
+const Room = ({ name, floor, gallery, page, room_translations }: RoomProps) => {
   const translation = room_translations[0];
   const tags = translation?.tags || [];
   const description = translation?.description;
@@ -48,9 +56,9 @@ const Room = ({ name, floor, gallery, page, room_translations }) => {
         </style>
         <style jsx>
           {`
-          a {
-            color: black;
-          }
+            a {
+              color: black;
+            }
             .room {
               padding: 0px;
               width: 100%;
@@ -115,7 +123,11 @@ const Room = ({ name, floor, gallery, page, room_translations }) => {
   );
 };
 
-const RoomSection = ({ room }) => {
+interface RoomSectionProps {
+  room: any[];
+}
+
+const RoomSection = ({ room }: RoomSectionProps) => {
   return (
     <div>
       <h2>Rom</h2>
