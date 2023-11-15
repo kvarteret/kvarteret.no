@@ -36,11 +36,11 @@
     "sanitize-html": "^2.6.1",
     "sharp": "^0.30.7",
     "slugify": "^1.6.6",
-    "swiper": "^7.2.0"
+    "swiper": "^11.0.4"
   },
   "devDependencies": {
     "@types/node": "18.7.14",
-    "@types/react": "^17.0.2",
+    "@types/react": "^17.0.38",
     "eslint": "8.48.0",
     "eslint-config-next": "11.1.2",
     "next-sitemap": "^1.6.203",

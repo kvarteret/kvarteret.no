@@ -1,6 +1,6 @@
-import { BlurImage, Link } from "dak-components";
+import { BlurImage } from "dak-components";
 // import Swiper core and required modules
-import { Navigation, Pagination, Autoplay, A11y } from "swiper";
+import { Navigation, Pagination, Autoplay, A11y } from "swiper/modules";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
