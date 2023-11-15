@@ -82,6 +82,10 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
           .button:active {
             background-color: #f23b3b;
           }
+          a, a:hover, a:visited, a:active {
+            color: var(--primary-color);
+            text-decoration: none;
+           }
         `}
       </style>
     </div>

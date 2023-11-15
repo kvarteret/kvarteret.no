@@ -21,8 +21,8 @@ const LanguageItem = ({ locale, text }) => {
           {`
             a {
               color: ${sameLang
-                ? "var(--primary-color)"
-                : "var(--light-color)"};
+              ? "var(--primary-color)"
+              : "var(--light-color)"};
               font-weight: ${sameLang ? "600" : "400"};
               text-decoration: none;
               font-size: 12px;
@@ -115,6 +115,10 @@ const Header = ({ data, removeOpenMenus }) => {
       </div>
 
       <style jsx>{`
+
+        html:not(.blifrivillig-no) .container {
+          display: none;
+        }
         .container {
           display: flex;
           flex-direction: row;

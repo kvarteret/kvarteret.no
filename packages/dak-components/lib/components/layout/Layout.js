@@ -2,9 +2,29 @@ import Footer from "./Footer";
 import { HamburgerMenu } from "./HamburgerMenu";
 import Header from "./Header";
 import { MultiMenu } from "./MultiMenu";
+import { useEffect } from 'react';
 
 const Layout = ({ children, data }) => {
   if (!data) return <> {children} </>;
+
+  useEffect(() => {
+    // Check if window is defined (i.e., if the code is running in the browser)
+    if (typeof window !== 'undefined') {
+
+      console.debug(window.location.href)
+      // Check if the current URL is "https://blifrivillig.no"
+      if (window.location.href === 'http://localhost:3000/' || window.location.href === 'https://blifrivillig.no') {
+        // Get the element with the class "container"
+        const containerElement = document.querySelector('.header');
+
+        // Check if the element is found before trying to modify its style
+        if (containerElement) {
+          // Change the display property to "none"
+          containerElement.style.display = 'none';
+        }
+      }
+    }
+  }, []);
 
   const removeOpenMenus = () => {
     const ids = [
