@@ -7,38 +7,22 @@ import {
   filterPastEvents,
   getEventsAtFloor,
 } from "../components/infoskjerm/utils";
-import logo from '../public/static/Kvarteret_logo_rosa.png'
+import logo from "../public/static/Kvarteret_logo_rosa.png";
 
-// Contains imported React code from infoskjerm github repo
-
-export async function getStaticProps(context) {
-  const crescatData = filterPastEvents(await getEvents());
-  // const crescatData = returnDummyData();
-  let floorData = [];
-  for (let i = 3; i >= 1; --i) {
-    floorData.push({
-      floor: i,
-      events: getEventsAtFloor(crescatData, i),
-    });
-  }
-
-  return {
-    props: {
-      translations: await getTranslationsData(context.locale, []),
-      eventData: floorData,
-    },
-    revalidate: 60 * 30, // Hver halvtime
-  };
+interface EventProps {
+  arrangoer: string;
+  sted: string;
+  event: string;
+  tid: string;
 }
 
-const Event = ({ arrangoer, sted, event, tid }) => (
+const Event: React.FC<EventProps> = ({ sted, event, tid }) => (
   <>
     {sted && <div className="room">{sted}</div>}
     <div className="title">{event}</div>
     <div className="time">{tid}</div>
     <style jsx>
       {`
-
         .title {
           grid-column: ${!sted ? "1/3" : "2"};
           overflow: hidden;
@@ -52,47 +36,51 @@ const Event = ({ arrangoer, sted, event, tid }) => (
   </>
 );
 
-const Floor = ({ name, events }) => {
+interface FloorProps {
+  name: string;
+  events: any[];
+}
+
+const Floor: React.FC<FloorProps> = ({ name, events }) => {
   return (
     <div className="container">
       <div className="name">{name}</div>
       <div className="content">
         <div className="eventGrid">
-
-        {events.map((event, index) => {
-        const start = new Date(event?.start)
-        let tid = format(new Date(start), "HH:mm")
-        if(start < new Date()) {
-          tid = "PÅGÅR"
-        }
-        return (<Event
-          key={index}
-          sted={event?.room}
-          event={event?.name}
-          tid={tid}
-        />)
-      })}
+          {events.map((event, index) => {
+            const start = new Date(event?.start);
+            let tid = format(new Date(start), "HH:mm");
+            if (start < new Date()) {
+              tid = "PÅGÅR";
+            }
+            return (
+              <Event
+                key={index}
+                sted={event?.room}
+                event={event?.name}
+                tid={tid}
+              />
+            );
+          })}
         </div>
       </div>
       <style jsx>
         {`
           .container {
           }
-        .eventGrid {
-          display: grid;
-          gap: 15px;
-          grid-template-columns: 150px 1fr 70px;
-          color: #FDDBDB;
-          font-size: 18px;
-          font-weight: 100;
+          .eventGrid {
+            display: grid;
+            gap: 15px;
+            grid-template-columns: 150px 1fr 70px;
+            color: #fddbdb;
+            font-size: 18px;
+            font-weight: 100;
 
-          font-weight: 400;
-
-
-        }
+            font-weight: 400;
+          }
           .content {
             margin-top: 30px;
-            display:flex;
+            display: flex;
             flex-direction: column;
             gap: 10px;
           }
@@ -109,12 +97,16 @@ const Floor = ({ name, events }) => {
   );
 };
 
-const InfoSkjerm = ({ eventData }) => {
+interface InfoSkjermProps {
+  eventData: any[];
+}
+
+const InfoSkjerm: React.FC<InfoSkjermProps> = ({ eventData }) => {
   return (
     <div className="container">
       <div className="header">
         <h1 className="title">
-          DETTE SKJER <br/> I DAG
+          DETTE SKJER <br /> I DAG
         </h1>
         <Image
           className="logo"
@@ -132,13 +124,11 @@ const InfoSkjerm = ({ eventData }) => {
       </div>
       <style jsx global>
         {`
-        body {
-
-          background-color: #282835;
-        }
-        
+          body {
+            background-color: #282835;
+          }
         `}
-        </style>
+      </style>
 
       <style jsx>
         {`
@@ -184,5 +174,25 @@ const InfoSkjerm = ({ eventData }) => {
     </div>
   );
 };
+
+export async function getStaticProps(context) {
+  const crescatData = filterPastEvents(await getEvents());
+  // const crescatData = returnDummyData();
+  let floorData = [];
+  for (let i = 3; i >= 1; --i) {
+    floorData.push({
+      floor: i,
+      events: getEventsAtFloor(crescatData, i),
+    });
+  }
+
+  return {
+    props: {
+      translations: await getTranslationsData(context.locale, []),
+      eventData: floorData,
+    },
+    revalidate: 60 * 30, // Hver halvtime
+  };
+}
 
 export default InfoSkjerm;
