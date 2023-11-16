@@ -4,9 +4,8 @@ import "../public/fonts/kvartereticons.css";
 import Script from "next/script";
 import { Layout } from "dak-components";
 import { TranslationContext } from "dak-components/lib/components/TranslatedField";
-import type { AppProps } from "next/app";
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   return (
     <TranslationContext.Provider value={pageProps.translations}>
       <Layout data={pageProps.layout}>

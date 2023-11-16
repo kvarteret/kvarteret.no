@@ -13,12 +13,11 @@ import "swiper/css/autoplay";
 
 import { useEffect, useState } from "react";
 import Vibrant from "node-vibrant";
-import { Palette } from "node-vibrant/lib/color";
 
 const CarouselItem = ({ item }) => {
   // const { data, loading, error } = usePalette(`https://cms.kvarteret.no/assets/${imageId}`)
   const imageId = item.header.id;
-  const [vibrancy, setVibrancy] = useState<Palette>();
+  const [vibrancy, setVibrancy] = useState();
   useEffect(() => {
     const test = async () => {
       if (!Vibrant) return;
@@ -145,12 +144,7 @@ const CarouselItem = ({ item }) => {
   );
 };
 
-interface CarouselProps {
-  carouselItems: any[];
-  component?: ({ item }: { item: any }) => JSX.Element;
-}
-
-const Carousel = ({ carouselItems, component }: CarouselProps) => {
+const Carousel = ({ carouselItems, component = undefined }) => {
   return (
     <div className="carousel">
       <Swiper
