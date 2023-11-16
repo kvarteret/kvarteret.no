@@ -8,7 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   // ...
-  const search = req.query.search.toString();
+  const search = req.query?.search?.toString();
   const events = await getEventsAfter("no", new Date());
   const mapped = events;
 
