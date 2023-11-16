@@ -167,7 +167,7 @@ const PracticalInformationLine = ({
   url?: string;
 }) => {
   if (typeof window !== "undefined") {
-    const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location?.search ?? "");
     const myParam = urlParams.get("startDate");
     if (title === "Tidspunkt" && myParam) {
       const time = text.split("-")[0].split("kl.")[1];
