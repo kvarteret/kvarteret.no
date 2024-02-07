@@ -1,7 +1,7 @@
-import Footer from "./Footer";
-import { HamburgerMenu } from "./HamburgerMenu";
-import Header from "./Header";
-import { MultiMenu } from "./MultiMenu";
+import Footer from './Footer';
+import { HamburgerMenu } from './HamburgerMenu';
+import Header from './Header';
+import { MultiMenu } from './MultiMenu';
 
 const Layout = ({ children, data }) => {
   if (!data) return <> {children} </>;
@@ -15,7 +15,7 @@ const Layout = ({ children, data }) => {
     for (const id of ids) {
       const item = document.getElementById(id);
       if (!item) continue;
-      item.style.display = "none";
+      item.style.display = 'none';
     }
   };
 
@@ -83,6 +83,20 @@ const Layout = ({ children, data }) => {
             background-color: rgba(0, 0, 0, 1);
             box-shadow: 0 4px 4px rgb(0 0 0 / 40%);
             backdrop-filter: blur(4px);
+          }
+
+          @media screen and (max-width: 1281px) {
+            .header-bar {
+              /*Removing the header bar when screen o/1281px  */
+              display: none;
+            }
+          }
+
+          @media screen and (max-width: 1281px) {
+            /* Reset margin start when screen o/1281px */
+            .content {
+              margin-block-start: 0;
+            }
           }
         `}
       </style>
