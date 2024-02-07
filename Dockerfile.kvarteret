@@ -6,7 +6,7 @@ COPY . .
 RUN apk add --no-cache libc6-compat
 
 RUN yarn global add turbo
-# RUN yarn prune:kvarteret
+RUN yarn prune:kvarteret
 
 FROM node:lts-alpine AS Builder
 WORKDIR /app
