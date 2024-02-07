@@ -61,6 +61,8 @@ npm run dev
 yarn dev
 ```
 
+NB: You might need to cd into one of the apps' root folders: `../kvarteret.no/apps/kvarteret` or `../kvarteret.no/apps/blifrivillig.no` before running `npm run dev`, if you're on mac.
+
 5. (Optional)
 
 You might get an error from just the above command. if so, this might help:
