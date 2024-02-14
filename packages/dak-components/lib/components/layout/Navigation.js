@@ -50,9 +50,9 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
             onClick={mouseClick}
             onMouseLeave={mouseLeave}
           >
-            {navItem.title === "Om oss" ? (
+            {navItem.title === "Om oss" || navItem.title === "About us" ? (
               <p className="nav-item" style={{ position: "relative" }}>
-                Om oss{" "}
+                {navItem.title}{" "}
                 <ExpandMoreIcon
                   style={{
                     position: "absolute",
