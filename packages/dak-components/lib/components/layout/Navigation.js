@@ -5,14 +5,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;
 
-  if (navItem.title === "Om oss") {
-    navItem.titl = (
-      <p className="nav-item" style={{ position: "relative" }}>
-        Om oss <ExpandMoreIcon style={{ position: "absolute" }} />
-      </p>
-    );
-  }
-
   const isMulti = navItem.multiMenu.length > 0;
   const isButton = navItem.isButton ? " button" : "";
 
