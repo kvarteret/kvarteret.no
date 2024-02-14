@@ -1,8 +1,17 @@
 import { useState } from "react";
 import { Link } from "../Link";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;
+
+  if (navItem.title === "Om oss") {
+    navItem.titl = (
+      <p className="nav-item" style={{ position: "relative" }}>
+        Om oss <ExpandMoreIcon style={{ position: "absolute" }} />
+      </p>
+    );
+  }
 
   const isMulti = navItem.multiMenu.length > 0;
   const isButton = navItem.isButton ? " button" : "";
@@ -49,7 +58,21 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
             onClick={mouseClick}
             onMouseLeave={mouseLeave}
           >
-            {navItem.title}
+            {navItem.title === "Om oss" ? (
+              <p className="nav-item" style={{ position: "relative" }}>
+                Om oss{" "}
+                <ExpandMoreIcon
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "100%",
+                    transform: "translateY(-40%)",
+                  }}
+                />
+              </p>
+            ) : (
+              navItem.title
+            )}
           </div>
         </a>
       </Link>
