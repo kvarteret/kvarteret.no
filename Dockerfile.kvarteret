@@ -27,7 +27,7 @@ ARG STUDENTBERGEN_TOKEN
 ARG CRESCAT_TOKEN
 ARG INVALIDATE_SECRET
 
-RUN npm install
+RUN npm install --unsafe-perm
 
 RUN npm run postbuild
 
