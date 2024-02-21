@@ -40,6 +40,14 @@ const getTranslationsData = async (lang, fields) => {
 
 const useTranslation = (key) => {
   const translations = useContext(TranslationContext);
+  if (translations === undefined) {
+    console.error(
+      "Missing translation for key " +
+        key +
+        " useContext(TranslationContext) is undefined"
+    );
+    return key; // default to render key if translations are not loaded
+  }
   const item = translations[key];
   if (!item) throw "Missing translation with key " + key;
   return item;
