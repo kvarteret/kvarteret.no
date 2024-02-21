@@ -85,13 +85,14 @@ const Layout = ({ children, data }) => {
             backdrop-filter: blur(4px);
           }
 
+/*        temporarily commented out for further improvements for mobile viewing   
           @media screen and (max-width: 1281px) {
             .header-bar {
               /*Removing the header bar when screen o/1281px  */
               display: none;
             }
           }
-
+ */
           @media screen and (max-width: 1281px) {
             /* Reset margin start when screen o/1281px */
             .content {
