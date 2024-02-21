@@ -9,6 +9,7 @@ RUN npm install --global turbo
 RUN npm run prune:kvarteret
 
 FROM node:lts-alpine AS Builder
+
 WORKDIR /app
 COPY --from=Sourcer /app/out .
 
@@ -34,6 +35,8 @@ RUN npm run postbuild
 FROM node:lts-alpine AS Runner
 WORKDIR /app
 
+ENV NODE_ENV production
+
 COPY --from=Builder /app/package.json /app/package-lock.json ./
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/apps/kvarteret/package.json ./apps/kvarteret/package.json
@@ -43,10 +46,9 @@ COPY --from=Builder /app/apps/kvarteret/next.config.js ./apps/kvarteret/next.con
 COPY --from=Builder /app/apps/kvarteret/next-sitemap.js ./apps/kvarteret/next-sitemap.js
 COPY --from=Builder /app/packages ./packages
 
-ENV NODE_ENV production
 
-EXPOSE 3001
-ENV PORT 3001
+EXPOSE 3000
+ENV PORT 3000
 
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
