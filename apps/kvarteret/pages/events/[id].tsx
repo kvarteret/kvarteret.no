@@ -315,10 +315,8 @@ export default function Page({
             margin-top: 80px;
             position: relative;
             height: 200px;
-          }
-
-          .top-image {
             width: 100%;
+            max-width: 1080px;
           }
 
           @media only screen and (min-width: 800px) {
