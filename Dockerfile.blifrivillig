@@ -5,8 +5,8 @@ COPY . .
 
 RUN apk add --no-cache libc6-compat
 
-RUN yarn global add turbo
-RUN yarn prune:blifrivillig
+RUN npm install --global turbo
+RUN npm run prune:blifrivillig
 
 FROM node:lts-alpine AS Builder
 
@@ -28,16 +28,16 @@ ARG STUDENTBERGEN_TOKEN
 ARG CRESCAT_TOKEN
 ARG INVALIDATE_SECRET
 
-RUN yarn install --silent --frozen-lockfile
+RUN npm install
 
-RUN yarn postbuild
+RUN npm run postbuild
 
 FROM node:lts-alpine AS Runner
 WORKDIR /app
 
 ENV NODE_ENV production
 
-COPY --from=Builder /app/package.json /app/yarn.lock ./
+COPY --from=Builder /app/package.json /app/package-lock.json ./
 COPY --from=Builder /app/node_modules ./node_modules
 COPY --from=Builder /app/apps/blifrivillig/package.json ./apps/blifrivillig/package.json
 COPY --from=Builder /app/apps/blifrivillig/public ./apps/blifrivillig/public

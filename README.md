@@ -6,28 +6,21 @@ First, run the development server:
 
 1. Install nodejs
 
-	This will vary depending on your system. Here are a few common systems:
+   This will vary depending on your system. Here are a few common systems:
 
-	Ubuntu: ```sudo apt-get install nodejs```
-	
-	Fedora ```sudo dnf install nodejs```
+   Ubuntu: `sudo apt-get install nodejs`
 
-	windows: [Download link](https://nodejs.org/dist/v16.15.0/node-v16.15.0-x86.msi)
+   Fedora `sudo dnf install nodejs`
 
-	MacOS: [Download link](https://nodejs.org/dist/v16.15.0/node-v16.15.0.pkg)
+   windows: [Download link](https://nodejs.org/)
 
-2. Install yarn
+   MacOS: `brew install node`
 
-This installs yarn globally
-
-```sh
-npm i -g yarn
-```
-
-3. Add secret token in each app-folder
+2. Add secret token in each app-folder
 
 (you get sometoken from someone in the E-service)
 from root-folder:
+
 ```sh
 cd apps/kvarteret.no
 
@@ -37,6 +30,7 @@ cd apps/kvarteret.no
 ```
 
 and:
+
 ```sh
 cd apps/blifrivillig.no
 
@@ -45,7 +39,7 @@ cd apps/blifrivillig.no
 ## save the file
 ```
 
-4. Run the localhost server
+3. Run the localhost server
 
 Be in the root-folder of the repo and run:
 
@@ -57,11 +51,9 @@ followed by:
 
 ```bash
 npm run dev
-# or
-yarn dev
 ```
 
-5. (Optional)
+4. (Optional)
 
 You might get an error from just the above command. if so, this might help:
 
@@ -89,9 +81,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
