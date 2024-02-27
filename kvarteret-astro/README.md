@@ -1,14 +1,27 @@
-# Astro Starter Kit: Minimal
+# Kvarteret Astro proof of concept
 
-```sh
-npm create astro@latest -- --template minimal
+## Quickstart:
+
+1. `cd` into the `kvarteret-astro` folder
+2. Add a `.env.local` file in this folder with the following content (use the tokens from the .env.local file in the old kvarteret project. Keep in mind DIRECTUS_STATIC_TOKEN has been renamed from CMS_TOKEN):
+
+```
+PUBLIC_DIRECTUS_URL=https://cms.kvarteret.no
+DIRECTUS_STATIC_TOKEN=<token>
+CRESCAT_TOKEN=<token>
+STUDENTBERGEN_TOKEN=<token>
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+3. Run `npm install` to install dependencies
+4. Run `npm run dev` to start the development server
+5. Open your browser and go to `localhost:4321` to see the site
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Features:
+
+- [ ] Fetches events from Student Bergen
+- [x] Fetches events from Directus CMS
+- [ ] Support english language
+- [ ] Renders all pages from Directus CMS
 
 ## 🚀 Project Structure
 
@@ -20,6 +33,8 @@ Inside of your Astro project, you'll see the following folders and files:
 ├── src/
 │   └── pages/
 │       └── index.astro
+│   └── components/
+│       └── <React, Vue, Svelte, Preact, Astro components>
 └── package.json
 ```
 
