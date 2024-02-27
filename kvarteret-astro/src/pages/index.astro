@@ -1,0 +1,60 @@
+---
+import { getAssetURL } from "../utils/get-directus-client";
+import { getEventsAfter } from "../utils/queryEvents";
+import {
+  queryCarouselItems,
+  queryOpeningHours,
+  queryTodayText,
+} from "../utils/queryGeneralInformation";
+import OpeningHours from "../components/OpeningHours.tsx";
+
+const events = await getEventsAfter("en");
+
+const todayText = await queryTodayText();
+const carousel = await queryCarouselItems("en");
+const openingHours = await queryOpeningHours();
+
+console.debug("==========Events:");
+console.debug(events);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Astro</title>
+  </head>
+  <body>
+    <h1>Astro</h1>
+    <div id="carousel" style="display: flex;">
+      {
+        carousel.map((item, index) => (
+          <div>
+            <img
+              src={getAssetURL(item.header.id)}
+              alt={item.translations.at(0)?.content}
+              width="200px"
+            />
+            <p>{item.translations.at(0)?.title}</p>
+          </div>
+        ))
+      }
+    </div>
+    <div set:html={todayText} />
+    <OpeningHours openingTimes={openingHours} />
+    <h1>Hva skjer fremover</h1>
+    <ul>
+      {
+        events.map((event) => (
+          <li>
+            <h2>{event.status}</h2>
+            <p>{event.id}</p>
+            <p>{event.slug}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </body>
+</html>
