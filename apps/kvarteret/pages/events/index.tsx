@@ -2,6 +2,11 @@ import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BlurImage } from "dak-components";
 import TranslatedField from "dak-components/lib/components/TranslatedField";
+import Layout from "dak-components/lib/layout/Layout";
+import fetchLayoutData from "dak-components/lib/cms/layout";
+import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
+import { InferGetStaticPropsType } from "next";
+import fetchEventData from "path/to/fetchEventData";
 
 type Event = {
   slug: string;
@@ -21,6 +26,26 @@ type HorizontalCardProps = {
   description: string;
   time: string;
 };
+
+export async function getStaticProps({ locale }) {
+  async function search(locale) {
+    await axios.get<Event[]>(`/api/events`);
+  }
+  const layoutData = await fetchLayoutData(locale);
+  const eventData = await search(locale); // This is a hypothetical function you would implement
+  const translations = await getTranslationsData(locale, [
+    "list_of_translation_keys",
+  ]);
+
+  return {
+    props: {
+      layoutData,
+      eventData,
+      translations,
+    },
+    revalidate: 60 * 30, // Revalidate every half hour
+  };
+}
 
 const HorizontalCard = ({
   url,
@@ -148,12 +173,16 @@ const EventCard = ({ event }: EventCardProps) => {
 };
 
 // Relevant filter: free-text search, room, arrangør, tags
-const EventSearch = () => {
+const EventSearch = ({
+  layoutData,
+  eventData,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   const [search, setSearch] = useState("");
-  const [events, setEvents] = useState<Event[]>([]);
+  const [events, setEvents] = useState<Event[]>(eventData || []);
 
   const doSearch = useCallback(() => {
     const asyncSearch = async () => {
+      // FETCHER EVENTS
       const { data } = await axios.get<Event[]>(
         `/api/events?search=${encodeURIComponent(search)}`
       );
@@ -167,45 +196,47 @@ const EventSearch = () => {
   }, []);
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div>
-          <h2>
-            <TranslatedField tKey="search" />
-          </h2>
+    <Layout data={layoutData}>
+      <div className="wrapper">
+        <div className="container">
           <div>
-            <input onChange={(e) => setSearch(e.target.value)} />
-            <button onClick={() => doSearch()}>Søk</button>
+            <h2>
+              <TranslatedField tKey="search" />
+            </h2>
+            <div>
+              <input onChange={(e) => setSearch(e.target.value)} />
+              <button onClick={() => doSearch()}>Søk</button>
+            </div>
+          </div>
+          <div>
+            <h1>
+              <TranslatedField tKey="events" />
+            </h1>
+            {events.map((x, i) => (
+              <div key={i}>
+                <EventCard event={x} />
+              </div>
+            ))}
           </div>
         </div>
-        <div>
-          <h1>
-            <TranslatedField tKey="events" />
-          </h1>
-          {events.map((x, i) => (
-            <div key={i}>
-              <EventCard event={x} />
-            </div>
-          ))}
-        </div>
+        <style jsx>
+          {`
+            .wrapper {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              margin: 20px;
+            }
+            .container {
+              margin-top: 20px;
+              max-width: 1080px;
+              width: 100%;
+            }
+          `}
+        </style>
       </div>
-      <style jsx>
-        {`
-          .wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin: 20px;
-          }
-          .container {
-            margin-top: 20px;
-            max-width: 1080px;
-            width: 100%;
-          }
-        `}
-      </style>
-    </div>
+    </Layout>
   );
 };
 
