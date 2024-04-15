@@ -46,11 +46,13 @@ const useTranslation = (key) => {
         key +
         " useContext(TranslationContext) is undefined"
     );
-    return key; // default to render key if translations are not loaded
+    return key ?? null; // default to render key if translations are not loaded
   }
   const item = translations[key];
-  if (!item) throw "Missing translation with key " + key;
-  return item;
+  if (!item) {
+    console.error("Missing translation for key " + key);
+  }
+  return item ?? null;
 };
 
 const TranslatedField = ({ tKey }) => {

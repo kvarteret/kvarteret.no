@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { BlurImage } from "dak-components";
-import TranslatedField from "dak-components/lib/components/TranslatedField";
+import TranslatedField, {
+  getTranslationsData,
+} from "dak-components/lib/components/TranslatedField";
+import fetchLayoutData from "dak-components/lib/cms/layout";
+import { GetStaticProps } from "next";
 
 type Event = {
   slug: string;
@@ -207,6 +211,20 @@ const EventSearch = () => {
       </style>
     </div>
   );
+};
+
+/**
+ * Need to have getStaticProps in each page to fetch translations and layout data
+ */
+export const getStaticProps: GetStaticProps<any> = async (context) => {
+  const layout = await fetchLayoutData(context.locale);
+
+  return {
+    props: {
+      translations: await getTranslationsData(context.locale, []),
+      layout: layout,
+    },
+  };
 };
 
 export default EventSearch;
