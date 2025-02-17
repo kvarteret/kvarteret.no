@@ -29,8 +29,12 @@ const OpeningHoursRoomName = ({ item }) => (<div className="container">
 </div>)
 
 const OpeningHoursTimes = ({ item }) => <div className="container">
-    {!item.is_open && <div><TranslatedField tKey="closed" /> </div>}
-    {item.is_open &&
+    
+    {filterTodayPred == "Søndag" && 
+        <div><TranslatedField tKey="closed" /> </div>
+    }
+    
+    {filterTodayPred != "Søndag" &&
         <div>{item.opening_time} - {item.closing_time}</div>
     }
 
