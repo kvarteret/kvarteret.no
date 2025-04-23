@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "../Link";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const NavigationItem = ({ navItem, removeOpenMenus }) => {
   if (!navItem.title) return <></>;
@@ -49,7 +50,21 @@ const NavigationItem = ({ navItem, removeOpenMenus }) => {
             onClick={mouseClick}
             onMouseLeave={mouseLeave}
           >
-            {navItem.title}
+            {navItem.title === "Om oss" || navItem.title === "About us" ? (
+              <p className="nav-item" style={{ position: "relative" }}>
+                {navItem.title}{" "}
+                <ExpandMoreIcon
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    right: "100%",
+                    transform: "translateY(-40%)",
+                  }}
+                />
+              </p>
+            ) : (
+              navItem.title
+            )}
           </div>
         </a>
       </Link>
