@@ -1,24 +1,29 @@
-import * as admin from "firebase-admin";
+import { initializeApp, getApps } from "firebase/app";
+import {
+  Timestamp,
+  collection,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
 import { Event, Translation } from "./cms/queries/events";
 
-// Initialize Firebase Admin SDK (only once)
-if (!admin.apps.length) {
-  const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON
-    ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON)
-    : undefined;
+const firebaseConfig = {
+  apiKey: "AIzaSyBpatog9K4wgBpXy5XE-YHcmTwALjlOBUA",
+  authDomain: "kvarteret-events.firebaseapp.com",
+  projectId: "kvarteret-events",
+  storageBucket: "kvarteret-events.firebasestorage.app",
+  messagingSenderId: "915628626345",
+  appId: "1:915628626345:web:93fb93170dd30e67ce74b8",
+  measurementId: "G-WF7KTB43GJ",
+};
 
-  admin.initializeApp({
-    credential: serviceAccount
-      ? admin.credential.cert(serviceAccount)
-      : admin.credential.applicationDefault(),
-  });
-}
+const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-const db = admin.firestore();
-
-/**
- * Firestore document types (matching frontend-eventside schema)
- */
 interface FirestoreTranslation {
   available: boolean;
   title: string;
@@ -31,10 +36,10 @@ interface FirestoreEvent {
   id: string;
   slug: string;
   status: "published" | "draft" | "archived";
-  event_start: admin.firestore.Timestamp;
-  event_end: admin.firestore.Timestamp;
-  created_at: admin.firestore.Timestamp;
-  updated_at: admin.firestore.Timestamp;
+  event_start: Timestamp;
+  event_end: Timestamp;
+  created_at: Timestamp;
+  updated_at: Timestamp;
   ticket_url: string | null;
   facebook_url: string | null;
   image: { url: string; __typename: "firestore" } | null;
@@ -107,6 +112,7 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     categories: doc.categories,
     price: doc.price,
     translations,
+    location: doc.location ?? { no: null, en: null },
   };
 }
 
@@ -115,12 +121,15 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
  */
 export async function getEventsFromFirestore(afterDate: Date): Promise<Event[]> {
   try {
-    const snapshot = await db
-      .collection("events")
-      .where("status", "==", "published")
-      .where("event_start", ">=", admin.firestore.Timestamp.fromDate(afterDate))
-      .orderBy("event_start", "asc")
-      .get();
+    console.log("[firestore] getEventsFromFirestore start", { afterDate: afterDate.toISOString() });
+    const eventsQuery = query(
+      collection(db, "events"),
+      where("status", "==", "published"),
+      where("event_start", ">=", Timestamp.fromDate(afterDate)),
+      orderBy("event_start", "asc")
+    );
+    const snapshot = await getDocs(eventsQuery);
+    console.log("[firestore] getEventsFromFirestore docs", { count: snapshot.size });
 
     return snapshot.docs.map((doc) => {
       const data = doc.data() as Omit<FirestoreEvent, "id">;
@@ -139,11 +148,12 @@ export async function getFirestoreEventBySlug(
   slug: string
 ): Promise<Event | null> {
   try {
-    const snapshot = await db
-      .collection("events")
-      .where("slug", "==", slug)
-      .limit(1)
-      .get();
+    const eventQuery = query(
+      collection(db, "events"),
+      where("slug", "==", slug),
+      limit(1)
+    );
+    const snapshot = await getDocs(eventQuery);
 
     if (snapshot.empty) {
       return null;

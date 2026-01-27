@@ -27,8 +27,12 @@ export default async function handler(
     ignoreFieldNorm: false,
     fieldNormWeight: 1,
     keys: [
+      "slug",
       "metadata.slug",
       "room.room_id.name",
+      "organizer.name",
+      "location.no",
+      "location.en",
       "translations.title",
       "translations.description",
     ],

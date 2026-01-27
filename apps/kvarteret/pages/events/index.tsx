@@ -221,7 +221,7 @@ export const getStaticProps: GetStaticProps<any> = async (context) => {
 
   return {
     props: {
-      translations: await getTranslationsData(context.locale, []),
+      translations: await getTranslationsData(context.locale, ["search", "events"]),
       layout: layout,
     },
   };
