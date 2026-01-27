@@ -8,7 +8,7 @@ import queryAllEventSlugs, {
   queryEventBySlug,
 } from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
-import { getEventBySlug } from "dak-components/lib/studentBergen";
+import { getFirestoreEventBySlug } from "dak-components/lib/firestore";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 import { InferGetStaticPropsType } from "next";
 
@@ -24,10 +24,6 @@ export async function getStaticPaths() {
   };
 }
 
-const getStudentBergenEvents = (slug: string) => {
-  return getEventBySlug(slug);
-};
-
 export async function getStaticProps({
   locale,
   params,
@@ -40,16 +36,12 @@ export async function getStaticProps({
   const layout = await fetchLayoutData(locale);
   let data = await queryEventBySlug(locale, params.id);
 
+  // Try Firestore as fallback
   if (!data || !isResourceAvailable(data.status, preview)) {
     try {
-      data = await getStudentBergenEvents(params.id);
+      data = await getFirestoreEventBySlug(params.id);
     } catch (e) {
       console.error(e);
-      return {
-        props: {},
-        notFound: true,
-        revalidate: 1,
-      };
     }
   }
 

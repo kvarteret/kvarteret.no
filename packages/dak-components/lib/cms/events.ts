@@ -1,15 +1,7 @@
-import { getEvents } from "../studentBergen";
+import { getEventsFromFirestore } from "../firestore";
 import { Event, Locale, queryAllEvents } from "./queries/events";
 import { nb, enGB } from "date-fns/locale";
 import { format, formatRelative, parse } from "date-fns";
-
-const getUpcomingEventsFromStudentBergen = async (date: Date) => {
-  const response = await getEvents();
-  const mapped = response.filter(
-    (x) => new Date(x.event_end || x.event_start) >= date
-  );
-  return mapped;
-};
 
 const getRelativeDate = (date: Date, lang: Locale) => {
   const locale = lang === "no" ? nb : enGB;
@@ -54,15 +46,15 @@ const getTimeText = (x: Event, lang: Locale) => {
 };
 const getEventsAfter = async (lang: Locale, date: Date) => {
   const upcomingEventsCmsPromise = queryAllEvents(date);
-  const upcomingEventsBergenPromise = getUpcomingEventsFromStudentBergen(date);
+  const upcomingEventsFirestorePromise = getEventsFromFirestore(date);
 
-  const [upcomingEventsCms, upcomingEventsBergen] = await Promise.all([
+  const [upcomingEventsCms, upcomingEventsFirestore] = await Promise.all([
     upcomingEventsCmsPromise,
-    upcomingEventsBergenPromise,
+    upcomingEventsFirestorePromise,
   ]);
 
   const upcomingEvents = upcomingEventsCms
-    .concat(upcomingEventsBergen)
+    .concat(upcomingEventsFirestore)
     .sort((a, b) =>
       new Date(a.event_start) > new Date(b.event_start) ? 1 : -1
     );
