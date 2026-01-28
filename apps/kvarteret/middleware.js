@@ -2,13 +2,9 @@ import { NextResponse } from "next/server";
 export async function middleware(req, ev) {
   const { pathname } = req.nextUrl;
 
-  try {
-    const redirect = await getRedirectBySlugCached(pathname.slice(1, -1));
-    if (redirect) {
-      return NextResponse.redirect(redirect.destination);
-    }
-  } catch (error) {
-    console.warn("[middleware] redirect lookup failed, skipping", error);
+  const redirect = await getRedirectBySlugCached(pathname.slice(1, -1));
+  if (redirect) {
+    return NextResponse.redirect(redirect.destination);
   }
   return NextResponse.next();
 }
