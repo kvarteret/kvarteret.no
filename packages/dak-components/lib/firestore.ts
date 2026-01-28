@@ -112,7 +112,6 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     categories: doc.categories,
     price: doc.price,
     translations,
-    location: doc.location ?? { no: null, en: null },
   };
 }
 

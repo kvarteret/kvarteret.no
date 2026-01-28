@@ -260,10 +260,6 @@ export interface Event {
   };
   categories?: { name: string }[];
   price?: string | null | number;
-  location?: {
-    no: string | null;
-    en: string | null;
-  };
 }
 
 export type Weekday =
