@@ -55,6 +55,16 @@ interface FirestoreEvent {
   weekly_recurring: null;
 }
 
+const mapFirestoreImage = (
+  image: FirestoreEvent["image"]
+): { id: string; __typename: "firestore" } | null => {
+  if (!image?.url) return null;
+  return {
+    id: image.url,
+    __typename: "firestore",
+  };
+};
+
 /**
  * Map a Firestore event document to the kvarteret.no Event interface
  */
@@ -105,8 +115,8 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     weekly_recurring: null,
     ticket_url: doc.ticket_url,
     facebook_url: doc.facebook_url,
-    top_image: doc.image,
-    event_header: doc.image,
+    top_image: mapFirestoreImage(doc.image),
+    event_header: mapFirestoreImage(doc.image),
     room: [], // Firestore events use location text, not room references
     organizer: doc.organizer,
     categories: doc.categories,
