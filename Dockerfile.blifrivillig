@@ -30,7 +30,8 @@ ARG INVALIDATE_SECRET
 
 RUN npm install --unsafe-perm
 
-RUN npm run postbuild
+RUN npm run build -w blifrivillig
+RUN npm run postbuild -w blifrivillig
 
 FROM node:lts-alpine AS Runner
 WORKDIR /app
