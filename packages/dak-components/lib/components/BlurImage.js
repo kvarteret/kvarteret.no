@@ -12,8 +12,9 @@ export function BlurImage(props) {
   delete data.fadeIn;
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
-    if (origin === "studentBergen") {
-      return `https://d1juzv6t6mkm1f.cloudfront.net/media/rc/${src}`;
+    if (origin === "firestore") {
+      // Firestore events store the full URL directly
+      return src;
     }
 
     if (origin === "directus_files") {
