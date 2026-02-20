@@ -4,7 +4,12 @@ const withImages = require("next-images");
 module.exports = withPlugins([withTM(), withImages], {
   images: {
     disableStaticImages: true,
-    domains: ["cms.kvarteret.no"],
+    domains: [
+      "cms.kvarteret.no",
+      "firebasestorage.googleapis.com",
+      "storage.googleapis.com",
+      "kvarteret-events.firebasestorage.app",
+    ],
   },
   rewrites: async () => [
     {
