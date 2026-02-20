@@ -1,0 +1,38 @@
+services:
+  kvarteret-no:
+    image: node:lts-alpine
+    container_name: kvarteret-no
+    restart: unless-stopped
+    profiles: ["kvarteret-no"]
+    working_dir: /app
+    command: >
+      sh -c "while [ ! -f /app/package.json ]; do sleep 1; done &&
+             npm install &&
+             npm run dev -- -- --host 0.0.0.0 --port 3000"
+    environment:
+      - NODE_ENV=development
+      - CMS_TOKEN=${CMS_TOKEN:-}
+      - STUDENTBERGEN_TOKEN=${STUDENTBERGEN_TOKEN:-}
+      - CRESCAT_TOKEN=${CRESCAT_TOKEN:-}
+      - FIREBASE_SERVICE_ACCOUNT_JSON=${FIREBASE_SERVICE_ACCOUNT_JSON:-}
+    ports:
+      - "3002:3000"
+    volumes:
+      - kvarteret_no_node_modules:/app/node_modules
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /app
+          ignore:
+            - node_modules/
+            - .next/
+            - .turbo/
+            - .git/
+        - action: restart
+          path: package.json
+        - action: restart
+          path: package-lock.json
+
+volumes:
+  kvarteret_no_node_modules:
