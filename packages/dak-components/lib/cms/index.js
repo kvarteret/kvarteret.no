@@ -18,6 +18,35 @@ import { nb, en } from "date-fns/locale";
 import { returnDummyData } from "../../../../apps/kvarteret/components/infoskjerm/dummyData";
 import {getCorrectTranslation} from "./queries/events.ts"
 
+const DESCRIPTION_PREVIEW_MAX_CHARS = 200;
+
+const decodeHtmlEntities = (value) =>
+  value
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'");
+
+const stripHtml = (value) => {
+  const withoutTags = (value ?? "").replace(/<[^>]+>/g, " ");
+  return decodeHtmlEntities(withoutTags).replace(/\s+/g, " ").trim();
+};
+
+const projectDescriptionPreview = (value) => {
+  const normalized = stripHtml(value);
+  if (!normalized) {
+    return "";
+  }
+
+  if (normalized.length <= DESCRIPTION_PREVIEW_MAX_CHARS) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, DESCRIPTION_PREVIEW_MAX_CHARS).trimEnd()}...`;
+};
+
 const getRelativeDate = (date, lang) => {
   const locale = lang === "no" ? nb : en;
   const relativeString = formatRelative(date, new Date(), {
@@ -70,7 +99,7 @@ const fetchIndexData = async (lang) => {
 
     return {
       title: translationOfEvent.title ?? "",
-      description: translationOfEvent.description ?? "",
+      description: projectDescriptionPreview(translationOfEvent.description),
       tags,
       image: event.top_image,
       url: `events/${event.slug || null}`,

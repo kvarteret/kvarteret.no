@@ -134,8 +134,7 @@ function getTranslations(event: StudentBergenEvent) {
   if (event.name) {
     out.push({
       title: event.name,
-      description: event.intro,
-      content: sanitizeHtml(event.article),
+      description: sanitizeHtml(event.article) || event.intro,
       practical_information: [],
       snippets: [],
       languages_code: {
@@ -146,8 +145,7 @@ function getTranslations(event: StudentBergenEvent) {
   if (event.name_en) {
     out.push({
       title: event.name_en,
-      description: event.intro_en,
-      content: sanitizeHtml(event.article_en),
+      description: sanitizeHtml(event.article_en) || event.intro_en,
       practical_information: [],
       snippets: [],
       languages_code: {

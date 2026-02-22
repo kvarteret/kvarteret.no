@@ -223,7 +223,6 @@ room {
 translations {
   title
   description
-  content
   practical_information
   snippets {
     title
@@ -297,7 +296,6 @@ export enum Status {
 export interface Translation {
   title: string | null;
   description: null | string;
-  content: string | null;
   practical_information: PracticalInformation[] | null;
   snippets: any[];
   languages_code?: {

@@ -28,7 +28,6 @@ interface FirestoreTranslation {
   available: boolean;
   title: string;
   description: string | null;
-  content: string | null;
   image_caption: string | null;
 }
 
@@ -75,7 +74,6 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     translations.push({
       title: doc.translations.no.title,
       description: doc.translations.no.description,
-      content: doc.translations.no.content,
       practical_information: [],
       snippets: [],
       languages_code: { url_code: "no" },
@@ -86,7 +84,6 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     translations.push({
       title: doc.translations.en.title,
       description: doc.translations.en.description,
-      content: doc.translations.en.content,
       practical_information: [],
       snippets: [],
       languages_code: { url_code: "en" },
@@ -98,7 +95,6 @@ function mapFirestoreToEvent(doc: FirestoreEvent): Event {
     translations.push({
       title: doc.slug,
       description: null,
-      content: null,
       practical_information: [],
       snippets: [],
       languages_code: { url_code: "no" },

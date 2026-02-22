@@ -87,7 +87,6 @@ export async function getStaticProps({
         event_header: data.event_header,
         title: translationOfEvent.title,
         description: translationOfEvent.description,
-        content: translationOfEvent.content,
         snippets: translationOfEvent.snippets,
         practicalInformation: [
           {
@@ -250,7 +249,7 @@ export default function Page({
           <div className="content">
             {isMissingTranslationText ? <p>{isMissingTranslationText}</p> : ""}
             <h1>{data.title}</h1>
-            <ExternalContent html={data.content} />
+            <ExternalContent html={data.description ?? ""} />
           </div>
           <div className="snippets mobile">
             {data.snippets?.map((x, i) => (

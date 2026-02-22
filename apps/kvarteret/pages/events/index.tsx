@@ -17,6 +17,35 @@ type Event = {
   }[];
 };
 
+const DESCRIPTION_PREVIEW_MAX_CHARS = 200;
+
+const decodeHtmlEntities = (value: string): string =>
+  value
+    .replace(/&nbsp;/gi, " ")
+    .replace(/&amp;/gi, "&")
+    .replace(/&lt;/gi, "<")
+    .replace(/&gt;/gi, ">")
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'");
+
+const stripHtml = (value: string): string => {
+  const withoutTags = value.replace(/<[^>]+>/g, " ");
+  return decodeHtmlEntities(withoutTags).replace(/\s+/g, " ").trim();
+};
+
+const projectDescriptionPreview = (value: string): string => {
+  const normalized = stripHtml(value ?? "");
+  if (!normalized) {
+    return "";
+  }
+
+  if (normalized.length <= DESCRIPTION_PREVIEW_MAX_CHARS) {
+    return normalized;
+  }
+
+  return `${normalized.slice(0, DESCRIPTION_PREVIEW_MAX_CHARS).trimEnd()}...`;
+};
+
 type HorizontalCardProps = {
   url: string;
   image: string;
@@ -136,7 +165,7 @@ type EventCardProps = {
 
 const EventCard = ({ event }: EventCardProps) => {
   const title = event.translations[0].title;
-  const description = event.translations[0].description;
+  const description = projectDescriptionPreview(event.translations[0].description);
   return (
     <div>
       <HorizontalCard
