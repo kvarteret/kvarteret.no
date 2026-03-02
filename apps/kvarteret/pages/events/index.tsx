@@ -197,7 +197,7 @@ const EventSearch = () => {
 
   useEffect(() => {
     doSearch();
-  }, []);
+  }, [doSearch]);
 
   return (
     <div className="wrapper">
