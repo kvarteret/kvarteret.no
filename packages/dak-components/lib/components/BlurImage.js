@@ -12,8 +12,8 @@ export function BlurImage(props) {
   delete data.fadeIn;
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
-    if (origin === "firestore") {
-      // Firestore events store the full URL directly
+    if (origin === "firestore" || origin === "supabase") {
+      // Event feeds store the full image URL directly
       return src;
     }
 

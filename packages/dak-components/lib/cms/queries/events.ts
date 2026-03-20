@@ -254,6 +254,16 @@ export interface Event {
   translations: Translation[];
   is_recurring: boolean;
   weekly_recurring: Weekday[] | null;
+  event_type?: null | {
+    name: string;
+    slug: string;
+  };
+  organizer_groups?: { name: string; slug?: string }[];
+  taxonomy_label?: string | null;
+  recurring_interval_days?: number | null;
+  recurring_label?: string | null;
+  is_internal?: boolean;
+  is_featured?: boolean;
   organizer?: null | {
     name: string;
   };

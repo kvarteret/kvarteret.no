@@ -29,6 +29,7 @@ export default async function handler(
     keys: [
       "metadata.slug",
       "room.room_id.name",
+      "taxonomy_label",
       "translations.title",
       "translations.description",
     ],

@@ -1,4 +1,4 @@
-import { getEventsFromFirestore } from "../firestore";
+import { getEventsFromSupabase } from "../supabaseEvents";
 import { Event, Locale, queryAllEvents } from "./queries/events";
 import { nb, enGB } from "date-fns/locale";
 import { format, formatRelative, parse } from "date-fns";
@@ -46,15 +46,15 @@ const getTimeText = (x: Event, lang: Locale) => {
 };
 const getEventsAfter = async (lang: Locale, date: Date) => {
   const upcomingEventsCmsPromise = queryAllEvents(date);
-  const upcomingEventsFirestorePromise = getEventsFromFirestore(date);
+  const upcomingEventsSupabasePromise = getEventsFromSupabase(date);
 
-  const [upcomingEventsCms, upcomingEventsFirestore] = await Promise.all([
+  const [upcomingEventsCms, upcomingEventsSupabase] = await Promise.all([
     upcomingEventsCmsPromise,
-    upcomingEventsFirestorePromise,
+    upcomingEventsSupabasePromise,
   ]);
 
   const upcomingEvents = upcomingEventsCms
-    .concat(upcomingEventsFirestore)
+    .concat(upcomingEventsSupabase)
     .sort((a, b) =>
       new Date(a.event_start) > new Date(b.event_start) ? 1 : -1
     );

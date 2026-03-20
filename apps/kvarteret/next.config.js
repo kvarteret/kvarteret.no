@@ -9,6 +9,8 @@ module.exports = withPlugins([withTM(), withImages], {
       "firebasestorage.googleapis.com",
       "storage.googleapis.com",
       "kvarteret-events.firebasestorage.app",
+      "ydkxiragzzsaapnbnebm.supabase.co",
+      "jeezqitchepgwxjknwhz.supabase.co",
     ],
   },
   rewrites: async () => [
