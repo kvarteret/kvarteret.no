@@ -94,7 +94,12 @@ const fetchIndexData = async (lang) => {
   const upcomingEvents = eventsAfter.slice(0, 6);
 
   const events = upcomingEvents.map((event) => {
-    const tags = [event.duration, event.room[0]?.room_id?.name].filter((x) => x);
+    const tags = [
+      event.duration,
+      event.taxonomy_label,
+      event.recurring_label,
+      event.room[0]?.room_id?.name,
+    ].filter((x) => x);
     const translationOfEvent = getCorrectTranslation(event.translations, lang);
 
     return {

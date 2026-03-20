@@ -11,6 +11,8 @@ type Event = {
   slug: string;
   top_image: string;
   duration: string;
+  taxonomy_label?: string | null;
+  recurring_label?: string | null;
   translations: {
     title: string;
     description: string;
@@ -53,6 +55,8 @@ type HorizontalCardProps = {
   title: string;
   description: string;
   time: string;
+  taxonomy?: string;
+  recurring?: string;
 };
 
 const HorizontalCard = ({
@@ -62,6 +66,8 @@ const HorizontalCard = ({
   title,
   description,
   time,
+  taxonomy,
+  recurring,
 }: HorizontalCardProps) => {
   return (
     <a href={url} className="container" id="searchContainer">
@@ -78,6 +84,8 @@ const HorizontalCard = ({
       <div className="info">
         <h2>{title}</h2>
         <span className="time">{time}</span>
+        {taxonomy ? <div className="taxonomy">{taxonomy}</div> : null}
+        {recurring ? <div className="taxonomy">{recurring}</div> : null}
         <p>{description}</p>
       </div>
       <style jsx>
@@ -149,6 +157,13 @@ const HorizontalCard = ({
             text-transform: uppercase;
           }
 
+          .taxonomy {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 4px;
+          }
+
           h2,
           p {
             margin: 0;
@@ -174,6 +189,8 @@ const EventCard = ({ event }: EventCardProps) => {
         altImage={title}
         title={title}
         time={event.duration}
+        taxonomy={event.taxonomy_label ?? undefined}
+        recurring={event.recurring_label ?? undefined}
         description={description}
       />
     </div>

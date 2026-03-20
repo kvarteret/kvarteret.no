@@ -8,7 +8,7 @@ import queryAllEventSlugs, {
   queryEventBySlug,
 } from "dak-components/lib/cms/queries/events";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
-import { getFirestoreEventBySlug } from "dak-components/lib/firestore";
+import { getSupabaseEventBySlug } from "dak-components/lib/supabaseEvents";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 import { InferGetStaticPropsType } from "next";
 
@@ -36,10 +36,10 @@ export async function getStaticProps({
   const layout = await fetchLayoutData(locale);
   let data = await queryEventBySlug(locale, params.id);
 
-  // Try Firestore as fallback
+  // Try Supabase custom-feed events as fallback
   if (!data || !isResourceAvailable(data.status, preview)) {
     try {
-      data = await getFirestoreEventBySlug(params.id);
+      data = await getSupabaseEventBySlug(params.id);
     } catch (e) {
       console.error(e);
     }
@@ -99,16 +99,35 @@ export async function getStaticProps({
             title: "Sted",
             text: data.room?.map((x) => x.room_id?.name).join(", ") || "",
           },
-          {
-            icon: "dak-group",
-            title: "Arrangør",
-            text: data.organizer?.name || "",
-          },
-          {
-            icon: "dak-info-circled",
-            title: "Kategorier",
-            text: data.categories?.map((x) => x.name)?.join(", ") || "",
-          },
+          ...(data.taxonomy_label
+            ? [
+                {
+                  icon: "dak-info-circled",
+                  title: "Type",
+                  text: data.taxonomy_label,
+                },
+              ]
+            : [
+                {
+                  icon: "dak-group",
+                  title: "Arrangør",
+                  text: data.organizer?.name || "",
+                },
+                {
+                  icon: "dak-info-circled",
+                  title: "Kategorier",
+                  text: data.categories?.map((x) => x.name)?.join(", ") || "",
+                },
+              ]),
+          ...(data.recurring_label
+            ? [
+                {
+                  icon: "dak-clock",
+                  title: "Recurring",
+                  text: data.recurring_label,
+                },
+              ]
+            : []),
           ...(data.price
             ? [
                 {
