@@ -1,4 +1,5 @@
 import { BlurImage, Link } from "dak-components";
+import { formatEventCalendarDate } from "dak-components/lib/eventDateTime";
 
 const EventCard = ({ event }) => {
   // Ugly, i don't like this, TODO: Fix
@@ -7,7 +8,7 @@ const EventCard = ({ event }) => {
   const startDate = new Date(event.startDate);
   const url = `${event?.url ?? "/"}${
     event.recurring
-      ? `?startDate=${startDate.toISOString().substring(0, 10)}`
+      ? `?startDate=${formatEventCalendarDate(startDate)}`
       : ""
   }`;
   return (

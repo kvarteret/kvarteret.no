@@ -1,4 +1,5 @@
 import { getEventsFromSupabase } from "../supabaseEvents";
+import { parseEventDateTime } from "../eventDateTime";
 import { Event, Locale, queryAllEvents } from "./queries/events";
 import { nb, enGB } from "date-fns/locale";
 import { format, formatRelative, parse } from "date-fns";
@@ -26,16 +27,18 @@ const getRelativeDate = (date: Date, lang: Locale) => {
 };
 
 const getTimeText = (x: Event, lang: Locale) => {
+  const startDate = parseEventDateTime(x.event_start);
+
   // Not yet happened
-  if (new Date(x.event_start) > new Date()) {
-    return getRelativeDate(new Date(x.event_start), lang);
+  if (startDate > new Date()) {
+    return getRelativeDate(startDate, lang);
   }
 
   //Happening now
   // Default end time to 5 hours into future.
   const parsedEndDate = x.event_end
-    ? new Date(x.event_end)
-    : new Date(new Date(x.event_start).getTime() + 5 * 60 * 60_000);
+    ? parseEventDateTime(x.event_end)
+    : new Date(startDate.getTime() + 5 * 60 * 60_000);
 
   if (new Date() < parsedEndDate) {
     if (lang == "no")
@@ -56,7 +59,7 @@ const getEventsAfter = async (lang: Locale, date: Date) => {
   const upcomingEvents = upcomingEventsCms
     .concat(upcomingEventsSupabase)
     .sort((a, b) =>
-      new Date(a.event_start) > new Date(b.event_start) ? 1 : -1
+      parseEventDateTime(a.event_start) > parseEventDateTime(b.event_start) ? 1 : -1
     );
   return upcomingEvents.map((x) => ({ ...x, duration: getTimeText(x, lang) }));
 };

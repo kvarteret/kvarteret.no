@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
 import appendBase64Image from "../utils/appendBase64Image";
+import { mergeDateWithEventTime, parseEventDateTime } from "../../eventDateTime";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 
 export default async function queryAllEventSlugs() {
@@ -71,41 +72,37 @@ const weekdayLookup: Weekday[] = [
   "saturday",
 ];
 
-const replaceTime = (date: Date, time: Date) => {
-  date.setUTCHours(time.getUTCHours(), time.getUTCMinutes(), 0, 0);
-  return date;
-};
-
 const spreadRecurringEvents = (events: Event[]) => {
   return events
     .reduce((acc, event) => {
-      const eStart = new Date(event.event_start);
+      const eStart = parseEventDateTime(event.event_start);
       const start = getBiggestDate(new Date(), eStart);
-      replaceTime(start, eStart);
-      const end = new Date(event.event_end);
+      const end = parseEventDateTime(event.event_end);
 
       for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
         const nD = new Date(d);
         const weekday = weekdayLookup[new Date(nD).getDay()];
-        if (!event.weekly_recurring.includes(weekday)) continue;
-        const realStart = nD;
-        const realEnd = replaceTime(new Date(nD), end);
-
-        if (realStart > realEnd) {
-          realEnd.setDate(realEnd.getDate() + 1);
-        }
+        if (!event.weekly_recurring?.includes(weekday)) continue;
+        const realStart = mergeDateWithEventTime(nD, eStart);
+        const realEnd = mergeDateWithEventTime(nD, end);
+        const normalizedEnd =
+          realStart > realEnd
+            ? new Date(realEnd.getTime() + 24 * 60 * 60_000)
+            : realEnd;
 
         acc.push({
           ...event,
           event_start: realStart.toISOString(),
-          event_end: realEnd.toISOString(),
+          event_end: normalizedEnd.toISOString(),
         });
       }
 
       return acc;
     }, [] as Event[])
     .sort((a, b) =>
-      new Date(a.event_start) < new Date(b.event_start) ? -1 : 1
+      parseEventDateTime(a.event_start) < parseEventDateTime(b.event_start)
+        ? -1
+        : 1
     )
     .slice(0, 7);
 };

@@ -7,6 +7,7 @@ import queryAllEventSlugs, {
   Locale,
   queryEventBySlug,
 } from "dak-components/lib/cms/queries/events";
+import { parseEventDateTime } from "dak-components/lib/eventDateTime";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
 import { getSupabaseEventBySlug } from "dak-components/lib/supabaseEvents";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
@@ -56,8 +57,8 @@ export async function getStaticProps({
   }
 
   const formatDate = () => {
-    const start = new Date(data.event_start);
-    const end = new Date(data.event_end);
+    const start = parseEventDateTime(data.event_start);
+    const end = parseEventDateTime(data.event_end);
     if (isSameDay(start, end)) {
       return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm")} - ${format(
         end,
