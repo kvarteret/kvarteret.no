@@ -25,6 +25,14 @@ type OrganizerGroupRow = {
   default_event_type_id: string | null;
 };
 
+type RoomRow = {
+  id: string;
+  slug: string;
+  name: string;
+  sort_order: number;
+  is_active: boolean;
+};
+
 type SupabaseTranslation = {
   available: boolean;
   title: string;
@@ -42,6 +50,8 @@ type SupabaseEvent = {
   facebook_url: string | null;
   image_url: string | null;
   price: string | null;
+  room_id: string | null;
+  room_text: string | null;
   is_internal: boolean;
   is_featured: boolean;
   recurring_interval_days: number | null;
@@ -50,6 +60,7 @@ type SupabaseEvent = {
     en: SupabaseTranslation | null;
   };
   event_type: EventTypeRow | null;
+  room: RoomRow | null;
   event_organizer_group_memberships:
     | {
         display_order: number;
@@ -68,11 +79,14 @@ const EVENT_SELECT = [
   "facebook_url",
   "image_url",
   "price",
+  "room_id",
+  "room_text",
   "is_internal",
   "is_featured",
   "recurring_interval_days",
   "translations",
   "event_type:event_types(id,slug,name,description,sort_order,is_active)",
+  "room:rooms(id,slug,name,sort_order,is_active)",
   "event_organizer_group_memberships(display_order,organizer_group:event_organizer_groups(id,slug,name,sort_order,is_active,default_event_type_id))",
 ].join(",");
 
@@ -85,6 +99,22 @@ const mapImage = (
     id: imageUrl,
     __typename: "supabase",
   };
+};
+
+const mapRoom = (event: SupabaseEvent): Event["room"] => {
+  const roomName = event.room?.name ?? event.room_text?.trim();
+  if (!roomName) {
+    return [];
+  }
+
+  return [
+    {
+      room_id: {
+        name: roomName,
+        floor: "",
+      },
+    },
+  ];
 };
 
 const buildEventTaxonomyLabel = (event: SupabaseEvent): string => {
@@ -164,7 +194,7 @@ const mapSupabaseToEvent = (event: SupabaseEvent): Event => ({
   facebook_url: event.facebook_url,
   top_image: mapImage(event.image_url),
   event_header: mapImage(event.image_url),
-  room: [],
+  room: mapRoom(event),
   translations: mapTranslations(event),
   is_recurring: Boolean(event.recurring_interval_days),
   weekly_recurring: null,
