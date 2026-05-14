@@ -1,4 +1,3 @@
-import axios from "axios";
 import cache from "memory-cache";
 import slugify from "slugify";
 import sanitizeHtml from "sanitize-html";
@@ -49,11 +48,11 @@ const cachedGet = async (url: string, headers) => {
   }
 
   const cacheTime = 1000 * 60 * 60; //Cached for 1 hour
-  const response = await axios.get(url, {
+  const response = await fetch(url, {
+    method: "GET",
     headers,
-    timeout: 2000,
   });
-  const data = response.data;
+  const data = await response.json();
   cache.put(url, data, cacheTime);
   return data;
 };
