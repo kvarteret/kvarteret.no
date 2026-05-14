@@ -12,6 +12,11 @@ export function BlurImage(props) {
   delete data.fadeIn;
   delete data.noLoad;
   const customLoader = ({ src, width, quality }) => {
+    if (origin === "sanity") {
+      const separator = src.includes("?") ? "&" : "?";
+      return `${src}${separator}w=${width}&q=${quality || 75}&auto=format`;
+    }
+
     if (origin === "firestore" || origin === "supabase") {
       // Event feeds store the full image URL directly
       return src;

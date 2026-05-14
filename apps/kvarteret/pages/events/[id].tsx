@@ -1,5 +1,6 @@
 import { BlurImage, ExternalContent } from "dak-components";
 import { format, isSameDay } from "date-fns";
+import { enGB, nb } from "date-fns/locale";
 import Snippet from "../../components/Snippet";
 import fetchLayoutData from "dak-components/lib/cms/layout";
 import queryAllEventSlugs, {
@@ -9,7 +10,6 @@ import queryAllEventSlugs, {
 } from "dak-components/lib/cms/queries/events";
 import { parseEventDateTime } from "dak-components/lib/eventDateTime";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
-import { getSupabaseEventBySlug } from "dak-components/lib/supabaseEvents";
 import { getTranslationsData } from "dak-components/lib/components/TranslatedField";
 import { InferGetStaticPropsType } from "next";
 
@@ -35,16 +35,7 @@ export async function getStaticProps({
   preview: boolean;
 }) {
   const layout = await fetchLayoutData(locale);
-  let data = await queryEventBySlug(locale, params.id);
-
-  // Try Supabase custom-feed events as fallback
-  if (!data || !isResourceAvailable(data.status, preview)) {
-    try {
-      data = await getSupabaseEventBySlug(params.id);
-    } catch (e) {
-      console.error(e);
-    }
-  }
+  const data = await queryEventBySlug(locale, params.id);
 
   if (!data || !isResourceAvailable(data.status, preview)) {
     return {
@@ -56,20 +47,42 @@ export async function getStaticProps({
     };
   }
 
-  const formatDate = () => {
-    const start = parseEventDateTime(data.event_start);
-    const end = parseEventDateTime(data.event_end);
+  const dateLocale = locale === "en" ? enGB : nb;
+
+  const formatDateRange = (startValue, endValue) => {
+    const start = parseEventDateTime(startValue);
+    const end = parseEventDateTime(endValue);
     if (isSameDay(start, end)) {
-      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm")} - ${format(
+      return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
+        locale: dateLocale,
+      })} - ${format(
         end,
-        "HH:mm"
+        "HH:mm",
+        { locale: dateLocale }
       )}`;
     }
 
-    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm")} - ${format(
+    return `${format(start, "dd. MMMM yyyy 'kl.' HH:mm", {
+      locale: dateLocale,
+    })} - ${format(
       end,
-      "dd. MMMM yyyy 'kl.' HH:mm"
+      "dd. MMMM yyyy 'kl.' HH:mm",
+      { locale: dateLocale }
     )}`;
+  };
+
+  const formatDate = () => {
+    if (data.sanity_dates?.length) {
+      return data.sanity_dates
+        .map((date) => {
+          const startDate = `${date.startDate}T${date.startTime || "00:00"}:00`;
+          const endDate = `${date.startDate}T${date.endTime || date.startTime || "00:00"}:00`;
+          return formatDateRange(startDate, endDate);
+        })
+        .join("\n");
+    }
+
+    return formatDateRange(data.event_start, data.event_end);
   };
 
   const translationOfEvent = getCorrectTranslation(data.translations, locale);
@@ -105,8 +118,17 @@ export async function getStaticProps({
                 {
                   icon: "dak-info-circled",
                   title: "Type",
-                  text: data.taxonomy_label,
+                  text: data.event_type?.name || data.taxonomy_label,
                 },
+                ...(data.organizer_groups?.length
+                  ? [
+                      {
+                        icon: "dak-group",
+                        title: "Arrangør",
+                        text: data.organizer_groups.map((group) => group.name).join(", "),
+                      },
+                    ]
+                  : []),
               ]
             : [
                 {
@@ -124,7 +146,7 @@ export async function getStaticProps({
             ? [
                 {
                   icon: "dak-clock",
-                  title: "Recurring",
+                  title: locale === "en" ? "Recurring" : "Gjentagelse",
                   text: data.recurring_label,
                 },
               ]
@@ -235,6 +257,7 @@ const PracticalInformationLine = ({
           .text {
             font-size: 16px;
             font-weight: 500;
+            white-space: pre-line;
           }
         `}
       </style>

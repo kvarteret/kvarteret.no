@@ -1,6 +1,6 @@
-import { getEventsFromSupabase } from "../supabaseEvents";
 import { parseEventDateTime } from "../eventDateTime";
-import { Event, Locale, queryAllEvents } from "./queries/events";
+import { getEventsFromSanity } from "../sanityEvents";
+import { Event, Locale } from "./queries/events";
 import { nb, enGB } from "date-fns/locale";
 import { format, formatRelative, parse } from "date-fns";
 
@@ -48,19 +48,9 @@ const getTimeText = (x: Event, lang: Locale) => {
   }
 };
 const getEventsAfter = async (lang: Locale, date: Date) => {
-  const upcomingEventsCmsPromise = queryAllEvents(date);
-  const upcomingEventsSupabasePromise = getEventsFromSupabase(date);
-
-  const [upcomingEventsCms, upcomingEventsSupabase] = await Promise.all([
-    upcomingEventsCmsPromise,
-    upcomingEventsSupabasePromise,
-  ]);
-
-  const upcomingEvents = upcomingEventsCms
-    .concat(upcomingEventsSupabase)
-    .sort((a, b) =>
-      parseEventDateTime(a.event_start) > parseEventDateTime(b.event_start) ? 1 : -1
-    );
+  const upcomingEvents = (await getEventsFromSanity(date)).sort((a, b) =>
+    parseEventDateTime(a.event_start) > parseEventDateTime(b.event_start) ? 1 : -1
+  );
   return upcomingEvents.map((x) => ({ ...x, duration: getTimeText(x, lang) }));
 };
 
