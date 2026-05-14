@@ -11,6 +11,7 @@ module.exports = withPlugins([withTM(), withImages], {
       "kvarteret-events.firebasestorage.app",
       "ydkxiragzzsaapnbnebm.supabase.co",
       "jeezqitchepgwxjknwhz.supabase.co",
+      "cdn.sanity.io",
     ],
   },
   rewrites: async () => [

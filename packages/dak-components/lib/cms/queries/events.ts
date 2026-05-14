@@ -1,23 +1,16 @@
 import { gql } from "@apollo/client";
 import cmsClient from "../cmsClient";
-import appendBase64Image from "../utils/appendBase64Image";
 import { mergeDateWithEventTime, parseEventDateTime } from "../../eventDateTime";
 import isResourceAvailable from "dak-components/lib/cms/utils/statusUtils";
+import { getSanityEventBySlug, getSanityEventSlugs } from "../../sanityEvents";
 
 export default async function queryAllEventSlugs() {
-  const { data } = (await cmsClient.query({
-    query: gql`
-      query QueryAllEventSlugs {
-        events {
-          id
-          status
-          slug
-        }
-      }
-    `,
-  })) as unknown as { data: { events: EventWithSlug[] } };
-
-  return data.events.filter((x) => x.status === "published");
+  const slugs = await getSanityEventSlugs();
+  return slugs.map((slug) => ({
+    id: slug,
+    status: Status.Published,
+    slug,
+  }));
 }
 
 export async function queryAllEvents(filterDate = new Date()) {
@@ -43,17 +36,8 @@ export async function queryAllEvents(filterDate = new Date()) {
 }
 
 export async function queryEventBySlug(lang: Locale | string, slug: string) {
-  const { data } = (await cmsClient.query({
-    variables: { slug, lang },
-    query: gql`
-      query QueryEventById($slug: String) {
-        events(filter: { slug: { _eq: $slug } }) {
-          ${eventGraphQlQueryProps}
-        }
-      }
-    `,
-  })) as unknown as { data: { events: Event[] } };
-  return appendBase64Image<Event>(data.events[0]);
+  void lang;
+  return getSanityEventBySlug(slug);
 }
 
 const getBiggestDate = (a: Date, b: Date) => {
@@ -266,6 +250,13 @@ export interface Event {
   };
   categories?: { name: string }[];
   price?: string | null | number;
+  image_caption?: string | null;
+  sanity_dates?: {
+    _key?: string;
+    startDate?: string | null;
+    startTime?: string | null;
+    endTime?: string | null;
+  }[];
 }
 
 export type Weekday =
